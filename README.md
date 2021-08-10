@@ -1,6 +1,6 @@
 # Tutorials
 
-Various STEM related tutorials. View them on github pages.
+Various STEM related tutorials. View them [here](https://quirkycort.github.io/tutorials/)
 
 ## Editing
 
