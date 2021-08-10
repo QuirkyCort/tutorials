@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+        &nbsp;&nbsp;/&nbsp;&nbsp;
+        Pygame Zero Basics
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10%20Intro/10%20intro.html"><li >Introduction</li></a><a href="../10%20Intro/20%20install.html"><li >Installation</li></a><a href="../10%20Intro/30%20folders.html"><li >Setting up the folders</li></a><a href="../10%20Intro/40%20idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20%20Gem/10%20first.html"><li >First Program</li></a><a href="../20%20Gem/20%20update.html"><li >update()</li></a><a href="../20%20Gem/30%20add%20gem.html"><li >Adding a Gem</li></a><a href="../20%20Gem/40%20collision.html"><li >Collision</li></a><a href="../20%20Gem/50%20score.html"><li >Keeping Score</li></a><a href="../20%20Gem/60%20mouse.html"><li >Mouse Controls</li></a><a href="../20%20Gem/70%20harder.html"><li >Making it harder</li></a><a href="../20%20Gem/80%20gameover.html"><li >Game Over</li></a><a href="../20%20Gem/90%20challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20%20Ninja/10%20infinite.html"><li >Infinite Runner</li></a><a href="../20%20Ninja/20%20background.html"><li >Background</li></a><a href="../20%20Ninja/30%20animation.html"><li >Animation</li></a><a href="../20%20Ninja/40%20jump.html"><li >Jump Physics</li></a><a href="../20%20Ninja/50%20obstacles.html"><li >Obstacles</li></a><a href="../20%20Ninja/60%20score.html"><li >Keeping Score</li></a><a href="../20%20Ninja/70%20gameover.html"><li >Game Over</li></a><a href="../20%20Ninja/80%20challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40%20Tanks/10%20battle%20city.html"><li >Battle City</li></a><a href="../40%20Tanks/20%20tank.html"><li >Player Tank</li></a><a href="../40%20Tanks/30%20move.html"><li >Moving the Tank</li></a><a href="../40%20Tanks/40%20background.html"><li >Background</li></a><a href="../40%20Tanks/50%20wall.html"><li >Walls</li></a><a href="../40%20Tanks/60%20space.html"><li >Making Space</li></a><a href="../40%20Tanks/70%20random.html"><li >Random walls</li></a><a href="../40%20Tanks/80%20block.html"><li >Blocking Movements</li></a><a href="../40%20Tanks/90%20cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40%20Tanks/100%20destroy%20wall.html"><li >Destroying Walls</li></a><a href="../40%20Tanks/110%20enemy.html"><li class="current">Adding One Enemy</li></a><a href="../40%20Tanks/120%20enemy%20bullet.html"><li >Enemy Bullets</li></a><a href="../40%20Tanks/130%20enemies.html"><li >Many Enemies</li></a><a href="../40%20Tanks/140%20win.html"><li >Destroy and Win</li></a><a href="../40%20Tanks/150%20lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50%20Next/10%20intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Adding One Enemy</h1>
+<p>We'll be adding many enemies eventually, but let us start with just one. Create a new actor for the enemy. I'm using the "tank_red" image, but you can use a different one if you want to.</p>
+<pre><code>enemy = Actor('tank_red')
+enemy.y = 25
+enemy.x = 400
+enemy.angle = 270
+</code></pre>
+<p>I'm setting <strong>y</strong> to 25; this will put it at the top, and <strong>angle</strong> to 270 to make it point downwards.</p>
+<p>Make sure to draw your enemy in the <strong>draw()</strong> function.</p>
+<pre><code>enemy.draw()
+</code></pre>
+<h1>Enemy Behaviour</h1>
+<p>We want our enemy to do three things...</p>
+<ul>
+<li>Move</li>
+<li>Turn</li>
+<li>Shoot</li>
+</ul>
+<p>...and we'll get it to randomly choose one of these action. Inside update, we'll add in...</p>
+<pre><code>choice = random.randint(0, 2)
+if choice == 0:
+    enemy.move_count = 20
+    print('move')
+elif choice == 1:
+    print('turn')
+else:
+    print('shoot')
+</code></pre>
+<p>What this code does is...</p>
+<p><code>choice = random.randint(0, 2)</code> : This gets a random number and save it to a variable <strong>choice</strong>. The random number can be 0, 1, or 2.</p>
+<p><code>if choice == 0:</code> : Here we check what is the random number choosen. If it is 0, we'll get the tank to move, if it is 1, we'll get it to turn, and if it is 2, we'll get it to shoot.</p>
+<p><code>enemy.move_count = 20</code> : This is something new. Here we are creating a new variable named <strong>move_count</strong> inside the enemy actor and setting it to 20. Later on, we'll see what it is for.</p>
+<p><code>print('move'), print('turn'), print('shoot')</code> : These are just temporary. We'll replace them with the actual code to make the tank move, turn, or shoot later.</p>
+<h1>Moving</h1>
+<p>First, let's set <strong>enemy.move_count</strong> to zero at the start.</p>
+<pre><code>enemy = Actor('tank_red')
+enemy.y = 25
+enemy.x = 400
+enemy.angle = 270
+enemy.move_count = 0  # Add this line
+</code></pre>
+<p>Now, we are going to modify our enemy choice code.</p>
+<pre><code>choice = random.randint(0, 2)
+if enemy.move_count &gt; 0:
+    enemy.move_count = enemy.move_count - 1
+    if enemy.angle == 0:
+        enemy.x = enemy.x + 2
+    elif enemy.angle == 90:
+        enemy.y = enemy.y - 2
+    elif enemy.angle == 180:
+        enemy.x = enemy.x - 2
+    elif enemy.angle == 270:
+        enemy.y = enemy.y + 2
+elif choice == 0:
+    enemy.move_count = 20
+elif choice == 1:
+    print('turn')
+else:
+    print('shoot')
+</code></pre>
+<p>Run the code. You should see the tank moving forward (...with an occasional short pause). The pause occurs when the tank chooses "turn" or "shoot" (...which currently does nothing).</p>
+<p>How this code works is when the <strong>choice</strong> is 0, we set <strong>move_count</strong> to 20. Then if <strong>move_count</strong> is greater than zero, we ignore the choice, move the tank in the direction it is facing, and reduce <strong>move_count</strong> by 1. This will make it move 20 times before we check for the <strong>choice</strong> again.</p>
+<h1>Turning</h1>
+<p>Next, we are going to add in turning. Change this part of the code...</p>
+<pre><code>elif choice == 1:
+    print('turn')
+</code></pre>
+<p>...into this...</p>
+<pre><code>elif choice == 1:
+    enemy.angle = random.randint(0, 3) * 90
+</code></pre>
+<p>This will choose a random number and multiply it by 90. The random number can be 0, 1, 2, or 3. So after multiplying by 90, it will be 0, 90, 180, or 270. That will make it face right, up, left, or down.</p>
+<p>Now the enemy tank will move around randomly, but it will drive through the walls! Let's fix that next.</p>
+<h1>Wall</h1>
+<p>To prevent moving through the wall, we change the enemy movement code to...</p>
+<pre><code>if enemy.move_count &gt; 0:
+    enemy.move_count = enemy.move_count - 1
+
+    original_x = enemy.x
+    original_y = enemy.y
+    if enemy.angle == 0:
+        enemy.x = enemy.x + 2
+    elif enemy.angle == 90:
+        enemy.y = enemy.y - 2
+    elif enemy.angle == 180:
+        enemy.x = enemy.x - 2
+    elif enemy.angle == 270:
+        enemy.y = enemy.y + 2
+
+    if enemy.collidelist(walls) != -1:
+        enemy.x = original_x
+        enemy.y = original_y
+        enemy.move_count = 0
+</code></pre>
+<p>This is similar to how the player tank avoids moving through the wall. We first save the tank's x and y position, then check if it is colliding with all of the walls. If it is, we return it to it's original position. The only difference is that we also set <strong>move_count</strong> to zero. This will make the enemy choose a new action immediately.</p>
+<p>We should also prevent it from moving off the screen...</p>
+<pre><code>if enemy.x &lt; 0 or enemy.x &gt; 800 or enemy.y &lt; 0 or enemy.y &gt; 600:
+    enemy.x = original_x
+    enemy.y = original_y
+    enemy.move_count = 0
+</code></pre>
+<p>Now the enemy tank should move around without going through the walls or leaving the screen. The code at this point should look like this...</p>
+<pre><code>import pgzrun
+import random
+
+WIDTH=800
+HEIGHT=600
+
+tank = Actor('tank_blue')
+tank.y = 575
+tank.x = 400
+tank.angle = 90
+
+enemy = Actor('tank_red')
+enemy.y = 25
+enemy.x = 400
+enemy.angle = 270
+enemy.move_count = 0
+
+background = Actor('grass')
+
+walls = []
+for x in range(16):
+    for y in range(10):
+        if random.randint(0, 100) &lt; 50:
+            wall = Actor('wall')
+            wall.x = x * 50 + 25
+            wall.y = y * 50 + 25 + 50
+            walls.append(wall)
+
+bullets = []
+bullet_holdoff = 0
+
+def update():
+    global bullet_holdoff
+
+    # This part is for the tank
+    original_x = tank.x
+    original_y = tank.y
+
+    if keyboard.left:
+        tank.x = tank.x - 2
+        tank.angle = 180
+    elif keyboard.right:
+        tank.x = tank.x + 2
+        tank.angle = 0
+    elif keyboard.up:
+        tank.y = tank.y - 2
+        tank.angle = 90
+    elif keyboard.down:
+        tank.y = tank.y + 2
+        tank.angle = 270
+
+    if tank.collidelist(walls) != -1:
+        tank.x = original_x
+        tank.y = original_y
+
+    if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
+        tank.x = original_x
+        tank.y = original_y
+
+    # This part is for the bullet
+    if bullet_holdoff == 0:
+        if keyboard.space:
+            bullet = Actor('bulletblue2')
+            bullet.angle = tank.angle
+            bullet.x = tank.x
+            bullet.y = tank.y
+            bullets.append(bullet)
+            bullet_holdoff = 100
+    else:
+        bullet_holdoff = bullet_holdoff - 1
+
+    for bullet in bullets:
+        if bullet.angle == 0:
+            bullet.x = bullet.x + 5
+        elif bullet.angle == 90:
+            bullet.y = bullet.y - 5
+        elif bullet.angle == 180:
+            bullet.x = bullet.x - 5
+        elif bullet.angle == 270:
+            bullet.y = bullet.y + 5
+
+    for bullet in bullets:
+        wall_index = bullet.collidelist(walls)
+        if wall_index != -1:
+            del walls[wall_index]
+            bullets.remove(bullet)
+        if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
+            bullets.remove(bullet)
+
+    # This part is for the enemy
+    choice = random.randint(0, 2)
+    if enemy.move_count &gt; 0:
+        enemy.move_count = enemy.move_count - 1
+
+        original_x = enemy.x
+        original_y = enemy.y
+        if enemy.angle == 0:
+            enemy.x = enemy.x + 2
+        elif enemy.angle == 90:
+            enemy.y = enemy.y - 2
+        elif enemy.angle == 180:
+            enemy.x = enemy.x - 2
+        elif enemy.angle == 270:
+            enemy.y = enemy.y + 2
+
+        if enemy.collidelist(walls) != -1:
+            enemy.x = original_x
+            enemy.y = original_y
+            enemy.move_count = 0
+
+        if enemy.x &lt; 0 or enemy.x &gt; 800 or enemy.y &lt; 0 or enemy.y &gt; 600:
+            enemy.x = original_x
+            enemy.y = original_y
+            enemy.move_count = 0
+
+    elif choice == 0:
+        enemy.move_count = 20
+    elif choice == 1:
+        enemy.angle = random.randint(0, 3) * 90
+    else:
+        print('shoot')
+
+def draw():
+    screen.fill((0,0,0))
+    background.draw()
+    tank.draw()
+    enemy.draw()
+    for bullet in bullets:
+        bullet.draw()
+    for wall in walls:
+        wall.draw()
+
+pgzrun.go() # Must be last line
+</code></pre>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

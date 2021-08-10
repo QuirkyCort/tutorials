@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+        &nbsp;&nbsp;/&nbsp;&nbsp;
+        Pygame Zero Basics
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10%20Intro/10%20intro.html"><li >Introduction</li></a><a href="../10%20Intro/20%20install.html"><li >Installation</li></a><a href="../10%20Intro/30%20folders.html"><li >Setting up the folders</li></a><a href="../10%20Intro/40%20idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20%20Gem/10%20first.html"><li >First Program</li></a><a href="../20%20Gem/20%20update.html"><li >update()</li></a><a href="../20%20Gem/30%20add%20gem.html"><li >Adding a Gem</li></a><a href="../20%20Gem/40%20collision.html"><li >Collision</li></a><a href="../20%20Gem/50%20score.html"><li class="current">Keeping Score</li></a><a href="../20%20Gem/60%20mouse.html"><li >Mouse Controls</li></a><a href="../20%20Gem/70%20harder.html"><li >Making it harder</li></a><a href="../20%20Gem/80%20gameover.html"><li >Game Over</li></a><a href="../20%20Gem/90%20challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20%20Ninja/10%20infinite.html"><li >Infinite Runner</li></a><a href="../20%20Ninja/20%20background.html"><li >Background</li></a><a href="../20%20Ninja/30%20animation.html"><li >Animation</li></a><a href="../20%20Ninja/40%20jump.html"><li >Jump Physics</li></a><a href="../20%20Ninja/50%20obstacles.html"><li >Obstacles</li></a><a href="../20%20Ninja/60%20score.html"><li >Keeping Score</li></a><a href="../20%20Ninja/70%20gameover.html"><li >Game Over</li></a><a href="../20%20Ninja/80%20challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40%20Tanks/10%20battle%20city.html"><li >Battle City</li></a><a href="../40%20Tanks/20%20tank.html"><li >Player Tank</li></a><a href="../40%20Tanks/30%20move.html"><li >Moving the Tank</li></a><a href="../40%20Tanks/40%20background.html"><li >Background</li></a><a href="../40%20Tanks/50%20wall.html"><li >Walls</li></a><a href="../40%20Tanks/60%20space.html"><li >Making Space</li></a><a href="../40%20Tanks/70%20random.html"><li >Random walls</li></a><a href="../40%20Tanks/80%20block.html"><li >Blocking Movements</li></a><a href="../40%20Tanks/90%20cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40%20Tanks/100%20destroy%20wall.html"><li >Destroying Walls</li></a><a href="../40%20Tanks/110%20enemy.html"><li >Adding One Enemy</li></a><a href="../40%20Tanks/120%20enemy%20bullet.html"><li >Enemy Bullets</li></a><a href="../40%20Tanks/130%20enemies.html"><li >Many Enemies</li></a><a href="../40%20Tanks/140%20win.html"><li >Destroy and Win</li></a><a href="../40%20Tanks/150%20lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50%20Next/10%20intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Keeping Score</h1>
+<p>We can track the score easily using a variable. Let's add a variable named <code>score</code> and give it the value of 0 at the start of the program.</p>
+<pre><code>score = 0
+</code></pre>
+<p>Now everytime the spaceship catches the gem, we'll increase <code>score</code> by 1.</p>
+<pre><code>if gem.colliderect(ship):
+    gem.x = random.randint(20, 780)
+    gem.y = 0
+    score = score + 1
+</code></pre>
+<p>If you try out this program, you'll get an error...</p>
+<pre><code>UnboundLocalError: local variable 'score' referenced before assignment
+</code></pre>
+<p>That's because the <code>score</code> variable is declared outside of the <code>update()</code> function, but we are trying to write it from inside the <code>update()</code> function. In Python, we can read variables that are outside a function (...these are called global variables), but cannot write to them unless we declare them as global inside the function.</p>
+<pre><code>global score
+</code></pre>
+<p>After this change, your <code>update()</code> function should now look like this...</p>
+<pre><code>def update():
+    global score
+
+    if keyboard.left:
+        ship.x = ship.x - 5
+    if keyboard.right:
+        ship.x = ship.x + 5
+
+    gem.y = gem.y + 4
+    if gem.y &gt; 600:
+        gem.x = random.randint(20, 780)
+        gem.y = 0
+    if gem.colliderect(ship):
+        gem.x = random.randint(20, 780)
+        gem.y = 0
+        score = score + 1
+</code></pre>
+<h1>Displaying Score</h1>
+<p>To display the score, we will use the <code>screen.draw.text()</code> function.</p>
+<pre><code>screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
+</code></pre>
+<p>The parameters are...</p>
+<p><code>'Score: ' + str(score)</code> : This is the string that we want to draw.</p>
+<p><code>(15,10)</code> : This is the position to draw; x=15 and y=10.</p>
+<p><code>color=(255,255,255)</code> : This is the color of the text, in this case, it is white</p>
+<p><code>fontsize=30</code> : The size of the font.</p>
+<p>Like all the other drawing functions, we'll need to put this inside the <code>draw()</code> function. After this is done, your program should look like this...</p>
+<pre><code>import pgzrun
+import random
+
+WIDTH = 800
+HEIGHT = 600
+
+ship = Actor('playership1_blue')
+ship.x = 370
+ship.y = 550
+
+gem = Actor('gemgreen')
+gem.x = random.randint(20, 780)
+gem.y = 0
+
+score = 0
+
+def update():
+    global score
+
+    if keyboard.left:
+        ship.x = ship.x - 5
+    if keyboard.right:
+        ship.x = ship.x + 5
+
+    gem.y = gem.y + 4
+    if gem.y &gt; 600:
+        gem.x = random.randint(20, 780)
+        gem.y = 0
+    if gem.colliderect(ship):
+        gem.x = random.randint(20, 780)
+        gem.y = 0
+        score = score + 1
+
+def draw():
+    screen.fill((80,0,70))
+    gem.draw()
+    ship.draw()
+    screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
+
+pgzrun.go() # Must be last line
+
+</code></pre>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

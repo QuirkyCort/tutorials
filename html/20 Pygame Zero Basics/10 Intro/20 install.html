@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+        &nbsp;&nbsp;/&nbsp;&nbsp;
+        Pygame Zero Basics
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10%20Intro/10%20intro.html"><li >Introduction</li></a><a href="../10%20Intro/20%20install.html"><li class="current">Installation</li></a><a href="../10%20Intro/30%20folders.html"><li >Setting up the folders</li></a><a href="../10%20Intro/40%20idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20%20Gem/10%20first.html"><li >First Program</li></a><a href="../20%20Gem/20%20update.html"><li >update()</li></a><a href="../20%20Gem/30%20add%20gem.html"><li >Adding a Gem</li></a><a href="../20%20Gem/40%20collision.html"><li >Collision</li></a><a href="../20%20Gem/50%20score.html"><li >Keeping Score</li></a><a href="../20%20Gem/60%20mouse.html"><li >Mouse Controls</li></a><a href="../20%20Gem/70%20harder.html"><li >Making it harder</li></a><a href="../20%20Gem/80%20gameover.html"><li >Game Over</li></a><a href="../20%20Gem/90%20challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20%20Ninja/10%20infinite.html"><li >Infinite Runner</li></a><a href="../20%20Ninja/20%20background.html"><li >Background</li></a><a href="../20%20Ninja/30%20animation.html"><li >Animation</li></a><a href="../20%20Ninja/40%20jump.html"><li >Jump Physics</li></a><a href="../20%20Ninja/50%20obstacles.html"><li >Obstacles</li></a><a href="../20%20Ninja/60%20score.html"><li >Keeping Score</li></a><a href="../20%20Ninja/70%20gameover.html"><li >Game Over</li></a><a href="../20%20Ninja/80%20challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40%20Tanks/10%20battle%20city.html"><li >Battle City</li></a><a href="../40%20Tanks/20%20tank.html"><li >Player Tank</li></a><a href="../40%20Tanks/30%20move.html"><li >Moving the Tank</li></a><a href="../40%20Tanks/40%20background.html"><li >Background</li></a><a href="../40%20Tanks/50%20wall.html"><li >Walls</li></a><a href="../40%20Tanks/60%20space.html"><li >Making Space</li></a><a href="../40%20Tanks/70%20random.html"><li >Random walls</li></a><a href="../40%20Tanks/80%20block.html"><li >Blocking Movements</li></a><a href="../40%20Tanks/90%20cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40%20Tanks/100%20destroy%20wall.html"><li >Destroying Walls</li></a><a href="../40%20Tanks/110%20enemy.html"><li >Adding One Enemy</li></a><a href="../40%20Tanks/120%20enemy%20bullet.html"><li >Enemy Bullets</li></a><a href="../40%20Tanks/130%20enemies.html"><li >Many Enemies</li></a><a href="../40%20Tanks/140%20win.html"><li >Destroy and Win</li></a><a href="../40%20Tanks/150%20lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50%20Next/10%20intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Installation</h1>
+<p>To use Pygame Zero, you will need to install Python 3, Pygame, and Pygame Zero.</p>
+<p><strong>Warning: If you are using a school computer, the installation would most likely have been done for you. You should follow these instructions only if you wish to install Pygame Zero on your own computer.</strong></p>
+<h3>Python 3</h3>
+<p>Download Python 3 from https://www.python.org/downloads/</p>
+<p><strong>Do NOT download the lastest version of Python. Install version 3.8 instead. Make sure you select the 64bits version. Other versions may not be supported by Pygame Zero.</strong></p>
+<p>After completing the download, run the downloaded file. Make sure to select the option <strong>"Add Python to Path"</strong>.</p>
+<h3>Pygame Zero (...and Pygame)</h3>
+<p>If you install Pygame Zero using the following methods, Pygame would be automatically installed as well.</p>
+<h4>Windows</h4>
+<p>Access the command prompt by clicking the search icon on your taskbar (...looks like a magnifying glass), and typing in <code>command prompt</code>. In the command prompt window, run <code>pip install pgzero</code>.</p>
+<p><em>If you get a <strong>"'pip' is not recognized"</strong> error, that's probably because you did not add Python to Path when installing Python. Try uninstalling Python and reinstalling it.</em></p>
+<p><em>If you get some other error, it's probably because you installed an incompatible version of Python. Please install Python 3.7 from the Python website.</em></p>
+<h4>Linux</h4>
+<p>Open up any terminal program and run <code>pip install pgzero</code></p>
+<h4>Mac</h4>
+<p>Open up your Applications folder, then open the Utilities folder. From there, open the Terminal application and run <code>pip install pgzero</code>.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

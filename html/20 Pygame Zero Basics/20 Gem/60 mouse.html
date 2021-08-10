@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+        &nbsp;&nbsp;/&nbsp;&nbsp;
+        Pygame Zero Basics
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10%20Intro/10%20intro.html"><li >Introduction</li></a><a href="../10%20Intro/20%20install.html"><li >Installation</li></a><a href="../10%20Intro/30%20folders.html"><li >Setting up the folders</li></a><a href="../10%20Intro/40%20idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20%20Gem/10%20first.html"><li >First Program</li></a><a href="../20%20Gem/20%20update.html"><li >update()</li></a><a href="../20%20Gem/30%20add%20gem.html"><li >Adding a Gem</li></a><a href="../20%20Gem/40%20collision.html"><li >Collision</li></a><a href="../20%20Gem/50%20score.html"><li >Keeping Score</li></a><a href="../20%20Gem/60%20mouse.html"><li class="current">Mouse Controls</li></a><a href="../20%20Gem/70%20harder.html"><li >Making it harder</li></a><a href="../20%20Gem/80%20gameover.html"><li >Game Over</li></a><a href="../20%20Gem/90%20challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20%20Ninja/10%20infinite.html"><li >Infinite Runner</li></a><a href="../20%20Ninja/20%20background.html"><li >Background</li></a><a href="../20%20Ninja/30%20animation.html"><li >Animation</li></a><a href="../20%20Ninja/40%20jump.html"><li >Jump Physics</li></a><a href="../20%20Ninja/50%20obstacles.html"><li >Obstacles</li></a><a href="../20%20Ninja/60%20score.html"><li >Keeping Score</li></a><a href="../20%20Ninja/70%20gameover.html"><li >Game Over</li></a><a href="../20%20Ninja/80%20challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40%20Tanks/10%20battle%20city.html"><li >Battle City</li></a><a href="../40%20Tanks/20%20tank.html"><li >Player Tank</li></a><a href="../40%20Tanks/30%20move.html"><li >Moving the Tank</li></a><a href="../40%20Tanks/40%20background.html"><li >Background</li></a><a href="../40%20Tanks/50%20wall.html"><li >Walls</li></a><a href="../40%20Tanks/60%20space.html"><li >Making Space</li></a><a href="../40%20Tanks/70%20random.html"><li >Random walls</li></a><a href="../40%20Tanks/80%20block.html"><li >Blocking Movements</li></a><a href="../40%20Tanks/90%20cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40%20Tanks/100%20destroy%20wall.html"><li >Destroying Walls</li></a><a href="../40%20Tanks/110%20enemy.html"><li >Adding One Enemy</li></a><a href="../40%20Tanks/120%20enemy%20bullet.html"><li >Enemy Bullets</li></a><a href="../40%20Tanks/130%20enemies.html"><li >Many Enemies</li></a><a href="../40%20Tanks/140%20win.html"><li >Destroy and Win</li></a><a href="../40%20Tanks/150%20lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50%20Next/10%20intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Mouse Controls</h1>
+<p>We can also modify our game to make it work with the mouse. Like Scratch, Pygame Zero is events based. This means that when certain events occurs (eg. a mouse button is pressed), Pygame Zero will run the corresponding function (eg. <code>on_mouse_down</code>).</p>
+<p>To detect mouse movement, we can use the <code>on_mouse_move(pos, rel, buttons)</code> function. Try adding this to your game...</p>
+<pre><code>def on_mouse_move(pos, rel, buttons):
+    ship.x = pos[0]
+</code></pre>
+<p>The purpose of the 3 parameters are...</p>
+<p><code>pos</code> : This provides the position of the mouse. You can get the x position using pos[0] and the y position using pos[1].</p>
+<p><code>rel</code> : This provides the change in position since the last mouse move. rel[0] is the change in x position and rel[1] the change in y position.</p>
+<p><code>buttons</code> : This provides a list of mouse buttons that are pressed. For example, if you want to check if the left button is pressed...</p>
+<pre><code>def on_mouse_move(pos, rel, buttons):
+    if mouse.LEFT in buttons:
+        print('left click')
+</code></pre>
+<p><strong><em>This is just an example. Don't add it to your game</em></strong></p>
+<h1>Other Events</h1>
+<p>Besides mouse move, there are also other functions that will be run by Pygame Zero when their corresponding events occurs. They are...</p>
+<p><strong>on_mouse_down(pos, buttons)</strong> : Run when a mouse button is pressed.</p>
+<p><strong>on_mouse_up(pos, buttons)</strong> : Run when a mouse button is released.</p>
+<p><code>pos</code> : This provides the position of the mouse. You can get the x position using pos[0] and the y position using pos[1].</p>
+<p><code>buttons</code> : This provides a list of mouse buttons that are pressed.</p>
+<p><strong>on_key_down(key, mod, unicode)</strong> : Run when a keyboard key is pressed.</p>
+<p><strong>on_key_up(key, mod)</strong> : Run when a keyboard key is release.</p>
+<p><code>key</code> : An integer indicating the key that was pressed. See the <a href="https://pygame-zero.readthedocs.io/en/stable/hooks.html#buttons-and-keys">Pygame Zero website</a> for a full list of keys.</p>
+<p><code>mod</code> : A bitmask of modifier keys that were depressed. You can check them as follows...</p>
+<pre><code>def on_key_down(key, mod, unicode):
+    if mod &amp; keymods.LSHIFT:
+        print('Left shift button pressed')
+</code></pre>
+<p><code>unicode</code> : Where relevant, the character that was typed. You can check it like this...</p>
+<pre><code>def on_key_down(key, mod, unicode):
+    if unicode == 'e':
+        print('e button pressed')
+</code></pre>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

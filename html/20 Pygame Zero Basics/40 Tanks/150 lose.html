@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+        &nbsp;&nbsp;/&nbsp;&nbsp;
+        Pygame Zero Basics
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10%20Intro/10%20intro.html"><li >Introduction</li></a><a href="../10%20Intro/20%20install.html"><li >Installation</li></a><a href="../10%20Intro/30%20folders.html"><li >Setting up the folders</li></a><a href="../10%20Intro/40%20idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20%20Gem/10%20first.html"><li >First Program</li></a><a href="../20%20Gem/20%20update.html"><li >update()</li></a><a href="../20%20Gem/30%20add%20gem.html"><li >Adding a Gem</li></a><a href="../20%20Gem/40%20collision.html"><li >Collision</li></a><a href="../20%20Gem/50%20score.html"><li >Keeping Score</li></a><a href="../20%20Gem/60%20mouse.html"><li >Mouse Controls</li></a><a href="../20%20Gem/70%20harder.html"><li >Making it harder</li></a><a href="../20%20Gem/80%20gameover.html"><li >Game Over</li></a><a href="../20%20Gem/90%20challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20%20Ninja/10%20infinite.html"><li >Infinite Runner</li></a><a href="../20%20Ninja/20%20background.html"><li >Background</li></a><a href="../20%20Ninja/30%20animation.html"><li >Animation</li></a><a href="../20%20Ninja/40%20jump.html"><li >Jump Physics</li></a><a href="../20%20Ninja/50%20obstacles.html"><li >Obstacles</li></a><a href="../20%20Ninja/60%20score.html"><li >Keeping Score</li></a><a href="../20%20Ninja/70%20gameover.html"><li >Game Over</li></a><a href="../20%20Ninja/80%20challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40%20Tanks/10%20battle%20city.html"><li >Battle City</li></a><a href="../40%20Tanks/20%20tank.html"><li >Player Tank</li></a><a href="../40%20Tanks/30%20move.html"><li >Moving the Tank</li></a><a href="../40%20Tanks/40%20background.html"><li >Background</li></a><a href="../40%20Tanks/50%20wall.html"><li >Walls</li></a><a href="../40%20Tanks/60%20space.html"><li >Making Space</li></a><a href="../40%20Tanks/70%20random.html"><li >Random walls</li></a><a href="../40%20Tanks/80%20block.html"><li >Blocking Movements</li></a><a href="../40%20Tanks/90%20cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40%20Tanks/100%20destroy%20wall.html"><li >Destroying Walls</li></a><a href="../40%20Tanks/110%20enemy.html"><li >Adding One Enemy</li></a><a href="../40%20Tanks/120%20enemy%20bullet.html"><li >Enemy Bullets</li></a><a href="../40%20Tanks/130%20enemies.html"><li >Many Enemies</li></a><a href="../40%20Tanks/140%20win.html"><li >Destroy and Win</li></a><a href="../40%20Tanks/150%20lose.html"><li class="current">Losing</li></a></ul><p>What's Next?</p><ul><a href="../50%20Next/10%20intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Losing</h1>
+<p>It won't be much of a game if the enemy bullets can't hurt us. Let's fix that next. First we create a variable named <strong>game_over</strong> and put it outside of any functions (...I put mine just above <strong>update()</strong>, but you can put it further up if you want to).</p>
+<pre><code>game_over = False
+</code></pre>
+<p>Next, we will set <strong>game_over</strong> to <strong>True</strong> if the enemy bullet hits our tank.</p>
+<pre><code>if bullet.colliderect(tank):
+    game_over = True
+</code></pre>
+<p>Note that since our tank is not a list, we are using <strong>colliderect</strong> instead of <strong>collidelist</strong>.</p>
+<p>Finally, in <strong>draw()</strong>, we check if <strong>game_over</strong> is true...</p>
+<pre><code>elif game_over:
+    screen.fill((0,0,0))
+    screen.draw.text('You Lose!', (260,250), color=(255,255,255), fontsize=100)
+</code></pre>
+<p>...and draw "You Lose!" if it is.</p>
+<h1>Completed!</h1>
+<p>The completed game should look like this...</p>
+<pre><code>import pgzrun
+import random
+
+WIDTH=800
+HEIGHT=600
+
+tank = Actor('tank_blue')
+tank.y = 575
+tank.x = 400
+tank.angle = 90
+
+enemies = []
+for i in range(3):
+    enemy = Actor('tank_red')
+    enemy.y = 25
+    enemy.x = i * 200 + 100
+    enemy.angle = 270
+    enemy.move_count = 0
+    enemies.append(enemy)
+
+background = Actor('grass')
+
+walls = []
+for x in range(16):
+    for y in range(10):
+        if random.randint(0, 100) &lt; 50:
+            wall = Actor('wall')
+            wall.x = x * 50 + 25
+            wall.y = y * 50 + 25 + 50
+            walls.append(wall)
+
+bullets = []
+bullet_holdoff = 0
+
+enemy_bullets = []
+
+game_over = False
+
+def update():
+    global bullet_holdoff
+    global game_over
+
+    # This part is for the tank
+    original_x = tank.x
+    original_y = tank.y
+
+    if keyboard.left:
+        tank.x = tank.x - 2
+        tank.angle = 180
+    elif keyboard.right:
+        tank.x = tank.x + 2
+        tank.angle = 0
+    elif keyboard.up:
+        tank.y = tank.y - 2
+        tank.angle = 90
+    elif keyboard.down:
+        tank.y = tank.y + 2
+        tank.angle = 270
+
+    if tank.collidelist(walls) != -1:
+        tank.x = original_x
+        tank.y = original_y
+
+    if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
+        tank.x = original_x
+        tank.y = original_y
+
+    # This part is for the bullet
+    if bullet_holdoff == 0:
+        if keyboard.space:
+            bullet = Actor('bulletblue2')
+            bullet.angle = tank.angle
+            bullet.x = tank.x
+            bullet.y = tank.y
+            bullets.append(bullet)
+            bullet_holdoff = 100
+    else:
+        bullet_holdoff = bullet_holdoff - 1
+
+    for bullet in bullets:
+        if bullet.angle == 0:
+            bullet.x = bullet.x + 5
+        elif bullet.angle == 90:
+            bullet.y = bullet.y - 5
+        elif bullet.angle == 180:
+            bullet.x = bullet.x - 5
+        elif bullet.angle == 270:
+            bullet.y = bullet.y + 5
+
+    for bullet in bullets:
+        wall_index = bullet.collidelist(walls)
+        if wall_index != -1:
+            del walls[wall_index]
+            bullets.remove(bullet)
+        if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
+            bullets.remove(bullet)
+        enemy_index = bullet.collidelist(enemies)
+        if enemy_index != -1:
+            del enemies[enemy_index]
+            bullets.remove(bullet)
+
+    # This part is for the enemy
+    for enemy in enemies:
+        choice = random.randint(0, 2)
+        if enemy.move_count &gt; 0:
+            enemy.move_count = enemy.move_count - 1
+
+            original_x = enemy.x
+            original_y = enemy.y
+            if enemy.angle == 0:
+                enemy.x = enemy.x + 2
+            elif enemy.angle == 90:
+                enemy.y = enemy.y - 2
+            elif enemy.angle == 180:
+                enemy.x = enemy.x - 2
+            elif enemy.angle == 270:
+                enemy.y = enemy.y + 2
+
+            if enemy.collidelist(walls) != -1:
+                enemy.x = original_x
+                enemy.y = original_y
+                enemy.moveCount = 0
+
+            if enemy.x &lt; 0 or enemy.x &gt; 800 or enemy.y &lt; 0 or enemy.y &gt; 600:
+                enemy.x = original_x
+                enemy.y = original_y
+                enemy.move_count = 0
+
+        elif choice == 0:
+            enemy.move_count = 20
+        elif choice == 1:
+            enemy.angle = random.randint(0, 3) * 90
+        else:
+            bullet = Actor('bulletred2')
+            bullet.angle = enemy.angle
+            bullet.x = enemy.x
+            bullet.y = enemy.y
+            enemy_bullets.append(bullet)
+
+    # This part is for the enemy bullets
+    for bullet in enemy_bullets:
+        if bullet.angle == 0:
+            bullet.x = bullet.x + 5
+        elif bullet.angle == 90:
+            bullet.y = bullet.y - 5
+        elif bullet.angle == 180:
+            bullet.x = bullet.x - 5
+        elif bullet.angle == 270:
+            bullet.y = bullet.y + 5
+
+    for bullet in enemy_bullets:
+        wall_index = bullet.collidelist(walls)
+        if wall_index != -1:
+            del walls[wall_index]
+            enemy_bullets.remove(bullet)
+        if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
+            enemy_bullets.remove(bullet)
+        if bullet.colliderect(tank):
+            game_over = True
+
+def draw():
+    if len(enemies) == 0:
+        screen.fill((0,0,0))
+        screen.draw.text('You Win!', (260,250), color=(255,255,255), fontsize=100)
+    elif game_over:
+        screen.fill((0,0,0))
+        screen.draw.text('You Lose!', (260,250), color=(255,255,255), fontsize=100)
+    else:
+        background.draw()
+        tank.draw()
+        for enemy in enemies:
+            enemy.draw()
+        for bullet in bullets:
+            bullet.draw()
+        for bullet in enemy_bullets:
+            bullet.draw()
+        for wall in walls:
+            wall.draw()
+
+pgzrun.go() # Must be last line
+</code></pre>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>
