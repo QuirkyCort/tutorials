@@ -8,7 +8,7 @@ import shutil
 import urllib
 
 COURSES_DIR = 'courses'
-HTML_DIR = 'html'
+HTML_DIR = 'docs'
 META_FILE = 'meta.json'
 TEMPLATE_FILE = 'template.html'
 INDEX_FILE = 'index.html'
