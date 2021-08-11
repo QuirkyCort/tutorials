@@ -239,12 +239,12 @@ for course in courses:
             filename_out = filter_out_path(page[:-3] + '.html')
             
             if not course_title in directory:
-                directory[course_title] = course_out + '/' + section_out + '/' + filename_out
+                directory[course_title] = urllib.parse.quote(course_out + '/' + section_out + '/' + filename_out)
 
             page_title = get_md_title(section_path, page)
             toc_section['pages'].append({
                 'title': page_title,
-                'path': section_out + '/' + filename_out
+                'path': urllib.parse.quote(section_out + '/' + filename_out)
             })
 
         toc.append(toc_section)
