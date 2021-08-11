@@ -12,7 +12,15 @@ body {
   position: fixed;
   width: 100%;
   background: white;
-  height: 2.5rem; }
+  height: 2.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold; }
+
+#header-right {
+  margin-left: 1em; }
 
 #home {
   color: blue;
@@ -86,7 +94,7 @@ body {
   transition: left 0.5s; }
 
 #content {
-  padding: 0 3rem;
+  padding: 0 4rem;
   overflow: hidden; }
   #content img {
     max-width: 100%; }

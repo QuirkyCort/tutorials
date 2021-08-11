@@ -14,6 +14,15 @@ body {
     width: 100%;
     background: white;
     height: 2.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+#header-right {
+    margin-left: 1em;
 }
 
 #home {
@@ -110,7 +119,7 @@ body {
 }
 
 #content {
-    padding: 0 3rem;
+    padding: 0 4rem;
     overflow: hidden;
 
     img {
