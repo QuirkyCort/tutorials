@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Intermediate</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Intermediate
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches intermediate game development using Pygame Zero.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Vertical Shooter</p><ul><a href="../20-Vertical/10-twin.html"><li >TwinBee</li></a><a href="../20-Vertical/20-player.html"><li >Player Ship</li></a><a href="../20-Vertical/30-moving.html"><li >Moving the Ship</li></a><a href="../20-Vertical/40-bullets.html"><li >Player Bullets</li></a><a href="../20-Vertical/50-background.html"><li >Background</li></a><a href="../20-Vertical/60-music.html"><li >Music and Sound</li></a><a href="../20-Vertical/70-enemies.html"><li >Enemies</li></a><a href="../20-Vertical/80-destroy.html"><li >Destroying Enemies</li></a><a href="../20-Vertical/90-enemyBullets.html"><li >Enemy Bullets</li></a><a href="../20-Vertical/100-powerup.html"><li >Power Ups</li></a><a href="../20-Vertical/110-moreBullets.html"><li class="current">Power Up: More Bullets</li></a><a href="../20-Vertical/120-drone.html"><li >Power Up: Drone</li></a><a href="../20-Vertical/130-gameover.html"><li >Game Over</li></a><a href="../20-Vertical/140-score.html"><li >Keeping Score</li></a><a href="../20-Vertical/150-challenges.html"><li >Challenges and Bugs</li></a><a href="../20-Vertical/160-sample.html"><li >Completed Game Sample</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Power Up: More Bullets</h1>
+<p>The more bullets powerup should increase our ship's fire power, depending on how many matcha donuts are picked up.</p>
+<ul>
+<li>0  : One bullet</li>
+<li>1  : Two bullets</li>
+<li>2  : Three bullets</li>
+<li>3  : Four bullets</li>
+<li>4  : Five bullets</li>
+<li>5+ : No change.</li>
+</ul>
+<p>We need to track how many matcha donuts are picked up, and we'll do so with a new variable.</p>
+<pre><code>powerup1 = 0
+</code></pre>
+<p>Everytime we pick up a matcha powerup, we'll add one to this number. Don't forget to declare <code>powerup1</code> as <code>global</code>.</p>
+<pre><code>if powerups[hit].image == 'powerup2':
+    powerup1 += 1
+</code></pre>
+<p>Can you figure out where to place the above code? Hint: It should be when the player collides with a powerup.</p>
+<h1>Tidying up the Bullets Code</h1>
+<p>This is our current bullet firing code. Look for it in your own program.</p>
+<pre><code>if keyboard.space and bullet_delay == 0:
+    sounds.sfx_sounds_interaction25.play()
+    bullet_delay = 5
+    bullet = Actor('player_bullet')
+    bullet.x = player.x
+    bullet.y = player.y
+    bullet.angle = 90
+    bullets.append(bullet)
+</code></pre>
+<p>We could edit this to add in support for multiple bullets, but our <code>update()</code> function is getting very long now. It's neater to separate out some portion of the code to keep it neat. I'll start by separating out the bullet firing code.</p>
+<p>I'm going to cut out most of the above, and place it in a new function, which I'm naming <code>shoot()</code>.</p>
+<pre><code>def shoot():
+    global bullet_delay
+
+    sounds.sfx_sounds_interaction25.play()
+    bullet_delay = 5
+    bullet = Actor('player_bullet')
+    bullet.x = player.x
+    bullet.y = player.y
+    bullet.angle = 90
+    bullets.append(bullet)
+</code></pre>
+<p>Next, I'll change my earlier bullet firing code to...</p>
+<pre><code>if keyboard.space and bullet_delay == 0:
+    shoot()
+</code></pre>
+<p>Test out your program. Everything should still work the same as before.</p>
+<h1>Two Bullets</h1>
+<p>Next, we are going to start adding in code for two bullets. We'll change the <code>shoot()</code> code into the following...</p>
+<pre><code>def shoot():
+    global bullet_delay
+
+    sounds.sfx_sounds_interaction25.play()
+    bullet_delay = 5
+
+    if powerup1 == 0:
+        bullet = Actor('player_bullet')
+        bullet.x = player.x
+        bullet.y = player.y
+        bullet.angle = 90
+        bullets.append(bullet)
+
+    elif powerup1 == 1:
+        bullet = Actor('player_bullet')
+        bullet.x = player.x - 15
+        bullet.y = player.y
+        bullet.angle = 90
+        bullets.append(bullet)
+
+        bullet = Actor('player_bullet')
+        bullet.x = player.x + 15
+        bullet.y = player.y
+        bullet.angle = 90
+        bullets.append(bullet)
+</code></pre>
+<p>Test it out again. Your ship should fire a single bullet at the beginning, but after picking up a matcha donut, it should start shooting two bullets.</p>
+<h1>Three Bullets</h1>
+<p>Next up, three bullets. I'm not going to show you the entire code this time. Try and figure out how to incorporate this into your program.</p>
+<pre><code>bullet = Actor('player_bullet')
+bullet.x = player.x
+bullet.y = player.y
+bullet.angle = 110
+bullets.append(bullet)
+
+bullet = Actor('player_bullet')
+bullet.x = player.x
+bullet.y = player.y
+bullet.angle = 90
+bullets.append(bullet)
+
+bullet = Actor('player_bullet')
+bullet.x = player.x
+bullet.y = player.y
+bullet.angle = 70
+bullets.append(bullet)
+</code></pre>
+<h1>Four Bullets</h1>
+<p>This is a combination of the two bullets code and the three bullets code. Again, try to figure out how to incorporate this into your program.</p>
+<pre><code>bullet = Actor('player_bullet')
+bullet.x = player.x
+bullet.y = player.y
+bullet.angle = 110
+bullets.append(bullet)
+
+bullet = Actor('player_bullet')
+bullet.x = player.x - 15
+bullet.y = player.y
+bullet.angle = 90
+bullets.append(bullet)
+
+bullet = Actor('player_bullet')
+bullet.x = player.x + 15
+bullet.y = player.y
+bullet.angle = 90
+bullets.append(bullet)
+
+bullet = Actor('player_bullet')
+bullet.x = player.x
+bullet.y = player.y
+bullet.angle = 70
+bullets.append(bullet)
+</code></pre>
+<h1>Five Bullets</h1>
+<p>I'm going to leave this to you as a challenge. Be careful! We should fire five bullets not only if we have 4 matcha donuts, but also if we have <strong>more than</strong> 4 matcha donuts.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

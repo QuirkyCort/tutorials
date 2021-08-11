@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Intermediate</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Intermediate
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches intermediate game development using Pygame Zero.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Vertical Shooter</p><ul><a href="../20-Vertical/10-twin.html"><li >TwinBee</li></a><a href="../20-Vertical/20-player.html"><li >Player Ship</li></a><a href="../20-Vertical/30-moving.html"><li >Moving the Ship</li></a><a href="../20-Vertical/40-bullets.html"><li >Player Bullets</li></a><a href="../20-Vertical/50-background.html"><li >Background</li></a><a href="../20-Vertical/60-music.html"><li class="current">Music and Sound</li></a><a href="../20-Vertical/70-enemies.html"><li >Enemies</li></a><a href="../20-Vertical/80-destroy.html"><li >Destroying Enemies</li></a><a href="../20-Vertical/90-enemyBullets.html"><li >Enemy Bullets</li></a><a href="../20-Vertical/100-powerup.html"><li >Power Ups</li></a><a href="../20-Vertical/110-moreBullets.html"><li >Power Up: More Bullets</li></a><a href="../20-Vertical/120-drone.html"><li >Power Up: Drone</li></a><a href="../20-Vertical/130-gameover.html"><li >Game Over</li></a><a href="../20-Vertical/140-score.html"><li >Keeping Score</li></a><a href="../20-Vertical/150-challenges.html"><li >Challenges and Bugs</li></a><a href="../20-Vertical/160-sample.html"><li >Completed Game Sample</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Music and Sound</h1>
+<p>Adding some sound makes the game more interesting. If you like, you can create and record the sound effects on your own...</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/k2yAfoHfHIw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>...or you can look for free sound effects that you can download online.</p>
+<p>To save time, I have compiled a pack of sound effects and music that you can use in your game. Download it <a href="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/sound_pack.zip">here</a>.</p>
+<p>If you prefer to use your own sound, that's ok too. For a start, we want a...</p>
+<ul>
+<li>Shooting sound (...pew pew)</li>
+<li>Background music</li>
+</ul>
+<p>When you have selected something suitable, put the selected files in the <strong>sounds</strong> folder of your game. The same rules on filenames apply; no spaces, no capital letters, and no special characters other than underscore. If the filename of your sound does not meet these rules, make sure to rename it.</p>
+<h3>Pew Pew</h3>
+<p>The first sound that I'm adding is the shooting sound. I've selected the file <strong>sfx_sounds_interaction25.wav</strong> (...that's for me. you can use a different sound). I'm going to make this sound play everytime we fire a bullet.</p>
+<p>To play a sound, we need to add a Python statement that looks like this...</p>
+<pre><code>sounds.sfx_sounds_interaction25.play()
+</code></pre>
+<p><strong>sounds</strong> : This means to use the sounds object that is provided by Pygame Zero.</p>
+<p><strong>sfx_sounds_interaction25</strong> : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.</p>
+<p><strong>play()</strong> : This tells it to play once. If you provide a number in the parameter (eg. <code>play(3)</code>), it will repeat the sound for that number of times. You can also set it to -1 if you want it to repeat forever.</p>
+<p>Since this sound should play when we shoot a bullet, we'll put it under the code where we detect the space key...</p>
+<pre><code>if keyboard.space and bullet_delay == 0:
+    sounds.sfx_sounds_interaction25.play()
+    .
+    .
+    .
+</code></pre>
+<h3>Music</h3>
+<p>Playing music is done the same way as the shooting sound. The only difference is that we want the music to repeat forever, so we'll use <code>play(-1)</code>.</p>
+<p>I'm using the file <strong>main_theme.wav</strong> which is not from your sound pack. I found this on <a href="https://opengameart.org/">OpenGameArt</a>, which is a popular site for finding game assets. As before, you can pick a suitable music from your sound pack, or find a suitable music online.</p>
+<p><strong>Before you ask...</strong> No. I will not help you download music from YouTube or Spotify.</p>
+<p>To play the music and make it repeat forever, we need to add...</p>
+<pre><code>sounds.main_theme.play(-1)
+</code></pre>
+<p>This should start right from the beginning of the game, so put it <strong>outside</strong> of the update and draw functions. If you put it inside either the update or draw function, it will start everytime these functions run (...which is around 60 times per second), and will sound terrible.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

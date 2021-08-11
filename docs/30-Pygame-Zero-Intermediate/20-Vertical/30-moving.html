@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Intermediate</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Intermediate
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches intermediate game development using Pygame Zero.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Vertical Shooter</p><ul><a href="../20-Vertical/10-twin.html"><li >TwinBee</li></a><a href="../20-Vertical/20-player.html"><li >Player Ship</li></a><a href="../20-Vertical/30-moving.html"><li class="current">Moving the Ship</li></a><a href="../20-Vertical/40-bullets.html"><li >Player Bullets</li></a><a href="../20-Vertical/50-background.html"><li >Background</li></a><a href="../20-Vertical/60-music.html"><li >Music and Sound</li></a><a href="../20-Vertical/70-enemies.html"><li >Enemies</li></a><a href="../20-Vertical/80-destroy.html"><li >Destroying Enemies</li></a><a href="../20-Vertical/90-enemyBullets.html"><li >Enemy Bullets</li></a><a href="../20-Vertical/100-powerup.html"><li >Power Ups</li></a><a href="../20-Vertical/110-moreBullets.html"><li >Power Up: More Bullets</li></a><a href="../20-Vertical/120-drone.html"><li >Power Up: Drone</li></a><a href="../20-Vertical/130-gameover.html"><li >Game Over</li></a><a href="../20-Vertical/140-score.html"><li >Keeping Score</li></a><a href="../20-Vertical/150-challenges.html"><li >Challenges and Bugs</li></a><a href="../20-Vertical/160-sample.html"><li >Completed Game Sample</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Moving the Ship</h1>
+<p>As usual, we'll start with an empty window.</p>
+<pre><code>import pgzrun
+
+WIDTH=800
+HEIGHT=600
+
+pgzrun.go() # Must be last line
+</code></pre>
+<p>You can use a different width and height if you wish.
+Just be aware that if you do so, you may need to adjust the X and Y position of various actors later in the program.</p>
+<p>Run (Press F5 or click "Run -&gt; Run Module") and make sure it works.</p>
+<h1>Drawing the Ship</h1>
+<p>Next, we're going to draw the player ship.</p>
+<h3>Vectr</h3>
+<p>Visit <a href="https://vectr.com/">Vectr</a> and click on the <strong>"Use Online"</strong> button (You may optionally create an account and login). You should see the following.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/vectr.png" /></p>
+<p>To start, I like to set the page to the same size as my game window.
+This isn't strictly necessary, but it makes it easy for me to gauge how large my ship will appear on screen.</p>
+<p>Click on <strong>"Pages"</strong> (top-left), and under <strong>"Page Settings"</strong>, set the page size to 800 by 600.
+<strong>Make sure the lock button between Width and Height is not checked.</strong></p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/pagesize.png" /></p>
+<h3>Ship Body</h3>
+<p>Let's start by drawing an ellipse... (Tip. Don't worry about the size. We can change it later.)</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship1.png" /></p>
+<p>Set the color to whatever you want. Feel free to play around with the different color and border effects.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/color.png" /></p>
+<p>I want the bottom of my ship to look a little more pointy, so to do that, I'll need to edit the points on my ellipse.
+The ellipse is made of 4 points.
+To edit them, double click on the ellipse.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship2.png" /></p>
+<p>You can now see the 4 points (...white circles).
+Click on the bottom most point and edit it to look like this...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship3.png" /></p>
+<p>When you're done, just click anywhere on screen to exit the points edit mode.</p>
+<h3>Cockpit</h3>
+<p>To create the cockpit, just draw a couple more ellipses, one on-top of the other.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship4.png" /></p>
+<h3>Wings</h3>
+<p>First create one wing.
+This one was created using just a rectangle and a rounded rectangle.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship5.png" /></p>
+<p>Next, we'll select the wing and duplicate it by right clicking and selecting "Duplicate"... (Tip. To select multiple objects, you can either drag a selection box or hold shift and click)</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship6.png" /></p>
+<p>Flip the wings horizontally...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship7.png" /></p>
+<p>...then position it on the other side of the ship.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship8.png" /></p>
+<h3>Tail</h3>
+<p>The tail isn't a regular shape, so we'll be drawing it with the pen tool.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/pen.png" /></p>
+<p>With the pen tool selected, click to draw this shape...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship9.png" /></p>
+<p>Then with the tail selected, set the background color and remove the border.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/color2.png" /></p>
+<p>Your ship should now look like this...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship10.png" /></p>
+<p>Duplicate the tail, flip it, then place it on the other side.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship11.png" /></p>
+<h3>Scaling</h3>
+<p>Select the entire ship and scale it to an appropriate size.
+You won't want a ship that's as big as the entire screen!
+Something like this should be fine...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship12.png" /></p>
+<h1>Exporting Images</h1>
+<p>To use your image in your game, you'll need to export it.</p>
+<p><strong>Important: We will export the image twice!</strong></p>
+<p>Select your ship and click the <strong>"Export"</strong> button.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/export.png" /></p>
+<h3>SVG</h3>
+<p>First, we'll export it to SVG format.
+Change the settings to <strong>Selection</strong> and <strong>SVG</strong>, then click <strong>"Download"</strong>".</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/svg.png" /></p>
+<p>Drag the downloaded file from your browser into your your game's images folder.</p>
+<p>The SVG format won't be directly used in your game, but will be used if you need to edit your ship in the future.</p>
+<h3>PNG</h3>
+<p>Next, change the settings to <strong>Selection</strong> and <strong>PNG</strong>, then click <strong>"Download"</strong>".</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/png.png" /></p>
+<p>Again, drag the downloaded file from your browser into your your game's images folder.</p>
+<p>Make sure you change the names of both the svg and png files to something suitable.
+<strong>The filenames must not contain spaces, capital letters, or special characters other than underscore.</strong>
+In this case, I would recommend using "player_ship" as a filename.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

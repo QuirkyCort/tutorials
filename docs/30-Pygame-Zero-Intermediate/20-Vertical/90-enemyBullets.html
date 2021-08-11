@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Intermediate</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Intermediate
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches intermediate game development using Pygame Zero.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Vertical Shooter</p><ul><a href="../20-Vertical/10-twin.html"><li >TwinBee</li></a><a href="../20-Vertical/20-player.html"><li >Player Ship</li></a><a href="../20-Vertical/30-moving.html"><li >Moving the Ship</li></a><a href="../20-Vertical/40-bullets.html"><li >Player Bullets</li></a><a href="../20-Vertical/50-background.html"><li >Background</li></a><a href="../20-Vertical/60-music.html"><li >Music and Sound</li></a><a href="../20-Vertical/70-enemies.html"><li >Enemies</li></a><a href="../20-Vertical/80-destroy.html"><li >Destroying Enemies</li></a><a href="../20-Vertical/90-enemyBullets.html"><li class="current">Enemy Bullets</li></a><a href="../20-Vertical/100-powerup.html"><li >Power Ups</li></a><a href="../20-Vertical/110-moreBullets.html"><li >Power Up: More Bullets</li></a><a href="../20-Vertical/120-drone.html"><li >Power Up: Drone</li></a><a href="../20-Vertical/130-gameover.html"><li >Game Over</li></a><a href="../20-Vertical/140-score.html"><li >Keeping Score</li></a><a href="../20-Vertical/150-challenges.html"><li >Challenges and Bugs</li></a><a href="../20-Vertical/160-sample.html"><li >Completed Game Sample</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Enemy Bullets</h1>
+<p>It's not very fair if you can shoot the enemy, but they can't shoot back. So let's give our enemy the ability to shoot!</p>
+<p>Since we can have more than one enemy bullet at a time, we'll start by creating a list for it...</p>
+<pre><code>enemy_bullets = []
+</code></pre>
+<p>For my strawberry enemy, I just want them to shoot in a random direction. I also do not want them to be shooting non-stop (...it'll make the game too hard).</p>
+<p>We'll add the following code to the <code>for enemy in enemies:</code> loop inside <code>update</code>.</p>
+<pre><code>if random.randint(0, 1000) &gt; 990:
+    bullet = Actor('enemy_bullet')
+    bullet.x = enemy.x
+    bullet.y = enemy.y
+    bullet.angle = random.randint(0, 359)
+    enemy_bullets.append(bullet)
+</code></pre>
+<p>For each enemy, we'll pick a random number between 0 and 1000, and shoot only if the number is above 990. If we are shooting, we'll create a new bullet, set the x and y to the same as the enemy, and pick a random direction from 0 to 359 (...we skip 360, as that is the same as 0 degrees). Finally, we add the bullet to the enemy_bullets list.</p>
+<p>The code to make the bullet move is almost the same as the player bullet, but we'll make it slower.</p>
+<pre><code>for bullet in enemy_bullets:
+    bullet.move_forward(5)
+</code></pre>
+<p>Unlike the player bullet, the enemy bullet may fly in any direction, so to remove it from screen, we need to check for more conditions. Modify the previous code to this...</p>
+<pre><code>for bullet in enemy_bullets:
+    bullet.move_forward(5)
+    if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
+        enemy_bullets.remove(bullet)
+</code></pre>
+<p>At this point, the enemy can shoot at us, but nothing happens even if we get hit. Eventually, we should create a game over if we are hit by the enemy, but we'll leave that for last.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

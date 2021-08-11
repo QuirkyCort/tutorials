@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Intermediate</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Intermediate
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches intermediate game development using Pygame Zero.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li class="current">Before you begin...</li></a></ul><p>Vertical Shooter</p><ul><a href="../20-Vertical/10-twin.html"><li >TwinBee</li></a><a href="../20-Vertical/20-player.html"><li >Player Ship</li></a><a href="../20-Vertical/30-moving.html"><li >Moving the Ship</li></a><a href="../20-Vertical/40-bullets.html"><li >Player Bullets</li></a><a href="../20-Vertical/50-background.html"><li >Background</li></a><a href="../20-Vertical/60-music.html"><li >Music and Sound</li></a><a href="../20-Vertical/70-enemies.html"><li >Enemies</li></a><a href="../20-Vertical/80-destroy.html"><li >Destroying Enemies</li></a><a href="../20-Vertical/90-enemyBullets.html"><li >Enemy Bullets</li></a><a href="../20-Vertical/100-powerup.html"><li >Power Ups</li></a><a href="../20-Vertical/110-moreBullets.html"><li >Power Up: More Bullets</li></a><a href="../20-Vertical/120-drone.html"><li >Power Up: Drone</li></a><a href="../20-Vertical/130-gameover.html"><li >Game Over</li></a><a href="../20-Vertical/140-score.html"><li >Keeping Score</li></a><a href="../20-Vertical/150-challenges.html"><li >Challenges and Bugs</li></a><a href="../20-Vertical/160-sample.html"><li >Completed Game Sample</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Before you begin...</h1>
+<p>Before starting on this course, you should complete...</p>
+<ul>
+<li><a href="https://trinket.io/aposteriori/courses/introduction-to-python">Introduction to Python</a>.</li>
+<li><a href="https://trinket.io/aposteriori/courses/game-development-with-pygame-zero">Game Development with Pygame Zero</a></li>
+</ul>
+<p>This course assumes that you already know...</p>
+<ul>
+<li>Basic Python</li>
+<li>How to setup folders for Pygame Zero</li>
+</ul>
+<p>If you are unsure about the above, please take some time to review the earlier courses before starting on this.</p>
+<h3>What's New</h3>
+<p>Unlike the previous courses, I will be encouraging you to create your own graphics for your game.
+To do so, we'll be using mainly <a href="https://vectr.com/">Vectr</a>.
+You do not need to create an account with Vectr, but it can be more convenient if you do so.</p>
+<p>If you prefer, you may also use other software to create your own images (eg. <a href="https://inkscape.org/">Inkscape</a>, <a href="https://www.piskelapp.com/">Piskel</a>).</p>
+<p>Sample graphics will be provided as a reference, and you may also use them in your game if you do not have enough time to create your own.
+But to truly make the game your own, I <strong>strongly encourage</strong> you to create your own graphics.</p>
+<p>To find more free STEM resources, visit https://aposteriori.com.sg</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>
