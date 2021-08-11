@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10-Intro/10-intro.html"><li >Introduction</li></a><a href="../10-Intro/20-install.html"><li >Installation</li></a><a href="../10-Intro/30-folders.html"><li >Setting up the folders</li></a><a href="../10-Intro/40-idle.html"><li class="current">Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20-Gem/10-first.html"><li >First Program</li></a><a href="../20-Gem/20-update.html"><li >update()</li></a><a href="../20-Gem/30-add-gem.html"><li >Adding a Gem</li></a><a href="../20-Gem/40-collision.html"><li >Collision</li></a><a href="../20-Gem/50-score.html"><li >Keeping Score</li></a><a href="../20-Gem/60-mouse.html"><li >Mouse Controls</li></a><a href="../20-Gem/70-harder.html"><li >Making it harder</li></a><a href="../20-Gem/80-gameover.html"><li >Game Over</li></a><a href="../20-Gem/90-challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20-Ninja/10-infinite.html"><li >Infinite Runner</li></a><a href="../20-Ninja/20-background.html"><li >Background</li></a><a href="../20-Ninja/30-animation.html"><li >Animation</li></a><a href="../20-Ninja/40-jump.html"><li >Jump Physics</li></a><a href="../20-Ninja/50-obstacles.html"><li >Obstacles</li></a><a href="../20-Ninja/60-score.html"><li >Keeping Score</li></a><a href="../20-Ninja/70-gameover.html"><li >Game Over</li></a><a href="../20-Ninja/80-challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40-Tanks/10-battle-city.html"><li >Battle City</li></a><a href="../40-Tanks/20-tank.html"><li >Player Tank</li></a><a href="../40-Tanks/30-move.html"><li >Moving the Tank</li></a><a href="../40-Tanks/40-background.html"><li >Background</li></a><a href="../40-Tanks/50-wall.html"><li >Walls</li></a><a href="../40-Tanks/60-space.html"><li >Making Space</li></a><a href="../40-Tanks/70-random.html"><li >Random walls</li></a><a href="../40-Tanks/80-block.html"><li >Blocking Movements</li></a><a href="../40-Tanks/90-cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40-Tanks/100-destroy-wall.html"><li >Destroying Walls</li></a><a href="../40-Tanks/110-enemy.html"><li >Adding One Enemy</li></a><a href="../40-Tanks/120-enemy-bullet.html"><li >Enemy Bullets</li></a><a href="../40-Tanks/130-enemies.html"><li >Many Enemies</li></a><a href="../40-Tanks/140-win.html"><li >Destroy and Win</li></a><a href="../40-Tanks/150-lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50-Next/10-intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Using IDLE</h1>
+<p>IDLE is an editor for Python programs. There are many different editors that we can use to write Python programs, and Python don't really care what editor you use, it only cares about the content you write. The only reason we are using IDLE is because it comes default with Python, so feel free to use a different editor if you prefer to.</p>
+<p>Look for this icon on your desktop. If it's not on your desktop, click the search icon on your taskbar (...looks like a magnifying glass) and search for <strong>idle</strong>.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/idle.jpg" /></p>
+<p>This should open up the IDLE window that looks like this...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/idle-window.jpg" /></p>
+<p>Click on <strong>File</strong> and <strong>New File</strong>. This will open a blank window for you to write Python code!</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

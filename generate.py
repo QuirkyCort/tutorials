@@ -12,6 +12,7 @@ HTML_DIR = 'docs'
 META_FILE = 'meta.json'
 TEMPLATE_FILE = 'template.html'
 INDEX_FILE = 'index.html'
+REDIRECT_FILE = 'redirect.html'
 EXCLUDE_DIR = ['images', 'css', 'scss', 'js']
 COPY_DIR = ['images', 'css', 'js']
 
@@ -66,6 +67,14 @@ def get_meta(directory):
 
 def get_template(directory):
     file = os.path.join(directory, TEMPLATE_FILE)
+    try:
+        f = open(file)
+        return f.read()
+    except:
+        return None
+
+def get_redirect(directory):
+    file = os.path.join(directory, REDIRECT_FILE)
     try:
         f = open(file)
         return f.read()
@@ -158,7 +167,12 @@ def compile_scss(course):
     
     os.system('sass --sourcemap=none --update ' + src + ':' + dest)
 
+def filter_out_path(path):
+    return re.sub(' ', '-', path)
+    
 ### Main ###
+
+# Clean up
 if os.path.isdir(HTML_DIR):
     print('Removing html directory: ' + HTML_DIR)
     shutil.rmtree(HTML_DIR)
@@ -166,15 +180,18 @@ elif os.path.exists(HTML_DIR):
     print('html exists but is not directory: ' + HTML_DIR)
     sys.exit()
 
-
+# Root
 print('Processing root')
 root_template = get_template(COURSES_DIR)
+root_redirect = get_redirect(COURSES_DIR)
+
 print('  Copying directories: ')
 copy_excludes('.')
 
 print('  Compile SCSS')
 compile_scss('.')
 
+# Courses
 courses = get_dir(COURSES_DIR)
 print('Sites found: ' + str(courses) + '\n')
 
@@ -183,25 +200,29 @@ directory = {}
 for course in courses:
     print('Processing course: ' + course)
     course_path = os.path.join(COURSES_DIR, course)
+    course_out = filter_out_path(course)
 
     course_meta = get_meta(course_path)
     course_title = get_prop(course_meta, 'title', course)
     course_short_description = get_prop(course_meta, 'shortDescription', '')
     
     course_template = get_template(course_path)
+    course_redirect = get_redirect(course_path)
 
     print('  Copying directories: ')
     copy_excludes(course)
 
     print('  Compile SCSS')
     compile_scss(course)
-    
+
+    # Generate table of content
     sections = get_dir(course_path)
     toc = []
 
     for section in sections:
         print('  Section found: ' + section)
         section_path = os.path.join(course_path, section)
+        section_out = filter_out_path(section)
 
         section_meta = get_meta(section_path)
         section_title = get_prop(section_meta, 'title', section)
@@ -215,40 +236,51 @@ for course in courses:
         
         for page in pages:
             print('    Page: '  + page)
-            filename = page[:-3] + '.html'
-            path = section + '/' + filename
+            filename_out = filter_out_path(page[:-3] + '.html')
             
             if not course_title in directory:
-                directory[course_title] = course + '/' + path
+                directory[course_title] = course_out + '/' + section_out + '/' + filename_out
 
             page_title = get_md_title(section_path, page)
             toc_section['pages'].append({
                 'title': page_title,
-                'path': path
+                'path': section_out + '/' + filename_out
             })
 
         toc.append(toc_section)
 
+    # Generate pages
     print('Generating pages for course: ' + course)
+    course_first_page = None
+
     for section in sections:
         print('  Section : ' + section)
         section_path = os.path.join(course_path, section)
+        section_out = filter_out_path(section)
 
         section_template = get_template(section_path)
+        section_redirect = get_redirect(section_path)
         
         section_meta = get_meta(section_path)
         section_title = get_prop(section_meta, 'title', section)
         
         pages = get_md_files(section_path)
 
+        section_first_page = None
+
         for page in pages:
             print('    Page: ' + page)
-            filename = page[:-3] + '.html'
+            filename_out = filter_out_path(page[:-3] + '.html')
+
+            if not course_first_page:
+                course_first_page = section_out + '/' + filename_out
+            if not section_first_page:
+                section_first_page = filename_out
 
             content = get_md_content(section_path, page)
             content_html = markdown.markdown(content, extensions=['fenced_code'])
 
-            toc_html = gen_toc_html(toc, section + '/' + filename)
+            toc_html = gen_toc_html(toc, section_out + '/' + filename_out)
 
             template = root_template
             if course_template:
@@ -263,8 +295,27 @@ for course in courses:
                 'courseShortDescription': course_short_description
             })
 
-            write_html(html, course, section, filename)
-            
+            write_html(html, course_out, section_out, filename_out)
+        
+        print('    Generate section redirect page')
+        redirect = root_redirect
+        if course_redirect:
+            redirect = course_redirect
+        if section_redirect:
+            redirect = section_redirect
+        html = gen_html(redirect, {
+            'redirectURL': urllib.parse.quote(section_first_page)
+        })
+        write_html(html, course_out, section_out, 'index.html')
+
+    print('  Generate course redirect page')
+    redirect = root_redirect
+    if course_redirect:
+        redirect = course_redirect
+    html = gen_html(redirect, {
+        'redirectURL': urllib.parse.quote(course_first_page)
+    })
+    write_html(html, course_out, '.', 'index.html')
 
 file = os.path.join(COURSES_DIR, INDEX_FILE)
 f = open(file)

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10-Intro/10-intro.html"><li >Introduction</li></a><a href="../10-Intro/20-install.html"><li >Installation</li></a><a href="../10-Intro/30-folders.html"><li >Setting up the folders</li></a><a href="../10-Intro/40-idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20-Gem/10-first.html"><li >First Program</li></a><a href="../20-Gem/20-update.html"><li >update()</li></a><a href="../20-Gem/30-add-gem.html"><li >Adding a Gem</li></a><a href="../20-Gem/40-collision.html"><li >Collision</li></a><a href="../20-Gem/50-score.html"><li >Keeping Score</li></a><a href="../20-Gem/60-mouse.html"><li >Mouse Controls</li></a><a href="../20-Gem/70-harder.html"><li >Making it harder</li></a><a href="../20-Gem/80-gameover.html"><li >Game Over</li></a><a href="../20-Gem/90-challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20-Ninja/10-infinite.html"><li >Infinite Runner</li></a><a href="../20-Ninja/20-background.html"><li >Background</li></a><a href="../20-Ninja/30-animation.html"><li >Animation</li></a><a href="../20-Ninja/40-jump.html"><li >Jump Physics</li></a><a href="../20-Ninja/50-obstacles.html"><li class="current">Obstacles</li></a><a href="../20-Ninja/60-score.html"><li >Keeping Score</li></a><a href="../20-Ninja/70-gameover.html"><li >Game Over</li></a><a href="../20-Ninja/80-challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40-Tanks/10-battle-city.html"><li >Battle City</li></a><a href="../40-Tanks/20-tank.html"><li >Player Tank</li></a><a href="../40-Tanks/30-move.html"><li >Moving the Tank</li></a><a href="../40-Tanks/40-background.html"><li >Background</li></a><a href="../40-Tanks/50-wall.html"><li >Walls</li></a><a href="../40-Tanks/60-space.html"><li >Making Space</li></a><a href="../40-Tanks/70-random.html"><li >Random walls</li></a><a href="../40-Tanks/80-block.html"><li >Blocking Movements</li></a><a href="../40-Tanks/90-cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40-Tanks/100-destroy-wall.html"><li >Destroying Walls</li></a><a href="../40-Tanks/110-enemy.html"><li >Adding One Enemy</li></a><a href="../40-Tanks/120-enemy-bullet.html"><li >Enemy Bullets</li></a><a href="../40-Tanks/130-enemies.html"><li >Many Enemies</li></a><a href="../40-Tanks/140-win.html"><li >Destroy and Win</li></a><a href="../40-Tanks/150-lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50-Next/10-intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Obstacles</h1>
+<p>In our gem catcher game, we only have a single gem at a time and it returns to the top everytime we catch it. In our ninja runner game, we are going to have multiple obstacles appear on screen at the same time. To do so, we are going to make use of <strong>lists</strong>.</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/cactus.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/cactus.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/cactus.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/cactus.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>First, let's add an empty list called <code>obstacles</code> and a integer variable <code>obstacles_timeout</code></p>
+<pre><code>obstacles = []
+obstacles_timeout = 0
+</code></pre>
+<p>Now in our <code>update()</code> function, we are going to increase out timeout by 1 each time.</p>
+<pre><code>obstacles_timeout += 1
+</code></pre>
+<p>Next, if the timeout is greater than 50, we'll add in an obstacle and reset the timeout to zero.</p>
+<pre><code>if obstacles_timeout &gt; 50:
+  actor = Actor('cactus')
+  actor.x = 850
+  actor.y = 430
+  obstacles.append(actor)
+  obstacles_timeout = 0
+</code></pre>
+<p>The only thing new here is <code>obstacles.append(actor)</code>. This adds <code>actor</code> to the <code>obstacles</code> list.</p>
+<p><strong>IMPORTANT: You'll need to move the <code>cactus</code> image into your <code>images</code> folder first! If you decide to use a different image, change the image name accordingly.</strong></p>
+<p>Now to make the obstacles move across the screen...</p>
+<pre><code>for actor in obstacles:
+  actor.x -= 8
+</code></pre>
+<p>This will go through the entire obstacles list and reduce the x position for obstacle. Reducing x will make the obstacle move to the left.</p>
+<p>Finally, we need to draw the obstacles on screen. In the <code>draw()</code> function, add...</p>
+<pre><code>for actor in obstacles:
+  actor.draw()
+</code></pre>
+<p>Your program should now look like this...</p>
+<pre><code>import pgzrun
+from pgzhelper import *
+
+WIDTH=800
+HEIGHT=600
+
+runner = Actor('run__000')
+run_images = ['run__000', 'run__001', 'run__002', 'run__003', 'run__004', 'run__005', 'run__006', 'run__007', 'run__008', 'run__009']
+runner.images = run_images
+runner.x = 100
+runner.y = 400
+
+velocity_y = 0
+gravity = 1
+
+obstacles = []
+obstacles_timeout = 0
+
+def update():
+  global velocity_y, obstacles_timeout
+  runner.next_image()
+
+  obstacles_timeout += 1
+  if obstacles_timeout &gt; 50:
+    actor = Actor('cactus')
+    actor.x = 850
+    actor.y = 430
+    obstacles.append(actor)
+    obstacles_timeout = 0
+
+  for actor in obstacles:
+    actor.x -= 8
+
+  if keyboard.up:
+    velocity_y = -15
+
+  runner.y += velocity_y
+  velocity_y += gravity
+  if runner.y &gt; 400:
+    velocity_y = 0
+    runner.y = 400
+
+def draw():
+  screen.draw.filled_rect(Rect(0,0,800,400), (163, 232, 254))
+  screen.draw.filled_rect(Rect(0,400,800,200), (88, 242, 152))
+  runner.draw()
+  for actor in obstacles:
+    actor.draw()
+
+pgzrun.go() # Must be last line
+</code></pre>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10-Intro/10-intro.html"><li >Introduction</li></a><a href="../10-Intro/20-install.html"><li >Installation</li></a><a href="../10-Intro/30-folders.html"><li >Setting up the folders</li></a><a href="../10-Intro/40-idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20-Gem/10-first.html"><li >First Program</li></a><a href="../20-Gem/20-update.html"><li >update()</li></a><a href="../20-Gem/30-add-gem.html"><li >Adding a Gem</li></a><a href="../20-Gem/40-collision.html"><li >Collision</li></a><a href="../20-Gem/50-score.html"><li >Keeping Score</li></a><a href="../20-Gem/60-mouse.html"><li >Mouse Controls</li></a><a href="../20-Gem/70-harder.html"><li >Making it harder</li></a><a href="../20-Gem/80-gameover.html"><li >Game Over</li></a><a href="../20-Gem/90-challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../20-Ninja/10-infinite.html"><li >Infinite Runner</li></a><a href="../20-Ninja/20-background.html"><li >Background</li></a><a href="../20-Ninja/30-animation.html"><li >Animation</li></a><a href="../20-Ninja/40-jump.html"><li >Jump Physics</li></a><a href="../20-Ninja/50-obstacles.html"><li >Obstacles</li></a><a href="../20-Ninja/60-score.html"><li >Keeping Score</li></a><a href="../20-Ninja/70-gameover.html"><li >Game Over</li></a><a href="../20-Ninja/80-challenges.html"><li >Challenges and Bugs</li></a></ul><p>Tanks</p><ul><a href="../40-Tanks/10-battle-city.html"><li >Battle City</li></a><a href="../40-Tanks/20-tank.html"><li >Player Tank</li></a><a href="../40-Tanks/30-move.html"><li >Moving the Tank</li></a><a href="../40-Tanks/40-background.html"><li >Background</li></a><a href="../40-Tanks/50-wall.html"><li class="current">Walls</li></a><a href="../40-Tanks/60-space.html"><li >Making Space</li></a><a href="../40-Tanks/70-random.html"><li >Random walls</li></a><a href="../40-Tanks/80-block.html"><li >Blocking Movements</li></a><a href="../40-Tanks/90-cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40-Tanks/100-destroy-wall.html"><li >Destroying Walls</li></a><a href="../40-Tanks/110-enemy.html"><li >Adding One Enemy</li></a><a href="../40-Tanks/120-enemy-bullet.html"><li >Enemy Bullets</li></a><a href="../40-Tanks/130-enemies.html"><li >Many Enemies</li></a><a href="../40-Tanks/140-win.html"><li >Destroy and Win</li></a><a href="../40-Tanks/150-lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50-Next/10-intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Walls</h1>
+<p>We'll start by filling up the entire screen with wall pieces. In the next section, we'll then remove some of the pieces randomly.</p>
+<p>To create the many pieces of walls in the game, we will need to create a lot of actors. To help us, we will use a <strong>list</strong> and a <strong>for loop</strong>.</p>
+<p>Each piece of wall is 50 pixels by 50 pixels, and the window size is 800 by 600...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/wall.png" /></p>
+<p>So how many pieces of the wall can fit horizontally? How about vertically?</p>
+<h3>Horizontal</h3>
+<p>Width of screen = 800<br />
+Width of wall = 50<br />
+Number of wall pieces = 800 / 50 = <strong>16 pieces</strong></p>
+<h3>Vertical</h3>
+<p>Height of screen = 600<br />
+Height of wall = 50<br />
+Number of wall pieces = 600 / 50 = <strong>12 pieces</strong></p>
+<p><strong>When drawing the wall, we need to repeat 16 times in the horizontal (x) direction, and 12 times in the vertical (y) direction.</strong></p>
+<pre><code>walls = []
+for x in range(16):
+    for y in range(12):
+        wall = Actor('wall')
+        wall.x = x * 50
+        wall.y = y * 50
+        walls.push(wall)
+</code></pre>
+<p>This is what each line does...</p>
+<p><code>walls = []</code> Create an empty list (...no items in it).</p>
+<p><code>for x in range(16):</code>Repeat 16 times, setting the value to the variable x each time.</p>
+<p><code>for y in range(12):</code>Repeat 12 times, setting the value to the variable y each time.</p>
+<p><code>wall = Actor('wall')</code> We create an actor for one piece of wall.</p>
+<p><code>wall.x = x * 50</code> We multiply x by 50, because each wall section is 50 pixels wide.</p>
+<p><code>walls.push(wall)</code> We add the piece of wall into our list of walls.</p>
+<h3>Drawing the wall</h3>
+<p>Just like the tank, we need to draw the wall in the <strong>draw()</strong> function. As we have a list of walls with many wall actors, we'll need to go through the list and draw each of them one by one using a <strong>for</strong> loop.</p>
+<pre><code>for wall in walls:
+    wall.draw()
+</code></pre>
+<p>With that, your program should now look like this...</p>
+<pre><code>import pgzrun
+
+WIDTH=800
+HEIGHT=600
+
+tank = Actor('tank_blue')
+tank.y = 575
+tank.x = 400
+tank.angle = 90
+
+background = Actor('grass')
+
+walls = []
+for x in range(16):
+    for y in range(12):
+        wall = Actor('wall')
+        wall.x = x * 50
+        wall.y = y * 50
+        walls.append(wall)
+
+def update():
+    if keyboard.left:
+        tank.x = tank.x - 2
+        tank.angle = 180
+    elif keyboard.right:
+        tank.x = tank.x + 2
+        tank.angle = 0
+    elif keyboard.up:
+        tank.y = tank.y - 2
+        tank.angle = 90
+    elif keyboard.down:
+        tank.y = tank.y + 2
+        tank.angle = 270
+
+def draw():
+    screen.fill((0,0,0))
+    background.draw()
+    tank.draw()
+    for wall in walls:
+        wall.draw()
+
+pgzrun.go() # Must be last line
+
+</code></pre>
+<h3>Fixing the wall</h3>
+<p>If you tried running the program, you'll see something like this...</p>
+<p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/wall-problem.png" /></p>
+<p>Remember that the position of an actor is based on its center. To fix this problem, we need to add half the width and height of the wall to its x and y. Since the width and height of the wall is 50, this means we need to add 25. Change the <strong>wall.x</strong> and <strong>wall.y</strong> lines to this...</p>
+<pre><code>wall.x = x * 50 + 25
+wall.y = y * 50 + 25
+</code></pre>
+<p>Done! The walls covered up our tank, but that's ok for now. In the next section, we'll remove some of the walls to make space for our tank.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>
