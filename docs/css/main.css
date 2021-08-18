@@ -94,7 +94,7 @@ body {
   transition: left 0.5s; }
 
 #content {
-  padding: 0 4rem;
+  padding: 0 4rem 4rem 4rem;
   overflow: hidden; }
   #content img {
     max-width: 100%; }
@@ -105,7 +105,7 @@ body {
     background: lightgray;
     padding: 0.5em;
     margin-left: 0.5em;
-    overflow-x: scroll; }
+    overflow-x: auto; }
 
 @media only screen and (max-width: 600px) {
   #content {

@@ -66,37 +66,43 @@ else:
 </code></pre>
 <p>This will make it draw the <strong>game over</strong> text when the <code>game_over</code> variable is <code>True</code>, otherwise it will draw the gem and the ship as before.</p>
 <p>Your final program should look like this...</p>
-<p>```
-import pgzrun
-import random</p>
-<p>WIDTH = 800
-HEIGHT = 600</p>
-<p>ship = Actor('playership1_blue')
-ship.x = 370
-ship.y = 550</p>
-<p>gem = Actor('gemgreen')
-gem.x = random.randint(20, 780)
-gem.y = 0</p>
-<p>score = 0
-game_over = False</p>
-<p>def on_mouse_move(pos, rel, buttons):
-    ship.x = pos[0]</p>
-<p>def update():
-    global score, game_over</p>
-<pre><code>if keyboard.left:
-    ship.x = ship.x - 5
-if keyboard.right:
-    ship.x = ship.x + 5
+<pre><code>import pgzrun
+import random
 
-gem.y = gem.y + 4 + score / 5
-if gem.y &gt; 600:
-    game_over = True
-if gem.colliderect(ship):
-    gem.x = random.randint(20, 780)
-    gem.y = 0
-    score = score + 1
-</code></pre>
-<p>def draw():
+WIDTH = 800
+HEIGHT = 600
+
+ship = Actor('playership1_blue')
+ship.x = 370
+ship.y = 550
+
+gem = Actor('gemgreen')
+gem.x = random.randint(20, 780)
+gem.y = 0
+
+score = 0
+game_over = False
+
+def on_mouse_move(pos, rel, buttons):
+    ship.x = pos[0]
+
+def update():
+    global score, game_over
+
+    if keyboard.left:
+        ship.x = ship.x - 5
+    if keyboard.right:
+        ship.x = ship.x + 5
+
+    gem.y = gem.y + 4 + score / 5
+    if gem.y &gt; 600:
+        game_over = True
+    if gem.colliderect(ship):
+        gem.x = random.randint(20, 780)
+        gem.y = 0
+        score = score + 1
+
+def draw():
     screen.fill((80,0,70))
     if game_over:
         screen.draw.text('Game Over', (360, 300), color=(255,255,255), fontsize=60)
@@ -104,8 +110,10 @@ if gem.colliderect(ship):
     else:
         gem.draw()
         ship.draw()
-        screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)</p>
-<p>pgzrun.go() # Must be last line</p>
+        screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
+
+pgzrun.go() # Must be last line
+</code></pre>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

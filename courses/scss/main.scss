@@ -119,7 +119,7 @@ body {
 }
 
 #content {
-    padding: 0 4rem;
+    padding: 0 4rem 4rem 4rem;
     overflow: hidden;
 
     img {
@@ -135,7 +135,7 @@ body {
         background: lightgray;
         padding: 0.5em;
         margin-left: 0.5em;
-        overflow-x: scroll;
+        overflow-x: auto;
     }
 }
 
