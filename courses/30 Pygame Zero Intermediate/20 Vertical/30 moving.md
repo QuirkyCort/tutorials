@@ -1,144 +1,161 @@
 Moving the Ship
 ===
-As usual, we'll start with an empty window.
+First, we'll create the ship actor...
+
+```
+player = Actor('player_ship')
+```
+**If you used a different filename, you'll need to change the 'player_ship' part.**
+
+...then we create the **draw()** function, and add in a draw command for the player.
+
+```
+def draw():
+    player.draw()
+```
+With that done, your program should now look like this...
 ```
 import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
+player = Actor('player_ship')
+
+def draw():
+    player.draw()
+
 pgzrun.go() # Must be last line
 ```
-You can use a different width and height if you wish.
-Just be aware that if you do so, you may need to adjust the X and Y position of various actors later in the program.
+Run it, and you should see your ship on screen.
 
-Run (Press F5 or click "Run -> Run Module") and make sure it works.
-
-Drawing the Ship
+Position the ship
 ===
-Next, we're going to draw the player ship.
+Now, let's have our ship start at the bottom center of the screen.
 
-### Vectr
+Remember that to move the actor downwards, we need to increase y. The width of the screen is 800, so to put it in the center, we should set x to 400.
 
-Visit [Vectr](https://vectr.com/) and click on the **"Use Online"** button (You may optionally create an account and login). You should see the following.
+![](https://www.aposteriori.com.sg/wp-content/uploads/2020/02/xy.png)
 
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/vectr.png)
+Add in the following to your program. It should appear right after the line where you created the tank actor.
 
-To start, I like to set the page to the same size as my game window.
-This isn't strictly necessary, but it makes it easy for me to gauge how large my ship will appear on screen.
+```
+player.x = 400
+player.y = 500
+```
 
-Click on **"Pages"** (top-left), and under **"Page Settings"**, set the page size to 800 by 600.
-**Make sure the lock button between Width and Height is not checked.**
+That will set the starting position of the ship somewhere near the center bottom of the screen.
 
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/pagesize.png)
-
-### Ship Body
-
-Let's start by drawing an ellipse... (Tip. Don't worry about the size. We can change it later.)
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship1.png)
-
-Set the color to whatever you want. Feel free to play around with the different color and border effects.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/color.png)
-
-I want the bottom of my ship to look a little more pointy, so to do that, I'll need to edit the points on my ellipse.
-The ellipse is made of 4 points.
-To edit them, double click on the ellipse.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship2.png)
-
-You can now see the 4 points (...white circles).
-Click on the bottom most point and edit it to look like this...
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship3.png)
-
-When you're done, just click anywhere on screen to exit the points edit mode.
-
-### Cockpit
-
-To create the cockpit, just draw a couple more ellipses, one on-top of the other.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship4.png)
-
-### Wings
-
-First create one wing.
-This one was created using just a rectangle and a rounded rectangle.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship5.png)
-
-Next, we'll select the wing and duplicate it by right clicking and selecting "Duplicate"... (Tip. To select multiple objects, you can either drag a selection box or hold shift and click)
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship6.png)
-
-Flip the wings horizontally...
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship7.png)
-
-...then position it on the other side of the ship.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship8.png)
-
-### Tail
-
-The tail isn't a regular shape, so we'll be drawing it with the pen tool.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/pen.png)
-
-With the pen tool selected, click to draw this shape...
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship9.png)
-
-Then with the tail selected, set the background color and remove the border.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/color2.png)
-
-Your ship should now look like this...
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship10.png)
-
-Duplicate the tail, flip it, then place it on the other side.
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship11.png)
-
-### Scaling
-
-Select the entire ship and scale it to an appropriate size.
-You won't want a ship that's as big as the entire screen!
-Something like this should be fine...
-
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/ship12.png)
-
-Exporting Images
+Moving the Ship
 ===
-To use your image in your game, you'll need to export it.
+Remember how we moved the spaceship in Gem Catcher? We used **keyboard.left** and **keyboard.right** to detect if those keys are pressed.
 
-**Important: We will export the image twice!**
+```
+def update():
+    if keyboard.right:
+        player.x += 5
+    if keyboard.left:
+        player.x -= 5
+```
 
-Select your ship and click the **"Export"** button.
+Here I'm using a shortform....
 
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/export.png)
+```
+player.x += 5
+```
 
-### SVG
+This is the same as writing...
 
-First, we'll export it to SVG format.
-Change the settings to **Selection** and **SVG**, then click **"Download"**".
+```
+player.x = player.x + 5
+```
 
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/svg.png)
+You can also write...
 
-Drag the downloaded file from your browser into your your game's images folder.
+```
+player.x -= 5
+```
 
-The SVG format won't be directly used in your game, but will be used if you need to edit your ship in the future.
+...which is the same as writing...
 
-### PNG
+```
+player.x = player.x - 5
+```
 
-Next, change the settings to **Selection** and **PNG**, then click **"Download"**".
+To detect up and down, we can use **keyboard.up** and **keyboard.down**. For the full list of keys you can use, you can refer to the [Pygame Zero documentations](https://pygame-zero.readthedocs.io/en/stable/hooks.html#buttons-and-keys).
 
-![](https://www.aposteriori.com.sg/wp-content/uploads/2021/01/png.png)
+To move left and right, we changed **x**. To move up and down, we should change **y**.
 
-Again, drag the downloaded file from your browser into your your game's images folder.
+```
+def update():
+    if keyboard.up:
+        player.y -= 5
+    if keyboard.down:
+        player.y += 5
+    if keyboard.right:
+        player.x += 5
+    if keyboard.left:
+        player.x -= 5
+```
 
-Make sure you change the names of both the svg and png files to something suitable.
-**The filenames must not contain spaces, capital letters, or special characters other than underscore.**
-In this case, I would recommend using "player_ship" as a filename.
+Limiting the Movement
+===
+Right now, your ship should be able to move in all directions (...test it out!), but it can also move too far and exit the screen.
+To prevent this, we should prevent the x and y from getting too large or too small using a new set of **"if"** conditions.
+
+```
+if player.x < 25:
+    player.x = 25
+if player.x > 775:
+    player.x = 775
+```
+
+These will force the x position to stay between 25 to 775.
+Why didn't I use 0 to 800?
+Try it out and see the effect.
+The best values to use will be different for everyone, so you'll likely need to tune this.
+
+The above code only limits the x position.
+What about y?
+Try and implement it yourself.
+
+At this point...
+===
+
+At the end of these, your program should look like this...
+
+```
+import pgzrun
+
+WIDTH=800
+HEIGHT=600
+
+player = Actor('player')
+player.x = 400
+player.y = 500
+
+def update():
+    if keyboard.up:
+        player.y -= 5
+    if keyboard.down:
+        player.y += 5
+    if keyboard.right:
+        player.x += 5
+    if keyboard.left:
+        player.x -= 5
+
+    if player.x < 25:
+        player.x = 25
+    if player.x > 775:
+        player.x = 775
+    if player.y < 30:
+        player.y = 30
+    if player.y > 570:
+        player.y = 570
+
+def draw():
+    screen.clear()
+    player.draw()
+
+pgzrun.go() # Must be last line
+```
