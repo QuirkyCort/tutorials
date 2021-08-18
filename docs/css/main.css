@@ -23,7 +23,7 @@ body {
   margin-left: 1em; }
 
 #home {
-  color: blue;
+  color: #6d7fcc;
   text-decoration: none; }
 
 #body {
@@ -49,7 +49,8 @@ body {
   overflow-y: scroll;
   transition: left 0.5s; }
   #sidebar p {
-    font-weight: bold; }
+    font-weight: bold;
+    font-family: sans-serif; }
   #sidebar ul {
     padding: 0 0 0.5em 0;
     border-bottom: solid 1px rgba(255, 255, 255, 0.2); }
@@ -59,7 +60,7 @@ body {
     margin-left: -0.5em;
     margin-right: -0.5em; }
   #sidebar a {
-    color: white;
+    color: #DDD;
     text-decoration: none; }
   #sidebar li.current {
     background: #6d7fcc; }
