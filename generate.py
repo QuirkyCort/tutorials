@@ -38,7 +38,7 @@ def get_dir(path):
     dirs = []
     entries = os.scandir(path)
     for entry in entries:
-        if entry.is_dir():
+        if entry.is_dir() and entry.name[0] != 'd':
             if entry.name not in EXCLUDE_DIR:
                 dirs.append(entry.name)
     sort_by_num(dirs)
@@ -48,7 +48,7 @@ def get_md_files(path):
     md_files = []
     entries = os.scandir(path)
     for entry in entries:
-        if not entry.is_dir() and entry.name[-3:] == '.md':
+        if not entry.is_dir() and entry.name[-3:] == '.md' and entry.name[0] != 'd':
             md_files.append(entry.name)
     sort_by_num(md_files)
     return md_files
