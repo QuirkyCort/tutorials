@@ -14,6 +14,6 @@ Keep adding a new monster every 1 second. This means that as time passes, there 
 
 Add a mushroom to the game. Touching the mushroom will increase the timer by 0.5 seconds, giving the player more time.
 
-### Challeng 4. Animation
+### Challenge 4. Animation
 
 Animate the player whenever it moves.
