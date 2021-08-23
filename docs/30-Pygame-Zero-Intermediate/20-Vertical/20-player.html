@@ -125,6 +125,10 @@ In this case, I would recommend using "player_ship" as a filename.</p>
             document.getElementById('hamburger').addEventListener('click', function() {
                 document.getElementById('body').classList.toggle('close');
             });
+
+            document.querySelector('#sidebar li.current').scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>

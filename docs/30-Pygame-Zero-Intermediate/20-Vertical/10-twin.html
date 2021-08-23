@@ -79,6 +79,10 @@ The player's ship can move in all directions, but always faces and shoots upward
             document.getElementById('hamburger').addEventListener('click', function() {
                 document.getElementById('body').classList.toggle('close');
             });
+
+            document.querySelector('#sidebar li.current').scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
