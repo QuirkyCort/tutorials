@@ -6,6 +6,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <link href="../../css/pygment_default.css" rel="stylesheet">
   <link href="../../css/main.css" rel="stylesheet">
 
   <title>Pygame Zero Intermediate</title>
@@ -41,10 +42,11 @@
 <p>...and adding a background to it using a rounded rectangle...</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/game-over.png" /></p>
 <p>We'll add this to our game, but don't draw it yet.</p>
-<pre><code>game_over = Actor('game_over')
+<div class="codehilite"><pre><span></span><code>game_over = Actor(&#39;game_over&#39;)
 game_over.x = 400
 game_over.y = 300
-</code></pre>
+</code></pre></div>
+
 <h1>Game States</h1>
 <p>A game can have multiple states, such as...</p>
 <ul>
@@ -54,31 +56,36 @@ game_over.y = 300
 </ul>
 <p>In each of theses states, the program will do and show different things. For example, in the "Game over screen" state, you can't shoot, and the player isn't shown.</p>
 <p>To keep track of the game state, we'll create a new variable.</p>
-<pre><code>game_state = 1
-</code></pre>
+<div class="codehilite"><pre><span></span><code>game_state = 1
+</code></pre></div>
+
 <p>We'll use 1 to represent the "Actual game" state, and 2 to represent the "Game over screen" state. When the player touches the enemy bullet or enemy, we'll change the state to 2.</p>
-<pre><code>if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
+<div class="codehilite"><pre><span></span><code>if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
     game_state = 2
-</code></pre>
+</code></pre></div>
+
 <p>Since we are changing <code>game_state</code>, remember to declare it as global.</p>
-<pre><code>global bullet_delay, powerup1, powerup2, game_state
-</code></pre>
+<div class="codehilite"><pre><span></span><code>global bullet_delay, powerup1, powerup2, game_state
+</code></pre></div>
+
 <h1>Explosion and Sound Effects</h1>
 <p>Let's add in an explosion if the player is destroyed. See if you can figure out where to put this code.</p>
-<pre><code>explosion = Actor('explosion1')
+<div class="codehilite"><pre><span></span><code>explosion = Actor(&#39;explosion1&#39;)
 explosion.x = player.x
 explosion.y = player.y
-explosion.images = ['explosion1', 'explosion2']
+explosion.images = [&#39;explosion1&#39;, &#39;explosion2&#39;]
 explosion.fps = 8
 explosion.life = 100
 explosions.append(explosion)
-</code></pre>
+</code></pre></div>
+
 <p>This works the same as the enemy explosion, except that we made it last longer (...life = 100).</p>
 <p>We'll also have some sound effects...</p>
-<pre><code>sounds.main_theme.stop()
+<div class="codehilite"><pre><span></span><code>sounds.main_theme.stop()
 sounds.sfx_exp_medium12.play()
 sounds.subdued_theme.play(-1)
-</code></pre>
+</code></pre></div>
+
 <p>This will...</p>
 <ul>
 <li>Stop the background music</li>
@@ -88,32 +95,36 @@ sounds.subdued_theme.play(-1)
 <p>They only work if you have the corresponding sound files in your sounds folder. You don't have to use the same sound as me; choose whichever sound and music you like.</p>
 <h1>Game Over</h1>
 <p>If <code>game_state</code> is 2, we'll draw the game over screen.</p>
-<pre><code>if game_state == 2:
+<div class="codehilite"><pre><span></span><code>if game_state == 2:
     game_over.draw()
-</code></pre>
+</code></pre></div>
+
 <p>We should also modify our program, so that it'll only draw the player if <code>game_state</code> is 1.</p>
-<pre><code>if game_state == 1:
+<div class="codehilite"><pre><span></span><code>if game_state == 1:
     player.draw()
-</code></pre>
+</code></pre></div>
+
 <p>Similarly, we'll allow shooting only if <code>game_state</code> is 1.</p>
-<pre><code>if keyboard.space and bullet_delay == 0 and game_state == 1:
+<div class="codehilite"><pre><span></span><code>if keyboard.space and bullet_delay == 0 and game_state == 1:
     shoot()
-</code></pre>
+</code></pre></div>
+
 <p>Also, we can only pickup powerups if <code>game_state</code> is 1.</p>
-<pre><code>hit = player.collidelist(powerups)
+<div class="codehilite"><pre><span></span><code>hit = player.collidelist(powerups)
 if hit != -1 and game_state == 1:
 .
 .
 .
-</code></pre>
+</code></pre></div>
+
 <p>Finally, you may have noticed a bug when you test the program. Sometimes after the player is destroyed, you may see another explosion happen out of nowhere. That happens because the player is still able to collide with the enemy even if the player isn't drawn on screen!</p>
 <p>Let's modify the player collision code so that the player cannot collide unless the <code>game_state</code> is 1.</p>
-<pre><code>if game_state == 1:
+<div class="codehilite"><pre><span></span><code>if game_state == 1:
     if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
     .
     .
     .
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

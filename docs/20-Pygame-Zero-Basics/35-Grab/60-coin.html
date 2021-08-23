@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10-Intro/10-intro.html"><li >Introduction</li></a><a href="../10-Intro/20-install.html"><li >Installation</li></a><a href="../10-Intro/30-folders.html"><li >Setting up the folders</li></a><a href="../10-Intro/40-idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20-Gem/10-first.html"><li >First Program</li></a><a href="../20-Gem/20-update.html"><li >update()</li></a><a href="../20-Gem/30-add-gem.html"><li >Adding a Gem</li></a><a href="../20-Gem/40-collision.html"><li >Collision</li></a><a href="../20-Gem/50-score.html"><li >Keeping Score</li></a><a href="../20-Gem/60-mouse.html"><li >Mouse Controls</li></a><a href="../20-Gem/70-harder.html"><li >Making it harder</li></a><a href="../20-Gem/80-gameover.html"><li >Game Over</li></a><a href="../20-Gem/90-challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../30-Ninja/10-infinite.html"><li >Infinite Runner</li></a><a href="../30-Ninja/20-background.html"><li >Background</li></a><a href="../30-Ninja/30-animation.html"><li >Animation</li></a><a href="../30-Ninja/40-jump.html"><li >Jump Physics</li></a><a href="../30-Ninja/50-obstacles.html"><li >Obstacles</li></a><a href="../30-Ninja/60-score.html"><li >Keeping Score</li></a><a href="../30-Ninja/70-gameover.html"><li >Game Over</li></a><a href="../30-Ninja/80-challenges.html"><li >Challenges and Bugs</li></a></ul><p>Grab the Coin</p><ul><a href="../35-Grab/10-grab.html"><li >Grab the Coin</li></a><a href="../35-Grab/20-files.html"><li >Preparing the Files</li></a><a href="../35-Grab/30-background.html"><li >Background Image</li></a><a href="../35-Grab/40-player.html"><li >Player</li></a><a href="../35-Grab/50-movement.html"><li >Moving the Player</li></a><a href="../35-Grab/60-coin.html"><li class="current">Coin</li></a><a href="../35-Grab/70-collision.html"><li >Collision</li></a><a href="../35-Grab/80-score.html"><li >Score</li></a><a href="../35-Grab/90-timer.html"><li >Timer</li></a><a href="../35-Grab/100-challenges.html"><li >Challenges</li></a></ul><p>Tanks</p><ul><a href="../40-Tanks/10-battle-city.html"><li >Battle City</li></a><a href="../40-Tanks/20-tank.html"><li >Player Tank</li></a><a href="../40-Tanks/30-move.html"><li >Moving the Tank</li></a><a href="../40-Tanks/40-background.html"><li >Background</li></a><a href="../40-Tanks/50-wall.html"><li >Walls</li></a><a href="../40-Tanks/60-space.html"><li >Making Space</li></a><a href="../40-Tanks/70-random.html"><li >Random walls</li></a><a href="../40-Tanks/80-block.html"><li >Blocking Movements</li></a><a href="../40-Tanks/90-cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40-Tanks/100-destroy-wall.html"><li >Destroying Walls</li></a><a href="../40-Tanks/110-enemy.html"><li >Adding One Enemy</li></a><a href="../40-Tanks/120-enemy-bullet.html"><li >Enemy Bullets</li></a><a href="../40-Tanks/130-enemies.html"><li >Many Enemies</li></a><a href="../40-Tanks/140-win.html"><li >Destroy and Win</li></a><a href="../40-Tanks/150-lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50-Next/10-intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Coin</h1>
+<p>You probably know what to do by now. Like before, we'll start by creating the <strong>Actor</strong> for the coin.</p>
+<div class="codehilite"><pre><span></span><code>coin = Actor(&#39;coingold&#39;)
+</code></pre></div>
+
+<p>We'll also need to draw in in the <strong>draw()</strong> function.</p>
+<div class="codehilite"><pre><span></span><code>coin.draw()
+</code></pre></div>
+
+<h2>Random position</h2>
+<p>We want our coin to start in a random position. To do that, we'll need the help of the <strong>random</strong> module. Let's start by importing this module.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
+</code></pre></div>
+
+<p>This line should be placed at the top, just below <code>import pgzrun</code>.</p>
+<p>Since the width of our screen is 800, we want our coin to start with an <strong>x</strong> position that is somewhere between 0 to 800.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+</code></pre></div>
+
+<p>And since the height of our screen is 600, we want our coin to start with an <strong>y</strong> position that is somewhere between 0 to 600.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>At this point...</h2>
+<p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">random</span>
+</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
+
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p3_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="hll"><span class="n">coin</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;coingold&#39;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+</span><span class="hll"><span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">    <span class="n">coin</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
+
+<p>Your game should now look like this...</p>
+<p><img alt="" src="../images/grab_coin.jpg" /></p>
+<p>Since the coin position is randomized, your coin may not appear in the same position as mine. Try closing and restarting the game a few times; you should see the coin appear in a different position each time.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        });
+    </script>
+</body>
+</html>

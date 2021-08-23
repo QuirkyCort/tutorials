@@ -13,8 +13,14 @@ META_FILE = 'meta.json'
 TEMPLATE_FILE = 'template.html'
 INDEX_FILE = 'index.html'
 REDIRECT_FILE = 'redirect.html'
-EXCLUDE_DIR = ['images', 'css', 'scss', 'js']
-COPY_DIR = ['images', 'css', 'js']
+EXCLUDE_DIR = ['images', 'css', 'scss', 'js', 'download']
+COPY_DIR = ['images', 'css', 'js', 'download']
+MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite']
+MARKDOWN_EXTENSIONS_CONFIGS = {
+    'codehilite': {
+        'guess_lang': False
+    }
+}
 
 DEBUG = True
 
@@ -153,6 +159,7 @@ def copy_excludes(course):
     for directory in COPY_DIR:
         src = os.path.join(COURSES_DIR, course, directory)
         dest = os.path.join(HTML_DIR, course, directory)
+        dest = filter_out_path(dest)
         if os.path.isdir(src):
             print('    ' + directory)
             if os.path.exists(dest):
@@ -166,6 +173,9 @@ def compile_scss(course):
     dest = mkdir_if_needed(HTML_DIR, course, 'css')
     
     os.system('sass --sourcemap=none --update ' + src + ':' + dest)
+
+def compile_md(content):
+    return markdown.markdown(content, extensions=MARKDOWN_EXTENSIONS, extension_configs=MARKDOWN_EXTENSIONS_CONFIGS)
 
 def filter_out_path(path):
     return re.sub(' ', '-', path)
@@ -278,7 +288,7 @@ for course in courses:
                 section_first_page = filename_out
 
             content = get_md_content(section_path, page)
-            content_html = markdown.markdown(content, extensions=['fenced_code'])
+            content_html = compile_md(content)
 
             toc_html = gen_toc_html(toc, section_out + '/' + filename_out)
 
