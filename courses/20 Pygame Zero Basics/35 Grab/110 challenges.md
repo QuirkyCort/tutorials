@@ -17,3 +17,7 @@ Add a mushroom to the game. Touching the mushroom will increase the timer by 0.5
 ### Challenge 4. Animation
 
 Animate the player whenever it moves.
+
+### Challenge 5. End of Game Sound
+
+We prepared two sound file, but only used one of them. Can you figure out a way to play the second sound when the game ends? This can be a little tricky and may not work the way you expect the first time. Don't give up and you'll figure it out!

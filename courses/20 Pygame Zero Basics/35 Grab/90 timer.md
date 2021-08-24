@@ -72,7 +72,7 @@ if timer <= 0:
     return
 ```
 
-## Completed Code
+## At this point...
 
 Right now your code should look like this (new lines are highlighted in yellow)...
 
