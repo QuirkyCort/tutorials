@@ -63,8 +63,10 @@ But to truly make the game your own, I <strong>strongly encourage</strong> you t
                 document.getElementById('body').classList.toggle('close');
             });
 
-            document.querySelector('#sidebar li.current').scrollIntoView({
-                behavior: 'smooth'
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
             });
         });
     </script>

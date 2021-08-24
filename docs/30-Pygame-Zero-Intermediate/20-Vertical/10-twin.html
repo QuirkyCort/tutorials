@@ -80,8 +80,10 @@ The player's ship can move in all directions, but always faces and shoots upward
                 document.getElementById('body').classList.toggle('close');
             });
 
-            document.querySelector('#sidebar li.current').scrollIntoView({
-                behavior: 'smooth'
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
             });
         });
     </script>

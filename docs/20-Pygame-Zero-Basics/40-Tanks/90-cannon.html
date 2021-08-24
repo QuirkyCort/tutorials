@@ -201,8 +201,11 @@ pgzrun.go() # Must be last line
             document.getElementById('hamburger').addEventListener('click', function() {
                 document.getElementById('body').classList.toggle('close');
             });
-            document.querySelector('#sidebar li.current').scrollIntoView({
-                behavior: 'smooth'
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
             });
         });
     </script>
