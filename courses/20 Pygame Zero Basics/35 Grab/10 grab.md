@@ -2,7 +2,7 @@
 
 **Grab the Coin** is a simple game based on a [MakeCode Arcade](https://arcade.makecode.com) tutorial, but we'll be making our own version in Python. You can see a video of the MakeCode Arcade version here...
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/V7eKavFXYHY?start=340" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V7eKavFXYHY?start=396" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Using Python and Pygame Zero allows us to have better graphics and sound, but the gameplay will remain the same.
 

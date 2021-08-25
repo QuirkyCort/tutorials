@@ -76,7 +76,7 @@ if timer <= 0:
 
 Right now your code should look like this (new lines are highlighted in yellow)...
 
-```python hl_lines="18 22 24 25 27 44 45 46 47 48"
+```python hl_lines="18 22 24 25 27 44 45 46 47 48 53"
 import pgzrun
 import random
 
