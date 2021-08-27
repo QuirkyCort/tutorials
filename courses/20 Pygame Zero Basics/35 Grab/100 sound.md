@@ -12,11 +12,11 @@ Playing a sound is easy, we'll use the command...
 sounds.sfx_coin_single1.play()
 ```
 
-**sounds** : This means to use the sounds object that is provided by Pygame Zero.
+```sounds``` : This means to use the sounds object that is provided by Pygame Zero.
 
-**sfx_coin_single1** : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.
+```sfx_coin_single1``` : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.
 
-**play()** : This tells it to play once. If you provide a number in the parameter (eg. ```play(3)```), it will repeat the sound for that number of times. You can also use ```play(-1)``` if you want it to repeat forever.
+```play()``` : This tells it to play once. If you provide a number in the parameter (eg. ```play(3)```), it will repeat the sound for that number of times. You can also use ```play(-1)``` if you want it to repeat forever.
 
 ## When to Play Sound
 

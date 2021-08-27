@@ -10,11 +10,11 @@ Playing the background music is easy, we'll use the command...
 sounds.sneakingaround.play(-1)
 ```
 
-**sounds** : This means to use the sounds object that is provided by Pygame Zero.
+```sounds``` : This means to use the sounds object that is provided by Pygame Zero.
 
-**sneakingaround** : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.
+```sneakingaround``` : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.
 
-**play(-1)** : This tells it to repeat the sound forever. You can also use ```play()``` if you want it to play only once.
+```play(-1)``` : This tells it to repeat the sound forever. You can also use ```play()``` if you want it to play only once.
 
 This line should be outside of any functions. We want it to start playing at the start of the game, and repeat forever.
 

@@ -42,9 +42,9 @@
 <div class="codehilite"><pre><span></span><code><span class="n">sounds</span><span class="o">.</span><span class="n">sfx_coin_single1</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
 </code></pre></div>
 
-<p><strong>sounds</strong> : This means to use the sounds object that is provided by Pygame Zero.</p>
-<p><strong>sfx_coin_single1</strong> : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.</p>
-<p><strong>play()</strong> : This tells it to play once. If you provide a number in the parameter (eg. <code>play(3)</code>), it will repeat the sound for that number of times. You can also use <code>play(-1)</code> if you want it to repeat forever.</p>
+<p><code>sounds</code> : This means to use the sounds object that is provided by Pygame Zero.</p>
+<p><code>sfx_coin_single1</code> : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.</p>
+<p><code>play()</code> : This tells it to play once. If you provide a number in the parameter (eg. <code>play(3)</code>), it will repeat the sound for that number of times. You can also use <code>play(-1)</code> if you want it to repeat forever.</p>
 <h2>When to Play Sound</h2>
 <p>We want to play the coin sound whenever we touch a coin. So add it under the <strong>if</strong> statement where we check if the player is colliding with the coin.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">coin</span><span class="p">):</span>
