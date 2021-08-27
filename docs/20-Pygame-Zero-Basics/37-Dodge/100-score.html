@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pygame Zero Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pygame Zero Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches game development using Pygame Zero. It will take the student through the creation of a few sample games.</div>
+            <p>Intro to Pygame Zero</p><ul><a href="../10-Intro/10-intro.html"><li >Introduction</li></a><a href="../10-Intro/20-install.html"><li >Installation</li></a><a href="../10-Intro/30-folders.html"><li >Setting up the folders</li></a><a href="../10-Intro/40-idle.html"><li >Using IDLE</li></a></ul><p>Gem Catcher</p><ul><a href="../20-Gem/10-first.html"><li >First Program</li></a><a href="../20-Gem/20-update.html"><li >update()</li></a><a href="../20-Gem/30-add-gem.html"><li >Adding a Gem</li></a><a href="../20-Gem/40-collision.html"><li >Collision</li></a><a href="../20-Gem/50-score.html"><li >Keeping Score</li></a><a href="../20-Gem/60-mouse.html"><li >Mouse Controls</li></a><a href="../20-Gem/70-harder.html"><li >Making it harder</li></a><a href="../20-Gem/80-gameover.html"><li >Game Over</li></a><a href="../20-Gem/90-challenges.html"><li >Challenges</li></a></ul><p>Ninja Runner</p><ul><a href="../30-Ninja/10-infinite.html"><li >Infinite Runner</li></a><a href="../30-Ninja/20-background.html"><li >Background</li></a><a href="../30-Ninja/30-animation.html"><li >Animation</li></a><a href="../30-Ninja/40-jump.html"><li >Jump Physics</li></a><a href="../30-Ninja/50-obstacles.html"><li >Obstacles</li></a><a href="../30-Ninja/60-score.html"><li >Keeping Score</li></a><a href="../30-Ninja/70-gameover.html"><li >Game Over</li></a><a href="../30-Ninja/80-challenges.html"><li >Challenges and Bugs</li></a></ul><p>Grab the Coin</p><ul><a href="../35-Grab/10-grab.html"><li >Grab the Coin</li></a><a href="../35-Grab/20-files.html"><li >Preparing the Files</li></a><a href="../35-Grab/30-background.html"><li >Background Image</li></a><a href="../35-Grab/40-player.html"><li >Player</li></a><a href="../35-Grab/50-movement.html"><li >Moving the Player</li></a><a href="../35-Grab/60-coin.html"><li >Coin</li></a><a href="../35-Grab/70-collision.html"><li >Collision</li></a><a href="../35-Grab/80-score.html"><li >Score</li></a><a href="../35-Grab/90-timer.html"><li >Timer</li></a><a href="../35-Grab/95-end.html"><li >Ending the Game</li></a><a href="../35-Grab/100-sound.html"><li >Sound and Music</li></a><a href="../35-Grab/110-challenges.html"><li >Challenges</li></a></ul><p>Dodge the Creep</p><ul><a href="../37-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../37-Dodge/20-files.html"><li >Preparing the Files</li></a><a href="../37-Dodge/30-background.html"><li >Background Image</li></a><a href="../37-Dodge/40-player.html"><li >Player</li></a><a href="../37-Dodge/50-movement.html"><li >Moving the Player</li></a><a href="../37-Dodge/60-enemies1.html"><li >Enemies (Part 1)</li></a><a href="../37-Dodge/70-enemies2.html"><li >Enemies (Part 2)</li></a><a href="../37-Dodge/80-enemies3.html"><li >Enemies (Part 3)</li></a><a href="../37-Dodge/90-collision.html"><li >Collision</li></a><a href="../37-Dodge/100-score.html"><li class="current">Score</li></a><a href="../37-Dodge/110-sound.html"><li >Sound and Music</li></a><a href="../37-Dodge/120-challenges.html"><li >Challenges</li></a></ul><p>Tanks</p><ul><a href="../40-Tanks/10-battle-city.html"><li >Battle City</li></a><a href="../40-Tanks/20-tank.html"><li >Player Tank</li></a><a href="../40-Tanks/30-move.html"><li >Moving the Tank</li></a><a href="../40-Tanks/40-background.html"><li >Background</li></a><a href="../40-Tanks/50-wall.html"><li >Walls</li></a><a href="../40-Tanks/60-space.html"><li >Making Space</li></a><a href="../40-Tanks/70-random.html"><li >Random walls</li></a><a href="../40-Tanks/80-block.html"><li >Blocking Movements</li></a><a href="../40-Tanks/90-cannon.html"><li >Drawing the Cannon Bullet</li></a><a href="../40-Tanks/100-destroy-wall.html"><li >Destroying Walls</li></a><a href="../40-Tanks/110-enemy.html"><li >Adding One Enemy</li></a><a href="../40-Tanks/120-enemy-bullet.html"><li >Enemy Bullets</li></a><a href="../40-Tanks/130-enemies.html"><li >Many Enemies</li></a><a href="../40-Tanks/140-win.html"><li >Destroy and Win</li></a><a href="../40-Tanks/150-lose.html"><li >Losing</li></a></ul><p>What's Next?</p><ul><a href="../50-Next/10-intermediate.html"><li >Intermediate Course</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Score</h1>
+<p>To keep track of the score, we'll start by creating a new variable and start it at zero. This is a <strong>global variable</strong> so make sure to put it outside of the <strong>update()</strong> and <strong>draw()</strong> functions.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>
+
+<p>We want our score to increase by 1 every second. Since <strong>update()</strong> runs 60 times per second, we'll add 1 / 60 of a point to the score each time <strong>update()</strong> runs.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">60</span>
+</code></pre></div>
+
+<p>...and don't forget to declare <strong>score</strong> as a global.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">global</span> <span class="n">score</span>
+</code></pre></div>
+
+<h2>Display the score</h2>
+<p>To display the score, we will use the <code>screen.draw.text()</code> function.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">)),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The parameters are...</p>
+<p><code>'Score: ' + str(round(score))</code> : This is the string that we want to draw. We round it off as we want to display a whole number.</p>
+<p><code>(15,10)</code> : This is the position to draw; x=15 and y=10.</p>
+<p><code>color=(255,255,255)</code> : This is the color of the text, in this case, it is white</p>
+<p><code>fontsize=30</code> : The size of the font.</p>
+<p>Like all the other drawing functions, we'll need to put this inside the <code>draw()</code> function.</p>
+<p>We'll also need to draw the score when the game is over; it'll be the same as the above, but in a different x and y position.</p>
+<h2>Stopping Controls</h2>
+<p>When the game is over, we want to stop the players and animals from moving. As before, we can do this easily by calling the <strong>return</strong> function inside <strong>update()</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+<p>Put this near the top of the <strong>update()</strong> function. If will immediate end the <strong>update()</strong> function and skip all the code below it if <strong>game_over</strong> is <strong>True</strong>.</p>
+<h2>At this point...</h2>
+<p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="hll"><span class="n">game_over</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
+
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+<span class="hll">    <span class="k">global</span> <span class="n">score</span><span class="p">,</span> <span class="n">game_over</span>
+</span>
+<span class="hll">    <span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+</span><span class="hll">        <span class="k">return</span>
+</span>
+    <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">60</span>
+
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">side</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;worm.png&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">850</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">650</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+
+        <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
+
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">850</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">650</span><span class="p">:</span>
+            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+
+<span class="hll">    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">game_over</span> <span class="o">=</span> <span class="kc">True</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+<span class="hll">    <span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span class="hll">        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Game Over&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span><span class="mi">270</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">)),</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span><span class="mi">330</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">else</span><span class="p">:</span>
+</span>        <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">)),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span>
+</code></pre></div>
+
+<p>You should now see the score increase every second.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
