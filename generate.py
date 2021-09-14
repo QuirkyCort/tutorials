@@ -71,6 +71,38 @@ def get_meta(directory):
         print(e)
         sys.exit()
 
+def get_course_meta(directory, course):
+    default_meta = {
+        'title': course,
+        'shortDescription': ''
+    }
+
+    meta = get_meta(directory)
+    if meta == None:
+        file = os.path.join(directory, META_FILE)
+        f = open(file, 'w')
+        json.dump(default_meta, f, indent=4)
+    else:
+        default_meta['title'] = get_prop(meta, 'title', course)
+        default_meta['shortDescription'] = get_prop(meta, 'shortDescription', '')
+
+    return default_meta
+
+def get_section_meta(directory, section):
+    default_meta = {
+        'title': section
+    }
+
+    meta = get_meta(directory)
+    if meta == None:
+        file = os.path.join(directory, META_FILE)
+        f = open(file, 'w')
+        json.dump(default_meta, f, indent=4)
+    else:
+        default_meta['title'] = get_prop(meta, 'title', section)
+
+    return default_meta
+
 def get_template(directory):
     file = os.path.join(directory, TEMPLATE_FILE)
     try:
@@ -203,7 +235,7 @@ compile_scss('.')
 
 # Courses
 courses = get_dir(COURSES_DIR)
-print('Sites found: ' + str(courses) + '\n')
+print('Courses found: ' + str(courses) + '\n')
 
 directory = {}
 
@@ -212,9 +244,9 @@ for course in courses:
     course_path = os.path.join(COURSES_DIR, course)
     course_out = filter_out_path(course)
 
-    course_meta = get_meta(course_path)
-    course_title = get_prop(course_meta, 'title', course)
-    course_short_description = get_prop(course_meta, 'shortDescription', '')
+    course_meta = get_course_meta(course_path, course)
+    course_title = course_meta['title']
+    course_short_description = course_meta['shortDescription']
     
     course_template = get_template(course_path)
     course_redirect = get_redirect(course_path)
@@ -234,8 +266,8 @@ for course in courses:
         section_path = os.path.join(course_path, section)
         section_out = filter_out_path(section)
 
-        section_meta = get_meta(section_path)
-        section_title = get_prop(section_meta, 'title', section)
+        section_meta = get_section_meta(section_path, section)
+        section_title = section_meta['title']
         
         pages = get_md_files(section_path)
 
@@ -271,8 +303,8 @@ for course in courses:
         section_template = get_template(section_path)
         section_redirect = get_redirect(section_path)
         
-        section_meta = get_meta(section_path)
-        section_title = get_prop(section_meta, 'title', section)
+        section_meta = get_section_meta(section_path, section)
+        section_title = section_meta['title']
         
         pages = get_md_files(section_path)
 
