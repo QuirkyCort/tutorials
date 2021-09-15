@@ -68,7 +68,7 @@ for enemy in enemies:
 
 Right now your code should look like this (new lines are highlighted in yellow)...
 
-```python hl_lines="13 25 26 27 28 29 31 32 34 35 40 41"
+```python hl_lines="2 13 25 26 27 28 29 31 32 34 35 40 41"
 import pgzrun
 import random
 
