@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li class="current">Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Four sides</h1>
+<p>Now that we have the enemy appear from the top, we can easily modify the actions to make it appear from the bottom (...change the starting <strong>Y position</strong> to 600, and the <strong>Y force</strong> to <strong>-200</strong>).
+Similarly, it's not hard to make it appear from the left or right.
+But what if we want the enemy to pick a random side each time it appears?</p>
+<h2>Variables</h2>
+<p>To do that, we'll...</p>
+<ol>
+<li>Pick a random number from 1 to 4 and save it in a <strong>Variable</strong>.</li>
+<li>Depending on the value in the variable, we'll set the starting position, angle, and force for the enemy.</li>
+</ol>
+<p>A variable allows you to store <strong>data</strong>, such as a number or a text.
+Think of a variable as a type of box; you can label the box with a name, then place or retrieve things from the box.</p>
+<p>Right under the <strong>Reset Timer</strong> action, add a new action, choose <strong>Other Actions</strong>, then select <strong>Value of a scene variable</strong>.
+Under <strong>Variable</strong>, type in <strong>side</strong> (...nothing special about this name, you can use a different name if you prefer).
+Under <strong>Modification's sign</strong>, select <strong>= (set to)</strong>, and under <strong>Value</strong>, select <strong>RandomInRange(1, 4)</strong>.</p>
+<p><img alt="" src="images/setVariable.png" /></p>
+<h2>Conditions with Variables</h2>
+<p>Previously, we left the conditions for timer sub-event blank (...that's the one with the add enemy actions).
+Now, we'll add in a condition, click on <strong>Add condition</strong>, <strong>Other conditions</strong>, and select <strong>Value of a scene variable</strong>.
+Under <strong>Variable</strong>, type in the same name we've used earlier (...<strong>side</strong>), under <strong>Sign of test</strong>, select <strong>= (equal to)</strong>, and under <strong>Value to compare</strong>, type in <strong>1</strong>.</p>
+<p>Now your events should look like this...</p>
+<p><img alt="" src="images/checkVariable.png" /></p>
+<h2>All Four Sides</h2>
+<p>Make 3 more copies of the add enemy sub-event, and modify them so that each of them will...</p>
+<ol>
+<li>Check for a different number in <strong>side</strong></li>
+<li>Start the enemy on a different random side.</li>
+<li>Set the rotation according to the side it is on.</li>
+<li>Set the force according to the side it is on.</li>
+</ol>
+<p>It should look something like this...</p>
+<p><img alt="" src="images/allSides.png" /></p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

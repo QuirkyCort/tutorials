@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li class="current">Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Enemies</h1>
+<p>Time to add the enemies!
+Add a new object, and select an suitable object to be your enemy.
+I'm using the <strong>Swimming enemy</strong> object...</p>
+<p><img alt="" src="images/swimmingEnemy.png" /></p>
+<p>As before, preview the animation and adjust the animation speed.</p>
+<h2>Create object action</h2>
+<p>Unlike the player and the arrow buttons, we can have many instances of the enemy, and we won't know exactly when or where they will appear.
+So instead of dragging them on to the scene, we'll use a <strong>Create object</strong> action to create the enemy instances.</p>
+<h2>Timer</h2>
+<p>For this game, we want to create a new enemy every 1 second.
+To do that, make use of a timer, and everytime the timer exceeds 1 second, we'll...</p>
+<ol>
+<li>Reset the timer (...back to zero).</li>
+<li>Add a new enemy at a random position.</li>
+<li>Rotate the enemy around (...so it faces the correct direction).</li>
+<li>Add a force to the enemy (...to make it move).</li>
+</ol>
+<p>Start by adding a new event.
+Click on <strong>Add condition</strong>, select <strong>Other Conditions</strong>, then <strong>Value of a scene timer</strong>.
+Set the <strong>Time in seconds</strong> to <strong>1</strong>, and the <strong>Timer's name</strong> to <strong>enemy timer</strong> (...nothing special about this name; you can use a different name if you want).</p>
+<p><img alt="" src="images/timer.png" /></p>
+<p>Next, add a sub-event under the timer event.
+Leave the condition blank, and add an action.
+Select the enemy, then the <strong>Create an object</strong> action.</p>
+<p><img alt="" src="images/createObject.png" /></p>
+<h2>Expressions</h2>
+<p>We want the enemy to appear at a random <strong>X position</strong> at the top of the screen.
+To do that, do not key in a value for the <strong>X position</strong>, instead click on the expressions button next to it. <img alt="" src="images/expressions.png" /></p>
+<p>Select the <strong>Random integer in range</strong> expression, and set the range <strong>0 to 800</strong>. Click <strong>Apply</strong></p>
+<p><img alt="" src="images/randomRange.png" /></p>
+<p>For the <strong>Y position</strong>, set it to 0. This will make our enemy start at the top of the screen.</p>
+<p><img alt="" src="images/createObjectXY.png" /></p>
+<h2>Screen Dimensions and Coordinates</h2>
+<p>Previously, we set the random range to <strong>0 to 800</strong>, this is because the default dimension of the game screen is 800 (width) by 600 (height).
+You can see (...and change) these by clicking the <strong>Project Manager</strong> button, selecting <strong>Game settings</strong>, then <strong>Properties</strong>.</p>
+<p>We also set the <strong>Y position</strong> to 0 when we want the enemy to appear at the top.
+This is because unlike in math, for most computer graphics software, the Y axis is pointed downwards, and the origin is at the top left corner of the screen.</p>
+<p><img alt="" src="images/axis.png" /></p>
+<h2>Rotate the enemy</h2>
+<p>To rotate the enemy, add a new action, click on the enemy, and select the <strong>Angle</strong> action.
+Set the <strong>Modification's sign</strong> to <strong>= (set to)</strong> and the <strong>Value</strong> to <strong>90</strong>.</p>
+<p><img alt="" src="images/angle.png" /></p>
+<h2>Move the enemy</h2>
+<p>To rotate the enemy, add a new action, click on the enemy, and select the <strong>Add a Force</strong> action.</p>
+<p>Since we want the enemy to move downwards (positive Y direction), set the <strong>Speed on X axis</strong> to <strong>0</strong> and the <strong>Speed on Y axis</strong> to <strong>200</strong>.
+Also set the force type to be <strong>Permanent</strong>.
+If we set it to <strong>Instant</strong>, we'll have to keep applying the force every frame or the enemy will stop moving after a short while.</p>
+<p><img alt="" src="images/force.png" /></p>
+<p>Your events should now look like this...</p>
+<p><img alt="" src="images/enemiesOneSide.png" /></p>
+<h2>Preview</h2>
+<p>Test out your game.
+You should see the enemy randomly appear and drop down from the top.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

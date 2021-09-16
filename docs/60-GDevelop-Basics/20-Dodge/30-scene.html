@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li class="current">Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Scene Editor</h1>
+<p>You should now be in the scene editor...</p>
+<p><img alt="" src="images/scene editor.jpg" /></p>
+<p>Take a look around, and take note of the following...</p>
+<h3>Scene Area (in the middle)</h3>
+<p>This represents your game screen. Right now it's empty, but later we'll drag some objects into it.</p>
+<h3>Objects Panel (on the right)</h3>
+<p>In GDevelop, everything on screen is an object, including players, enemies, and text.
+The object panel will list all of the objects in this scene.</p>
+<p><strong>IMPORTANT</strong> Objects do not automatically appear on the scene. To do that, you need to create an <strong>Instance</strong> of the object.</p>
+<h3>Instance properties (on the left)</h3>
+<p>A object can have many instances in a scene, and you can configure each of these instances by changing their properties here (eg. size, position).</p>
+<h3>Events Tab</h3>
+<p>The events tab is where we define the controls, gameplay, and rules of the game.</p>
+<h2>Other Panels</h2>
+<p>There are a few other panels that are hidden by default (eg. layers).
+We won't be using them for now, but you can take a peek at them by clicking on their icons in the toolbar.
+If you accidentally close any of the default panels, you can also reopen them the same way.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

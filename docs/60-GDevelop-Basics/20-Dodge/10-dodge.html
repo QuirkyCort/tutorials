@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li class="current">Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Dodge the Creep</h1>
+<p><strong>Dodge the Creep</strong> is based on a <a href="https://godotengine.org/">Godot</a> tutorial. Godot is a professional quality game engine used to create both 2D and 3D games, but we'll be using GDevelop to make our own version. You can see a video of the Godot version of Dodge the Creep here..</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uPoLKQG0gmw?start=19" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>In this game, the player must dodge the incoming monsters and survive for as long as possible. The guided part of the game will be deliberately kept simple so everyone can follow along easily, but there will be some challenges at the end that you can try out to make the game more complete.</p>
+<p>While it's possible to make the game identical to the Godot version, I'll be making a few changes, primarily to keep things simple.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li class="current">First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>First Object</h1>
+<p>Click on <strong>Add new object</strong>, then from the asset store search for the <strong>Green Player</strong> and add it to the game.</p>
+<p><img alt="" src="images/add object.jpg" /></p>
+<p>If you can't find the <strong>Green Player</strong> object, make sure <strong>All assets</strong> is selected, then type in "green player" into the search bar.</p>
+<p><strong>Important</strong> There's nothing special about the Green Player object.
+I like it as it has a lot of useful animations that I can make use of and I like the color green.
+If you prefer a different character or have a different favorite color (heathen!), feel free to choose whatever you want.</p>
+<p>Once done, you can close the <strong>Add new object</strong> window.</p>
+<h2>Creating an Instance</h2>
+<p>Now you have your first object, but notice that it's not in the game scene yet.
+To add the object to your scene, drag it from the objects panel to the scene.
+We call this <strong>creating an Instance</strong>.</p>
+<p><img alt="" src="images/instance.jpg" /></p>
+<p>Each object can have many instances, and every instance can have a different set of properties (eg. position, size, angle).</p>
+<h2>Adding Behaviors</h2>
+<p>One powerful feature of GDevelop, is the ability to easily add <strong>Behaviors</strong> to an object, enhancing it with useful features.
+Many of the features used in games are already available as behaviors, allowing us to save a lot of coding.</p>
+<p>To start, double click on the player object, switch to the <strong>Behaviors</strong> tab, and click <strong>Add a Behavior to the object</strong>.</p>
+<p><img alt="" src="images/add behavior.jpg" /></p>
+<p>We'll be adding two behaviors...</p>
+<ul>
+<li>Top-down movement</li>
+<li>Stay on Screen</li>
+</ul>
+<p>The <strong>Top-down movement</strong> behavior is installed by default, so you can just click to add it.
+This behavior allows us to move the player using the arrow keys, and after adding it, you can tune the parameters (eg. speed and acceleration).
+For now, just make sure the <strong>Rotate object</strong> option is disabled, and leave the rest of the settings alone (...or mess around with it. Experimentation is cool.).</p>
+<p>The <strong>Stay on Scene</strong> behavior will prevent your player from leaving the screen and is not installed by default.
+Search for it under <strong>Search new behaviors</strong> and install it in the project.
+Once that is done, you can add it to your object by clicking on it under <strong>Installed behaviors</strong>.
+Set the <strong>bottom margin</strong> and <strong>right margin</strong> to <strong>20</strong>.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

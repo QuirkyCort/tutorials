@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li class="current">Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Introductions</h1>
+<p>In this program, you will learn a little about the game design process, and how to create a few simple games using the GDevelop game engine.
+There are no prerequisite skills for this course, but you will need either a PC (Windows, Mac, or Linux) or a tablet (...not recommended).</p>
+<h2>What is a Game Engine?</h2>
+<p>Game Engines are software that helps in the game creation process. They provide some or all of the following...</p>
+<ul>
+<li>Common game operations (eg. moving a player)</li>
+<li>Rendering to screen (2D, 3D, or both)</li>
+<li>Game authoring tool (eg. map creator)</li>
+</ul>
+<p>Examples of game engines includes:</p>
+<ul>
+<li>Unity (eg. Pokemon Go, Among Us, Kerbal Space Program)</li>
+<li>Unreal (eg. PUBG, Fortnite)</li>
+<li>Godot (eg. Sonic Colors, Ex Zodiac)</li>
+<li>GDevelop (eg. Hyperspace Dogfights, Lil BUB's HELLO EARTH)</li>
+</ul>
+<p><img alt="" src="images/game engines.jpg" /></p>
+<h2>What about Scratch?</h2>
+<p>Softwares like Scratch, Tynker, and MakeCode Arcade are great for learning to code, and you can certainly make very impressive games with them.
+But these software are designed to teach coding, and lacks many of the functionalities of a proper game engine.</p>
+<p>If you have been making games in Scratch; Don't stop! Scratch is a great way to learn coding.
+But learn to use other game engines as well, and you'll be able to bring your game to a higher level.</p>
+<h2>Do I need a Game Engine?</h2>
+<p>No. The game engine is just a software that's written by a bunch of smart people.
+You're smart too, and I'm sure you can write code that's just as good...</p>
+<p>...but using a game engine will make the game creation process a lot easier and faster.
+It's like building a car; you can manufacture every nut and bolt yourself, but why do that when you can just buy the nuts and bolts you need?</p>
+<p>That said, not every game uses a game engine.
+Some games may have a unique game mechanics which doesn't fit well with any of the game engines, and the developer may choose to directly code their game without using one.
+One notable example would be Minecraft.</p>
+<p><img alt="" src="images/minecraft.jpg" /></p>
+<p><em>Game engine isn't always required</em></p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -263,6 +263,10 @@ for course in courses:
 
     for section in sections:
         print('  Section found: ' + section)
+
+        print('  Copying directories: ')
+        copy_excludes(os.path.join(course, section))
+
         section_path = os.path.join(course_path, section)
         section_out = filter_out_path(section)
 
@@ -345,8 +349,12 @@ for course in courses:
             redirect = course_redirect
         if section_redirect:
             redirect = section_redirect
+        if section_first_page:
+            redirectURL = urllib.parse.quote(section_first_page)
+        else:
+            redirectURL = ''
         html = gen_html(redirect, {
-            'redirectURL': urllib.parse.quote(section_first_page)
+            'redirectURL': redirectURL
         })
         write_html(html, course_out, section_out, 'index.html')
 
