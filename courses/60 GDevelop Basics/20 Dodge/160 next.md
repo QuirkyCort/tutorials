@@ -53,6 +53,8 @@ Some of them may be useful in providing interesting effects for your game.
 
 ## Demo
 
-Here's an example with the challenges implement.
+Here's an example with the challenges implemented.
 
 <iframe width="800" height="600" src="https://games.accelerateworkshop.com/dodgeAdv/" title="Dodge the Creep" frameborder="0"></iframe>
+
+[Click here to play the game in a page of its own.](https://games.accelerateworkshop.com/dodgeAdv)

@@ -10,3 +10,5 @@ While it's possible to make the game identical to the Godot version, I'll be mak
 This is what our version will look like...
 
 <iframe width="800" height="600" src="https://games.accelerateworkshop.com/dodge/" title="Dodge the Creep" frameborder="0"></iframe>
+
+[Click here to play the game in a page of its own.](https://games.accelerateworkshop.com/dodge)
