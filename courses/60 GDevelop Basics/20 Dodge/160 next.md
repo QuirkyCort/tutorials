@@ -50,3 +50,9 @@ Can you add in more types of enemies?
 
 Play around with the available behaviors.
 Some of them may be useful in providing interesting effects for your game.
+
+## Demo
+
+Here's an example with the challenges implement.
+
+<iframe width="800" height="600" src="https://games.accelerateworkshop.com/dodge/" title="Dodge the Creep" frameborder="0"></iframe>
