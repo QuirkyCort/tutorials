@@ -10,8 +10,7 @@ The enemy may leave the screen (...so we don't see it), but it's still in the ga
 It's generally not a big problem as a modern computer can easily handle thousands of enemies without slowing down, but it's good practice to remove it when it's no longer needed.
 This is particularly important if we have a more complex games where we might end up with so many off-screen objects that it ends up slowing down the computer.
 
-**TIP** There is an **Is On Screen** behavior that you can add to the enemy.
-Once added, you'll have a new condition to detect if an enemy is on-screen, and you can use that condition to delete the enemy when it is off-screen.
+**TIP** There is an **Destroy when outside of screen** behavior that you can add to the enemy.
 
 ### Challenge 1. Random direction
 
