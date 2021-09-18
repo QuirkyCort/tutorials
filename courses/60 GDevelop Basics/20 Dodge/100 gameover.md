@@ -30,3 +30,6 @@ You may also want to give the new object an appropriate name.
 Drag a new instance of the text object and position it on the **End** scene.
 
 ![](images/gameOverScene.png)
+
+Now we have a game over scene.
+In the next section, we'll learn how to make use of it in our game.

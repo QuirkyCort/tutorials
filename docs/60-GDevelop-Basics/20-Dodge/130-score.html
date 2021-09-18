@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li class="current">Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Score</h1>
+<p>For this game, the objective is to stay alive as long as possible.
+So for the score, we'll increment it by 1 point every second.</p>
+<p>In the <strong>Play</strong> scene, add a new <strong>Text</strong> object, set the initial text to <strong>0</strong>, and the font size and color to whatever you want.
+Name the object <strong>Score</strong>.
+Drag a new instance and place it in the top center of the screen.</p>
+<p><img alt="" src="images/score.png" /></p>
+<p>We'll need to create a variable to store the score, and an event to update the score.</p>
+<p>First, create a new event, and for the condition, select <strong>At the beginning of the scene</strong>.
+For the conditions, select <strong>Value of a global variable</strong>.
+Set the variable name to <strong>score</strong>, and set it to <strong>0</strong>.</p>
+<p><img alt="" src="images/initScore.png" /></p>
+<p>This will set the global variable <strong>score</strong> to a value of zero at the start of the <strong>Play</strong> scene.
+Note that we are using a <strong>global</strong> variable here.
+Global means that this variable will be accessible in all of the scenes.
+If you use a <strong>scene</strong> variable, that variable will not be accessible anymore if you change scene.</p>
+<p>Next, we'll need to increase the <strong>score</strong> variable by 1 every second, and update the score display that's on screen.</p>
+<p>Add another new event, and for the condition, select <strong>Value of scene timer</strong>.
+Set the time to 1 second, and the timer name to <strong>"score timer"</strong> (...including quotes).</p>
+<p>Next we have 3 actions to add...</p>
+<ol>
+<li><strong>Reset the timer</strong> and set the timer name to <strong>"score timer"</strong>.</li>
+<li><strong>Value of a global variable</strong>, set the variable to <strong>score</strong>, the operator to <strong>add</strong>, and the value to <strong>1</strong>.</li>
+<li><strong>Modify the text</strong>, make sure the <strong>Score</strong> object is selected first, and set the value to <strong>GlobalVariableString(score)</strong>.</li>
+</ol>
+<p><img alt="" src="images/scoreTimer.png" /></p>
+<h2>Display Score in Game Over Scene</h2>
+<p>We also want to display our score in the game over screen.</p>
+<p>Add a new <strong>Text</strong> object in the game over scene and rename it to <strong>Score</strong>.
+Set the font, color, and size, and drag an instance on to the scene.
+For the initial text, type in <strong>Your score is </strong> (...make sure to leave an extra space at the end).</p>
+<p><img alt="" src="images/endScore.png" /></p>
+<p>Add a new event, and for the condition, select <strong>At the beginning of the scene</strong>.
+For the action, select the <strong>Score</strong> object, then choose <strong>Modify the text</strong>.
+Set the <strong>modification's sign</strong> to <strong>+ (add)</strong>, and under value, use <strong>GlobalVariableString(score)</strong>.</p>
+<p><img alt="" src="images/endScoreDisplay.png" /></p>
+<h2>Testing</h2>
+<p>Click the preview button to test your game.
+It should add one to your score ever second, and display your final score at the end of the game.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

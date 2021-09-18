@@ -3,6 +3,8 @@
 In this program, you will learn a little about the game design process, and how to create a few simple games using the GDevelop game engine.
 There are no prerequisite skills for this course, but you will need either a PC (Windows, Mac, or Linux) or a tablet (...not recommended).
 
+Before we start introducing GDevelop, you'll probably want to know...
+
 ## What is a Game Engine?
 
 Game Engines are software that helps in the game creation process. They provide some or all of the following...

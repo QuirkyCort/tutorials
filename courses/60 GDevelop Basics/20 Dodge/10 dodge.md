@@ -7,3 +7,6 @@
 In this game, the player must dodge the incoming monsters and survive for as long as possible. The guided part of the game will be deliberately kept simple so everyone can follow along easily, but there will be some challenges at the end that you can try out to make the game more complete.
 
 While it's possible to make the game identical to the Godot version, I'll be making a few changes, primarily to keep things simple.
+This is what our version will look like...
+
+<iframe width="800" height="600" src="https://games.accelerateworkshop.com/dodge/" title="Dodge the Creep" frameborder="0"></iframe>

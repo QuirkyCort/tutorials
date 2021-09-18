@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li class="current">Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Sound and Music</h1>
+<p>Let's add a background music to our <strong>Play</strong> scene.</p>
+<p><strong>IMPORTANT</strong> When running on a browser, the user must interact with the game (eg. click on the screen) before the first sound/music is played.
+This is a limitation imposed by the browser to prevent annoying websites from blaring loud sounds at you as soon as you open the webpage.</p>
+<p>To play a sound, we'll use either the <strong>Play Music</strong> or <strong>Play Sound</strong> actions.
+Use <strong>Play Music</strong> if it is a long file such as a background music, and <strong>Play Sound</strong> if it is a short one like for a gunshot sound.</p>
+<p><strong>TIPS</strong> If in doubt, use <strong>Play Sound</strong>; while it's intended for short sounds, it actually works well for audio of any length.</p>
+<p>Add a new event. Add the condition <strong>At the beginning of the scene</strong>. Add the condition <strong>Play the sound</strong>, select a music that you like, and set <strong>Repeat</strong> to <strong>Yes</strong>.</p>
+<p><img alt="" src="images/playSound.png" /></p>
+<p>Your event should look like this...</p>
+<p><img alt="" src="images/soundEvent.png" /></p>
+<p>If you like, you can add a background music for the <strong>End</strong> scene in the same way.
+Note that if you add a background music for the <strong>Start</strong> scene, it will <strong>NOT</strong> play when you start the game in a browser, as the browser will not allow a webpage to play audio before the user interacts with it.</p>
+<p><strong>OPTIONAL</strong> When game over occurs, the music will automatically stop.
+That's because by default, GDevelop stops all music and sounds when starting a new scene.
+If you want the music to continue playing, open the <strong>Project</strong> manager, click on the 3 dots (...that's called a kebab menu) next to the <strong>End</strong> scene, select <strong>Edit scene properties</strong>, and turn off <strong>Stop music and sounds on startup</strong>.</p>
+<p><img alt="" src="images/stopAudio.jpg" /></p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

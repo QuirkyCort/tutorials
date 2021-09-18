@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li class="current">Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Start Scene</h1>
+<p>Now that we have a game over scene, let's also create a start scene.</p>
+<p>Create a new scene and rename it <strong>Start</strong>.
+Move the scene to the top of the scene list.</p>
+<p><strong>IMPORTANT</strong> When you run a game that has been exported, it will always start the first scene in the list.
+Since we want our game to start with the start scene, we need to make sure it is the first scene in the list.</p>
+<p><img alt="" src="images/moveUp.jpg" /></p>
+<p>Now add a <strong>title</strong> and a <strong>start button</strong> to the game.</p>
+<ul>
+<li>Title: This is a text object.</li>
+<li>Start button: This is from the asset store.</li>
+</ul>
+<p><img alt="" src="images/startScene.png" /></p>
+<p>We need to add an event to make the start button work.</p>
+<p>Add a new event, <strong>Add condition</strong>, click the start button, then select the <strong>Cursor/touch is on an object</strong> condition.</p>
+<p>To the same event, add a second condition, this time select <strong>Other conditions</strong>, and choose the <strong>Mouse button released</strong> condition.
+Under <strong>Button to check</strong>, choose the <strong>Left</strong> button.</p>
+<p><img alt="" src="images/startButton.png" /></p>
+<p><strong>Note</strong> You may notice that for the arrow controls, we used <strong>Touch or mouse button is down</strong>, but here we are using <strong>Mouse button released</strong>.
+That's because in game movement controls, we usually make a character move when we hold a button down.
+But for other types of controls (eg. selecting options from a menu), we usually trigger the button when the click or touch is released.</p>
+<p>Under actions, select <strong>Change to scene</strong> and select the <strong>Play</strong> scene.</p>
+<p><img alt="" src="images/startEvents.png" /></p>
+<h2>Restarting After Game Over</h2>
+<p>We should also add in a button to let us restart the game after game over.</p>
+<p>Add an image for the restart button.
+I'm using this one...</p>
+<p><img alt="" src="images/restart.png" /></p>
+<p>Add in an event to switch to the <strong>Start</strong> scene when the restart button is clicked...</p>
+<p><img alt="" src="images/restartEvent.png" /></p>
+<h2>What's Next?</h2>
+<p>Now we have all the essential elements of a game.
+If you have a great idea on how you can progress from here, go ahead and try it out on your own.
+Else you can continue on to the next few sections, where will cover some added features:</p>
+<ul>
+<li>Score</li>
+<li>Sound and Music</li>
+<li>Increasing difficulty</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

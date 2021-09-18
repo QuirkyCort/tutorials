@@ -5,6 +5,17 @@ GDevelop is a free and opensource game engine, designed to let developers create
 Unlike more powerful game engines like Unity and Unreal, GDevelop only supports 2D games and lacks some of the more advanced functions.
 But what it lacks in power, it makes up for in ease-of-use, and does not require knowledge of any programming languages.
 
+### Features
+
+* 2D only
+* Minimum coding required
+* Editor runs on Windows, macOS, Linux, web-browser
+* Export game to...
+    * Android and iOS
+    * Windows, macOS, Linux
+    * Web-browser
+    * Facebook Instant Games
+
 ## Installation
 
 GDevelop is available for Windows, macOS, and Linux. To download GDevelop, visit [gdevelop-app.com/download](https://gdevelop-app.com/download).

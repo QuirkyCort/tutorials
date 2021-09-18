@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>20 Dodge</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li class="current">Increasing Difficulty</li></a><a href="../20-Dodge/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Increasing Difficulty</h1>
+<p>Right now, the game is pretty easy and the difficulty level never changes.
+Let's make it more of a challenge by increasing the difficulty level of the game as time passes.</p>
+<p>One way to increase the difficulty is to decrease the delay between each enemy.
+Currently, this is fixed at 1 second.
+We'll change that <strong>1</strong> into a variable, and we'll reduce that variable every few seconds.</p>
+<p>Open up the <strong>Play</strong> events tab and look for the event where we wait for the <strong>enemy timer</strong> to reach 1 second.
+It should look like this...</p>
+<p><img alt="" src="images/enemyDelayEvent.png" /></p>
+<p>We'll change the <strong>1</strong> into a variable.
+Easiest way to do this is to double click on the timer condition to edit it, delete the <strong>1</strong>, then click on the blue <strong>Expressions</strong> button, and select <strong>Value of a scene variable</strong>.</p>
+<p><img alt="" src="images/variableTime.jpg" /></p>
+<p>Use the variable name <strong>enemy delay</strong> (...as always, there's nothing special about this variable name. Use whatever you want.)</p>
+<p>We need to give <strong>enemy delay</strong> a starting value, else it'll be undefined at the start of the scene (...in GDevelop, an undefined variable will default to 0).
+Add a new event with the <strong>At the beginning of the scene</strong> condition, and the <strong>Change scene variable enemy delay set to 1</strong> action.
+Like this...</p>
+<p><img alt="" src="images/initEnemyDelay.png" /></p>
+<p>Now we need to reduce <strong>enemy delay</strong> every few seconds (...I'm gonna go with 5 seconds, but it's up to you).
+We'll add a new event, with a timer condition like this...</p>
+<p><img alt="" src="images/dificultyTimer.png" /></p>
+<p>Next, we'll add two actions; a <strong>Reset the timer</strong> action, and a <strong>Value of scene variable</strong> action.
+In the <strong>Value of scene variable</strong> action, I'll modify the <strong>enemy delay</strong> variable by multiplying it by <strong>0.9</strong>.</p>
+<p><img alt="" src="images/multiplyVariable.png" /></p>
+<p>The event should end up like this...</p>
+<p><img alt="" src="images/multiplyVariableEvent.png" /></p>
+<p><strong>THINK...</strong> Why multiply by 0.9? When reducing a value, we would usually think of performing a subtraction, say by <strong>0.1 seconds</strong>.
+But consider what happens when we have subtracted ten times?
+The delay will now be <strong>0 seconds</strong>.
+And if we subtract one more time, the delay will be <strong>-0.1 seconds</strong>. That doesn't make much sense!
+Multiplying by 0.9 will reduce the delay, while ensuring that it never reaches zero.
+There are other more complicated equations that we can use, but this is good enough for now.</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
