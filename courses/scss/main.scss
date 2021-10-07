@@ -6,6 +6,18 @@ body {
     height: 100vh;
 }
 
+table {
+    border-spacing: 0;
+}
+th, td {
+    border: 1px solid #dee2e6;
+    padding: 0.2em 0.5em;
+}
+
+th {
+    border-bottom: 2px solid #dee2e6;
+}
+
 #header {
     box-sizing: border-box;
     border-bottom: solid 2px lightgray;

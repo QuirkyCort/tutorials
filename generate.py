@@ -15,7 +15,7 @@ INDEX_FILE = 'index.html'
 REDIRECT_FILE = 'redirect.html'
 EXCLUDE_DIR = ['images', 'css', 'scss', 'js', 'download']
 COPY_DIR = ['images', 'css', 'js', 'download']
-MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite']
+MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite', 'tables']
 MARKDOWN_EXTENSIONS_CONFIGS = {
     'codehilite': {
         'guess_lang': False
