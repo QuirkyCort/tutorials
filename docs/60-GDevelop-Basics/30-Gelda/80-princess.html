@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li class="current">Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Princess NPC</h1>
+<p>Now let's add a second NPC; the princess.
+I'm using the <strong>Elf Female</strong> sprite, but as always, you can choose what you want.</p>
+<p><img alt="" src="images/princess.png" /></p>
+<p>Rename the object to <strong>Princess</strong>, drag an instance of her on to the scene, resize her, and set an appropriate animation.
+For me, I'm placing her in a distant room.</p>
+<p><img alt="" src="images/princessPosition.png" /></p>
+<h2>Door</h2>
+<p>It'll be too easy if we can just walk straight up to the princess, so let's put her behind a locked door.
+I'm using this sprite...</p>
+<p><img alt="" src="images/door.png" /></p>
+<p>Add it to your game, drag an instance on scene, resize, then position the door somewhere suitable.</p>
+<h2>Key</h2>
+<p>To unlock the door, we'll need a key...</p>
+<p><img alt="" src="images/key.png" /></p>
+<p>Choose a suitable key, add it to your game, and drag an instance on scene.</p>
+<h2>Events for Key</h2>
+<p>This is what we need the key to do...</p>
+<ol>
+<li>When touched, it should disappear.</li>
+<li>The game should remember that the player has picked up the key.</li>
+</ol>
+<p>Start by creating a group event named <strong>Key</strong>, then add a sub-event to it.
+For the condition, select the player, <strong>Collision</strong>, then choose the <strong>Key</strong>.
+For the action, choose the <strong>Key</strong>, then <strong>Delete object</strong>.</p>
+<p><img alt="" src="images/keyEvents.png" /></p>
+<p>To remember that the player has picked up the key, we'll need to set the value of a <strong>Variable</strong>.
+Add another action to the previous event, select <strong>Other Actions</strong>, <strong>Variables</strong>, <strong>Value of a scene variable</strong>.
+Give the variable the name <strong>key</strong>, set the sign to <strong>= (set to)</strong>, and set the value to <strong>1</strong>.</p>
+<h2>Events for Door</h2>
+<p>This is what we need the door to do when it is touched...</p>
+<ol>
+<li>If the <strong>key</strong> variable is <strong>1</strong>, it should change to the <strong>Open</strong> animation.</li>
+<li>If the <strong>key</strong> variable is <strong>NOT 1</strong>, it should move the player away from the door.</li>
+</ol>
+<p>Start by creating a group event named <strong>Door</strong>, then add a sub-event to it.
+For the condition, select the player, <strong>Collision</strong>, then choose the <strong>Door</strong>.
+Don't set any actions for this, instead, add two more sub-events to this sub-event.</p>
+<p><img alt="" src="images/doorEvents1.png" /></p>
+<p>In the first sub-event, set the condition to <strong>Other Conditions</strong>, <strong>Variables</strong>, <strong>Value of Scene Variable</strong>.
+Set the variable name to <strong>key</strong>, sign to <strong>= (equal to)</strong>, and value to <strong>1</strong>.
+For the action, choose the <strong>Door</strong>, select <strong>Change the animation</strong>, then <strong>= (set to)</strong> a value of <strong>1</strong>.</p>
+<p><img alt="" src="images/doorEvents2.png" /></p>
+<p>For the second sub-event, use the same condition as the first, but set it to <strong>Invert Condition</strong>.
+For the action, choose the player, select <strong>Separate objects</strong>, then choose the <strong>Door</strong>.</p>
+<p><img alt="" src="images/doorEvents3.png" /></p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -5,12 +5,12 @@ We'll start with a Wizard (...or whatever you prefer); he'll be the one to give 
 
 ![](images/wizard.png)
 
-<div class"tip">
+<div class="tip">
 Unlike the player, this NPC don't need to move around.
 This means that we don't need to choose a sprite with up/down/left/right animation, allowing us a lot more choices.
 </div>
 
-Set an appropriate animation for the NPC (...I'm using animation 1, "Idle").
+Drag an instance of the wizard on to the scene, resize him, and set an appropriate animation (...I'm using animation 1, "Idle").
 
 ## Dialog
 

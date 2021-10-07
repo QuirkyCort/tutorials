@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li class="current">Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Non-Player Characters</h1>
+<p>You can't have an RPC without Non-Player Characters (NPC).
+We'll start with a Wizard (...or whatever you prefer); he'll be the one to give us our quest.</p>
+<p><img alt="" src="images/wizard.png" /></p>
+<div class="tip">
+Unlike the player, this NPC don't need to move around.
+This means that we don't need to choose a sprite with up/down/left/right animation, allowing us a lot more choices.
+</div>
+
+<p>Drag an instance of the wizard on to the scene, resize him, and set an appropriate animation (...I'm using animation 1, "Idle").</p>
+<h2>Dialog</h2>
+<p>We'll need to provide a dialog box, so add a suitable sprite (...I'm using <strong>Green Panel</strong>).</p>
+<p><img alt="" src="images/dialogPanel.png" /></p>
+<p>Resize and position an instance of the panel in the scene, and set the layer to <strong>GUI</strong>.</p>
+<p><img alt="" src="images/positionDialogPanel.png" /></p>
+<p>Next, add another new object, this time select <strong>New Object from Scratch</strong> and choose <strong>Text</strong>.
+Name the new object <strong>Dialog</strong>, and fiddle around with the font and color if you like.
+No need to change the default text (...we'll change it in the events).</p>
+<p>Drag an instance of <strong>Dialog</strong> on to the scene, set the layer to <strong>GUI</strong>, then position it suitably within the dialog panel.</p>
+<p><img alt="" src="images/positionTextInDialog.png" /></p>
+<h2>Dialog Events (Part 1)</h2>
+<p>We want our dialog to do a few things...</p>
+<ol>
+<li>Hide when the player is not touching an NPC</li>
+<li>Appear when the player touches an NPC</li>
+<li>Show dialog from the NPC</li>
+</ol>
+<p>It's not much for now, but we'll make it do a little more in dialog part 2.</p>
+<h3>Hide when not touching NPC</h3>
+<p>We'll start by adding events to hide the dialog when the player is not touching an NPC.</p>
+<p>To keep things organize, start by creating a group event named <strong>Dialog</strong>.
+Add a sub-event to <strong>Dialog</strong>, and for the action, select the <strong>GreenPanel</strong> and choose <strong>Hide</strong>.
+Add a second action to hide the <strong>Dialog</strong> object.</p>
+<p><img alt="" src="images/hideDialog.png" /></p>
+<h3>Appear when touching NPC</h3>
+<p>Add another sub-event to <strong>Dialog</strong>.
+For the condition, select the player, choose <strong>Collision</strong>, then the <strong>Wizard</strong>.
+Add two actions to <strong>Show</strong> the <strong>GreenPanel</strong> and the <strong>Dialog</strong> object.</p>
+<p><img alt="" src="images/showDialog.png" /></p>
+<h3>Show dialog from the NPC</h3>
+<p>Select the <strong>Collision with Wizard</strong> event, and add a sub-event to that.
+For this sub-event, we can leave the condition blank.
+For the action, select <strong>Dialog</strong>, <strong>Modify the Text</strong>, set the <strong>Modification Sign</strong> to <strong>= (set to)</strong>, and type in a dialog of your choice.</p>
+<p>This is what I'm using...</p>
+<p><img alt="" src="images/wizardDialog1.png" /></p>
+<p>Be sure to put double quotes <strong>(")</strong> around your text.</p>
+<h3>Testing and Touch-up</h3>
+<p>Test it out.
+The dialog box should appear when your player touches the wizard, but the text may be too long.
+To fix that, we need to set the wrapping options for the text object.</p>
+<p>Add a new sub-event under <strong>Dialog</strong>.
+We only need to set the wrapping options once, so for the condition, select <strong>Other Conditions</strong> and <strong>At the beginning of the scene</strong>.
+For the actions, select the <strong>Dialog</strong> object, and set <strong>Wrapping</strong> to <strong>Yes</strong>.
+Add a second action, select the <strong>Dialog</strong> object, and set <strong>Wrapping Width</strong> to <strong>600</strong> (...or whatever you prefer).</p>
+<p><img alt="" src="images/wrappingOptions.png" /></p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
