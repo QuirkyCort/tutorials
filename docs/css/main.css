@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   display: flex;
   flex-direction: column;
@@ -94,6 +95,30 @@ body {
   opacity: 0.9;
   transition: left 0.5s; }
 
+#hamburgerTop, #hamburgerBottom {
+  width: 1.7rem;
+  height: 0.4rem;
+  background: white;
+  border-radius: 0.2rem;
+  position: absolute;
+  left: 0.4rem;
+  transition: transform 0.5s, left 0.5s; }
+
+#hamburgerTop {
+  top: 0.82rem;
+  transform: rotate(-45deg); }
+
+#hamburgerBottom {
+  bottom: 0.82rem;
+  transform: rotate(45deg); }
+
+#body.close #hamburgerTop {
+  left: 0.8rem;
+  transform: rotate(-135deg); }
+#body.close #hamburgerBottom {
+  left: 0.8rem;
+  transform: rotate(-45deg); }
+
 #content {
   padding: 0 4rem 4rem 4rem;
   overflow: hidden; }
@@ -107,6 +132,25 @@ body {
     padding: 0.5em;
     margin-left: 0.5em;
     overflow-x: auto; }
+
+.tip, .info, .important {
+  color: #155724;
+  background-color: #d4edda;
+  border: solid 1px #c3e6cb;
+  border-radius: 0.5em;
+  padding: 0.5em 1em; }
+
+.tip::before {
+  content: "💡 Tip: ";
+  font-weight: bold; }
+
+.info::before {
+  content: "ⓘ Info: ";
+  font-weight: bold; }
+
+.important::before {
+  content: "⚠ Important: ";
+  font-weight: bold; }
 
 @media only screen and (max-width: 600px) {
   #content {

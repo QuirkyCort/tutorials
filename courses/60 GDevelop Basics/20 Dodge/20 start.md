@@ -20,4 +20,14 @@ You now have a completely empty project. Add a new scene and rename it to **Play
 
 ![](images/new scene.jpg)
 
+We'll need to set a property for the game.
+Open the project property window...
+
+![](images/projectProperties.jpg)
+
+...and set **Game resolution resize mode** to **No changes to the game size**.
+This ensures that the game window remains the same size regardless of your actual screen size.
+
+![](images/projectPropertiesWindow.jpg)
+
 Finally, click on the newly created scene to open it.
