@@ -26,7 +26,23 @@ We simply did not create a **Win** condition for the game.
 Can you think of a suitable end for the game and implement a **Win** condition?
 You should create a new **Win** scene and switch to that scene when the **Win** conditions are met.
 
-### Challenge 5. Scene Transition
+### Challenge 5. Game Resolution
+
+You can find the **Game Resolution** settings by going to **Project Manager**, **Game settings**, **Properties**.
+
+Depending on whether you want your game to be played in the portrait or landscape format, you may want to change the game resolution to better fit your screen.
+
+### Challeng 6. Sound Effects
+
+We have a background music, but no sound effects.
+Can you add in sound effects for events such as hitting a monster or picking up the key?
+
+### Challenge 7. Effects and Behavior
+
+Play around with the available effects and behaviors.
+Some of them may be useful in making your game look better or more interesting.
+
+### Challenge 8. Scene Transition
 
 Currently, switching between scenes is very abrupt.
 Make use of effects and timers to make the scene change more gradual.
@@ -42,11 +58,6 @@ For example, you can change the "size" parameter of the "Pixelated" effect to ma
 If you use the "Play sound on channel" action, you can then use the "Volume of sound on channel" action to change the volume.
 This is useful in creating a fade-out effect.
 </div>
-
-### Challenge 6. Effects and Behavior
-
-Play around with the available effects and behaviors.
-Some of them may be useful in making your game look better or more interesting.
 
 ## Demo
 
