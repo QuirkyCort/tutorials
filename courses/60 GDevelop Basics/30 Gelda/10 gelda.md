@@ -17,4 +17,9 @@ For an RPG, it very much about the whole package.
 A good RPG needs an **interesting story** (...we won't cover that), **good graphics** (...ditto), and an **engaging combat mechanics** (...our's is gonna be really plain).
 Basically, we won't be teaching anything that's important for a good RPG, but at the end of this course you should have a working RPG, and it's up to you to fill in the fun bits.
 
-This is what our completed version will look like...
+This is what our completed version will look like.
+Click anywhere in the game to start the sound.
+
+<iframe width="800" height="600" src="https://games.accelerateworkshop.com/gelda/" title="Gelda" frameborder="0" allowfullscreen></iframe>
+
+[Click here to play the game in a page of its own.](https://games.accelerateworkshop.com/gelda)
