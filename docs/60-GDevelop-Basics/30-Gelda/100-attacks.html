@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li class="current">Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Attacks</h1>
+<p>To inflict acts of violence on the monsters, we'll add in a sword for our player.
+I'm using the <strong>Lavish Sword</strong>...</p>
+<p><img alt="" src="images/sword.png" /></p>
+<p>Add it to the game, but don't drag it into the scene; we'll be adding it using events instead.</p>
+<h2>Attack Button</h2>
+<p>We'll need a button to trigger the sword attack.
+I'm using the <strong>A</strong> button...</p>
+<p><img alt="" src="images/aButton.png" /></p>
+<p>Drag it into the scene and set the layer to <strong>GUI</strong>.
+Your scene should now look like this...</p>
+<p><img alt="" src="images/aButtonAdded.png" /></p>
+<h2>Attack Event</h2>
+<p>Whenever the <strong>A</strong> button is pressed, we want...</p>
+<ol>
+<li>Sword should appear in the direction the player is facing.</li>
+<li>Sword should remain for a fraction of a second.</li>
+<li>If any monsters touches the sword, the monster should be deleted.</li>
+<li>There should be a slight delay before the player can attack again.</li>
+</ol>
+<p>We'll start with a new group event, and name it <strong>Player Attack</strong>.</p>
+<p>Add a sub-event, and for condition, select <strong>Mouse button pressed or touch held</strong> and choose the <strong>Left</strong> mouse button.
+Add a second condition in the same sub-event, this time select the <strong>A</strong> button and choose <strong>cursor/touch is on object</strong>.</p>
+<p>For the action, select the <strong>Sword</strong> and choose <strong>Create an object</strong>.
+The <strong>X</strong> and <strong>Y</strong> position doesn't matter, as we'll be changing it in a separate action, so just set them to zero.</p>
+<p><img alt="" src="images/swordEvent1.png" /></p>
+<p>We'll also need to make the sword a little larger, so add a second action, select the sword, and set <strong>Scale</strong> to <strong>2</strong>.</p>
+<p><img alt="" src="images/swordEvent2.png" /></p>
+<h2>Attack Direction</h2>
+<p>Next, we need to determine the direction that the player is facing, so we'll need to add 4 sub-events.
+These sub-events will check which animation the player is currently set to.</p>
+<p>For the first condition, select the player and choose <strong>Current animation</strong>.
+Set the sign to <strong>= (equal to)</strong> and value to <strong>0</strong>.
+For the action, select <strong>Value of scene variable</strong>, set the name to <strong>playerDirection</strong>, and set the value to <strong>90</strong>.</p>
+<p><img alt="" src="images/swordEvent3.png" /></p>
+<div class="tip">
+In the sprite I'm using, animation 0 is a downwards movement, hence the playerDirection is set to 90 (south).
+You may need to use other values if you are using a different sprite.
+</div>
+
+<p>Repeat for all 4 animations / directions.</p>
+<p><img alt="" src="images/swordEvent4.png" /></p>
+<h2>Position and Rotate Sword</h2>
+<p>Select the <strong>Player Attack</strong> event and add a sub-event to that.</p>
+<p>For this new sub-event, leave the condition empty.
+For the actions, select the <strong>Sword</strong> and choose <strong>Put the object around another</strong>.
+Choose the player as the center object.
+For distance, choose 50.
+For angle, click on the <strong>Expressions</strong> button, select <strong>Value of scene variable</strong>, and provide the name <strong>playerDirection</strong>.</p>
+<p>Add a second action, select the <strong>Sword</strong> and choose <strong>Angle</strong>.
+Set the sign to <strong>= (set to)</strong> and the value to <strong>Expressions</strong>, <strong>Value of scene variable</strong>, and <strong>playerDirection</strong>.</p>
+<p><img alt="" src="images/swordEvent5.png" /></p>
+<h2>Remove Sword After Delay</h2>
+<p>To remove the sword after a short delay, we'll need a timer.
+Add a new action to the <strong>Touch or mouse down</strong> event, select <strong>Other Actions</strong> and choose <strong>Start (or reset) a scene timer</strong>.
+Give the timer the name <strong>"swordDelay"</strong>.</p>
+<p><img alt="" src="images/swordEvent6.png" /></p>
+<p>Select the <strong>Player Attack</strong> event and add a sub-event to that.
+For the condition, select the <strong>Other Conditions</strong> and <strong>Value of scene timer</strong>.
+Set the timer name to <strong>"swordDelay"</strong>, and time in seconds to <strong>0.3</strong>.</p>
+<p>For the action, select the <strong>Sword</strong> and <strong>Delete the object</strong>.</p>
+<p><img alt="" src="images/swordEvent7.png" /></p>
+<h2>Delay Before Next Attack</h2>
+<p>To impose a short delay after each attack, add a new condition to the <strong>Touch or mouse down</strong> event.</p>
+<p>For the condition, select <strong>Other ACtions</strong> and <strong>Value of scene timer</strong>.
+Set the timer name to <strong>"swordDelay"</strong>, and time in seconds to <strong>0.6</strong>.</p>
+<h2>Removing the Monster</h2>
+<p>To remove the monster when the touch the sword, add a new sub-event under <strong>Player Attack</strong>.
+For the condition, select the <strong>Sword</strong>, <strong>Collision</strong>, and choose the <strong>Goblin</strong>.
+For the action, select the <strong>Goblin</strong>, and choose <strong>Delete the object</strong>.</p>
+<p><img alt="" src="images/swordEvent8.png" /></p>
+<h2>Events Summary</h2>
+<p>If you have added all the events correctly, it should look something like this...</p>
+<p><img alt="" src="images/swordEventsComplete.png" /></p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

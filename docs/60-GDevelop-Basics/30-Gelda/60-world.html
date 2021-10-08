@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li class="current">Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Game World</h1>
+<p>First, set the background color to <strong>Black</strong>.
+This will make our walls and ground stand out more.
+You can find the setting for the background color at the bottom of the <strong>Layers</strong> window.</p>
+<p><img alt="" src="images/blackBackground.png" /></p>
+<p>Next, rename <strong>Blue Background</strong> to <strong>Wall</strong> (...not essential, but it makes things clearer), then drag it on to the scene.
+Resize it and use it to build the first wall in the scene.
+Repeat until you have a huge maze...</p>
+<p><img alt="" src="images/hugeMaze.png" /></p>
+<p><em>Grid temporarily turned off for clarity</em></p>
+<p>Next, rename <strong>Gray Background</strong> to <strong>Ground</strong>, and drag it on to the scene.
+Change its layer to <strong>Background</strong>, and position it within the interior areas of the maze like this...</p>
+<p><img alt="" src="images/firstGround.png" /></p>
+<p>Repeat until all the interior areas of the maze are filled with ground.</p>
+<p><img alt="" src="images/mazeWithGround.png" /></p>
+<div class="tip">
+Changing the layer for all the ground sprites can be quite a pain.
+One shortcut is to change the layer for the first ground sprite, then copy-and-paste it.
+</div>
+
+<h2>Wall Collision</h2>
+<p>If you test the game now, your player will be able to move right through the walls.
+To prevent that, we'll need to add a new event.</p>
+<p>Select the <strong>Player Movement</strong> group event and add a new sub-event.
+For the condition, choose the player, then <strong>Collision</strong>, and set the object to <strong>Wall</strong>.
+For the action, choose the player, then <strong>Separate objects</strong>, and set the object to <strong>Wall</strong>.</p>
+<p><img alt="" src="images/wallCollision.png" /></p>
+<h2>Camera</h2>
+<p>Great!
+Now you can't move through walls, but you can't go very far either without leaving the screen.</p>
+<p>To keep our player on screen, we need to make the camera follow the player as they move.
+Select the <strong>Player Movement</strong> group event again and add another new sub-event.</p>
+<p>We don't need a condition for this, as we want the camera to always follow the player.
+For the actions, select <strong>Other Actions</strong>, <strong>Layers and Cameras</strong>, and <strong>Center the camera on an object</strong>.
+For the object, select the player, and for the layer, you can leave it blank for now.</p>
+<p><img alt="" src="images/firstCamera.png" /></p>
+<p>Now, add a second action below the first.
+Make the second action the same as the first, but this time, set the layer to <strong>"Background"</strong>.</p>
+<p><img alt="" src="images/bothCameras.png" /></p>
+<p>Go ahead and test out your game.
+You should be able to move around the world without going through walls.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

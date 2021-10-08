@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li class="current">Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Dialog (Part 2)</h1>
+<p>Our earlier dialog for the wizard is pretty simple; just a single fixed line.
+Now we're going to expand on it with multiple lines and responses from the player, but this will still remain a very basic dialog system; linear with no branches.</p>
+<div class="info">
+The branching dialog often seen in most RPG games can take a lot of effort and time to create.
+Even disregarding the coding work, every branch can increase the number of dialog lines exponentially.
+To give an example, the 2011 game Skyrim, has 60,000 lines of dialogs, yet most players will have seen only a small fraction of them; the rest of the dialog are in branches that the player did not choose.
+</div>
+
+<div><br></div>
+
+<div class="tip">
+If you do decide to create branching dialog for your GDevelop game, it is best to learn and use a purpose made tool like the "Dialog Tree" extension.
+</div>
+
+<p>These are what we'll be adding to the dialog system, and how we will achieve it...</p>
+<ul>
+<li>Multiple lines of dialog<ul>
+<li>Use an instance variable to keep track of which line of dialog we are at</li>
+<li>Increment the variable when the player press the <strong>A</strong> button</li>
+</ul>
+</li>
+<li>Responses from the player<ul>
+<li>Use a second text object to display the player's response</li>
+<li>Check the instance variable to determine which line to say</li>
+</ul>
+</li>
+</ul>
+<h2>Multiple Lines of Dialog</h2>
+<p>We'll start by modifying the Wizard to have multiple lines of dialog.
+Let's have him speak these three lines.</p>
+<ol>
+<li>"Hero! Please help!"</li>
+<li>"Our princess has gone missing! The vile goblins infesting this cave must have abducted her."</li>
+<li>"She has never been out of the castle before, and must be terrified to be in such a foul place. Please bring her back!"</li>
+</ol>
+<p>Currently, under the <strong>Dialog</strong> group event, you should have a set of events that looks like this...</p>
+<p><img alt="" src="images/showDialog.png" /></p>
+<p>Add a condition to the second event.
+Select the <strong>Wizard</strong> and <strong>Value of an object variable</strong>.
+Set the variable name as <strong>dialogState</strong>, operator as <strong>= (equal to)</strong>, and value as <strong>0</strong>.
+Next, change the dialog to the first line.</p>
+<p><img alt="" src="images/multiLinesDialog1.png" /></p>
+<p>Repeat for the other two lines of dialog, but set the checks for the <strong>dialogState</strong> value to <strong>1</strong> and <strong>2</strong>.</p>
+<p><img alt="" src="images/multiLinesDialog2.png" /></p>
+<h2>Progressing through the Dialog</h2>
+<p>Now when you touch the wizard, he will only speak the first line of dialog.
+To progress through the remaining two lines, we'll need to change the value of <strong>dialogState</strong>.
+We'll use an event to detect if the <strong>A</strong> button is pressed, and increment <strong>dialogState</strong> if it is.</p>
+<p>Select the <strong>Collision with wizard</strong> event, and add a sub-event under it.
+For the conditions, add...</p>
+<ul>
+<li><strong>Touch or mouse button down</strong></li>
+<li><strong>Cursor / touch is on A Button</strong></li>
+<li><strong>Trigger once</strong> (...this is found under <strong>Other conditions</strong>, <strong>Advanced</strong>)</li>
+</ul>
+<div class="important">
+The last condition "Trigger once", ensures that the event is only triggered a single time when you click and hold the A button.
+Without this condition, the event will trigger 60 times a second as long as the A button is held down.
+</div>
+
+<p>For the action, select the <strong>Wizard</strong> and <strong>Value of an object variable</strong>.
+Set the variable name to <strong>dialogState</strong>, the modification sign to <strong>+ (add)</strong>, and the value to <strong>1</strong>.</p>
+<p><img alt="" src="images/nextDialogState.png" /></p>
+<h2>Responses from the Player</h2>
+<p>Start by creating a new <strong>Text</strong> object, and name it <strong>PlayerDialog</strong>.
+Use a different font color to differentiate it from the NPC dialog, then place it within the dialog panel.</p>
+<p><img alt="" src="images/playerDialogPlacement.png" /></p>
+<p>Just like the NPC dialog, we'll need to hide and show the <strong>PlayerDialog</strong>.
+Look for the actions where we hide and show the NPC dialog, and add in actions to hide and show the <strong>PlayerDialog</strong> as well.</p>
+<p><img alt="" src="images/hideShowPlayerDialog.png" /></p>
+<p>Now look for the events where we have the text of the wizard dialog, and add in actions for the player dialog.</p>
+<p><img alt="" src="images/playerDialogText.png" /></p>
+<div class="info">
+The first two player dialog starts with an "A" to indicate that the player should press that button to progress.
+The last dialog doesn't have the "A" as that's the last dialog line.
+</div>
+
+<h2>Princess Dialog</h2>
+<p>Using the same method, add dialog for the princess.
+Start by adding a sub-event under the <strong>Dialog</strong> group event.
+This new sub-event should have the same conditions and actions as the existing <strong>Collide with wizard</strong> event (...but changed to <strong>princess</strong>).</p>
+<p><img alt="" src="images/princessDialog.png" /></p>
+<div class="tip">
+One easy way is to simply copy and paste the wizard event, and change it to refer to the princess instead.
+This will also copy all the sub-events under it.
+</div>
+
+<p>Taking reference from the wizard dialog, create events for the princess dialog.
+It's up to you to decide what her lines will be.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

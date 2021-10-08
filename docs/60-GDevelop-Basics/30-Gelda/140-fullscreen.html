@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li class="current">Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Fullscreen</h1>
+<p>To enable fullscreen, first we'll need to add a button for it.
+I'm using this one and adding it to the <strong>Start</strong> scene.</p>
+<p><img alt="" src="images/fullscreenButton.png" /></p>
+<p>Next, we'll need to add the events to toggle the fullscreen.
+The code here can be a little tricky, so I'm showing you the full event code here and explaining it a little further down...</p>
+<p><img alt="" src="images/fullscreenEvents.png" /></p>
+<p>What the code does is...</p>
+<ol>
+<li>When the button is clicked, it first sets the <strong>fullscreen</strong> variable to <strong>0</strong>.</li>
+<li>Then if the game is currently in fullscreen, it'll change <strong>fullscreen</strong> to <strong>1</strong>.</li>
+<li>In the last two sub-events, if <strong>fullscreen</strong> is <strong>1</strong>, it'll turn fullscreen off, else it'll turn it on.</li>
+</ol>
+<p>The use of the <strong>fullscreen</strong> variable may seem unnecessary, and some may propose this shortened version...</p>
+<p><img alt="" src="images/fullscreenWrongEvents.png" /></p>
+<p><em>WARNING: This will not work</em></p>
+<p>...but consider what happened if...</p>
+<ol>
+<li>The game is in fullscreen, and...</li>
+<li>The expand button is clicked.</li>
+</ol>
+<p>The first sub-event will check if the game is in fullscreen, and since it is, it'll turn off fullscreen.
+The second sub-event will then check if the game is NOT in fullscreen, and since it is not, it'll immediately turn on fullscreen again.</p>
+<h2>More Fullscreen Buttons</h2>
+<p>Using the same method, add fullscreen buttons for the <strong>Play</strong> and <strong>Game Over</strong> screen as well.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
