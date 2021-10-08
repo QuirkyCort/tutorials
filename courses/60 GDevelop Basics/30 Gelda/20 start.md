@@ -29,7 +29,7 @@ Without them, GDevelop will smooth jagged edges, making them look blurry.
 
 ## Scenes
 
-We'll start with just one scene for now, but eventually, we'll have 4 scenes in total:
+We'll start with just one scene for now, but eventually, we'll have 3 scenes in total:
 
 ### Play Scene
 
@@ -51,9 +51,3 @@ Basically just a title and a clickable button to start the game.
 
 We'll use this scene when the player loses.
 It'll just display a "game over" message and provide a button to restart the game.
-
-## Win Scene
-
-This is used when the player completes the game.
-Traditionally, this is where we will display credits for the game.
-We'll also provide a button to restart the game after the credits.

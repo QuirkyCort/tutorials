@@ -73,3 +73,37 @@ Set the variable name to **dialogState**, the modification sign to **+ (add)**, 
 
 ## Responses from the Player
 
+Start by creating a new **Text** object, and name it **PlayerDialog**.
+Use a different font color to differentiate it from the NPC dialog, then place it within the dialog panel.
+
+![](images/playerDialogPlacement.png)
+
+Just like the NPC dialog, we'll need to hide and show the **PlayerDialog**.
+Look for the actions where we hide and show the NPC dialog, and add in actions to hide and show the **PlayerDialog** as well.
+
+![](images/hideShowPlayerDialog.png)
+
+Now look for the events where we have the text of the wizard dialog, and add in actions for the player dialog.
+
+![](images/playerDialogText.png)
+
+<div class="info">
+The first two player dialog starts with an "A" to indicate that the player should press that button to progress.
+The last dialog doesn't have the "A" as that's the last dialog line.
+</div>
+
+## Princess Dialog
+
+Using the same method, add dialog for the princess.
+Start by adding a sub-event under the **Dialog** group event.
+This new sub-event should have the same conditions and actions as the existing **Collide with wizard** event (...but changed to **princess**).
+
+![](images/princessDialog.png)
+
+<div class="tip">
+One easy way is to simply copy and paste the wizard event, and change it to refer to the princess instead.
+This will also copy all the sub-events under it.
+</div>
+
+Taking reference from the wizard dialog, create events for the princess dialog.
+It's up to you to decide what her lines will be.
