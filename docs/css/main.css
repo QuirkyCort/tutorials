@@ -124,7 +124,7 @@ th {
 
 #body.close #hamburgerTop {
   left: 0.8rem;
-  transform: rotate(-135deg); }
+  transform: rotate(45deg); }
 #body.close #hamburgerBottom {
   left: 0.8rem;
   transform: rotate(-45deg); }
