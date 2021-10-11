@@ -184,7 +184,7 @@ th {
     }
 }
 
-.tip, .info, .important {
+.tip, .info, .important, .think {
     color: #155724;
     background-color: #d4edda;
     border: solid 1px #c3e6cb;
@@ -205,6 +205,11 @@ th {
 
 .important::before {
     content: "⚠️ Important: ";
+    font-weight: bold;
+}
+
+.think::before {
+    content: "🤔 Thinking Point: ";
     font-weight: bold;
 }
 

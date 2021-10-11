@@ -11,8 +11,8 @@ To give an example, the 2011 game Skyrim, has 60,000 lines of dialogs, yet most 
 
 <div><br></div>
 
-<div class="tip">
-If you do decide to create branching dialog for your GDevelop game, it is best to learn and use a purpose made tool like the "Dialog Tree" extension.
+<div class="tip" markdown="span">
+If you do decide to create branching dialog for your GDevelop game, it is best to learn and use a purpose made tool like the **Dialog Tree** extension.
 </div>
 
 These are what we'll be adding to the dialog system, and how we will achieve it...
@@ -61,8 +61,8 @@ For the conditions, add...
 * **Cursor / touch is on A Button**
 * **Trigger once** (...this is found under **Other conditions**, **Advanced**)
 
-<div class="important">
-The last condition "Trigger once", ensures that the event is only triggered a single time when you click and hold the A button.
+<div class="important" markdown="span">
+The last condition **Trigger once**, ensures that the event is only triggered a single time when you click and hold the A button.
 Without this condition, the event will trigger 60 times a second as long as the A button is held down.
 </div>
 
@@ -87,9 +87,9 @@ Now look for the events where we have the text of the wizard dialog, and add in 
 
 ![](images/playerDialogText.png)
 
-<div class="info">
-The first two player dialog starts with an "A" to indicate that the player should press that button to progress.
-The last dialog doesn't have the "A" as that's the last dialog line.
+<div class="info" markdown="span">
+The first two player dialog starts with an **A** to indicate that the player should press that button to progress.
+The last dialog doesn't have the **A** as that's the last dialog line.
 </div>
 
 ## Princess Dialog

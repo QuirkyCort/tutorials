@@ -3,7 +3,9 @@
 The **Top-down movement** behavior allows you to control the player using the arrow keys on the keyboard, but if you're on a tablet, you (probably) won't have a keyboard!
 To solve that, we'll add virtual keys to the screen.
 
-**Skip?** *If you're using a PC and don't intend for your game to be played on a touchscreen, you can skip this section.*
+<div class="important">
+If you're using a PC and don't intend for your game to be played on a touchscreen, you can skip adding the control buttons, but will need to modify the events in the next section to enable the correct animations.
+</div>
 
 ## Control Buttons
 

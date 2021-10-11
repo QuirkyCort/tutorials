@@ -36,8 +36,8 @@ Click **Apply** when you are done.
 
 Together with some events, this will make this monster move to the right.
 
-<div class="info">
-In GDevelop, the terms "Object variable", "Instance variable", and "Object instance variable" are used interchangeably.
+<div class="info" markdown="span">
+In GDevelop, the terms **Object variable**, **Instance variable**, and **Object instance variable** are used interchangeably.
 </div>
 
 ## Movement Events

@@ -10,13 +10,17 @@ The enemy may leave the screen (...so we don't see it), but it's still in the ga
 It's generally not a big problem as a modern computer can easily handle thousands of enemies without slowing down, but it's good practice to remove it when it's no longer needed.
 This is particularly important if we have a more complex games where we might end up with so many off-screen objects that it ends up slowing down the computer.
 
-**TIP** There is an **Destroy when outside of screen** behavior that you can add to the enemy.
+<div class="tip" markdown="span">
+There is an **Destroy when outside of screen** behavior that you can add to the enemy.
+</div>
 
 ### Challenge 1. Random direction
 
 Instead of always moving straight, make the direction of the enemy random.
 
-**TIP** Instead of setting the force using a speed on the X and Y axis, you can also set the force using an angle and speed.
+<div class="tip" markdown="span">
+Instead of setting the force using a speed on the X and Y axis, you can also set the force using an angle and speed.
+</div>
 
 ### Challenge 2. Variable Speed
 
@@ -27,18 +31,24 @@ Make the speed of the enemy variable, such that some are faster while others are
 Right now our game uses the default gray background.
 Try adding a new object and using it as a background image.
 
-**TIP** You may need to adjust the **Z Order** property to move the background object behind the other objects.
+<div class="tip" markdown="span">
+You may need to adjust the **Z Order** property to move the background object behind the other objects.
 Alternatively, you can create a new layer (...we haven't learned this yet), move it below the base layer, then place the background object in this new layer.
+</div>
 
-**EXPLORE** You can play around with adding **Effects** to the background object.
+<div class="info" markdown="span">
+You can play around with adding **Effects** to the background object.
 Try the **Reflection** effect.
+</div>
 
 ### Challenge 4. Translucent Buttons
 
 If your player move under the buttons, it may be covered by it.
 Make the buttons translucent, so that you can see through it.
 
-**TIP** There is an action for changing opacity.
+<div class="tip" markdown="span">
+There is an action for changing opacity.
+</div>
 
 ### Challenge 5. Different Enemies
 

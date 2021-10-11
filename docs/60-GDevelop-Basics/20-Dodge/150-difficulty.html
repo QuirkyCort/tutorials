@@ -59,12 +59,14 @@ In the <strong>Value of scene variable</strong> action, I'll modify the <strong>
 <p><img alt="" src="images/multiplyVariable.png" /></p>
 <p>The event should end up like this...</p>
 <p><img alt="" src="images/multiplyVariableEvent.png" /></p>
-<p><strong>THINK...</strong> Why multiply by 0.9? When reducing a value, we would usually think of performing a subtraction, say by <strong>0.1 seconds</strong>.
+<div class="think">
+Why multiply by 0.9? When reducing a value, we would usually think of performing a subtraction, say by <strong>0.1 seconds</strong>.
 But consider what happens when we have subtracted ten times?
 The delay will now be <strong>0 seconds</strong>.
 And if we subtract one more time, the delay will be <strong>-0.1 seconds</strong>. That doesn't make much sense!
 Multiplying by 0.9 will reduce the delay, while ensuring that it never reaches zero.
-There are other more complicated equations that we can use, but this is good enough for now.</p>
+There are other more complicated equations that we can use, but this is good enough for now.
+</div>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>
