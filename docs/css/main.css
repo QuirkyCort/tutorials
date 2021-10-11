@@ -155,11 +155,11 @@ th {
   font-weight: bold; }
 
 .info::before {
-  content: "ⓘ Info: ";
+  content: "ℹ️ Info: ";
   font-weight: bold; }
 
 .important::before {
-  content: "⚠ Important: ";
+  content: "⚠️ Important: ";
   font-weight: bold; }
 
 @media only screen and (max-width: 600px) {
