@@ -6,19 +6,19 @@ You should see a window that looks like this...
 
 Click on **CREATE A NEW PROJECT**...
 
-![](images/new project.jpg)
+![](images/newProject.jpg)
 
 Select **Empty game**...
 
-![](images/empty game.jpg)
+![](images/emptyGame.jpg)
 
 Click on the **Project manager** icon...
 
-![](images/project manager.jpg)
+![](images/projectManager.jpg)
 
 You now have a completely empty project. Add a new scene and rename it to **Play** (...there's nothing special about this name, and you can use whatever you want).
 
-![](images/new scene.jpg)
+![](images/newScene.jpg)
 
 We'll need to set a property for the game.
 Open the project property window...

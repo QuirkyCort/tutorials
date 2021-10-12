@@ -22,4 +22,4 @@ Drag one instance of each arrow into the scene, and for each arrow...
 1. Change the size to something appropriate (...if required).
 2. Position it like in the following image.
 
-![](images/position arrows.jpg)
+![](images/positionArrows.jpg)

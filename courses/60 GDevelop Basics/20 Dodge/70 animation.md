@@ -32,7 +32,7 @@ Click **Ok**
 Continue adding the **Change animation** action for the remaining controls.
 When done, your event tab should look like this...
 
-![](images/change animations.png)
+![](images/changeAnimations.png)
 
 ## Idle and Flip
 
@@ -47,7 +47,7 @@ Start by adding a new event (...not a sub-event), and click on **Add condition**
 Select the player, then the **Is moving** condition.
 Since we want to perform the action when the player is **NOT** moving, we'll need to **Invert the condition**.
 
-![](images/not moving.png)
+![](images/notMoving.png)
 
 Under the action, add a **Change the animation (by name)** action and set the **Animation name** to **"stand"**.
 It should now look like this...
