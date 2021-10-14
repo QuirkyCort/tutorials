@@ -4,7 +4,7 @@ Now that we are done with the game, we can export it into a standalone applicati
 
 Starting by opening the project manager and selecting the **Export** option.
 
-![](images/project manager.jpg)
+![](images/projectManager.jpg)
 
 Next, select the platform that you want to export the game to.
 

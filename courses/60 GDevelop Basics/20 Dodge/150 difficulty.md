@@ -28,7 +28,7 @@ Like this...
 Now we need to reduce **enemy delay** every few seconds (...I'm gonna go with 5 seconds, but it's up to you).
 We'll add a new event, with a timer condition like this...
 
-![](images/dificultyTimer.png)
+![](images/difficultyTimer.png)
 
 Next, we'll add two actions; a **Reset the timer** action, and a **Value of scene variable** action.
 In the **Value of scene variable** action, I'll modify the **enemy delay** variable by multiplying it by **0.9**.
