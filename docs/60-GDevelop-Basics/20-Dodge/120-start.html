@@ -38,8 +38,11 @@
 <p>Now that we have a game over scene, let's also create a start scene.</p>
 <p>Create a new scene and rename it <strong>Start</strong>.
 Move the scene to the top of the scene list.</p>
-<p><strong>IMPORTANT</strong> When you run a game that has been exported, it will always start the first scene in the list.
-Since we want our game to start with the start scene, we need to make sure it is the first scene in the list.</p>
+<div class="important">
+When you run a game that has been exported, it will always start the first scene in the list.
+Since we want our game to start with the start scene, we need to make sure it is the first scene in the list.
+</div>
+
 <p><img alt="" src="images/moveUp.jpg" /></p>
 <p>Now add a <strong>title</strong> and a <strong>start button</strong> to the game.</p>
 <ul>
@@ -52,9 +55,11 @@ Since we want our game to start with the start scene, we need to make sure it is
 <p>To the same event, add a second condition, this time select <strong>Other conditions</strong>, and choose the <strong>Mouse button released</strong> condition.
 Under <strong>Button to check</strong>, choose the <strong>Left</strong> button.</p>
 <p><img alt="" src="images/startButton.png" /></p>
-<p><strong>Note</strong> You may notice that for the arrow controls, we used <strong>Touch or mouse button is down</strong>, but here we are using <strong>Mouse button released</strong>.
+<div class="info">
+You may notice that for the arrow controls, we used <strong>Touch or mouse button is down</strong>, but here we are using <strong>Mouse button released</strong>.
 That's because in game movement controls, we usually make a character move when we hold a button down.
-But for other types of controls (eg. selecting options from a menu), we usually trigger the button when the click or touch is released.</p>
+But for other types of controls (eg. selecting options from a menu), we usually trigger the button when the click or touch is released.
+</div>
 <p>Under actions, select <strong>Change to scene</strong> and select the <strong>Play</strong> scene.</p>
 <p><img alt="" src="images/startEvents.png" /></p>
 <h2>Restarting After Game Over</h2>

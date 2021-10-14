@@ -2,7 +2,7 @@
 
 Click on **Add new object**, then from the asset store search for the **Green Player** and add it to the game.
 
-![](images/add object.jpg)
+![](images/addObject.jpg)
 
 If you can't find the **Green Player** object, make sure **All assets** is selected, then type in "green player" into the search bar.
 
@@ -29,7 +29,7 @@ Many of the features used in games are already available as behaviors, allowing 
 
 To start, double click on the player object, switch to the **Behaviors** tab, and click **Add a Behavior to the object**.
 
-![](images/add behavior.jpg)
+![](images/addBehavior.jpg)
 
 We'll be adding two behaviors...
 

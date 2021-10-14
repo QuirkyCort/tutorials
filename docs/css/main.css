@@ -124,7 +124,7 @@ th {
 
 #body.close #hamburgerTop {
   left: 0.8rem;
-  transform: rotate(-135deg); }
+  transform: rotate(45deg); }
 #body.close #hamburgerBottom {
   left: 0.8rem;
   transform: rotate(-45deg); }
@@ -143,7 +143,7 @@ th {
     margin-left: 0.5em;
     overflow-x: auto; }
 
-.tip, .info, .important {
+.tip, .info, .important, .think {
   color: #155724;
   background-color: #d4edda;
   border: solid 1px #c3e6cb;
@@ -155,11 +155,15 @@ th {
   font-weight: bold; }
 
 .info::before {
-  content: "ⓘ Info: ";
+  content: "ℹ️ Info: ";
   font-weight: bold; }
 
 .important::before {
-  content: "⚠ Important: ";
+  content: "⚠️ Important: ";
+  font-weight: bold; }
+
+.think::before {
+  content: "🤔 Thinking Point: ";
   font-weight: bold; }
 
 @media only screen and (max-width: 600px) {

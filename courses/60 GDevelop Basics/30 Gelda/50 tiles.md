@@ -28,8 +28,8 @@ Select each of the buttons on the scene and change their layer to **GUI**.
 
 This ensures that the buttons will always appear over all other objects in the scene.
 
-<div class="info">
-GUI stands for "Graphical User Interface". It includes controls such as buttons and sliders, as well as displays such as score, health, time, etc.
+<div class="info" markdown="span">
+GUI stands for **Graphical User Interface**. It includes controls such as buttons and sliders, as well as displays such as score, health, time, etc.
 </div>
 
 ## Tile Sprite
@@ -53,8 +53,8 @@ This images demonstrates what happens when you try to resize a normal sprite and
 
 Go ahead and add both the **Gray Background** and the **Blue Background** to the scene.
 
-<div class="tip">
-If you have an image that you'll like to use, but it is not available as a tiled sprite in the asset store, you can select "New Object from Scratch" followed by "Tiled Sprite". This allows you to create a tiled sprite with any image.
+<div class="tip" markdown="span">
+If you have an image that you'll like to use, but it is not available as a tiled sprite in the asset store, you can select **New Object from Scratch** followed by **Tiled Sprite**. This allows you to create a tiled sprite with any image.
 </div>
 
 ## Grids

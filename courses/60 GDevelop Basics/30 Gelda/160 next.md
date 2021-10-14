@@ -47,15 +47,15 @@ Some of them may be useful in making your game look better or more interesting.
 Currently, switching between scenes is very abrupt.
 Make use of effects and timers to make the scene change more gradual.
 
-<div class="tip">
+<div class="tip" markdown="span">
 You can change the effect parameter through actions.
-For example, you can change the "size" parameter of the "Pixelated" effect to make the object look more and more pixelated with time.
+For example, you can change the **size** parameter of the **Pixelated** effect to make the object look more and more pixelated with time.
 </div>
 
 <div><br></div>
 
-<div class="tip">
-If you use the "Play sound on channel" action, you can then use the "Volume of sound on channel" action to change the volume.
+<div class="tip" markdown="span">
+If you use the **Play sound on channel** action, you can then use the **Volume of sound on channel** action to change the volume.
 This is useful in creating a fade-out effect.
 </div>
 

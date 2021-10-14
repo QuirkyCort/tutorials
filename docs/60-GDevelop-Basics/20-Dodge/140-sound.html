@@ -36,20 +36,27 @@
         <div id="content">
             <h1>Sound and Music</h1>
 <p>Let's add a background music to our <strong>Play</strong> scene.</p>
-<p><strong>IMPORTANT</strong> When running on a browser, the user must interact with the game (eg. click on the screen) before the first sound/music is played.
-This is a limitation imposed by the browser to prevent annoying websites from blaring loud sounds at you as soon as you open the webpage.</p>
+<div class="important">
+When running on a browser, the user must interact with the game (eg. click on the screen) before the first sound/music is played.
+This is a limitation imposed by the browser to prevent annoying websites from blaring loud sounds at you as soon as you open the webpage.
+</div>
+
 <p>To play a sound, we'll use either the <strong>Play Music</strong> or <strong>Play Sound</strong> actions.
 Use <strong>Play Music</strong> if it is a long file such as a background music, and <strong>Play Sound</strong> if it is a short one like for a gunshot sound.</p>
-<p><strong>TIPS</strong> If in doubt, use <strong>Play Sound</strong>; while it's intended for short sounds, it actually works well for audio of any length.</p>
+<div class="tip">
+If in doubt, use <strong>Play Sound</strong>; while it's intended for short sounds, it actually works well for audio of any length.
+</div>
 <p>Add a new event. Add the condition <strong>At the beginning of the scene</strong>. Add the condition <strong>Play the sound</strong>, select a music that you like, and set <strong>Repeat</strong> to <strong>Yes</strong>.</p>
 <p><img alt="" src="images/playSound.png" /></p>
 <p>Your event should look like this...</p>
 <p><img alt="" src="images/soundEvent.png" /></p>
 <p>If you like, you can add a background music for the <strong>End</strong> scene in the same way.
 Note that if you add a background music for the <strong>Start</strong> scene, it will <strong>NOT</strong> play when you start the game in a browser, as the browser will not allow a webpage to play audio before the user interacts with it.</p>
-<p><strong>OPTIONAL</strong> When game over occurs, the music will automatically stop.
+<div class="info">
+When game over occurs, the music will automatically stop.
 That's because by default, GDevelop stops all music and sounds when starting a new scene.
-If you want the music to continue playing, open the <strong>Project</strong> manager, click on the 3 dots (...that's called a kebab menu) next to the <strong>End</strong> scene, select <strong>Edit scene properties</strong>, and turn off <strong>Stop music and sounds on startup</strong>.</p>
+If you want the music to continue playing, open the <strong>Project</strong> manager, click on the 3 dots (...that's called a kebab menu) next to the <strong>End</strong> scene, select <strong>Edit scene properties</strong>, and turn off <strong>Stop music and sounds on startup</strong>.
+</div>
 <p><img alt="" src="images/stopAudio.jpg" /></p>
         </div>
         <button type="button" id="hamburger">

@@ -37,22 +37,34 @@
             <h1>Events</h1>
 <p>In GDevelop, events define the logic of a game.
 If you have experience with Scratch, you would have used events before.</p>
-<p><img alt="" src="images/scratch events.png" /></p>
+<p><img alt="" src="images/scratchEvents.png" /></p>
 <p><em>Events in Scratch</em></p>
 <p>Each event in GDevelop, consists of <strong>conditions</strong> and <strong>actions</strong>.
 <strong>Conditions</strong> define when the event will trigger and also select which object are affected by the action, while the <strong>actions</strong> define what happens when the event triggers.</p>
-<p><strong>No conditions?</strong> If no conditions are defined, the associated actions will run every frame of the game (usually 60 times per second).</p>
+<p><img alt="" src="images/eventLabels.png" /></p>
+<div class="info">
+If no conditions are defined, the associated actions will run every frame of the game (usually 60 times per second).
+</div>
+
+<p><img alt="" src="images/conditionlessEvent.png" /></p>
+<p><em>Events with no conditions will run every frame</em></p>
+<div class="info">
+Events may have multiple conditions and actions.
+All the conditions must be true for the event to run.
+</div>
+
+<p><img alt="" src="images/multipleConditionsActions.png" /></p>
 <h2>First Event</h2>
 <p>Switch to the events tab...</p>
 <p><img alt="" src="images/events.png" /></p>
 <p>Then click on the <strong>Add new empty event</strong> button. You should now have a new event with empty conditions and actions.</p>
-<p><img alt="" src="images/empty event.png" /></p>
+<p><img alt="" src="images/emptyEvent.png" /></p>
 <p>Click on <strong>Add condition</strong>, click <strong>Other conditions</strong>, and select the <strong>Mouse button pressed or touch held</strong> condition.</p>
-<p><img alt="" src="images/mouse click.png" /></p>
+<p><img alt="" src="images/mouseClick.png" /></p>
 <p>Under <strong>Button to check</strong> select the <strong>Left (primary)</strong> button, then click <strong>Ok</strong>.</p>
-<p><img alt="" src="images/left button.png" /></p>
+<p><img alt="" src="images/leftButton.png" /></p>
 <p>Your events tab should now look like this...</p>
-<p><img alt="" src="images/one event.png" /></p>
+<p><img alt="" src="images/oneEvent.png" /></p>
 <h2>Sub Events</h2>
 <p>That first event will detect when you touch the screen, but it can't tell which button was touched.
 To do that, we'll add a sub-event under it to detect the buttons.
@@ -63,20 +75,20 @@ Sub-events are only considered when their parent event are true.</p>
 If it is not, just drag it into place.</p>
 <p>Next, click on the condition for the sub-event, select the <strong>Up</strong> arrow, then select <strong>cursor/touch is on an object</strong> condition.
 Click <strong>Ok</strong>.</p>
-<p><img alt="" src="images/up event.png" /></p>
-<p><img alt="" src="images/cursor event.png" /></p>
+<p><img alt="" src="images/upEvent.png" /></p>
+<p><img alt="" src="images/cursorEvent.png" /></p>
 <h2>Action</h2>
 <p>Now we'll add an action for the sub-event.
 When the <strong>Up</strong> arrow is pressed, we want it to simulate an <strong>up</strong> keypress.</p>
 <p>Under the sub-event, click <strong>Add action</strong>, select the player, then select the <strong>Simulate up key press</strong> action.
 Click <strong>Ok</strong>.</p>
-<p><img alt="" src="images/up action.png" /></p>
+<p><img alt="" src="images/upAction.png" /></p>
 <p>Your events tab should now look like this...</p>
-<p><img alt="" src="images/action added.png" /></p>
+<p><img alt="" src="images/actionAdded.png" /></p>
 <h2>Add the rest</h2>
 <p>Repeat the steps, adding a sub-event for each direction.
 When you're done, your events tab should look like this...</p>
-<p><img alt="" src="images/all direction actions.png" /></p>
+<p><img alt="" src="images/allDirectionActions.png" /></p>
 <h2>Preview the Scene</h2>
 <p>At this point, you can preview the scene by clicking the <strong>Preview</strong> button.</p>
 <p>Test the controls and make sure that your player character is moving correctly.</p>

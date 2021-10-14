@@ -20,7 +20,7 @@ Examples of game engines includes:
 * Godot (eg. Sonic Colors, Ex Zodiac)
 * GDevelop (eg. Hyperspace Dogfights, Lil BUB's HELLO EARTH)
 
-![](images/game engines.jpg)
+![](images/gameEngines.jpg)
 
 ## What about Scratch?
 

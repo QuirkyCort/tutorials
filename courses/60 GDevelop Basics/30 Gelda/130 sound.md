@@ -10,7 +10,7 @@ This is a limitation imposed by the browser to prevent annoying websites from bl
 To play a sound, we'll use either the **Play Music** or **Play Sound** actions.
 Use **Play Music** if it is a long file such as a background music, and **Play Sound** if it is a short one like for a gunshot sound.
 
-<div class="tip">
+<div class="tip" markdown="span">
 If in doubt, use **Play Sound**; while it's intended for short sounds, it actually works well for audio of any length.
 </div>
 
