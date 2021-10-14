@@ -2,7 +2,7 @@
 
 You should now be in the scene editor...
 
-![](images/scene editor.jpg)
+![](images/sceneEditor.jpg)
 
 Take a look around, and take note of the following...
 

@@ -193,7 +193,10 @@ pgzrun.go() # Must be last line
 <p>We need to add <code>global bullet_delay</code>.</p>
 <p>The <strong>bullet_delay</strong> variable is declared outside of the update() function, but we are trying to write it from inside the update() function. In Python, we can read variables that are outside a function (...these are called global variables), but cannot write to them unless we declare them as global inside the function.</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

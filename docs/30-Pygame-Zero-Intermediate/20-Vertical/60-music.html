@@ -73,7 +73,10 @@
 
 <p>This should start right from the beginning of the game, so put it <strong>outside</strong> of the update and draw functions. If you put it inside either the update or draw function, it will start everytime these functions run (...which is around 60 times per second), and will sound terrible.</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

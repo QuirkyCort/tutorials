@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li class="current">Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Start and End Scenes</h1>
+<p>It's hard to create a nice looking start and end scene without the use of custom graphics, so I'll just be creating a very simple one here.
+If you are using the desktop editor, you can create your own image in Photoshop / Gimp / Inkscape / etc, and import it into your game.</p>
+<p>Add a new scene, rename it to <strong>Start</strong> and move it to the top of the scene list.</p>
+<div class="tip">
+Running an exported game will always start the first scene in the list.
+</div>
+
+<p>Add a new <strong>Text</strong> object, give it the initial text <strong>GELDA</strong> and set the color and font.
+Drag an instance on to the scene and position it suitably.</p>
+<p>Add a start button to the scene.
+Size and position it suitably.</p>
+<p><strong>Optional:</strong> Add more text and images to decorate your start scene.</p>
+<p>This is what mine looks like...</p>
+<p><img alt="" src="images/startScene.png" /></p>
+<h2>Effects</h2>
+<p>Effects changes appearances, such as changing the color into black and white, blurring the screen, or making an object glow.
+They can be applied to an object, or to an entire layer.</p>
+<p>We'll apply the <strong>Godray</strong> effect on the <strong>Base Layer</strong>, and the <strong>Pixelate</strong> and <strong>Advanced Bloom</strong> effect on the title object.</p>
+<p>Starting with <strong>Godray</strong>, click on the <strong>Layer effects button</strong>.</p>
+<p><img alt="" src="images/layerEffectsButton.png" /></p>
+<p>Click on <strong>Add Effects</strong>, and under <strong>Choose the effect to apply</strong>, select <strong>Godray</strong>.
+Experiment with the parameters if you like, then click <strong>Apply</strong> when you are done.</p>
+<div class="info">
+Effects only appear when running the game or a preview; you will not see any effects in the editor screen.
+</div>
+
+<p>For the title object, click on the kebab menu then select <strong>Edit Effects</strong>.</p>
+<p><img alt="" src="images/editObjectEffects.png" /></p>
+<p>First add the <strong>Advanced Bloom</strong> effect, then add the <strong>Pixelate</strong> effect.
+For the <strong>Pixelate</strong> effect, I find that using a size of <strong>5</strong> looks best, but feel free to play around with any of the settings.</p>
+<div class="important">
+The order of the effects matters.
+Try changing the order and see the difference.
+</div>
+
+<div><br></div>
+
+<div class="tip">
+The settings for the effects can be changed using events.
+This can be useful to create an animated effect.
+</div>
+
+<p>This is what my start scene looks like with the above effects applied.</p>
+<p><img alt="" src="images/startWithEffects.png" /></p>
+<h2>Start Scene Events</h2>
+<p>We'll add an event to make the start button work.</p>
+<p>Add a new event, and set two conditions...</p>
+<ol>
+<li><strong>Left mouse button released</strong> (...under <strong>Other conditions</strong>)</li>
+<li><strong>Cursor / Touch is on StartButton</strong></li>
+</ol>
+<p>For the action, set it to <strong>Change scene to "Play"</strong> (...under <strong>Other actions</strong>).</p>
+<p><img alt="" src="images/startEvents.png" /></p>
+<h2>End Scene</h2>
+<p>Add a new scene and rename it to <strong>Game Over</strong>.</p>
+<p>Add a new <strong>Text</strong> object, give it the initial text <strong>GAME OVER</strong> and set the color and font.
+Drag an instance on to the scene and position it suitably.</p>
+<p>Add a restart button to the scene.
+I'm using a white <strong>Blank Button</strong> and placing on top of it a <strong>Text</strong> object with the words "Restart".</p>
+<p><strong>Optional:</strong> Add more text, images, and effects to decorate your start scene.</p>
+<p>This is what mine looks like...</p>
+<p><img alt="" src="images/gameOverScene.png" /></p>
+<h2>End Scene Events</h2>
+<p>We'll add an event to make the restart button work.</p>
+<p>Add a new event, and set two conditions...</p>
+<ol>
+<li><strong>Left mouse button released</strong> (...under <strong>Other conditions</strong>)</li>
+<li><strong>Cursor / Touch is on BlankButton</strong></li>
+</ol>
+<p>For the action, set it to <strong>Change scene to "Start"</strong> (...under <strong>Other actions</strong>).</p>
+<h2>Losing</h2>
+<p>We'll have the player lose if he touches a monster.</p>
+<p>To do that, we'll add an even that detect if the player is colliding with a monster.
+If he is, we'll change the scene to the <strong>Game Over</strong> scene.</p>
+<p>Switch back to the <strong>Play</strong> scene.
+Add a new group event and name it <strong>Game End</strong>.</p>
+<p>Under <strong>Game End</strong>, add a sub-event, and set the condition to <strong>Player collision Goblin</strong>.
+For the action, select <strong>Other Actions</strong>, <strong>Change Scene</strong>, <strong>"Game Over"</strong>.</p>
+<p><img alt="" src="images/playerCollideGoblin.png" /></p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

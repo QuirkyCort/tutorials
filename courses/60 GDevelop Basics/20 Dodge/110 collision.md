@@ -17,4 +17,6 @@ Under **Name of the new scene**, type in **"End"** (...including the quotes).
 Make sure you are in the **Play** scene, then click the preview button to test your game.
 Now when you touch an enemy, it should switch to the end scene.
 
-*If you are in the **End** scene, clicking the preview button will only display that scene.*
+<div class="info" markdown="span">
+If you are in the **End** scene, clicking the preview button will only display that scene.
+</div>

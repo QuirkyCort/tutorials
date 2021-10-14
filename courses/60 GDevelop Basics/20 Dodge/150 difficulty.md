@@ -39,9 +39,11 @@ The event should end up like this...
 
 ![](images/multiplyVariableEvent.png)
 
-**THINK...** Why multiply by 0.9? When reducing a value, we would usually think of performing a subtraction, say by **0.1 seconds**.
+<div class="think" markdown="span">
+Why multiply by 0.9? When reducing a value, we would usually think of performing a subtraction, say by **0.1 seconds**.
 But consider what happens when we have subtracted ten times?
 The delay will now be **0 seconds**.
 And if we subtract one more time, the delay will be **-0.1 seconds**. That doesn't make much sense!
 Multiplying by 0.9 will reduce the delay, while ensuring that it never reaches zero.
 There are other more complicated equations that we can use, but this is good enough for now.
+</div>

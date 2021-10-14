@@ -5,8 +5,10 @@ Now that we have a game over scene, let's also create a start scene.
 Create a new scene and rename it **Start**.
 Move the scene to the top of the scene list.
 
-**IMPORTANT** When you run a game that has been exported, it will always start the first scene in the list.
+<div class="important">
+When you run a game that has been exported, it will always start the first scene in the list.
 Since we want our game to start with the start scene, we need to make sure it is the first scene in the list.
+</div>
 
 ![](images/moveUp.jpg)
 
@@ -26,9 +28,11 @@ Under **Button to check**, choose the **Left** button.
 
 ![](images/startButton.png)
 
-**Note** You may notice that for the arrow controls, we used **Touch or mouse button is down**, but here we are using **Mouse button released**.
+<div class="info" markdown="span">
+You may notice that for the arrow controls, we used **Touch or mouse button is down**, but here we are using **Mouse button released**.
 That's because in game movement controls, we usually make a character move when we hold a button down.
 But for other types of controls (eg. selecting options from a menu), we usually trigger the button when the click or touch is released.
+</div>
 
 Under actions, select **Change to scene** and select the **Play** scene.
 

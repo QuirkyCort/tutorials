@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li class="current">Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Touchscreen Controls</h1>
+<p>The <strong>Top-down movement</strong> behavior allows you to control the player using the arrow keys on the keyboard, but if you're on a tablet, you (probably) won't have a keyboard!
+To solve that, we'll add virtual keys to the screen.</p>
+<div class="important">
+If you're using a PC and don't intend for your game to be played on a touchscreen, you can skip adding the control buttons, but will need to modify the events to enable the correct animations.
+</div>
+
+<h2>Control Buttons</h2>
+<p>Add a new object and select an up arrow. You can use whichever one you prefer.</p>
+<p><img alt="" src="images/arrow.jpg" /></p>
+<p>Continue adding arrows until you have one in each direction.</p>
+<p><img alt="" src="images/4arrows.png" /></p>
+<p>Drag one instance of each arrow into the scene, and for each arrow...</p>
+<ol>
+<li>Change the size to something appropriate (...if required).</li>
+<li>Position it like in the following image.</li>
+</ol>
+<p><img alt="" src="images/positionArrows.png" /></p>
+<h2>Group Events</h2>
+<p>In <strong>Dodge the Creep</strong>, we only used <strong>Standard Events</strong> and <strong>Sub-Events</strong>.
+That works fine, but as we have more events, things starts to get messy.</p>
+<p><strong>Group Events</strong> are used to organize and structure our events.
+By themselves, they have a title, but otherwise do nothing at all.</p>
+<p><strong>Group Events</strong> are only useful when we add sub-events to them.
+This lets the group event act like a header for a group of events.
+For example, we can create a group event with the title "Enemies" and place all the events related to the enemies under this group.</p>
+<p>Let's start by creating a group event, and naming it "Player Movements".</p>
+<p><img alt="" src="images/groupEvents.jpg" /></p>
+<p>Next, select the group event and add a new sub-event.
+For this first sub-event, we'll be adding the <strong>Mouse button pressed or touch held</strong> condition.
+Under <strong>Button to check</strong> select the <strong>Left (primary)</strong> button, then click <strong>Ok</strong>.</p>
+<p>Your events tab should now look like this...</p>
+<p><img alt="" src="images/touchHeld.png" /></p>
+<p>This first event will detect when you touch the screen, but it can't tell which button was touched.
+To do that, we'll add a sub-event under it to detect the buttons.
+Select the <strong>Touch or mouse down</strong> event, and add another sub-event.</p>
+<p>For the conditions, select the <strong>Up</strong> arrow, then select <strong>cursor/touch is on an object</strong> condition.
+And for the action, select the player, then select the <strong>Simulate up key press</strong> action.</p>
+<p>We should also set the correct animation for each movement direction, so go ahead and add a <strong>Change the animation</strong> action.
+Check the player object to determine what is the correct animation name / number and set it accordingly.</p>
+<p>Your events tab should now look like this...</p>
+<p><img alt="" src="images/simulateUpKey.png" /></p>
+<h2>Add the rest</h2>
+<p>Repeat the steps, adding a sub-event for each direction.
+When you're done, your events tab should look like this...</p>
+<p><img alt="" src="images/allMovements.png" /></p>
+<h2>Pause and Play animation</h2>
+<p>In our previous game, we switched to an idle animation when the player isn't moving.
+For our current player sprite, we don't have an idle animation, so instead, we'll pause the animation when the player is stopped.</p>
+<p>Add a new sub-event under the <strong>Player Movements</strong> group event.
+For the condition, select the player, choose <strong>Check if the object is moving</strong>, and set it to <strong>Invert condition</strong>.
+For the action, select the player, then choose <strong>Pause the animation</strong>.</p>
+<p>Since we have paused the animation, we'll also need to restart it when the player is moving.
+Add a <strong>Play the animation</strong> action to the existing <strong>Touch or mouse down</strong> event.
+Our event tab should now look like this...</p>
+<p><img alt="" src="images/animationPausePlay.png" /></p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

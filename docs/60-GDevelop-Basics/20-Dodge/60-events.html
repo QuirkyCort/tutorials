@@ -31,28 +31,40 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Basic game development using GDevelop</div>
-            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li class="current">Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li class="current">Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
         </nav>
         <div id="content">
             <h1>Events</h1>
 <p>In GDevelop, events define the logic of a game.
 If you have experience with Scratch, you would have used events before.</p>
-<p><img alt="" src="images/scratch events.png" /></p>
+<p><img alt="" src="images/scratchEvents.png" /></p>
 <p><em>Events in Scratch</em></p>
 <p>Each event in GDevelop, consists of <strong>conditions</strong> and <strong>actions</strong>.
 <strong>Conditions</strong> define when the event will trigger and also select which object are affected by the action, while the <strong>actions</strong> define what happens when the event triggers.</p>
-<p><strong>No conditions?</strong> If no conditions are defined, the associated actions will run every frame of the game (usually 60 times per second).</p>
+<p><img alt="" src="images/eventLabels.png" /></p>
+<div class="info">
+If no conditions are defined, the associated actions will run every frame of the game (usually 60 times per second).
+</div>
+
+<p><img alt="" src="images/conditionlessEvent.png" /></p>
+<p><em>Events with no conditions will run every frame</em></p>
+<div class="info">
+Events may have multiple conditions and actions.
+All the conditions must be true for the event to run.
+</div>
+
+<p><img alt="" src="images/multipleConditionsActions.png" /></p>
 <h2>First Event</h2>
 <p>Switch to the events tab...</p>
 <p><img alt="" src="images/events.png" /></p>
 <p>Then click on the <strong>Add new empty event</strong> button. You should now have a new event with empty conditions and actions.</p>
-<p><img alt="" src="images/empty event.png" /></p>
+<p><img alt="" src="images/emptyEvent.png" /></p>
 <p>Click on <strong>Add condition</strong>, click <strong>Other conditions</strong>, and select the <strong>Mouse button pressed or touch held</strong> condition.</p>
-<p><img alt="" src="images/mouse click.png" /></p>
+<p><img alt="" src="images/mouseClick.png" /></p>
 <p>Under <strong>Button to check</strong> select the <strong>Left (primary)</strong> button, then click <strong>Ok</strong>.</p>
-<p><img alt="" src="images/left button.png" /></p>
+<p><img alt="" src="images/leftButton.png" /></p>
 <p>Your events tab should now look like this...</p>
-<p><img alt="" src="images/one event.png" /></p>
+<p><img alt="" src="images/oneEvent.png" /></p>
 <h2>Sub Events</h2>
 <p>That first event will detect when you touch the screen, but it can't tell which button was touched.
 To do that, we'll add a sub-event under it to detect the buttons.
@@ -63,25 +75,28 @@ Sub-events are only considered when their parent event are true.</p>
 If it is not, just drag it into place.</p>
 <p>Next, click on the condition for the sub-event, select the <strong>Up</strong> arrow, then select <strong>cursor/touch is on an object</strong> condition.
 Click <strong>Ok</strong>.</p>
-<p><img alt="" src="images/up event.png" /></p>
-<p><img alt="" src="images/cursor event.png" /></p>
+<p><img alt="" src="images/upEvent.png" /></p>
+<p><img alt="" src="images/cursorEvent.png" /></p>
 <h2>Action</h2>
 <p>Now we'll add an action for the sub-event.
 When the <strong>Up</strong> arrow is pressed, we want it to simulate an <strong>up</strong> keypress.</p>
 <p>Under the sub-event, click <strong>Add action</strong>, select the player, then select the <strong>Simulate up key press</strong> action.
 Click <strong>Ok</strong>.</p>
-<p><img alt="" src="images/up action.png" /></p>
+<p><img alt="" src="images/upAction.png" /></p>
 <p>Your events tab should now look like this...</p>
-<p><img alt="" src="images/action added.png" /></p>
+<p><img alt="" src="images/actionAdded.png" /></p>
 <h2>Add the rest</h2>
 <p>Repeat the steps, adding a sub-event for each direction.
 When you're done, your events tab should look like this...</p>
-<p><img alt="" src="images/all direction actions.png" /></p>
+<p><img alt="" src="images/allDirectionActions.png" /></p>
 <h2>Preview the Scene</h2>
 <p>At this point, you can preview the scene by clicking the <strong>Preview</strong> button.</p>
 <p>Test the controls and make sure that your player character is moving correctly.</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

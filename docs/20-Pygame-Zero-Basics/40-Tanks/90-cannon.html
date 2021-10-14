@@ -57,12 +57,37 @@
 <p>When you try out the program, you'll see a bullet created each time you press the space bar. But the bullet just stays there and don't do anything, so next, we'll make the bullet fly.</p>
 <h1>Moving the Bullet</h1>
 <p>In update, we can move the bullet by changing x or y. To decide which direction to move towards, we can look at the bullet's angle.</p>
-<p>| Angle | Direction | x or y |
-|-|-|-|
-| 0   | Right | x+ |
-| 90  | Up    | y- |
-| 180 | Left  | x- |
-| 270 | Down  | y+ |</p>
+<table>
+<thead>
+<tr>
+<th>Angle</th>
+<th>Direction</th>
+<th>x or y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Right</td>
+<td>x+</td>
+</tr>
+<tr>
+<td>90</td>
+<td>Up</td>
+<td>y-</td>
+</tr>
+<tr>
+<td>180</td>
+<td>Left</td>
+<td>x-</td>
+</tr>
+<tr>
+<td>270</td>
+<td>Down</td>
+<td>y+</td>
+</tr>
+</tbody>
+</table>
 <p>We should move the bullet in the <strong>update()</strong> function. Using a <strong>for</strong> loop.</p>
 <div class="codehilite"><pre><span></span><code>for bullet in bullets:
     if bullet.angle == 0:

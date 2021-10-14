@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>GDevelop Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            GDevelop Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Basic game development using GDevelop</div>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li >What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li class="current">Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Layers and Tiles</h1>
+<p>Next we'll be adding our background.
+This includes the ground as well as the walls.</p>
+<p>We want our background to always be behind the player (...else it'll cover the player), so we'll be making use of <strong>Layers</strong>.</p>
+<h2>Layers</h2>
+<p>Click on the <strong>Layers</strong> button to open up the layers editor...</p>
+<p><img alt="" src="images/layers.png" /></p>
+<p>You can see that we currently have only a single layer, the default <strong>Base layer</strong>.</p>
+<p>Click <strong>Add a Layer</strong> to add a new layer, rename it to <strong>Background</strong>, and move it below the <strong>Base Layer</strong>.</p>
+<p><img alt="" src="images/moveLayer.png" /></p>
+<p>Now anything that's in the <strong>Background</strong> layer will appear behind all the objects in the <strong>Base Layer</strong>.</p>
+<p>While we are at layers, we should also add a <strong>GUI</strong> layer for the buttons.
+This layer should be place above the <strong>Base layer</strong>.</p>
+<p>Select each of the buttons on the scene and change their layer to <strong>GUI</strong>.</p>
+<p><img alt="" src="images/guiLayer.png" /></p>
+<p>This ensures that the buttons will always appear over all other objects in the scene.</p>
+<div class="info">
+GUI stands for <strong>Graphical User Interface</strong>. It includes controls such as buttons and sliders, as well as displays such as score, health, time, etc.
+</div>
+<h2>Tile Sprite</h2>
+<p>I'll be using <strong>Gray Background</strong> for the floor and <strong>Blue Background</strong> for the walls.
+If you are using the desktop version of GDevelop, you can find much better floor and walls images online (eg. <a href="https://opengameart.org/">OpenGameArt</a>), but since I'll like to keep this tutorial accessible to everyone, I'll just have to make do with what we have in the asset store.</p>
+<p><img alt="" src="images/tiledSprite.png" /></p>
+<p>You can see it indicated below the asset name that these are <strong>tiled sprite</strong>.
+The differences between a normal <strong>sprite</strong> and a <strong>tiled sprite</strong> are...</p>
+<table>
+<thead>
+<tr>
+<th>Normal Sprite</th>
+<th>Tiled Sprite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Support animation</td>
+<td>No animation</td>
+</tr>
+<tr>
+<td>Resizing causes the sprite to be stretched</td>
+<td>Resizing causes the sprite to be repeated</td>
+</tr>
+</tbody>
+</table>
+<p>This images demonstrates what happens when you try to resize a normal sprite and a tiled sprite.</p>
+<p><img alt="" src="images/normalVsTiledSprite.png" /></p>
+<p>Go ahead and add both the <strong>Gray Background</strong> and the <strong>Blue Background</strong> to the scene.</p>
+<div class="tip">
+If you have an image that you'll like to use, but it is not available as a tiled sprite in the asset store, you can select <strong>New Object from Scratch</strong> followed by <strong>Tiled Sprite</strong>. This allows you to create a tiled sprite with any image.
+</div>
+<h2>Grids</h2>
+<p>To make it easier for us to position the tiled sprites properly, we can make use of the <strong>Grid</strong> feature.
+Click on the <strong>Grid</strong> button and select <strong>Show Grid</strong>.</p>
+<p><img alt="" src="images/showGrid.png" /></p>
+<p>By default, the grid size is 32 by 32 pixels, which is good for us.
+If you need a different grid size, you can set it using <strong>Setup grid</strong>.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

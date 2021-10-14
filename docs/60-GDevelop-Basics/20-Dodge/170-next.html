@@ -31,7 +31,7 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Basic game development using GDevelop</div>
-            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li class="current">What's Next?</li></a></ul>
+            <p>Intro to GDevelop</p><ul><a href="../10-Intro/10-intro.html"><li >Introductions</li></a><a href="../10-Intro/20-gdevelop.html"><li >What is GDevelop?</li></a></ul><p>Dodge the Creep</p><ul><a href="../20-Dodge/10-dodge.html"><li >Dodge the Creep</li></a><a href="../20-Dodge/20-start.html"><li >Getting Started</li></a><a href="../20-Dodge/30-scene.html"><li >Scene Editor</li></a><a href="../20-Dodge/40-object.html"><li >First Object</li></a><a href="../20-Dodge/50-touch.html"><li >Touchscreen Controls</li></a><a href="../20-Dodge/60-events.html"><li >Events</li></a><a href="../20-Dodge/70-animation.html"><li >Animation</li></a><a href="../20-Dodge/80-enemies.html"><li >Enemies</li></a><a href="../20-Dodge/90-sides.html"><li >Four sides</li></a><a href="../20-Dodge/100-gameover.html"><li >Game Over</li></a><a href="../20-Dodge/110-collision.html"><li >Collision</li></a><a href="../20-Dodge/120-start.html"><li >Start Scene</li></a><a href="../20-Dodge/130-score.html"><li >Score</li></a><a href="../20-Dodge/140-sound.html"><li >Sound and Music</li></a><a href="../20-Dodge/150-difficulty.html"><li >Increasing Difficulty</li></a><a href="../20-Dodge/160-export.html"><li >Exporting the Game</li></a><a href="../20-Dodge/170-next.html"><li class="current">What's Next?</li></a></ul><p>Gelda (RPG)</p><ul><a href="../30-Gelda/10-gelda.html"><li >Gelda (RPG)</li></a><a href="../30-Gelda/20-start.html"><li >Getting Started</li></a><a href="../30-Gelda/30-player.html"><li >Player</li></a><a href="../30-Gelda/40-touch.html"><li >Touchscreen Controls</li></a><a href="../30-Gelda/50-tiles.html"><li >Layers and Tiles</li></a><a href="../30-Gelda/60-world.html"><li >Game World</li></a><a href="../30-Gelda/70-npc.html"><li >Non-Player Characters</li></a><a href="../30-Gelda/80-princess.html"><li >Princess NPC</li></a><a href="../30-Gelda/90-monsters.html"><li >Monsters</li></a><a href="../30-Gelda/100-attacks.html"><li >Attacks</li></a><a href="../30-Gelda/110-dialog2.html"><li >Dialog (Part 2)</li></a><a href="../30-Gelda/120-startEnd.html"><li >Start and End Scenes</li></a><a href="../30-Gelda/130-sound.html"><li >Sound and Music</li></a><a href="../30-Gelda/140-fullscreen.html"><li >Fullscreen</li></a><a href="../30-Gelda/150-export.html"><li >Exporting the Game</li></a><a href="../30-Gelda/160-next.html"><li >What's Next?</li></a></ul>
         </nav>
         <div id="content">
             <h1>What's Next?</h1>
@@ -42,23 +42,33 @@ Once you're done with this tutorial, you can move on to another tutorial to lear
 The enemy may leave the screen (...so we don't see it), but it's still in the game, consuming CPU time and memory.
 It's generally not a big problem as a modern computer can easily handle thousands of enemies without slowing down, but it's good practice to remove it when it's no longer needed.
 This is particularly important if we have a more complex games where we might end up with so many off-screen objects that it ends up slowing down the computer.</p>
-<p><strong>TIP</strong> There is an <strong>Destroy when outside of screen</strong> behavior that you can add to the enemy.</p>
+<div class="tip">
+There is an <strong>Destroy when outside of screen</strong> behavior that you can add to the enemy.
+</div>
 <h3>Challenge 1. Random direction</h3>
 <p>Instead of always moving straight, make the direction of the enemy random.</p>
-<p><strong>TIP</strong> Instead of setting the force using a speed on the X and Y axis, you can also set the force using an angle and speed.</p>
+<div class="tip">
+Instead of setting the force using a speed on the X and Y axis, you can also set the force using an angle and speed.
+</div>
 <h3>Challenge 2. Variable Speed</h3>
 <p>Make the speed of the enemy variable, such that some are faster while others are slower.</p>
 <h3>Challenge 3. Add a Background Image</h3>
 <p>Right now our game uses the default gray background.
 Try adding a new object and using it as a background image.</p>
-<p><strong>TIP</strong> You may need to adjust the <strong>Z Order</strong> property to move the background object behind the other objects.
-Alternatively, you can create a new layer (...we haven't learned this yet), move it below the base layer, then place the background object in this new layer.</p>
-<p><strong>EXPLORE</strong> You can play around with adding <strong>Effects</strong> to the background object.
-Try the <strong>Reflection</strong> effect.</p>
+<div class="tip">
+You may need to adjust the <strong>Z Order</strong> property to move the background object behind the other objects.
+Alternatively, you can create a new layer (...we haven't learned this yet), move it below the base layer, then place the background object in this new layer.
+</div>
+<div class="info">
+You can play around with adding <strong>Effects</strong> to the background object.
+Try the <strong>Reflection</strong> effect.
+</div>
 <h3>Challenge 4. Translucent Buttons</h3>
 <p>If your player move under the buttons, it may be covered by it.
 Make the buttons translucent, so that you can see through it.</p>
-<p><strong>TIP</strong> There is an action for changing opacity.</p>
+<div class="tip">
+There is an action for changing opacity.
+</div>
 <h3>Challenge 5. Different Enemies</h3>
 <p>Our current game only have a single type of enemy.
 Can you add in more types of enemies?</p>
@@ -67,11 +77,14 @@ Can you add in more types of enemies?</p>
 Some of them may be useful in providing interesting effects for your game.</p>
 <h2>Demo</h2>
 <p>Here's an example with the challenges implemented.</p>
-<iframe width="800" height="600" src="https://games.accelerateworkshop.com/dodgeAdv/" title="Dodge the Creep" frameborder="0"></iframe>
+<iframe width="800" height="600" src="https://games.accelerateworkshop.com/dodgeAdv/" title="Dodge the Creep" frameborder="0" allowfullscreen></iframe>
 
 <p><a href="https://games.accelerateworkshop.com/dodgeAdv">Click here to play the game in a page of its own.</a></p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>
