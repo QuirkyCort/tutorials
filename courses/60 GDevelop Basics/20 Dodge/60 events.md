@@ -60,6 +60,11 @@ Select the first created event, and click the **Add sub-event to the selected ev
 
 ![](images/subevent.png)
 
+<div class="tip">
+If you created an event wrongly (eg. you created an event when you wanted a sub-event), you can simply drag it into place.
+Move an event by dragging the blue bar on the left side of the event.
+</div>
+
 Make sure that the subevent is under the mouse button event.
 If it is not, just drag it into place.
 

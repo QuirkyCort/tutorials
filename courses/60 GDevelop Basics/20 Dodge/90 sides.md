@@ -43,3 +43,13 @@ It should look something like this...
 
 ![](images/allSides.png)
 
+<div class="tip">
+You can copy and paste an event, but it can be a little tricky to get it right.
+If you're on a computer, right click on the event.
+If you're on a tablet, tap and hold on the event.<br><br>
+
+The tricky bit is that you must click / hold on to an area without any conditions or actions, else you'll end up copying the conditions / actions instead.
+Best place to click / hold is at the very bottom of the event, to the right of the "Add condition".<br><br>
+
+If you've done it correctly, you should see an option to "Toggle disabled". If you don't see this option, you must be on a condition or action.
+</div>
