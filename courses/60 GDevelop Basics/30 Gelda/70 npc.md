@@ -1,6 +1,6 @@
 # Non-Player Characters
 
-You can't have an RPC without Non-Player Characters (NPC).
+You can't have an RPG without Non-Player Characters (NPC).
 We'll start with a Wizard (...or whatever you prefer); he'll be the one to give us our quest.
 
 ![](images/wizard.png)
