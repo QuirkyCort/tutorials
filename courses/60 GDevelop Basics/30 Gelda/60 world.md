@@ -8,7 +8,13 @@ You can find the setting for the background color at the bottom of the **Layers*
 
 Next, rename **Blue Background** to **Wall** (...not essential, but it makes things clearer), then drag it on to the scene.
 Resize it and use it to build the first wall in the scene.
-Repeat until you have a huge maze...
+Repeat...
+
+<video autoplay muted loop>
+  <source src="images/assembleWalls.mp4" type="video/mp4">
+</video>
+
+...until you have a huge maze...
 
 ![](images/hugeMaze.png)
 
