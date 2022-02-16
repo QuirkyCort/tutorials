@@ -49,27 +49,27 @@
 <h3>Pew Pew</h3>
 <p>The first sound that I'm adding is the shooting sound. I've selected the file <strong>sfx_sounds_interaction25.wav</strong> (...that's for me. you can use a different sound). I'm going to make this sound play everytime we fire a bullet.</p>
 <p>To play a sound, we need to add a Python statement that looks like this...</p>
-<div class="codehilite"><pre><span></span><code>sounds.sfx_sounds_interaction25.play()
-</code></pre></div>
+<pre class="codehilite"><code>sounds.sfx_sounds_interaction25.play()
+</code></pre>
 
 <p><strong>sounds</strong> : This means to use the sounds object that is provided by Pygame Zero.</p>
 <p><strong>sfx_sounds_interaction25</strong> : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.</p>
 <p><strong>play()</strong> : This tells it to play once. If you provide a number in the parameter (eg. <code>play(3)</code>), it will repeat the sound for that number of times. You can also set it to -1 if you want it to repeat forever.</p>
 <p>Since this sound should play when we shoot a bullet, we'll put it under the code where we detect the space key...</p>
-<div class="codehilite"><pre><span></span><code>if keyboard.space and bullet_delay == 0:
+<pre class="codehilite"><code>if keyboard.space and bullet_delay == 0:
     sounds.sfx_sounds_interaction25.play()
     .
     .
     .
-</code></pre></div>
+</code></pre>
 
 <h3>Music</h3>
 <p>Playing music is done the same way as the shooting sound. The only difference is that we want the music to repeat forever, so we'll use <code>play(-1)</code>.</p>
 <p>I'm using the file <strong>main_theme.wav</strong> which is not from your sound pack. I found this on <a href="https://opengameart.org/">OpenGameArt</a>, which is a popular site for finding game assets. As before, you can pick a suitable music from your sound pack, or find a suitable music online.</p>
 <p><strong>Before you ask...</strong> No. I will not help you download music from YouTube or Spotify.</p>
 <p>To play the music and make it repeat forever, we need to add...</p>
-<div class="codehilite"><pre><span></span><code>sounds.main_theme.play(-1)
-</code></pre></div>
+<pre class="codehilite"><code>sounds.main_theme.play(-1)
+</code></pre>
 
 <p>This should start right from the beginning of the game, so put it <strong>outside</strong> of the update and draw functions. If you put it inside either the update or draw function, it will start everytime these functions run (...which is around 60 times per second), and will sound terrible.</p>
         </div>

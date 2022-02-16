@@ -42,69 +42,69 @@
 <p>You'll be seeing a lot of this explosion in the game, so it's best to keep it small and simple. Mine is approximately the size of my strawberry enemy.</p>
 <h1>Detecting when Enemy is Hit</h1>
 <p>Same as in previous games, we can detect a hit using <code>collidelist()</code>. If a collision occurs, we'll remove both the bullet and the enemy.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
+<pre class="codehilite"><code>for bullet in bullets:
     hit = bullet.collidelist(enemies)
     if hit != -1:
         bullets.remove(bullet)
         enemies.remove(enemies[hit])
-</code></pre></div>
+</code></pre>
 
 <p>The <code>for</code> loop allows us to iterate through every bullet, and for each bullet we'll check which enemy collided with it. </p>
 <p>The <code>collidelist()</code> function gives us the <strong>index</strong> of the item that collided with the bullet. If <code>hit</code> is equal to -1, that means no collision, and we won't need to do anything. If <code>hit</code> is NOT -1, we'll remove the bullet and remove the enemy.</p>
 <p>To remove the enemy, we'll use the <code>remove()</code> function, and provide it with the enemy that is hit. Since <code>collidelist()</code>, only gives us the index, we'll need to retrieve the collided enemy using <code>enemies[hit]</code>.</p>
 <h1>Creating an Explosion</h1>
 <p>The explosion effect isn't absolutely necessary, but it makes the game look more professional. We can have multiple explosions on screen at any time, so as usual, we'll create a list for it...</p>
-<div class="codehilite"><pre><span></span><code>explosions = []
-</code></pre></div>
+<pre class="codehilite"><code>explosions = []
+</code></pre>
 
 <p>Each time a bullet hit an enemy, we'll add an explosion at the spot where the enemy was and add it to the explosions list.</p>
-<div class="codehilite"><pre><span></span><code>explosion = Actor(&#39;explosion1&#39;)
+<pre class="codehilite"><code>explosion = Actor('explosion1')
 explosion.x = enemies[hit].x
 explosion.y = enemies[hit].y
 explosions.append(explosion)
-</code></pre></div>
+</code></pre>
 
 <p>Make sure you place this code <strong>before</strong> the <code>enemies.remove()</code>. If you had removed the enemy first, you won't be able to get it's x and y.</p>
 <p>Since I have two explosion images, I'll add both of them to <code>images</code> and set an fps.</p>
-<div class="codehilite"><pre><span></span><code>explosion.images = [&#39;explosion1&#39;, &#39;explosion2&#39;]
+<pre class="codehilite"><code>explosion.images = ['explosion1', 'explosion2']
 explosion.fps = 8
-</code></pre></div>
+</code></pre>
 
 <p>Next, I'll set a variable inside explosion, which I'm calling <code>life</code>. You can use any variable name you want. This variable will store a countdown that represents how long the explosion will be displayed. Feel free to change this number and see what it does.</p>
-<div class="codehilite"><pre><span></span><code>explosion.life = 15
-</code></pre></div>
+<pre class="codehilite"><code>explosion.life = 15
+</code></pre>
 
 <p>We only want the explosion to appear for a short while, so we'll decrease <code>life</code> on each update, and when it reaches zero, we'll delete away the explosion. We'll also run the <code>animate()</code> function here, so that the explosion will look animated.</p>
-<div class="codehilite"><pre><span></span><code>for explosion in explosions:
+<pre class="codehilite"><code>for explosion in explosions:
     explosion.animate()
     explosion.life -= 1
     if explosion.life == 0:
         explosions.remove(explosion)
-</code></pre></div>
+</code></pre>
 
 <p>Finally, we'll need to draw the explosion...</p>
-<div class="codehilite"><pre><span></span><code>for explosion in explosions:
+<pre class="codehilite"><code>for explosion in explosions:
     explosion.draw()
-</code></pre></div>
+</code></pre>
 
 <p>I'm drawing the explosion before the enemies, so that the enemy will appear on top of it (...if they overlap). Depending on the effect you want to achieve, you can also do it the other way round.</p>
 <h1>At this Point...</h1>
 <p>Now you should be able to destroy the enemies!</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<pre class="codehilite"><code>import pgzrun
 import random
 from pgzhelper import *
 
 WIDTH=800
 HEIGHT=600
 
-player = Actor(&#39;player&#39;)
+player = Actor('player')
 player.x = 400
 player.y = 500
 
 bullets = []
 bullet_delay = 0
 
-background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
+background_images = ['background1','background2','background3']
 backgrounds = []
 background = Actor(random.choice(background_images))
 background.x = 400
@@ -145,7 +145,7 @@ def update():
     if keyboard.space and bullet_delay == 0:
         sounds.sfx_sounds_interaction25.play()
         bullet_delay = 5
-        bullet = Actor(&#39;player_bullet&#39;)
+        bullet = Actor('player_bullet')
         bullet.x = player.x
         bullet.y = player.y
         bullet.angle = 90
@@ -166,8 +166,8 @@ def update():
             background.image = random.choice(background_images)
 
     if random.randint(0, 1000) &gt; 980:
-        enemy = Actor(&#39;enemy1_1&#39;)
-        enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
+        enemy = Actor('enemy1_1')
+        enemy.images = ['enemy1_1', 'enemy1_2']
         enemy.fps = 5
         enemy.y = -50
         enemy.x = random.randint(100, 700)
@@ -184,10 +184,10 @@ def update():
         hit = bullet.collidelist(enemies)
         if hit != -1:
             bullets.remove(bullet)
-            explosion = Actor(&#39;explosion1&#39;)
+            explosion = Actor('explosion1')
             explosion.x = enemies[hit].x
             explosion.y = enemies[hit].y
-            explosion.images = [&#39;explosion1&#39;, &#39;explosion2&#39;]
+            explosion.images = ['explosion1', 'explosion2']
             explosion.fps = 8
             explosion.life = 15
             explosions.append(explosion)
@@ -212,7 +212,7 @@ def draw():
         bullet.draw()
 
 pgzrun.go() # Must be last line
-</code></pre></div>
+</code></pre>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

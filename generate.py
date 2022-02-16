@@ -121,12 +121,12 @@ def get_redirect(directory):
 
 def get_md_content(directory, filename):
     file = os.path.join(directory, filename)
-    f = open(file)
+    f = open(file, encoding='utf8')
     return f.read()
 
 def get_md_title(directory, filename):
     file = os.path.join(directory, filename)
-    f = open(file)
+    f = open(file, encoding='utf8')
     first_line = f.readline()
     if first_line[0:2] == '# ':
         return first_line[2:].strip()

@@ -63,21 +63,21 @@
 <p>After exporting these files, I renamed them "powerup1.png", "powerup2.png", and "powerup3.png".</p>
 <h1>Adding to Game</h1>
 <p>We can have more than one powerup at a time, so we'll start with an empty list.</p>
-<div class="codehilite"><pre><span></span><code>powerups = []
-</code></pre></div>
+<pre class="codehilite"><code>powerups = []
+</code></pre>
 
 <p>Just like with our enemies, we are going to make the power-ups appear randomly, but with much lower frequency.</p>
-<div class="codehilite"><pre><span></span><code>if random.randint(0, 1000) &gt; 998:
-    powerup = Actor(&#39;powerup1&#39;)
+<pre class="codehilite"><code>if random.randint(0, 1000) &gt; 998:
+    powerup = Actor('powerup1')
     powerup.y = -50
     powerup.x = random.randint(100, 700)
     powerups.append(powerup)
-</code></pre></div>
+</code></pre>
 
 <p>Unlike the enemy, I'm going to make my power go straight down, so I won't need a direction for it. Feel free to change the 998 to a different number and see how that affects the frequency of powerups appearing.</p>
 <p>When a bullet hits the powerup, I want to make it jump up a little, and change to a random color. To help with that, I'll start by creating a variable that contains a list of all the powerup image names.</p>
-<div class="codehilite"><pre><span></span><code>powerup_images = [&#39;powerup1&#39;, &#39;powerup2&#39;, &#39;powerup3&#39;]
-</code></pre></div>
+<pre class="codehilite"><code>powerup_images = ['powerup1', 'powerup2', 'powerup3']
+</code></pre>
 
 <p>Next, we'll iterate through the powerups and see if any of them are colliding with a player bullet. If they are, we'll...</p>
 <ul>
@@ -85,43 +85,43 @@
 <li>Change the image to a random image</li>
 <li>Remove the bullet</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>for powerup in powerups:
+<pre class="codehilite"><code>for powerup in powerups:
     hit = powerup.collidelist(bullets)
     if hit != -1:
         powerup.y -= 40
         powerup.image = random.choice(powerup_images)
         bullets.remove(bullets[hit])
-</code></pre></div>
+</code></pre>
 
 <h1>Picking up</h1>
 <p>When our player ship touches the powerup, it should disappear.</p>
-<div class="codehilite"><pre><span></span><code>hit = player.collidelist(powerups)
+<pre class="codehilite"><code>hit = player.collidelist(powerups)
     if hit != -1:
         powerups.remove(powerups[hit])
-</code></pre></div>
+</code></pre>
 
 <p>I'm also going to add a sound, to let the player know that they have successfully picked up a powerup. I'm using the "sfx_sounds_fanfare3.wav" soundfile, but you can use whatever you like.</p>
-<div class="codehilite"><pre><span></span><code>sounds.sfx_sounds_fanfare3.play()
-</code></pre></div>
+<pre class="codehilite"><code>sounds.sfx_sounds_fanfare3.play()
+</code></pre>
 
 <h1>At this Point...</h1>
 <p>Right now, your player ship can shoot the powerup to change it, and can pick up the powerups, but they don't do anything yet. We'll implement them in the next topic.</p>
 <p>Your code should look like this now...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<pre class="codehilite"><code>import pgzrun
 import random
 from pgzhelper import *
 
 WIDTH=800
 HEIGHT=600
 
-player = Actor(&#39;player&#39;)
+player = Actor('player')
 player.x = 400
 player.y = 500
 
 bullets = []
 bullet_delay = 0
 
-background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
+background_images = ['background1','background2','background3']
 backgrounds = []
 background = Actor(random.choice(background_images))
 background.x = 400
@@ -139,7 +139,7 @@ explosions = []
 enemy_bullets = []
 
 powerups = []
-powerup_images = [&#39;powerup1&#39;, &#39;powerup2&#39;, &#39;powerup3&#39;]
+powerup_images = ['powerup1', 'powerup2', 'powerup3']
 
 sounds.main_theme.play(-1)
 
@@ -167,7 +167,7 @@ def update():
     if keyboard.space and bullet_delay == 0:
         sounds.sfx_sounds_interaction25.play()
         bullet_delay = 5
-        bullet = Actor(&#39;player_bullet&#39;)
+        bullet = Actor('player_bullet')
         bullet.x = player.x
         bullet.y = player.y
         bullet.angle = 90
@@ -188,8 +188,8 @@ def update():
             background.image = random.choice(background_images)
 
     if random.randint(0, 1000) &gt; 980:
-        enemy = Actor(&#39;enemy1_1&#39;)
-        enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
+        enemy = Actor('enemy1_1')
+        enemy.images = ['enemy1_1', 'enemy1_2']
         enemy.fps = 5
         enemy.y = -50
         enemy.x = random.randint(100, 700)
@@ -197,7 +197,7 @@ def update():
         enemies.append(enemy)
 
     if random.randint(0, 1000) &gt; 998:
-        powerup = Actor(&#39;powerup1&#39;)
+        powerup = Actor('powerup1')
         powerup.y = -50
         powerup.x = random.randint(100, 700)
         powerups.append(powerup)
@@ -209,7 +209,7 @@ def update():
         enemy.move_in_direction(4)
         enemy.animate()
         if random.randint(0, 1000) &gt; 990:
-            bullet = Actor(&#39;enemy_bullet&#39;)
+            bullet = Actor('enemy_bullet')
             bullet.x = enemy.x
             bullet.y = enemy.y
             bullet.angle = random.randint(0, 359)
@@ -221,10 +221,10 @@ def update():
         hit = bullet.collidelist(enemies)
         if hit != -1:
             bullets.remove(bullet)
-            explosion = Actor(&#39;explosion1&#39;)
+            explosion = Actor('explosion1')
             explosion.x = enemies[hit].x
             explosion.y = enemies[hit].y
-            explosion.images = [&#39;explosion1&#39;, &#39;explosion2&#39;]
+            explosion.images = ['explosion1', 'explosion2']
             explosion.fps = 8
             explosion.life = 15
             explosions.append(explosion)
@@ -270,7 +270,7 @@ def draw():
         bullet.draw()
 
 pgzrun.go() # Must be last line
-</code></pre></div>
+</code></pre>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>
