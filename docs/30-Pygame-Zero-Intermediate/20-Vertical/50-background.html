@@ -84,19 +84,19 @@ In this case, I would recommend using "background" as a filename.</p>
 <p>We are going to create a scrolling background. This means that the background will continuously move from top to bottom, making it look like the ship is flying.</p>
 <h3>Adding background</h3>
 <p>If we try to do this with just one background actor, the actor will not be able to cover the screen all of the time. So we'll need at two actors. Just like with bullets, if we have more than one actor, we'll start by creating a list for it.</p>
-<pre class="codehilite"><code>backgrounds = []
-</code></pre>
+<div class="codehilite"><pre><span></span><code>backgrounds = []
+</code></pre></div>
 
 <p>Since I have 3 background images, I'll create a list for the images filenames as well.</p>
-<pre class="codehilite"><code>background_images = ['background1','background2','background3']
-</code></pre>
+<div class="codehilite"><pre><span></span><code>background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
+</code></pre></div>
 
 <p>I will be using the <code>random</code> module to help me randomly select a background image, so we'll need to import <code>random</code>...</p>
-<pre class="codehilite"><code>import random
-</code></pre>
+<div class="codehilite"><pre><span></span><code>import random
+</code></pre></div>
 
 <p>Next, we'll create two actors for the background and add them to the list.</p>
-<pre class="codehilite"><code>background = Actor(random.choice(background_images))
+<div class="codehilite"><pre><span></span><code>background = Actor(random.choice(background_images))
 background.x = 400
 background.y = 300
 backgrounds.append(background)
@@ -104,37 +104,37 @@ background = Actor(random.choice(background_images))
 background.x = 400
 background.y = -300
 backgrounds.append(background)
-</code></pre>
+</code></pre></div>
 
 <p>The first actor is placed right at the center of the screen, while the second actor is placed directly above it. The <code>random.choice</code> function is used to randomly select a filename from the list of background filenames.</p>
 <p><strong>random.choice(background_images)</strong> : Randomly select one item from the <code>background_images</code> list and returns it.</p>
 <h3>Making it move</h3>
 <p>To move the background downwards, we need to increase its y position in the <code>update</code> function...</p>
-<pre class="codehilite"><code>for background in backgrounds:
+<div class="codehilite"><pre><span></span><code>for background in backgrounds:
     background.y += 3
-</code></pre>
+</code></pre></div>
 
 <p>But it shouldn't just keep going down forever. Once it exits the screen from the bottom, we should return it to the top.</p>
-<pre class="codehilite"><code>for background in backgrounds:
+<div class="codehilite"><pre><span></span><code>for background in backgrounds:
     background.y += 3
     if background.y &gt; 900:
         background.y -= 1200
         background.image = random.choice(background_images)
-</code></pre>
+</code></pre></div>
 
 <p>I'm also changing the image to a random background image whenever it returns to the top. Not necessary, but it makes the background look more varied.</p>
 <h3>Drawing the background</h3>
 <p>As always, you have to tell Pygame Zero to draw the background, or you'll never see it.</p>
-<pre class="codehilite"><code>for background in backgrounds:
+<div class="codehilite"><pre><span></span><code>for background in backgrounds:
     background.draw()
 ````
 
-You can also remove the ```screen.clear()```. We won't need it anymore, as the background will be redrawn over the entire screen each frame, so there is no need to clear the old images from the screen.
+You can also remove the ```screen.clear()```. We won&#39;t need it anymore, as the background will be redrawn over the entire screen each frame, so there is no need to clear the old images from the screen.
 
 At this point...
 ===
 At the end of these, your program should look like this...
-</code></pre>
+</code></pre></div>
 
 <p>import pgzrun
 import random
@@ -158,7 +158,7 @@ background.y = -300
 backgrounds.append(background)</p>
 <p>def update():
     global bullet_delay</p>
-<pre class="codehilite"><code>if keyboard.up:
+<div class="codehilite"><pre><span></span><code>if keyboard.up:
     player.y -= 5
 if keyboard.down:
     player.y += 5
@@ -178,7 +178,7 @@ if player.y &gt; 570:
 
 if keyboard.space and bullet_delay == 0:
     bullet_delay = 5
-    bullet = Actor('player_bullet')
+    bullet = Actor(&#39;player_bullet&#39;)
     bullet.x = player.x
     bullet.y = player.y
     bullet.angle = 90
@@ -197,7 +197,7 @@ for background in backgrounds:
     if background.y &gt; 900:
         background.y -= 1200
         background.image = random.choice(background_images)
-</code></pre>
+</code></pre></div>
 
 <p>def draw():
     for background in backgrounds:

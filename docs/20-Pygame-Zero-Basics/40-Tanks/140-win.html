@@ -36,20 +36,20 @@
         <div id="content">
             <h1>Destroy and Win</h1>
 <p>Right now, our bullet can destroy the wall, but does nothing to the enemy tank. Let's change that!</p>
-<pre class="codehilite"><code>enemy_index = bullet.collidelist(enemies)
+<div class="codehilite"><pre><span></span><code>enemy_index = bullet.collidelist(enemies)
 if enemy_index != -1:
     del enemies[enemy_index]
     bullets.remove(bullet)
-</code></pre>
+</code></pre></div>
 
 <p>This code is the same as what we have for the wall, but with the list changes to <strong>enemies</strong> instead. With this, you can now destroy the enemy tanks!</p>
 <h1>Winning</h1>
 <p>We should win the game when all the enemy tanks are destroyed. We can count the number of enemy tanks remaining in the <strong>enemies</strong> list using <strong>len(enemies)</strong>.</p>
 <p>Change <strong>draw()</strong> to...</p>
-<pre class="codehilite"><code>def draw():
+<div class="codehilite"><pre><span></span><code>def draw():
     if len(enemies) == 0:
         screen.fill((0,0,0))
-        screen.draw.text('You Win!', (260,250), color=(255,255,255), fontsize=100)
+        screen.draw.text(&#39;You Win!&#39;, (260,250), color=(255,255,255), fontsize=100)
     else:
         background.draw()
         tank.draw()
@@ -61,12 +61,12 @@ if enemy_index != -1:
             bullet.draw()
         for wall in walls:
             wall.draw()
-</code></pre>
+</code></pre></div>
 
 <p>The new code...</p>
-<pre class="codehilite"><code>if len(enemies) == 0:
-    screen.draw.text('You Win!', (260,250), color=(255,255,255), fontsize=100)
-</code></pre>
+<div class="codehilite"><pre><span></span><code>if len(enemies) == 0:
+    screen.draw.text(&#39;You Win!&#39;, (260,250), color=(255,255,255), fontsize=100)
+</code></pre></div>
 
 <p>Checks if the number of enemies is zero. If it is, it'll fill the screen with black and draw the words "You Win!" in white.</p>
 <p>The parameters of <strong>screen.draw.text</strong> are...</p>

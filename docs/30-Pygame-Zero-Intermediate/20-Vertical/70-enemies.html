@@ -43,88 +43,88 @@
 <p>When you are done, export the images and put them in your game's images folder. I've named mine "enemy1_1.png" and "enemy1_2.png".</p>
 <h3>Adding Enemies to the Game</h3>
 <p>We can have more than one enemy at a time, so just like the bullet, we'll create a list to store these enemies...</p>
-<pre class="codehilite"><code>enemies = []
-</code></pre>
+<div class="codehilite"><pre><span></span><code>enemies = []
+</code></pre></div>
 
 <p>We want to add the enemy randomly, so we'll use <code>random.randint(0, 1000)</code> to pick a random number from 0 to 1000, and we'll create an enemy if it is greater than 980 (...try changing this number and see what it does). At the end, we'll add this new enemy to the enemies list. All these need to be added to the <code>update()</code> function.</p>
-<pre class="codehilite"><code>if random.randint(0, 1000) &gt; 980:
-    enemy = Actor('enemy1_1')
+<div class="codehilite"><pre><span></span><code>if random.randint(0, 1000) &gt; 980:
+    enemy = Actor(&#39;enemy1_1&#39;)
     enemies.append(enemy)
-</code></pre>
+</code></pre></div>
 
 <p>I want my enemy to start at above the top of the screen, so I'll set y to a negative value. I also want the x position to be random, so I'll use randint to pick a value.</p>
-<pre class="codehilite"><code>enemy.y = -50
+<div class="codehilite"><pre><span></span><code>enemy.y = -50
 enemy.x = random.randint(100, 700)
-</code></pre>
+</code></pre></div>
 
 <p>Since I have two images for the enemy, I'll set them both in <code>images</code>. I'll also set fps (frames per second) to 5. This will make the image change 5 times per second.</p>
-<pre class="codehilite"><code>enemy.images = ['enemy1_1', 'enemy1_2']
+<div class="codehilite"><pre><span></span><code>enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
 enemy.fps = 5
-</code></pre>
+</code></pre></div>
 
 <p>Finally, I want the direction of the enemy to be random, so I'll use randint to pick a random direction from -100 degrees to -80 degrees (...remember that 0 degrees means move to the right, so -90 is to move down). Feel free to change this angle range and see the effects.</p>
-<pre class="codehilite"><code>enemy.direction = random.randint(-100, -80)
-</code></pre>
+<div class="codehilite"><pre><span></span><code>enemy.direction = random.randint(-100, -80)
+</code></pre></div>
 
 <p>Your completed enemy adding code should look like this...</p>
-<pre class="codehilite"><code>if random.randint(0, 1000) &gt; 980:
-    enemy = Actor('enemy1_1')
-    enemy.images = ['enemy1_1', 'enemy1_2']
+<div class="codehilite"><pre><span></span><code>if random.randint(0, 1000) &gt; 980:
+    enemy = Actor(&#39;enemy1_1&#39;)
+    enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
     enemy.fps = 5
     enemy.y = -50
     enemy.x = random.randint(100, 700)
     enemy.direction = random.randint(-100, -80)
     enemies.append(enemy)
-</code></pre>
+</code></pre></div>
 
 <h3>Drawing the Enemies</h3>
 <p>As always, the enemy won't appear if we don't draw them, so we'll add this to the <code>draw()</code> function.</p>
-<pre class="codehilite"><code>for enemy in enemies:
+<div class="codehilite"><pre><span></span><code>for enemy in enemies:
     enemy.draw()
-</code></pre>
+</code></pre></div>
 
 <h3>Moving and Animating the Enemies</h3>
 <p>Now we have code to create the enemies and display them on screen, but they don't move yet. In the Gem Catcher game, we moved the gems downwards by changing y, but that will only make it move straight down. To make our enemy move in the random direction we have set earlier, we'll use <code>move_in_direction()</code>.</p>
 <p>Since we have multiple enemies, we'll need to use a for loop to apply this to all of them...</p>
-<pre class="codehilite"><code>for enemy in enemies:
+<div class="codehilite"><pre><span></span><code>for enemy in enemies:
     enemy.move_in_direction(4)
-</code></pre>
+</code></pre></div>
 
 <p>Within the same loop, I should also run the <code>animate()</code> function. This will make its appearance switch between the two enemy images.</p>
-<pre class="codehilite"><code>enemy.animate()
-</code></pre>
+<div class="codehilite"><pre><span></span><code>enemy.animate()
+</code></pre></div>
 
 <p>Like the bullet, we don't want our enemies to stick around forever, so we'll remove them when the leave the screen...</p>
-<pre class="codehilite"><code>if enemy.y &gt; 700:
+<div class="codehilite"><pre><span></span><code>if enemy.y &gt; 700:
     enemies.remove(enemy)
-</code></pre>
+</code></pre></div>
 
 <p>Note that although our screen height is only 600 pixels, we are only removing the enemy when it reaches a y of 700. This is because at y=600, half of the enemy is still within the screen.</p>
 <p>The completed enemy movement code should look like this...</p>
-<pre class="codehilite"><code>for enemy in enemies:
+<div class="codehilite"><pre><span></span><code>for enemy in enemies:
     enemy.move_in_direction(4)
     enemy.animate()
     if enemy.y &gt; 700:
         enemies.remove(enemy)
-</code></pre>
+</code></pre></div>
 
 <h1>At this Point...</h1>
 <p>Your program should now have a scrolling background, random enemies, and a player ship that can move and shoot. The code should look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 import random
 from pgzhelper import *
 
 WIDTH=800
 HEIGHT=600
 
-player = Actor('player')
+player = Actor(&#39;player&#39;)
 player.x = 400
 player.y = 500
 
 bullets = []
 bullet_delay = 0
 
-background_images = ['background1','background2','background3']
+background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
 backgrounds = []
 background = Actor(random.choice(background_images))
 background.x = 400
@@ -163,7 +163,7 @@ def update():
     if keyboard.space and bullet_delay == 0:
         sounds.sfx_sounds_interaction25.play()
         bullet_delay = 5
-        bullet = Actor('player_bullet')
+        bullet = Actor(&#39;player_bullet&#39;)
         bullet.x = player.x
         bullet.y = player.y
         bullet.angle = 90
@@ -184,8 +184,8 @@ def update():
             background.image = random.choice(background_images)
 
     if random.randint(0, 1000) &gt; 980:
-        enemy = Actor('enemy1_1')
-        enemy.images = ['enemy1_1', 'enemy1_2']
+        enemy = Actor(&#39;enemy1_1&#39;)
+        enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
         enemy.fps = 5
         enemy.y = -50
         enemy.x = random.randint(100, 700)
@@ -209,7 +209,7 @@ def draw():
         bullet.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

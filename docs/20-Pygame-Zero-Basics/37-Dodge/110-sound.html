@@ -38,8 +38,8 @@
 <p>We have previously added two sound files to our <strong>sounds</strong> folder; <strong>footsteps</strong> and <strong>sneakingaround</strong>. We'll play the second sound at the beginning of the program, and the first sound everytime our character moves.</p>
 <h2>Background Music</h2>
 <p>Playing the background music is easy, we'll use the command...</p>
-<pre class="codehilite"><code class="language-python">sounds.sneakingaround.play(-1)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">sounds</span><span class="o">.</span><span class="n">sneakingaround</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
 
 <p><code>sounds</code> : This means to use the sounds object that is provided by Pygame Zero.</p>
 <p><code>sneakingaround</code> : This is the name of my sound file. You may have a different filename, so change this accordingly. You don't need to include the file extension.</p>
@@ -52,128 +52,128 @@
 <li>Footstep sound isn't already playing</li>
 </ol>
 <p>We can fulfill the first condition by modifying the movement code into this...</p>
-<pre class="codehilite"><code class="language-python">play_walking_sound = False
-if keyboard.up:
-    player.y -= 5
-    play_walking_sound = True
-if keyboard.down:
-    player.y += 5
-    play_walking_sound = True
-if keyboard.left:
-    player.x -= 5
-    play_walking_sound = True
-if keyboard.right:
-    player.x += 5
-    play_walking_sound = True
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
 
 <p>Now we can check if <strong>play_walking_sound</strong> is true. It will be true if the player has pressed any of the arrow keys.</p>
 <p>For the second condition, we can use the <strong>get_num_channels()</strong> function of the sound. This will tell us how many channels it is playing on. If it is not playing at all, this value will be zero. Now we can combine both conditions together...</p>
-<pre class="codehilite"><code class="language-python">if play_walking_sound:
-    if sounds.footsteps.get_num_channels() == 0:
-        sounds.footsteps.play()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">play_walking_sound</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">sounds</span><span class="o">.</span><span class="n">footsteps</span><span class="o">.</span><span class="n">get_num_channels</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sounds</span><span class="o">.</span><span class="n">footsteps</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+</code></pre></div>
 
 <h2>Completed Code</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-game_over = False
-score = 0
+<span class="n">game_over</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
 
-background = Actor('water')
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
 
-player = Actor('p1_front')
-player.x = 400
-player.y = 300
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-enemies = []
+<span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
 
-sounds.sneakingaround.play(-1)
+<span class="hll"><span class="n">sounds</span><span class="o">.</span><span class="n">sneakingaround</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">score</span><span class="p">,</span> <span class="n">game_over</span>
 
-def update():
-    global score, game_over
+    <span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+        <span class="k">return</span>
 
-    if game_over:
-        return
+    <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">60</span>
 
-    score += 1 / 60
+<span class="hll">    <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">False</span>
+</span>    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+<span class="hll">        <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+</span>    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+<span class="hll">        <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+</span>    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+<span class="hll">        <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+</span>    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+<span class="hll">        <span class="n">play_walking_sound</span> <span class="o">=</span> <span class="kc">True</span>
+</span>
+<span class="hll">    <span class="k">if</span> <span class="n">play_walking_sound</span><span class="p">:</span>
+</span><span class="hll">        <span class="k">if</span> <span class="n">sounds</span><span class="o">.</span><span class="n">footsteps</span><span class="o">.</span><span class="n">get_num_channels</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">sounds</span><span class="o">.</span><span class="n">footsteps</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">side</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;worm.png&#39;</span><span class="p">)</span>
 
-    play_walking_sound = False
-    if keyboard.up:
-        player.y -= 5
-        play_walking_sound = True
-    if keyboard.down:
-        player.y += 5
-        play_walking_sound = True
-    if keyboard.left:
-        player.x -= 5
-        play_walking_sound = True
-    if keyboard.right:
-        player.x += 5
-        play_walking_sound = True
+        <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">850</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">650</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 
-    if play_walking_sound:
-        if sounds.footsteps.get_num_channels() == 0:
-            sounds.footsteps.play()
+        <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-    if random.randint(0, 60) == 0:
-        side = random.randint(1, 4)
-        enemy = Actor('worm.png')
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
 
-        if side == 1:
-            enemy.y = random.randint(0, 600)
-            enemy.x = 850
-            enemy.angle = 0
-        elif side == 2:
-            enemy.y = random.randint(0, 600)
-            enemy.x = -50
-            enemy.angle = 180
-        elif side == 3:
-            enemy.y = 650
-            enemy.x = random.randint(0, 800)
-            enemy.angle = 270
-        elif side == 4:
-            enemy.y = -50
-            enemy.x = random.randint(0, 800)
-            enemy.angle = 90
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">850</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">650</span><span class="p">:</span>
+            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-        enemies.append(enemy)
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">game_over</span> <span class="o">=</span> <span class="kc">True</span>
 
-    for enemy in enemies:
-        if enemy.angle == 0:
-            enemy.x -= 3
-        elif enemy.angle == 180:
-            enemy.x += 3
-        elif enemy.angle == 270:
-            enemy.y -= 3
-        elif enemy.angle == 90:
-            enemy.y += 3
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Game Over&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span><span class="mi">270</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">)),</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span><span class="mi">330</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">)),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 
-        if enemy.x &lt; -50 or enemy.x &gt; 850 or enemy.y &lt; -50 or enemy.y &gt; 650:
-            enemies.remove(enemy)
-
-    if player.collidelist(enemies) != -1:
-        game_over = True
-
-def draw():
-    if game_over:
-        screen.clear()
-        screen.draw.text('Game Over', (350,270), color=(255,255,255), fontsize=30)
-        screen.draw.text('Score: ' + str(round(score)), (350,330), color=(255,255,255), fontsize=30)
-    else:
-        background.draw()
-        player.draw()
-        for enemy in enemies:
-            enemy.draw()
-        screen.draw.text('Score: ' + str(round(score)), (15,10), color=(255,255,255), fontsize=30)
-
-pgzrun.go()
-</code></pre>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

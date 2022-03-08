@@ -37,18 +37,18 @@
             <h1>Mouse Controls</h1>
 <p>We can also modify our game to make it work with the mouse. Like Scratch, Pygame Zero is events based. This means that when certain events occurs (eg. a mouse button is pressed), Pygame Zero will run the corresponding function (eg. <code>on_mouse_down</code>).</p>
 <p>To detect mouse movement, we can use the <code>on_mouse_move(pos, rel, buttons)</code> function. Try adding this to your game...</p>
-<pre class="codehilite"><code>def on_mouse_move(pos, rel, buttons):
+<div class="codehilite"><pre><span></span><code>def on_mouse_move(pos, rel, buttons):
     ship.x = pos[0]
-</code></pre>
+</code></pre></div>
 
 <p>The purpose of the 3 parameters are...</p>
 <p><code>pos</code> : This provides the position of the mouse. You can get the x position using pos[0] and the y position using pos[1].</p>
 <p><code>rel</code> : This provides the change in position since the last mouse move. rel[0] is the change in x position and rel[1] the change in y position.</p>
 <p><code>buttons</code> : This provides a list of mouse buttons that are pressed. For example, if you want to check if the left button is pressed...</p>
-<pre class="codehilite"><code>def on_mouse_move(pos, rel, buttons):
+<div class="codehilite"><pre><span></span><code>def on_mouse_move(pos, rel, buttons):
     if mouse.LEFT in buttons:
-        print('left click')
-</code></pre>
+        print(&#39;left click&#39;)
+</code></pre></div>
 
 <p><strong><em>This is just an example. Don't add it to your game</em></strong></p>
 <h1>Other Events</h1>
@@ -61,16 +61,16 @@
 <p><strong>on_key_up(key, mod)</strong> : Run when a keyboard key is release.</p>
 <p><code>key</code> : An integer indicating the key that was pressed. See the <a href="https://pygame-zero.readthedocs.io/en/stable/hooks.html#buttons-and-keys">Pygame Zero website</a> for a full list of keys.</p>
 <p><code>mod</code> : A bitmask of modifier keys that were depressed. You can check them as follows...</p>
-<pre class="codehilite"><code>def on_key_down(key, mod, unicode):
+<div class="codehilite"><pre><span></span><code>def on_key_down(key, mod, unicode):
     if mod &amp; keymods.LSHIFT:
-        print('Left shift button pressed')
-</code></pre>
+        print(&#39;Left shift button pressed&#39;)
+</code></pre></div>
 
 <p><code>unicode</code> : Where relevant, the character that was typed. You can check it like this...</p>
-<pre class="codehilite"><code>def on_key_down(key, mod, unicode):
-    if unicode == 'e':
-        print('e button pressed')
-</code></pre>
+<div class="codehilite"><pre><span></span><code>def on_key_down(key, mod, unicode):
+    if unicode == &#39;e&#39;:
+        print(&#39;e button pressed&#39;)
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

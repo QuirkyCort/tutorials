@@ -37,7 +37,7 @@
             <h1>Blocking Movements</h1>
 <p>Right now the walls don't do much; you can drive right through them! To prevent that, we'll need to check if the tank is colliding with the wall. Previously, we had used <strong>colliderect</strong> to detect collision. We can still use that to check if the tank collided with the wall pieces one-by-one, but since we have a big list of walls, it's easier to use <strong>collidelist</strong> instead.</p>
 <p>If we collide with the wall when moving the tank, we will cancel the movement.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     # Save the original position of the tank
     original_x = tank.x
     original_y = tank.y
@@ -60,26 +60,26 @@
     if tank.collidelist(walls) != -1:
         tank.x = original_x
         tank.y = original_y
-</code></pre>
+</code></pre></div>
 
 <p>This is what the code does...</p>
-<pre class="codehilite"><code>original_x = tank.x
+<div class="codehilite"><pre><span></span><code>original_x = tank.x
 original_y = tank.y
-</code></pre>
+</code></pre></div>
 
 <p>This saves the original position of the tank into the <strong>original_x</strong> and <strong>original_y</strong> variable.</p>
-<pre class="codehilite"><code>if tank.collidelist(walls) != -1:
+<div class="codehilite"><pre><span></span><code>if tank.collidelist(walls) != -1:
     tank.x = original_x
     tank.y = original_y
-</code></pre>
+</code></pre></div>
 
 <p>The <strong>tank.collidelist(walls)</strong> will return a number that tells us which piece of wall the tank is colliding with. If the tank isn't colliding with any pieces of wall, it will return <strong>-1</strong>. So if the value isn't <strong>-1</strong>, we know that a collision has occured, and we'll restore the original position before the move.</p>
 <h1>Off Screen</h1>
 <p>Now our tank can't move through the walls anymore, but it can still drive off the screen! To prevent that, we need to check the position of the tank after movement, and return it back to the original position if it is off the screen.</p>
-<pre class="codehilite"><code>if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
+<div class="codehilite"><pre><span></span><code>if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
     tank.x = original_x
     tank.y = original_y
-</code></pre>
+</code></pre></div>
 
 <p>Try it out.</p>
 <p>You'll see that the tank can still move about halfway off screen. That's because the position of the tank is based on it's center. What can we do to prevent that? Think about it and attempt it on your own.</p>

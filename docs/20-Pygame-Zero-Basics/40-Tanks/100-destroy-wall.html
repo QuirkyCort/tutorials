@@ -36,65 +36,65 @@
         <div id="content">
             <h1>Destroying Walls</h1>
 <p>We want to destroy the wall if the bullet hits it. To detect a hit, we can use the <strong>collidelist</strong> function on the bullet, similar to what we previously did with the tank. Since we have multiple bullets in a list, we will need to go through every bullet using a <strong>for</strong> loop.</p>
-<pre class="codehilite"><code>for bullet in bullets:
+<div class="codehilite"><pre><span></span><code>for bullet in bullets:
     wall_index = bullet.collidelist(walls)
-</code></pre>
+</code></pre></div>
 
 <p>If <strong>wall_index</strong> is <strong>-1</strong>, that means that the bullet didn't hit any walls. Else, <strong>wall_index</strong> will contain the index of the wall section that the bullet hit. We can then delete that wall section using <strong>del</strong>.</p>
-<pre class="codehilite"><code>for bullet in bullets:
+<div class="codehilite"><pre><span></span><code>for bullet in bullets:
     wall_index = bullet.collidelist(walls)
     del walls[wall_index]
-</code></pre>
+</code></pre></div>
 
 <p>The <strong>del</strong> command tells python to delete <strong>walls[wall_index]</strong> from the <strong>walls</strong> list. Test out the <strong>del</strong> command below. Make sure you understand how it works.</p>
-<pre class="codehilite"><code class="language-python.run">animals = ['cat', 'dog', 'monkey', 'elephant']
+<div class="codehilite"><pre><span></span><code>animals = [&#39;cat&#39;, &#39;dog&#39;, &#39;monkey&#39;, &#39;elephant&#39;]
 print(animals)
 del animals[1]
 print(animals)
-</code></pre>
+</code></pre></div>
 
 <h1>Destroying Bullet</h1>
 <p>Now everytime you fire a bullet, it will pass through all the walls, destroying every wall section that it touches. That's probably not what you want! Let's make the bullet disappear too when it hits a wall. Another way or removing an item from a list is to use the <strong>remove</strong> function.</p>
-<pre class="codehilite"><code>for bullet in bullets:
+<div class="codehilite"><pre><span></span><code>for bullet in bullets:
     wall_index = bullet.collidelist(walls)
     del walls[wall_index]
     bullets.remove(bullet)
-</code></pre>
+</code></pre></div>
 
 <p>Just like <strong>del</strong>, the <strong>remove</strong> function will remove an item from a list. The difference is that <strong>del</strong> requires a list with an index, while <strong>remove</strong> expects the value of the item to be removed. Test it out below...</p>
-<pre class="codehilite"><code class="language-python.run">animals = ['cat', 'dog', 'monkey', 'elephant']
+<div class="codehilite"><pre><span></span><code>animals = [&#39;cat&#39;, &#39;dog&#39;, &#39;monkey&#39;, &#39;elephant&#39;]
 print(animals)
-animals.remove('monkey')
+animals.remove(&#39;monkey&#39;)
 print(animals)
-</code></pre>
+</code></pre></div>
 
 <p>Now everytime your bullet hits a wall, both the bullet and the wall will disappear.</p>
 <h3>Reaching the edge</h3>
 <p>There is one more condition for removing the bullet; and that's when it reaches the edge of the screen.</p>
-<pre class="codehilite"><code>if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
+<div class="codehilite"><pre><span></span><code>if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
     bullets.remove(bullet)
-</code></pre>
+</code></pre></div>
 
 <p>Can you figure out where to insert this piece of code? Try it out!</p>
 <p>At this point, your code should look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 import random
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 tank.y = 575
 tank.x = 400
 tank.angle = 90
 
-background = Actor('grass')
+background = Actor(&#39;grass&#39;)
 
 walls = []
 for x in range(16):
     for y in range(10):
         if random.randint(0, 100) &lt; 50:
-            wall = Actor('wall')
+            wall = Actor(&#39;wall&#39;)
             wall.x = x * 50 + 25
             wall.y = y * 50 + 25 + 50
             walls.append(wall)
@@ -133,7 +133,7 @@ def update():
     # This part is for the bullet
     if bullet_holdoff == 0:
         if keyboard.space:
-            bullet = Actor('bulletblue2')
+            bullet = Actor(&#39;bulletblue2&#39;)
             bullet.angle = tank.angle
             bullet.x = tank.x
             bullet.y = tank.y
@@ -171,7 +171,7 @@ def draw():
         wall.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <h3>What happens if we don't remove the bullet when it reaches the edge?</h3>
 <p>Nothing much. The bullet will just keep flying forever outside of the screen. If you have a lot of bullets, it may eventually slow down your game, but it will likely require many thousands of bullets before that becomes noticeable.</p>

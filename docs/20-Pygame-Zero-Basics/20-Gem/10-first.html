@@ -36,13 +36,13 @@
         <div id="content">
             <h1>First Program</h1>
 <p>This is the structure of a Pygame Zero program...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH = 800
 HEIGHT = 600
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <p>The first line, <code>import pgzrun</code>, loads the Pygame Zero module, and the last line, <code>pgzrun.go()</code>, is a function that starts Pygame Zero. In the middle we have <code>WIDTH = 800</code> and <code>HEIGHT = 600</code> which sets the width and height of the game window.</p>
 <p>Type the above into <strong>IDLE</strong> and press <strong>F5</strong> or click <strong>Run -&gt; Run Module</strong> to run the program! <strong>Try changing WIDTH and HEIGHT and see the effects.</strong></p>
@@ -52,12 +52,12 @@ pgzrun.go() # Must be last line
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/playership1_blue.png" /></p>
 <p><strong>IMPORTANT: Your image filename must only contain lowercase letters, numbers and underscores.</strong></p>
 <p>Once that is done, you can add the spaceship to your Python program...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH = 800
 HEIGHT = 600
 
-ship = Actor('playership1_blue')
+ship = Actor(&#39;playership1_blue&#39;)
 ship.x = 370
 ship.y = 550
 
@@ -65,7 +65,7 @@ def draw():
     ship.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <p>This is what each line does...</p>
 <p><code>ship = Actor('playership1_blue')</code> : Create a new <strong>Actor</strong> using the <em>playership1_blue</em> image file. If you are using a different file, you'll need  to change this.</p>

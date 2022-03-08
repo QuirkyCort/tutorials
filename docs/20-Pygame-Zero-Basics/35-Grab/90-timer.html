@@ -37,77 +37,77 @@
             <h1>Timer</h1>
 <p>We want to add a timer that counts down to zero. When the time is up, we'll end the game and display the score.</p>
 <p>Create another global variable and start it to 10, representing 10 seconds, at the start of the game.</p>
-<pre class="codehilite"><code class="language-python">timer = 10
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">timer</span> <span class="o">=</span> <span class="mi">10</span>
+</code></pre></div>
 
 <p>Since the <strong>update()</strong> function runs 60 times per second, we will subtract 1/60<sup>th</sup> of a second in every <strong>update()</strong>. Since <strong>timer</strong> is a global variable, we'll need declare that it is global first.</p>
-<pre class="codehilite"><code class="language-python">global timer
+<div class="codehilite"><pre><span></span><code><span class="k">global</span> <span class="n">timer</span>
 
-timer -= 1 / 60
-</code></pre>
+<span class="n">timer</span> <span class="o">-=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">60</span>
+</code></pre></div>
 
 <h2>Display the Timer</h2>
 <p>Just like the score, we will use the <code>screen.draw.text()</code> function, but we'll draw the time in a different position. Again, this needs to be in <strong>draw()</strong>.</p>
-<pre class="codehilite"><code class="language-python">screen.draw.text('Time: ' + str(timer), (330,10), color=(255,255,255), fontsize=30)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Time: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timer</span><span class="p">),</span> <span class="p">(</span><span class="mi">330</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</code></pre></div>
 
 <p><img alt="" src="../images/grab_timer1.jpg" /></p>
 <p>Ok. We got the timer now, but that's a lot of decimal places. Let's round the timer value to 2 decimal places before we convert it to a string. Change <strong>str(timer)</strong> into...</p>
-<pre class="codehilite"><code class="language-python">str(round(timer, 2))
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">timer</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
 
 <p><img alt="" src="../images/grab_timer2.jpg" /></p>
 <p>Much better now!</p>
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-background = Actor('grass')
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-player = Actor('p3_front')
-player.x = 400
-player.y = 300
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p3_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-coin = Actor('coingold')
-coin.x = random.randint(0, 800)
-coin.y = random.randint(0, 600)
+<span class="n">coin</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;coingold&#39;</span><span class="p">)</span>
+<span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+<span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
 
-score = 0
-timer = 10
+<span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="hll"><span class="n">timer</span> <span class="o">=</span> <span class="mi">10</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">score</span>
+<span class="hll">    <span class="k">global</span> <span class="n">timer</span>
+</span>
+<span class="hll">    <span class="n">timer</span> <span class="o">-=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">60</span>
+</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
 
-def update():
-    global score
-    global timer
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">coin</span><span class="p">):</span>
+        <span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+        <span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    timer -= 1 / 60
-
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
-
-    if player.colliderect(coin):
-        coin.x = random.randint(0, 800)
-        coin.y = random.randint(0, 600)
-        score += 1
-
-def draw():
-    background.draw()
-    player.draw()
-    coin.draw()
-    screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
-    screen.draw.text('Time: ' + str(round(timer, 2)), (330,10), color=(255,255,255), fontsize=30)
-
-pgzrun.go() # Must be last line
-</code></pre>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">coin</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="hll">    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Time: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">timer</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="p">(</span><span class="mi">330</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

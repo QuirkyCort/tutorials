@@ -36,28 +36,28 @@
         <div id="content">
             <h1>Moving the Ship</h1>
 <p>First, we'll create the ship actor...</p>
-<pre class="codehilite"><code>player = Actor('player_ship')
-</code></pre>
+<div class="codehilite"><pre><span></span><code>player = Actor(&#39;player_ship&#39;)
+</code></pre></div>
 
 <p><strong>If you used a different filename, you'll need to change the 'player_ship' part.</strong></p>
 <p>...then we create the <strong>draw()</strong> function, and add in a draw command for the player.</p>
-<pre class="codehilite"><code>def draw():
+<div class="codehilite"><pre><span></span><code>def draw():
     player.draw()
-</code></pre>
+</code></pre></div>
 
 <p>With that done, your program should now look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
-player = Actor('player_ship')
+player = Actor(&#39;player_ship&#39;)
 
 def draw():
     player.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <p>Run it, and you should see your ship on screen.</p>
 <h1>Position the ship</h1>
@@ -65,39 +65,39 @@ pgzrun.go() # Must be last line
 <p>Remember that to move the actor downwards, we need to increase y. The width of the screen is 800, so to put it in the center, we should set x to 400.</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/xy.png" /></p>
 <p>Add in the following to your program. It should appear right after the line where you created the tank actor.</p>
-<pre class="codehilite"><code>player.x = 400
+<div class="codehilite"><pre><span></span><code>player.x = 400
 player.y = 500
-</code></pre>
+</code></pre></div>
 
 <p>That will set the starting position of the ship somewhere near the center bottom of the screen.</p>
 <h1>Moving the Ship</h1>
 <p>Remember how we moved the spaceship in Gem Catcher? We used <strong>keyboard.left</strong> and <strong>keyboard.right</strong> to detect if those keys are pressed.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     if keyboard.right:
         player.x += 5
     if keyboard.left:
         player.x -= 5
-</code></pre>
+</code></pre></div>
 
 <p>Here I'm using a shortform....</p>
-<pre class="codehilite"><code>player.x += 5
-</code></pre>
+<div class="codehilite"><pre><span></span><code>player.x += 5
+</code></pre></div>
 
 <p>This is the same as writing...</p>
-<pre class="codehilite"><code>player.x = player.x + 5
-</code></pre>
+<div class="codehilite"><pre><span></span><code>player.x = player.x + 5
+</code></pre></div>
 
 <p>You can also write...</p>
-<pre class="codehilite"><code>player.x -= 5
-</code></pre>
+<div class="codehilite"><pre><span></span><code>player.x -= 5
+</code></pre></div>
 
 <p>...which is the same as writing...</p>
-<pre class="codehilite"><code>player.x = player.x - 5
-</code></pre>
+<div class="codehilite"><pre><span></span><code>player.x = player.x - 5
+</code></pre></div>
 
 <p>To detect up and down, we can use <strong>keyboard.up</strong> and <strong>keyboard.down</strong>. For the full list of keys you can use, you can refer to the <a href="https://pygame-zero.readthedocs.io/en/stable/hooks.html#buttons-and-keys">Pygame Zero documentations</a>.</p>
 <p>To move left and right, we changed <strong>x</strong>. To move up and down, we should change <strong>y</strong>.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     if keyboard.up:
         player.y -= 5
     if keyboard.down:
@@ -106,16 +106,16 @@ player.y = 500
         player.x += 5
     if keyboard.left:
         player.x -= 5
-</code></pre>
+</code></pre></div>
 
 <h1>Limiting the Movement</h1>
 <p>Right now, your ship should be able to move in all directions (...test it out!), but it can also move too far and exit the screen.
 To prevent this, we should prevent the x and y from getting too large or too small using a new set of <strong>"if"</strong> conditions.</p>
-<pre class="codehilite"><code>if player.x &lt; 25:
+<div class="codehilite"><pre><span></span><code>if player.x &lt; 25:
     player.x = 25
 if player.x &gt; 775:
     player.x = 775
-</code></pre>
+</code></pre></div>
 
 <p>These will force the x position to stay between 25 to 775.
 Why didn't I use 0 to 800?
@@ -126,12 +126,12 @@ What about y?
 Try and implement it yourself.</p>
 <h1>At this point...</h1>
 <p>At the end of these, your program should look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
-player = Actor('player')
+player = Actor(&#39;player&#39;)
 player.x = 400
 player.y = 500
 
@@ -159,7 +159,7 @@ def draw():
     player.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

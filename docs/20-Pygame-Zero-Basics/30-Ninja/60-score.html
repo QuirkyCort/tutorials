@@ -36,21 +36,21 @@
         <div id="content">
             <h1>Keeping Score</h1>
 <p>Just like in the gem catcher program, we'll use a variable named <code>score</code>  to keep track of our score.</p>
-<pre class="codehilite"><code>score = 0
-</code></pre>
+<div class="codehilite"><pre><span></span><code>score = 0
+</code></pre></div>
 
 <p>We'll increase our score each time the obstacle disappears off the left side of the screen. Inside <code>update()</code>, let's change this...</p>
-<pre class="codehilite"><code>  for actor in obstacles:
+<div class="codehilite"><pre><span></span><code>  for actor in obstacles:
     actor.x -= 8
-</code></pre>
+</code></pre></div>
 
 <p>...into this...</p>
-<pre class="codehilite"><code>  for actor in obstacles:
+<div class="codehilite"><pre><span></span><code>  for actor in obstacles:
     actor.x -= 8
     if actor.x &lt; -50:
       obstacles.remove(actor)
       score += 1
-</code></pre>
+</code></pre></div>
 
 <p>This is what each line means...</p>
 <p><code>if actor.x &lt; -50</code> : When the x position is less than -50, the actor is most probably outside of the screen. So we will...</p>
@@ -58,14 +58,14 @@
 <p><code>score += 1</code> : ...and increase score by 1. <strong>Remember to declare <code>score</code> as a global!</strong>.</p>
 <h1>Drawing Obstacles and Score</h1>
 <p>The obstacles won't appear on screen if we don't draw it inside the <code>draw()</code> function. So let's add in...</p>
-<pre class="codehilite"><code>for actor in obstacles:
+<div class="codehilite"><pre><span></span><code>for actor in obstacles:
   actor.draw()
-</code></pre>
+</code></pre></div>
 
 <p>This will go through the list of obstacles and draw each one.</p>
 <p>We should also display the score on screen using...</p>
-<pre class="codehilite"><code>screen.draw.text('Score: ' + str(score), (15,10), color=(0,0,0), fontsize=30)
-</code></pre>
+<div class="codehilite"><pre><span></span><code>screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(0,0,0), fontsize=30)
+</code></pre></div>
 
 <p>Feel free to change the color, position, or fontsize.</p>
         </div>

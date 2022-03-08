@@ -39,29 +39,29 @@
 <p>It's fine if you want to use a different image, but as always, make sure your background image is the same size as the game window.</p>
 <h2>Code</h2>
 <p>First we need to create a new <strong>Actor</strong> using the background image file.</p>
-<pre class="codehilite"><code class="language-python">background = Actor('water')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Next we need to draw the actor, but we should only do that in the <strong>draw()</strong> function. We'll use <code>def draw():</code> to create the <strong>draw()</strong> function.</p>
-<pre class="codehilite"><code class="language-python">def draw():
-    background.draw()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</code></pre></div>
 
 <p>Note that the <code>background.draw()</code> is indented. This tells Python that this line is inside the <strong>draw()</strong> function.</p>
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-background = Actor('water')
-
-def draw():
-    background.draw()
-
-pgzrun.go() # Must be last line
-</code></pre>
+<span class="hll"><span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
+</span>
+<span class="hll"><span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+</span><span class="hll">    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
 
 <p>Run this program by clicking <strong>"Run -&gt; Run Module"</strong>. A window with the background image should appear.</p>
 <p><img alt="" src="../images/dodge_background_window.jpg" /></p>

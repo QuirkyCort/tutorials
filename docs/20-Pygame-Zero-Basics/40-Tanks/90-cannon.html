@@ -36,23 +36,23 @@
         <div id="content">
             <h1>Drawing the Cannon Bullet</h1>
 <p>We want to create a new cannon bullet everytime we press the space bar. Since we can have more than one bullet at a time, we'll use a list to hold all our bullets. Start by creating an empty list...</p>
-<pre class="codehilite"><code>bullets = []
-</code></pre>
+<div class="codehilite"><pre><span></span><code>bullets = []
+</code></pre></div>
 
 <p>Next, in <strong>update()</strong>, check if the space key is pressed and add a bullet if it is.</p>
-<pre class="codehilite"><code>if keyboard.space:
-    bullet = Actor('bulletblue2')
+<div class="codehilite"><pre><span></span><code>if keyboard.space:
+    bullet = Actor(&#39;bulletblue2&#39;)
     bullet.angle = tank.angle
     bullet.x = tank.x
     bullet.y = tank.y
     bullets.append(bullet)
-</code></pre>
+</code></pre></div>
 
 <p>We set the bullet angle to be the same as the tank so that they'll face the same direction. We also set the x and y of the bullet to be the same as the tank, so that the bullet will start from the tank.</p>
 <p>Don't forget to draw the bullets in the <strong>draw()</strong> function...</p>
-<pre class="codehilite"><code>for bullet in bullets:
+<div class="codehilite"><pre><span></span><code>for bullet in bullets:
     bullet.draw()
-</code></pre>
+</code></pre></div>
 
 <p>When you try out the program, you'll see a bullet created each time you press the space bar. But the bullet just stays there and don't do anything, so next, we'll make the bullet fly.</p>
 <h1>Moving the Bullet</h1>
@@ -89,7 +89,7 @@
 </tbody>
 </table>
 <p>We should move the bullet in the <strong>update()</strong> function. Using a <strong>for</strong> loop.</p>
-<pre class="codehilite"><code>for bullet in bullets:
+<div class="codehilite"><pre><span></span><code>for bullet in bullets:
     if bullet.angle == 0:
         bullet.x = bullet.x + 5
     elif bullet.angle == 90:
@@ -98,17 +98,17 @@
         bullet.x = bullet.x - 5
     elif bullet.angle == 270:
         bullet.y = bullet.y + 5
-</code></pre>
+</code></pre></div>
 
 <h1>Hold-Off</h1>
 <p>Now our bullet looks more like a laser! That's because when we press the space bar, it creates a LOT of bullets very rapidly. We should add a hold-off. This is some code that stops the tank for shooting for a while after each bullet. We'll start by creating a new variable.</p>
-<pre class="codehilite"><code>bullet_holdoff = 0
-</code></pre>
+<div class="codehilite"><pre><span></span><code>bullet_holdoff = 0
+</code></pre></div>
 
 <p>Then modify our shoot code...</p>
-<pre class="codehilite"><code>if bullet_holdoff == 0:
+<div class="codehilite"><pre><span></span><code>if bullet_holdoff == 0:
     if keyboard.space:
-        bullet = Actor('bulletblue2')
+        bullet = Actor(&#39;bulletblue2&#39;)
         bullet.angle = tank.angle
         bullet.x = tank.x
         bullet.y = tank.y
@@ -116,36 +116,36 @@
         bullet_holdoff = 100
 else:
     bullet_holdoff = bullet_holdoff - 1
-</code></pre>
+</code></pre></div>
 
 <p>If you try to run the code now, you'll get an error. Do you know why? Look at the <strong>Score</strong> section in Gem Catcher and see if you can figure out what's missing! (Answer is at the bottom of this page, but try to figure it out on your own!)</p>
 <p>What the above code does is...</p>
 <p><code>if bullet_holdoff == 0:</code> Only allow firing if bullet_holdoff is 0.</p>
 <p><code>bullet_holdoff = 100</code> Set the bullet_holdoff to 100. This will prevent firing since it is no longer zero. You can try changing this value and see what effects it has.</p>
-<pre class="codehilite"><code>else:
+<div class="codehilite"><pre><span></span><code>else:
     bullet_holdoff = bullet_holdoff - 1
-</code></pre>
+</code></pre></div>
 
 <p>If the bullet_holdoff is not zero, we'll decrease it by one. This will gradually reduce it until it reaches zero again.</p>
 <p>Your code should now look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 import random
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 tank.y = 575
 tank.x = 400
 tank.angle = 90
 
-background = Actor('grass')
+background = Actor(&#39;grass&#39;)
 
 walls = []
 for x in range(16):
     for y in range(10):
         if random.randint(0, 100) &lt; 50:
-            wall = Actor('wall')
+            wall = Actor(&#39;wall&#39;)
             wall.x = x * 50 + 25
             wall.y = y * 50 + 25 + 50
             walls.append(wall)
@@ -184,7 +184,7 @@ def update():
     # This part is for the bullet
     if bullet_holdoff == 0:
         if keyboard.space:
-            bullet = Actor('bulletblue2')
+            bullet = Actor(&#39;bulletblue2&#39;)
             bullet.angle = tank.angle
             bullet.x = tank.x
             bullet.y = tank.y
@@ -213,7 +213,7 @@ def draw():
         wall.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <h3>What's missing?</h3>
 <p>We need to add <code>global bullet_holdoff</code>.</p>

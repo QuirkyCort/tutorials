@@ -36,20 +36,20 @@
         <div id="content">
             <h1>Moving the Tank</h1>
 <p>Remember how we moved the spaceship in Gem Catcher? We used <strong>keyboard.left</strong> and <strong>keyboard.right</strong> to detect if those keys are pressed. Let's start with that, but change it to tank. I also reduced the speed a little as I don't want my tank to move too fast.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     if keyboard.left:
         tank.x = tank.x - 2
     if keyboard.right:
         tank.x = tank.x + 2
-</code></pre>
+</code></pre></div>
 
 <p>Don't forget to erase the screen by filling it with a color (...I'm using black here).</p>
-<pre class="codehilite"><code>screen.fill((0,0,0))
-</code></pre>
+<div class="codehilite"><pre><span></span><code>screen.fill((0,0,0))
+</code></pre></div>
 
 <p>To detect up and down, we can use <strong>keyboard.up</strong> and <strong>keyboard.down</strong>. For the full list of keys you can use, you can refer to the <a href="https://pygame-zero.readthedocs.io/en/stable/hooks.html#buttons-and-keys">Pygame Zero documentations</a>.</p>
 <p>To move left and right, we changed <strong>x</strong>. To move up and down, we should change <strong>y</strong>.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     if keyboard.left:
         tank.x = tank.x - 2
     if keyboard.right:
@@ -58,11 +58,11 @@
         tank.y = tank.y - 2
     if keyboard.down:
         tank.y = tank.y + 2
-</code></pre>
+</code></pre></div>
 
 <h1>Face where you're going</h1>
 <p>Now our tank can move in all directions, but it's not facing the right way! We should turn our tank so that it always faces the direction it is travelling in. I've done the first two below (..for left and right), can you do the rest?</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     if keyboard.left:
         tank.x = tank.x - 2
         tank.angle = 180
@@ -73,11 +73,11 @@
         tank.y = tank.y - 2
     if keyboard.down:
         tank.y = tank.y + 2
-</code></pre>
+</code></pre></div>
 
 <h1>if and elif</h1>
 <p>If we press two buttons (eg. up and left) at the same time, the tank will move diagonally. That can be good for some games, but we don't want that here. Even if two buttons are pressed at the same time, we only want the tank to move in a single direction. To do that, we'll change the second to fourth <strong>if</strong> into <strong>elif</strong>.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
     if keyboard.left:
         tank.x = tank.x - 2
         tank.angle = 180
@@ -88,7 +88,7 @@
         tank.y = tank.y - 2
     elif keyboard.down:
         tank.y = tank.y + 2
-</code></pre>
+</code></pre></div>
 
 <h3>elif</h3>
 <p><strong>elif</strong> is Python's short form for <strong>else if</strong>. The statements under an <strong>elif</strong>, will only run if the previous <strong>if</strong> are not true. So in the latest example, only one of the conditions will run, no matter how many buttons you press simultaneously.</p>

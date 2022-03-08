@@ -36,23 +36,23 @@
         <div id="content">
             <h1>Score</h1>
 <p>To keep track of the score, we'll start by creating a new variable and start it at zero. This is a <strong>global variable</strong> so make sure to put it outside of the <strong>update()</strong> and <strong>draw()</strong> functions.</p>
-<pre class="codehilite"><code class="language-python">score = 0
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>
 
 <p>We'll increase it by one everytime we touch the coin...</p>
-<pre class="codehilite"><code class="language-python">score += 1
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>
 
 <p><strong>IMPORTANT!</strong> We should only increase the score if we touch the coin, so make sure to put the above code indented under <code>if player.colliderect(coin):</code>.</p>
 <p>If you try to run this now, it will give you an error. That's because <strong>score</strong> is a global variable, and we are trying to change it inside the <strong>update()</strong> function. Whenever we want to change a global variable inside a function, we need to add...</p>
-<pre class="codehilite"><code class="language-python">global score
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">global</span> <span class="n">score</span>
+</code></pre></div>
 
 <p>...to the top of the function.</p>
 <h2>Display the score</h2>
 <p>To display the score, we will use the <code>screen.draw.text()</code> function.</p>
-<pre class="codehilite"><code class="language-python">screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</code></pre></div>
 
 <p>The parameters are...</p>
 <p><code>'Score: ' + str(score)</code> : This is the string that we want to draw.</p>
@@ -62,49 +62,49 @@
 <p>Like all the other drawing functions, we'll need to put this inside the <code>draw()</code> function.</p>
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-background = Actor('grass')
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-player = Actor('p3_front')
-player.x = 400
-player.y = 300
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p3_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-coin = Actor('coingold')
-coin.x = random.randint(0, 800)
-coin.y = random.randint(0, 600)
+<span class="n">coin</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;coingold&#39;</span><span class="p">)</span>
+<span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+<span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
 
-score = 0
+<span class="hll"><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+<span class="hll">    <span class="k">global</span> <span class="n">score</span>
+</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
 
-def update():
-    global score
-
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
-
-    if player.colliderect(coin):
-        coin.x = random.randint(0, 800)
-        coin.y = random.randint(0, 600)
-        score += 1
-
-def draw():
-    background.draw()
-    player.draw()
-    coin.draw()
-    screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
-
-pgzrun.go() # Must be last line
-</code></pre>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">coin</span><span class="p">):</span>
+        <span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+        <span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="hll">        <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">coin</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
 
 <p>You should now see the score increase everytime you touch the coin.</p>
         </div>

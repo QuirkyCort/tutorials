@@ -36,40 +36,40 @@
         <div id="content">
             <h1>Player Tank</h1>
 <p>As usual, we'll start with an empty window.</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <p>For now, keep your width and height at <strong>800</strong> and <strong>600</strong>. Don't change it yet. This will be important later when we add in the walls.</p>
 <p>Run (Press F5 or click "Run -&gt; Run Module") and make sure it works.</p>
 <h1>Adding the Tank</h1>
 <p>Next, we're going to add a tank. </p>
 <p>First, we'll create the tank actor...</p>
-<pre class="codehilite"><code>tank = Actor('tank_blue')
-</code></pre>
+<div class="codehilite"><pre><span></span><code>tank = Actor(&#39;tank_blue&#39;)
+</code></pre></div>
 
 <p>...then we create the <strong>draw()</strong> function, and add in a draw command for the tank.</p>
-<pre class="codehilite"><code>def draw():
+<div class="codehilite"><pre><span></span><code>def draw():
     tank.draw()
-</code></pre>
+</code></pre></div>
 
 <p>With that done, your program should now look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 
 def draw():
     tank.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <p>Run it, and you should see your tank on screen.</p>
 <h1>Position the tank</h1>
@@ -77,30 +77,30 @@ pgzrun.go() # Must be last line
 <p>Remember that to move the actor downwards, we need to increase y. The width of the screen is 800, so to put it in the center, we should set x to 400.</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/xy.png" /></p>
 <p>Add in the following to your program. It should appear right after the line where you created the tank actor.</p>
-<pre class="codehilite"><code>tank.y = 600
+<div class="codehilite"><pre><span></span><code>tank.y = 600
 tank.x = 400
-</code></pre>
+</code></pre></div>
 
 <p>Run it. Does the tank look right?</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/cut-off-tank.png" /></p>
 <p>It's cut off! When we set the position of the tank actor, it'll set it based on the center of the actor. Let's move it slightly upwards. Change the lines to...</p>
-<pre class="codehilite"><code>tank.y = 575
+<div class="codehilite"><pre><span></span><code>tank.y = 575
 tank.x = 400
-</code></pre>
+</code></pre></div>
 
 <p>Try it. Better right?</p>
 <h3>Rotation</h3>
 <p>To rotate the tank, we need to set an angle...</p>
-<pre class="codehilite"><code>tank.angle = 90
-</code></pre>
+<div class="codehilite"><pre><span></span><code>tank.angle = 90
+</code></pre></div>
 
 <p>This will make the tank rotate 90 degrees clockwise. Now your program should look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 tank.y = 575
 tank.x = 400
 tank.angle = 90
@@ -110,7 +110,7 @@ def draw():
     tank.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

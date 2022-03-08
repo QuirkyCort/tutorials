@@ -37,8 +37,8 @@
             <h1>Enemies (Part 1)</h1>
 <p>The earlier part of this game is largely identical to <strong>Grab the Coin</strong>, but here's where things starts to get different.</p>
 <p>In <strong>Grab the Coin</strong>, we only have one coin appearing at a time, but in <strong>Dodge the Creep</strong>, we will be having many enemies appear on screen. To handle this, we'll need to put the enemies inside a list.</p>
-<pre class="codehilite"><code class="language-python">enemies = []
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div>
 
 <p>This creates an empty list of enemies. In the rest of this section, we'll be doing four things...</p>
 <ol>
@@ -49,82 +49,82 @@
 </ol>
 <h2>Create the enemy</h2>
 <p>For part 1 of <strong>Enemies</strong>, our enemies will only appear on the right side of the screen, but they will appear at random time and at a random y position (up-down).</p>
-<pre class="codehilite"><code class="language-python">if random.randint(0, 60) == 0:
-    enemy = Actor('worm.png')
-    enemy.y = random.randint(0, 600)
-    enemy.x = 850
-    enemies.append(enemy)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;worm.png&#39;</span><span class="p">)</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">850</span>
+    <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+</code></pre></div>
 
 <p>In the first line <code>if random.randint(0, 60) == 0:</code>, we pick a random number from 0 to 60. If the random number happens to be a "0", we'll continue on to create a new enemy.</p>
 <p>In <code>enemy.y = random.randint(0, 600)</code>, we set the y position of the newly created enemy to a random number between 0 to 600. This will give it a random up-down position. For the x position, we set it to 850, which is just outside the right edge of our screen (...which has a width of 800).</p>
 <p>Finally, the <code>enemies.append(enemy)</code> adds the newly created enemy to the list of enemies.</p>
 <h2>Move the enemies</h2>
 <p>To move the enemy, we just have to change the x position. But since there are many enemies, we'll need a <strong>for</strong> loop to go through the entire list and change each enemy one-by-one.</p>
-<pre class="codehilite"><code class="language-python">for enemy in enemies:
-    enemy.x -= 3
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">3</span>
+</code></pre></div>
 
 <h2>Remove the enemy</h2>
 <p>If we don't remove the enemy, it will keep on acculumulating in the <strong>enemies</strong> list. While this may not be a problem for a short game, what if you manage to stay alive in the game for hours? You could end up with thousands of enemies, and almost all of them are outside the screen and no longer visible!</p>
 <p>To prevent this problem, we will remove the enemy if its x position is less than -50. At that position, the enemy should be completely outside the left edge of the screen.</p>
-<pre class="codehilite"><code class="language-python">if enemy.x &lt; -50:
-    enemies.remove(enemy)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span><span class="p">:</span>
+    <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+</code></pre></div>
 
 <p><strong>IMPORTANT</strong> Notice that we are checking the x position of <strong>enemy</strong> not <strong>enemies</strong>? Since we have many enemies, we'll need a <strong>for</strong> loop to go through each enemy. You can do this by putting the <strong>if</strong> lines under the <strong>for</strong> in the <strong>Move the enemies</strong> task, or you can create a separate <strong>for</strong> loop. Both ways are fine.</p>
 <h2>Draw the enemies</h2>
 <p>Just like before, we need a <strong>for</strong> loop to go through the list of enemies and draw them one-by-one.</p>
-<pre class="codehilite"><code class="language-python">for enemy in enemies:
-    enemy.draw()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</code></pre></div>
 
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">random</span>
+</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
 
-background = Actor('water')
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-player = Actor('p1_front')
-player.x = 400
-player.y = 300
+<span class="hll"><span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
 
-enemies = []
-
-def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
-
-    if random.randint(0, 60) == 0:
-        enemy = Actor('worm.png')
-        enemy.y = random.randint(0, 600)
-        enemy.x = 850
-        enemies.append(enemy)
-
-    for enemy in enemies:
-        enemy.x -= 3
-
-        if enemy.x &lt; -50:
-            enemies.remove(enemy)
-
-def draw():
-    background.draw()
-    player.draw()
-    for enemy in enemies:
-        enemy.draw()
-
-pgzrun.go()
-</code></pre>
+<span class="hll">    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;worm.png&#39;</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">850</span>
+</span><span class="hll">        <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+</span>
+<span class="hll">    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">3</span>
+</span>
+<span class="hll">        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

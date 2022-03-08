@@ -49,14 +49,14 @@ Number of wall pieces = 800 / 50 = <strong>16 pieces</strong></p>
 Height of wall = 50<br />
 Number of wall pieces = 600 / 50 = <strong>12 pieces</strong></p>
 <p><strong>When drawing the wall, we need to repeat 16 times in the horizontal (x) direction, and 12 times in the vertical (y) direction.</strong></p>
-<pre class="codehilite"><code>walls = []
+<div class="codehilite"><pre><span></span><code>walls = []
 for x in range(16):
     for y in range(12):
-        wall = Actor('wall')
+        wall = Actor(&#39;wall&#39;)
         wall.x = x * 50
         wall.y = y * 50
         walls.push(wall)
-</code></pre>
+</code></pre></div>
 
 <p>This is what each line does...</p>
 <p><code>walls = []</code> Create an empty list (...no items in it).</p>
@@ -67,27 +67,27 @@ for x in range(16):
 <p><code>walls.push(wall)</code> We add the piece of wall into our list of walls.</p>
 <h3>Drawing the wall</h3>
 <p>Just like the tank, we need to draw the wall in the <strong>draw()</strong> function. As we have a list of walls with many wall actors, we'll need to go through the list and draw each of them one by one using a <strong>for</strong> loop.</p>
-<pre class="codehilite"><code>for wall in walls:
+<div class="codehilite"><pre><span></span><code>for wall in walls:
     wall.draw()
-</code></pre>
+</code></pre></div>
 
 <p>With that, your program should now look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 tank.y = 575
 tank.x = 400
 tank.angle = 90
 
-background = Actor('grass')
+background = Actor(&#39;grass&#39;)
 
 walls = []
 for x in range(16):
     for y in range(12):
-        wall = Actor('wall')
+        wall = Actor(&#39;wall&#39;)
         wall.x = x * 50
         wall.y = y * 50
         walls.append(wall)
@@ -114,15 +114,15 @@ def draw():
         wall.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
 
 <h3>Fixing the wall</h3>
 <p>If you tried running the program, you'll see something like this...</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/wall-problem.png" /></p>
 <p>Remember that the position of an actor is based on its center. To fix this problem, we need to add half the width and height of the wall to its x and y. Since the width and height of the wall is 50, this means we need to add 25. Change the <strong>wall.x</strong> and <strong>wall.y</strong> lines to this...</p>
-<pre class="codehilite"><code>wall.x = x * 50 + 25
+<div class="codehilite"><pre><span></span><code>wall.x = x * 50 + 25
 wall.y = y * 50 + 25
-</code></pre>
+</code></pre></div>
 
 <p>Done! The walls covered up our tank, but that's ok for now. In the next section, we'll remove some of the walls to make space for our tank.</p>
         </div>

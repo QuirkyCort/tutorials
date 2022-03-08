@@ -39,15 +39,15 @@
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/jump.gif" /></p>
 <p>In real life, objects are affected by gravity. To make our ninja jump realistically, we'll need to simulate the effects of gravity in our game.</p>
 <p>Let's start by adding in a variable for <code>velocity_y</code> and <code>gravity</code>.</p>
-<pre class="codehilite"><code>velocity_y = 0
+<div class="codehilite"><pre><span></span><code>velocity_y = 0
 gravity = 1
-</code></pre>
+</code></pre></div>
 
 <p>Explanation for each line...</p>
 <p><code>velocity_y = 0</code> : This represents how fast our ninja should be moving in the up/down direction. It starts at zero, as our ninja isn't jumping yet.</p>
 <p><code>gravity = 1</code> : Gravity will change our velocity. We can change this later and see its effects, but leave it at 1 for now.</p>
 <p>Next, in <code>update()</code> we are going to change the velocity when the up arrow is pressed.</p>
-<pre class="codehilite"><code>def update():
+<div class="codehilite"><pre><span></span><code>def update():
   global velocity_y
   runner.next_image()
 
@@ -55,37 +55,37 @@ gravity = 1
     velocity_y = -15
 
   runner.y += velocity_y
-</code></pre>
+</code></pre></div>
 
 <p>This is what each line does...</p>
 <p><code>global velocity_y</code> : We need to use global if we change a variable that comes from outside of a function.</p>
 <p><code>if keyboard.up;</code> : When the up arrow is pressed...</p>
 <p><code>velocity_y = -15</code> : Set the up/down velocity to -15. A negative number means it's going upwards.</p>
 <p><code>runner.y += velocity_y</code> : Change our ninja's position using the velocity. The <code>+=</code> means to add <code>velocity_y</code> to <code>runner.y</code>.</p>
-<pre class="codehilite"><code># Tips
+<div class="codehilite"><pre><span></span><code># Tips
 a += 1      # This line is the same as...
 a = a + 1   # ...this line.
-</code></pre>
+</code></pre></div>
 
 <p>Try it out! If you programmed it correctly, the ninja should fly up into the sky when you press up. That's because we haven't added gravity yet!</p>
 <h1>Gravity</h1>
 <p>Gravity will change our velocity. Under the <code>runner.y += velocity_y</code> line, let's add it in <code>velocity_y += gravity</code>.</p>
 <p>Now our ninja falls straight down! We haven't tell our ninja when to stop falling yet! Let's add that in next...</p>
-<pre class="codehilite"><code>if runner.y &gt; 400:
+<div class="codehilite"><pre><span></span><code>if runner.y &gt; 400:
   velocity_y = 0
   runner.y = 400
-</code></pre>
+</code></pre></div>
 
 <p>Here we are treating <code>`y = 400</code> as the "ground", and if the ninja is at a y position that's greater than 400, we will set her velocity_y to 0 and her y position to 400. This will prevent her from falling through the ground.</p>
 <p>Your program should now look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 from pgzhelper import *
 
 WIDTH=800
 HEIGHT=600
 
-runner = Actor('run__000')
-run_images = ['run__000', 'run__001', 'run__002', 'run__003', 'run__004', 'run__005', 'run__006', 'run__007', 'run__008', 'run__009']
+runner = Actor(&#39;run__000&#39;)
+run_images = [&#39;run__000&#39;, &#39;run__001&#39;, &#39;run__002&#39;, &#39;run__003&#39;, &#39;run__004&#39;, &#39;run__005&#39;, &#39;run__006&#39;, &#39;run__007&#39;, &#39;run__008&#39;, &#39;run__009&#39;]
 runner.images = run_images
 runner.x = 100
 runner.y = 400
@@ -112,7 +112,7 @@ def draw():
   runner.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

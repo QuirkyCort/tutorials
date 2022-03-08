@@ -36,26 +36,26 @@
         <div id="content">
             <h1>Many Enemies</h1>
 <p>It's very easy to change our program to have many enemies instead of just one. First we'll create a list to store all the enemy tanks...</p>
-<pre class="codehilite"><code>enemies = []
-</code></pre>
+<div class="codehilite"><pre><span></span><code>enemies = []
+</code></pre></div>
 
 <p>Next, I'll use a loop to create 3 enemies and add them to the list.</p>
-<pre class="codehilite"><code>for i in range(3):
-    enemy = Actor('tank_red')
+<div class="codehilite"><pre><span></span><code>for i in range(3):
+    enemy = Actor(&#39;tank_red&#39;)
     enemy.y = 25
     enemy.x = i * 200 + 100
     enemy.angle = 270
     enemy.move_count = 0
     enemies.append(enemy)
-</code></pre>
+</code></pre></div>
 
 <p>This line...</p>
-<pre class="codehilite"><code>enemy.x = i * 200 + 100
-</code></pre>
+<div class="codehilite"><pre><span></span><code>enemy.x = i * 200 + 100
+</code></pre></div>
 
 <p>...spaces the enemy out, so that they won't all appear at the same spot.</p>
 <p>The entire enemy section in <strong>update()</strong> needs to be put in a <strong>for</strong> loop like this...</p>
-<pre class="codehilite"><code>for enemy in enemies:  # This is the only new line!
+<div class="codehilite"><pre><span></span><code>for enemy in enemies:  # This is the only new line!
     choice = random.randint(0, 2)
     if enemy.move_count &gt; 0:
         enemy.move_count = enemy.move_count - 1
@@ -86,47 +86,47 @@
     elif choice == 1:
         enemy.angle = random.randint(0, 3) * 90
     else:
-        bullet = Actor('bulletred2')
+        bullet = Actor(&#39;bulletred2&#39;)
         bullet.angle = enemy.angle
         bullet.x = enemy.x
         bullet.y = enemy.y
         enemy_bullets.append(bullet)
-</code></pre>
+</code></pre></div>
 
 <p>Only the first line is new. The rest of the lines are the same as what you have before, but remember to indent them so that they are within the <strong>for</strong> loop.</p>
 <p>Lastly, we need to put the <strong>enemy.draw()</strong> inside the <strong>draw()</strong> function in a <strong>for</strong> loop as well.</p>
-<pre class="codehilite"><code>for enemy in enemies:  # Only this line is new!
+<div class="codehilite"><pre><span></span><code>for enemy in enemies:  # Only this line is new!
     enemy.draw()
-</code></pre>
+</code></pre></div>
 
 <p>The code at this point should look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 import random
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 tank.y = 575
 tank.x = 400
 tank.angle = 90
 
 enemies = []
 for i in range(3):
-    enemy = Actor('tank_red')
+    enemy = Actor(&#39;tank_red&#39;)
     enemy.y = 25
     enemy.x = i * 200 + 100
     enemy.angle = 270
     enemy.move_count = 0
     enemies.append(enemy)
 
-background = Actor('grass')
+background = Actor(&#39;grass&#39;)
 
 walls = []
 for x in range(16):
     for y in range(10):
         if random.randint(0, 100) &lt; 50:
-            wall = Actor('wall')
+            wall = Actor(&#39;wall&#39;)
             wall.x = x * 50 + 25
             wall.y = y * 50 + 25 + 50
             walls.append(wall)
@@ -167,7 +167,7 @@ def update():
     # This part is for the bullet
     if bullet_holdoff == 0:
         if keyboard.space:
-            bullet = Actor('bulletblue2')
+            bullet = Actor(&#39;bulletblue2&#39;)
             bullet.angle = tank.angle
             bullet.x = tank.x
             bullet.y = tank.y
@@ -226,7 +226,7 @@ def update():
         elif choice == 1:
             enemy.angle = random.randint(0, 3) * 90
         else:
-            bullet = Actor('bulletred2')
+            bullet = Actor(&#39;bulletred2&#39;)
             bullet.angle = enemy.angle
             bullet.x = enemy.x
             bullet.y = enemy.y
@@ -265,7 +265,7 @@ def draw():
         wall.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

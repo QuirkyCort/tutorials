@@ -40,14 +40,14 @@
 <p>Next, we'll choose a random number. The range is up to you, but I'm going with 0 to 100.</p>
 <p><code>random.randint(0, 100)</code></p>
 <p>...and we'll draw the wall only if the random number meets a certain condition, for example, if it is less than 50.</p>
-<pre class="codehilite"><code>for x in range(16):
+<div class="codehilite"><pre><span></span><code>for x in range(16):
     for y in range(10):
         if random.randint(0, 100) &lt; 50:
-            wall = Actor('wall')
+            wall = Actor(&#39;wall&#39;)
             wall.x = x * 50 + 25
             wall.y = y * 50 + 25 + 50
             walls.append(wall)
-</code></pre>
+</code></pre></div>
 
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/random-walls.png" /></p>
 <p>Since the wall pieces are drawn randomly, your screen may not look the same as mine.</p>

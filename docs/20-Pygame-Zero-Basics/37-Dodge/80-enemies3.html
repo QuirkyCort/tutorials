@@ -39,74 +39,74 @@
 <p>Try working out this part on your own. When you're ready, you can test it out to see if it works, then compare it with my code below. Don't worry if your code isn't exactly the same as mine; there are many ways to solve this challenge, and you may have simply found a different way. Test out the code to make sure it's working correctly.</p>
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new and modified lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-background = Actor('water')
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
 
-player = Actor('p1_front')
-player.x = 400
-player.y = 300
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-enemies = []
+<span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
 
-def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
 
-    if random.randint(0, 60) == 0:
-        side = random.randint(1, 4)
-        enemy = Actor('worm.png')
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="hll">        <span class="n">side</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span>        <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;worm.png&#39;</span><span class="p">)</span>
 
-        if side == 1:
-            enemy.y = random.randint(0, 600)
-            enemy.x = 850
-            enemy.angle = 0
-        elif side == 2:
-            enemy.y = random.randint(0, 600)
-            enemy.x = -50
-            enemy.angle = 180
-        elif side == 3:
-            enemy.y = 650
-            enemy.x = random.randint(0, 800)
-            enemy.angle = 270
-        elif side == 4:
-            enemy.y = -50
-            enemy.x = random.randint(0, 800)
-            enemy.angle = 90
+        <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">850</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+<span class="hll">        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">650</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
+</span><span class="hll">        <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+</span>
+        <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-        enemies.append(enemy)
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">3</span>
+<span class="hll">        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">3</span>
+</span><span class="hll">        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
+</span>
+<span class="hll">        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">850</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">650</span><span class="p">:</span>
+</span>            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-    for enemy in enemies:
-        if enemy.angle == 0:
-            enemy.x -= 3
-        elif enemy.angle == 180:
-            enemy.x += 3
-        elif enemy.angle == 270:
-            enemy.y -= 3
-        elif enemy.angle == 90:
-            enemy.y += 3
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-        if enemy.x &lt; -50 or enemy.x &gt; 850 or enemy.y &lt; -50 or enemy.y &gt; 650:
-            enemies.remove(enemy)
-
-def draw():
-    background.draw()
-    player.draw()
-    for enemy in enemies:
-        enemy.draw()
-
-pgzrun.go()
-</code></pre>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

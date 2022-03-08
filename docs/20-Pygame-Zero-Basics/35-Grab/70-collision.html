@@ -36,10 +36,10 @@
         <div id="content">
             <h1>Collision</h1>
 <p>If the player touches the coin, we want the coin to change to a new random position. We can detect collisions using an <strong>if</strong> statement and the <strong>colliderect()</strong> function. This is part of our game logic, so this code should be placed inside the <strong>update()</strong> function.</p>
-<pre class="codehilite"><code class="language-python">if player.colliderect(coin):
-    coin.x = random.randint(0, 800)
-    coin.y = random.randint(0, 600)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">coin</span><span class="p">):</span>
+    <span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+    <span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Basically, what this code says is... "If the player collides with the coin, set a new random x and y position for the coin."</p>
 <video width="800" height="600" autoplay muted loop>

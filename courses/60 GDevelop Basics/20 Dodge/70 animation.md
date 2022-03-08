@@ -34,6 +34,22 @@ When done, your event tab should look like this...
 
 ![](images/changeAnimations.png)
 
+## Change Animation (Optional: For keyboard controls)
+
+Now your player should animate when controlled using the on-screen buttons, but not when the keyboard is used.
+That's because the conditions for the animations are based on the on-screen buttons only.
+
+Let's add in some events to change the animation when the arrow keys on the keyboard are pressed.
+
+Start by adding a new event (...not a sub-event), and click on **Add condition**.
+Select **Other Conditions**, **Key Pressed**, then under **Key**, set it to **Up**.
+For the action, you can copy and paste in the action from the earlier on-screen buttons event.
+
+Continue adding events for all the keys (up, down, left, right).
+When done, your event tab should contain this...
+
+![](images/changeAnimationsKeys.png)
+
 ## Idle and Flip
 
 If you test it out now, you'll notice two problems.

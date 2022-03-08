@@ -39,49 +39,49 @@
 <p><strong>x</strong> : Controls the left-right position of the player.</p>
 <p><strong>y</strong> : Controls the up-down position of the player.</p>
 <p>Code for controls should be in the <strong>update()</strong> function, so let's create the function and add in the code.</p>
-<pre class="codehilite"><code class="language-python">def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+</code></pre></div>
 
 <p><code>def update():</code> : Starts the <strong>update()</strong> function. Every indented line under it is part of this function.</p>
 <p><code>if keyboard.up:</code> : This means "if the up arrow key is pressed", run the code that is indented under this line.</p>
 <p><code>player.y -= 5</code> : Subtract 5 from <strong>player.y</strong>. This moves the player upwards. Note that this is indented under <code>if keyboard.up:</code>, so it will only run if the up arrow is pressed.</p>
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-background = Actor('water')
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
 
-player = Actor('p1_front')
-player.x = 400
-player.y = 300
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
+<span class="hll"><span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-def draw():
-    background.draw()
-    player.draw()
-
-pgzrun.go() # Must be last line
-</code></pre>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
 
 <p>Your game should look the same as before, but you should be able to move the player using the arrow keys on your keyboard. Test and make sure it's working correctly!</p>
         </div>

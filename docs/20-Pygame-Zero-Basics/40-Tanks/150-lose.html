@@ -36,51 +36,51 @@
         <div id="content">
             <h1>Losing</h1>
 <p>It won't be much of a game if the enemy bullets can't hurt us. Let's fix that next. First we create a variable named <strong>game_over</strong> and put it outside of any functions (...I put mine just above <strong>update()</strong>, but you can put it further up if you want to).</p>
-<pre class="codehilite"><code>game_over = False
-</code></pre>
+<div class="codehilite"><pre><span></span><code>game_over = False
+</code></pre></div>
 
 <p>Next, we will set <strong>game_over</strong> to <strong>True</strong> if the enemy bullet hits our tank.</p>
-<pre class="codehilite"><code>if bullet.colliderect(tank):
+<div class="codehilite"><pre><span></span><code>if bullet.colliderect(tank):
     game_over = True
-</code></pre>
+</code></pre></div>
 
 <p>Note that since our tank is not a list, we are using <strong>colliderect</strong> instead of <strong>collidelist</strong>.</p>
 <p>Finally, in <strong>draw()</strong>, we check if <strong>game_over</strong> is true...</p>
-<pre class="codehilite"><code>elif game_over:
+<div class="codehilite"><pre><span></span><code>elif game_over:
     screen.fill((0,0,0))
-    screen.draw.text('You Lose!', (260,250), color=(255,255,255), fontsize=100)
-</code></pre>
+    screen.draw.text(&#39;You Lose!&#39;, (260,250), color=(255,255,255), fontsize=100)
+</code></pre></div>
 
 <p>...and draw "You Lose!" if it is.</p>
 <h1>Completed!</h1>
 <p>The completed game should look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 import random
 
 WIDTH=800
 HEIGHT=600
 
-tank = Actor('tank_blue')
+tank = Actor(&#39;tank_blue&#39;)
 tank.y = 575
 tank.x = 400
 tank.angle = 90
 
 enemies = []
 for i in range(3):
-    enemy = Actor('tank_red')
+    enemy = Actor(&#39;tank_red&#39;)
     enemy.y = 25
     enemy.x = i * 200 + 100
     enemy.angle = 270
     enemy.move_count = 0
     enemies.append(enemy)
 
-background = Actor('grass')
+background = Actor(&#39;grass&#39;)
 
 walls = []
 for x in range(16):
     for y in range(10):
         if random.randint(0, 100) &lt; 50:
-            wall = Actor('wall')
+            wall = Actor(&#39;wall&#39;)
             wall.x = x * 50 + 25
             wall.y = y * 50 + 25 + 50
             walls.append(wall)
@@ -124,7 +124,7 @@ def update():
     # This part is for the bullet
     if bullet_holdoff == 0:
         if keyboard.space:
-            bullet = Actor('bulletblue2')
+            bullet = Actor(&#39;bulletblue2&#39;)
             bullet.angle = tank.angle
             bullet.x = tank.x
             bullet.y = tank.y
@@ -187,7 +187,7 @@ def update():
         elif choice == 1:
             enemy.angle = random.randint(0, 3) * 90
         else:
-            bullet = Actor('bulletred2')
+            bullet = Actor(&#39;bulletred2&#39;)
             bullet.angle = enemy.angle
             bullet.x = enemy.x
             bullet.y = enemy.y
@@ -217,10 +217,10 @@ def update():
 def draw():
     if len(enemies) == 0:
         screen.fill((0,0,0))
-        screen.draw.text('You Win!', (260,250), color=(255,255,255), fontsize=100)
+        screen.draw.text(&#39;You Win!&#39;, (260,250), color=(255,255,255), fontsize=100)
     elif game_over:
         screen.fill((0,0,0))
-        screen.draw.text('You Lose!', (260,250), color=(255,255,255), fontsize=100)
+        screen.draw.text(&#39;You Lose!&#39;, (260,250), color=(255,255,255), fontsize=100)
     else:
         background.draw()
         tank.draw()
@@ -234,7 +234,7 @@ def draw():
             wall.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

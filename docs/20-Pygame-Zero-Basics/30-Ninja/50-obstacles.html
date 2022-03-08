@@ -41,45 +41,45 @@
 <img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/cactus.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/cactus.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 <p>First, let's add an empty list called <code>obstacles</code> and a integer variable <code>obstacles_timeout</code></p>
-<pre class="codehilite"><code>obstacles = []
+<div class="codehilite"><pre><span></span><code>obstacles = []
 obstacles_timeout = 0
-</code></pre>
+</code></pre></div>
 
 <p>Now in our <code>update()</code> function, we are going to increase out timeout by 1 each time.</p>
-<pre class="codehilite"><code>obstacles_timeout += 1
-</code></pre>
+<div class="codehilite"><pre><span></span><code>obstacles_timeout += 1
+</code></pre></div>
 
 <p>Next, if the timeout is greater than 50, we'll add in an obstacle and reset the timeout to zero.</p>
-<pre class="codehilite"><code>if obstacles_timeout &gt; 50:
-  actor = Actor('cactus')
+<div class="codehilite"><pre><span></span><code>if obstacles_timeout &gt; 50:
+  actor = Actor(&#39;cactus&#39;)
   actor.x = 850
   actor.y = 430
   obstacles.append(actor)
   obstacles_timeout = 0
-</code></pre>
+</code></pre></div>
 
 <p>The only thing new here is <code>obstacles.append(actor)</code>. This adds <code>actor</code> to the <code>obstacles</code> list.</p>
 <p><strong>IMPORTANT: You'll need to move the <code>cactus</code> image into your <code>images</code> folder first! If you decide to use a different image, change the image name accordingly.</strong></p>
 <p>Now to make the obstacles move across the screen...</p>
-<pre class="codehilite"><code>for actor in obstacles:
+<div class="codehilite"><pre><span></span><code>for actor in obstacles:
   actor.x -= 8
-</code></pre>
+</code></pre></div>
 
 <p>This will go through the entire obstacles list and reduce the x position for obstacle. Reducing x will make the obstacle move to the left.</p>
 <p>Finally, we need to draw the obstacles on screen. In the <code>draw()</code> function, add...</p>
-<pre class="codehilite"><code>for actor in obstacles:
+<div class="codehilite"><pre><span></span><code>for actor in obstacles:
   actor.draw()
-</code></pre>
+</code></pre></div>
 
 <p>Your program should now look like this...</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 from pgzhelper import *
 
 WIDTH=800
 HEIGHT=600
 
-runner = Actor('run__000')
-run_images = ['run__000', 'run__001', 'run__002', 'run__003', 'run__004', 'run__005', 'run__006', 'run__007', 'run__008', 'run__009']
+runner = Actor(&#39;run__000&#39;)
+run_images = [&#39;run__000&#39;, &#39;run__001&#39;, &#39;run__002&#39;, &#39;run__003&#39;, &#39;run__004&#39;, &#39;run__005&#39;, &#39;run__006&#39;, &#39;run__007&#39;, &#39;run__008&#39;, &#39;run__009&#39;]
 runner.images = run_images
 runner.x = 100
 runner.y = 400
@@ -96,7 +96,7 @@ def update():
 
   obstacles_timeout += 1
   if obstacles_timeout &gt; 50:
-    actor = Actor('cactus')
+    actor = Actor(&#39;cactus&#39;)
     actor.x = 850
     actor.y = 430
     obstacles.append(actor)
@@ -122,7 +122,7 @@ def draw():
     actor.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

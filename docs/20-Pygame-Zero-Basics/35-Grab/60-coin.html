@@ -36,62 +36,62 @@
         <div id="content">
             <h1>Coin</h1>
 <p>You probably know what to do by now. Like before, we'll start by creating the <strong>Actor</strong> for the coin.</p>
-<pre class="codehilite"><code>coin = Actor('coingold')
-</code></pre>
+<div class="codehilite"><pre><span></span><code>coin = Actor(&#39;coingold&#39;)
+</code></pre></div>
 
 <p>We'll also need to draw in in the <strong>draw()</strong> function.</p>
-<pre class="codehilite"><code>coin.draw()
-</code></pre>
+<div class="codehilite"><pre><span></span><code>coin.draw()
+</code></pre></div>
 
 <h2>Random position</h2>
 <p>We want our coin to start in a random position. To do that, we'll need the help of the <strong>random</strong> module. Let's start by importing this module.</p>
-<pre class="codehilite"><code class="language-python">import random
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
+</code></pre></div>
 
 <p>This line should be placed at the top, just below <code>import pgzrun</code>.</p>
 <p>Since the width of our screen is 800, we want our coin to start with an <strong>x</strong> position that is somewhere between 0 to 800.</p>
-<pre class="codehilite"><code class="language-python">coin.x = random.randint(0, 800)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+</code></pre></div>
 
 <p>And since the height of our screen is 600, we want our coin to start with an <strong>y</strong> position that is somewhere between 0 to 600.</p>
-<pre class="codehilite"><code class="language-python">coin.y = random.randint(0, 600)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+</code></pre></div>
 
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">random</span>
+</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-background = Actor('grass')
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p3_front&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 
-player = Actor('p3_front')
-player.x = 400
-player.y = 300
+<span class="hll"><span class="n">coin</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;coingold&#39;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">coin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+</span><span class="hll"><span class="n">coin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
 
-coin = Actor('coingold')
-coin.x = random.randint(0, 800)
-coin.y = random.randint(0, 600)
-
-def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
-
-def draw():
-    background.draw()
-    player.draw()
-    coin.draw()
-
-pgzrun.go() # Must be last line
-</code></pre>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">    <span class="n">coin</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
 
 <p>Your game should now look like this...</p>
 <p><img alt="" src="../images/grab_coin.jpg" /></p>

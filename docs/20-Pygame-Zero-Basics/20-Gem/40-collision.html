@@ -36,39 +36,39 @@
         <div id="content">
             <h1>Collision</h1>
 <p>We also want the gem to go back to the top if it touches the spaceship. If you had done Scratch before, you might remember the <code>if touching sprite</code> command. In Pygame Zero, we'll use <code>if gem.colliderect(ship):</code> or <code>if ship.colliderect(gem):</code> (...both works the same).</p>
-<pre class="codehilite"><code>if gem.colliderect(ship):
+<div class="codehilite"><pre><span></span><code>if gem.colliderect(ship):
     gem.y = 0
-</code></pre>
+</code></pre></div>
 
 <p>...or...</p>
-<pre class="codehilite"><code>if ship.colliderect(gem):
+<div class="codehilite"><pre><span></span><code>if ship.colliderect(gem):
     gem.y = 0
-</code></pre>
+</code></pre></div>
 
 <p><strong>Try it out!</strong></p>
 <h1>Random</h1>
 <p>It's not vey interesting to have the gem fall from the same spot everytime. In <a href="https://trinket.io/aposteriori/courses/introduction-to-python#/fundamentals-loops/turtle-graphics">Introduction to Python</a>, you learned to use the <code>random</code> module. We'll use it here to randomize the x position of the gem.</p>
 <p>Before we can use the <code>random</code> module, we'll need to import it.</p>
-<pre class="codehilite"><code>import random
-</code></pre>
+<div class="codehilite"><pre><span></span><code>import random
+</code></pre></div>
 
 <p>To assign a random x position, we use...</p>
-<pre class="codehilite"><code>gem.x = random.randint(20, 780)
-</code></pre>
+<div class="codehilite"><pre><span></span><code>gem.x = random.randint(20, 780)
+</code></pre></div>
 
 <p>The <code>random.randint(20, 780)</code> function will provide a random number between 20 to 780. This should be added whenever we return the gem to the top of the screen.</p>
 <p>Your program should look like this now.</p>
-<pre class="codehilite"><code>import pgzrun
+<div class="codehilite"><pre><span></span><code>import pgzrun
 import random
 
 WIDTH = 800
 HEIGHT = 600
 
-ship = Actor('playership1_blue')
+ship = Actor(&#39;playership1_blue&#39;)
 ship.x = 370
 ship.y = 550
 
-gem = Actor('gemgreen')
+gem = Actor(&#39;gemgreen&#39;)
 gem.x = random.randint(20, 780)
 gem.y = 0
 
@@ -92,7 +92,7 @@ def draw():
     ship.draw()
 
 pgzrun.go() # Must be last line
-</code></pre>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
     </div>

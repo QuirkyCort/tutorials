@@ -36,41 +36,41 @@
         <div id="content">
             <h1>Player</h1>
 <p>Next, we're going to add our player. Just like the background, we'll start by creating an <strong>Actor</strong> using the image file.</p>
-<pre class="codehilite"><code class="language-python">player = Actor('p1_front')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <p><em>If you are using a different image, change the </em><em>p1_front</em><em> to your image file name.</em></p>
 <p>I'll like the player to start in the middle of the screen, so below the previous line, let's add the starting x and y position.</p>
-<pre class="codehilite"><code class="language-python">player.x = 400
-player.y = 300
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+</code></pre></div>
 
 <p><em>The width and height of the game window is 800 and 600, so to place our player in the middle, we set the </em><em>x</em><em> to half the width and the </em><em>y</em><em> to half the height</em></p>
 <p>We'll also need to draw the player, so we'll need to add...</p>
-<pre class="codehilite"><code class="language-python">player.draw()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</code></pre></div>
 
 <p><strong>IMPORTANT!</strong> Be sure to put this inside the <strong>draw()</strong> function.</p>
 <p><strong>IMPORTANT!</strong> The <code>player.draw()</code> must come after the <code>background.draw()</code>. What will happen if you draw the background after the player?</p>
 <h2>At this point...</h2>
 <p>Right now your code should look like this (new lines are highlighted in yellow)...</p>
-<pre class="codehilite"><code class="language-python">import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-background = Actor('water')
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
 
-player = Actor('p1_front')
-player.x = 400
-player.y = 300
-
-def draw():
-    background.draw()
-    player.draw()
-
-pgzrun.go() # Must be last line
-</code></pre>
+<span class="hll"><span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;p1_front&#39;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+</span><span class="hll"><span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
+</code></pre></div>
 
 <p>Your game should now look like this...</p>
 <p><img alt="" src="../images/dodge_player.jpg" /></p>
