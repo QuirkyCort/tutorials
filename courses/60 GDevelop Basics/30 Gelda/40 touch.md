@@ -83,3 +83,18 @@ Add a **Play the animation** action to the existing **Touch or mouse down** even
 Our event tab should now look like this...
 
 ![](images/animationPausePlay.png)
+
+## Animate Keyboard Controls (Optional)
+
+Now your player should animate when controlled using the on-screen buttons, but not when the keyboard is used.
+Let's add in some events to change the animation when the arrow keys on the keyboard are pressed.
+
+Start by adding a new event (...not a sub-event), and click on **Add condition**.
+Select **Other Conditions** then **Any Key Pressed**.
+Choose the **Play the animation** action, same as the previous section.
+
+Continue adding events for all the keys (up, down, left, right).
+For each of the key pressed event, select the corresponding **Change the animation** as from the previous sections.
+When done, your event tab should contain this...
+
+![](images/allMovementKeyboard.png)
