@@ -41,6 +41,6 @@ If you are using a tablet, you will have to use the web-based editor [editor.gde
 This runs on all major web-browsers, but lacks some of the features of the desktop editor.
 Most notably...
 
-* Graphics: You **cannot add your own custom images and sound** to a game, and are limited to those which are built-in.
+* Graphics: To add your own custom images and sound, you'll need a suitable hosting site (...Imgur will work for images, github for both images and sound). This can be tricky.
 * Save: You can only save and load from Google Drive.
 * Stability: The web-based editor also suffers from some stability issues. If the editor starts freaking out, try clearing the cache and reloading the page.
