@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/pygment_default.css" rel="stylesheet">
   <link href="../../css/main.css" rel="stylesheet">
   <link href="../../css/print.css" rel="stylesheet" media="print">
 
@@ -81,7 +81,10 @@ pgzrun.go() # Must be last line
 
 <p>The <strong>screen.fill((0,0,0))</strong> that we added earlier was to erase the screen by covering the entire window in black. But since our background image now fills the entire screen, we don't need the <strong>screen.fill</strong> anymore. You can remove that line.</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

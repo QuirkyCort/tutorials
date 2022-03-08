@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/pygment_default.css" rel="stylesheet">
   <link href="../../css/main.css" rel="stylesheet">
   <link href="../../css/print.css" rel="stylesheet" media="print">
 
@@ -84,7 +84,10 @@ original_y = tank.y
 <p>Try it out.</p>
 <p>You'll see that the tank can still move about halfway off screen. That's because the position of the tank is based on it's center. What can we do to prevent that? Think about it and attempt it on your own.</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

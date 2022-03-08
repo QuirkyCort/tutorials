@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/pygment_default.css" rel="stylesheet">
   <link href="../../css/main.css" rel="stylesheet">
   <link href="../../css/print.css" rel="stylesheet" media="print">
 
@@ -46,7 +46,10 @@
 
 <p>This will increase the falling speed as your score goes up. When your score is zero, the gem will fall at speed 4. When your score is 10, the gem will fall at speed 6 (4 + 10 / 5).</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

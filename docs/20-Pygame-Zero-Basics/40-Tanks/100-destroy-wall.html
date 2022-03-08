@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/pygment_default.css" rel="stylesheet">
   <link href="../../css/main.css" rel="stylesheet">
   <link href="../../css/print.css" rel="stylesheet" media="print">
 
@@ -176,7 +176,10 @@ pgzrun.go() # Must be last line
 <h3>What happens if we don't remove the bullet when it reaches the edge?</h3>
 <p>Nothing much. The bullet will just keep flying forever outside of the screen. If you have a lot of bullets, it may eventually slow down your game, but it will likely require many thousands of bullets before that becomes noticeable.</p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>

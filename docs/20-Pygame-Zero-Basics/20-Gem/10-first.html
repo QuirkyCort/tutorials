@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/pygment_default.css" rel="stylesheet">
   <link href="../../css/main.css" rel="stylesheet">
   <link href="../../css/print.css" rel="stylesheet" media="print">
 
@@ -75,7 +75,10 @@ pgzrun.go() # Must be last line
 <p><code>ship.draw()</code> : This tells the ship <strong>Actor</strong> to draw itself on the screen. It needs to be indented under <code>def draw():</code>, so that  it will run whenever Pygame Zero run  the <code>draw()</code> function.</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/xy.png" /></p>
         </div>
-        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
     </div>
 
     <script>
