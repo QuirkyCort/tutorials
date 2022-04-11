@@ -100,6 +100,12 @@ To impose a short delay after each attack, add a new condition to the **Touch or
 For the condition, select **Other ACtions** and **Value of scene timer**.
 Set the timer name to **"swordDelay"**, and time in seconds to **0.6**.
 
+Finally, we will need to start the timer when the scene begins.
+Add a new event, click on **Add condition**, select **Other Conditions**, then **At the beginning of the scene**.
+For the action, select **Others**, then **Start / Reset a scene timer**, and set the timer name to **swordDelay**.
+
+![](images/swordDelayStart.png)
+
 ## Removing the Monster
 
 To remove the monster when the touch the sword, add a new sub-event under **Player Attack**.
