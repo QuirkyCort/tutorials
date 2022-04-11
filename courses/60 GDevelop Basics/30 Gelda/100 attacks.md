@@ -97,7 +97,7 @@ For the action, select the **Sword** and **Delete the object**.
 
 To impose a short delay after each attack, add a new condition to the **Touch or mouse down** event.
 
-For the condition, select **Other ACtions** and **Value of scene timer**.
+For the condition, select **Other Actions** and **Value of scene timer**.
 Set the timer name to **"swordDelay"**, and time in seconds to **0.6**.
 
 Finally, we will need to start the timer when the scene begins.
