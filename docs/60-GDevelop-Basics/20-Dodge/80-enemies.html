@@ -54,12 +54,16 @@ To do that, make use of a timer, and everytime the timer exceeds 1 second, we'll
 </ol>
 <p>Start by adding a new event.
 Click on <strong>Add condition</strong>, select <strong>Other Conditions</strong>, then <strong>Value of a scene timer</strong>.
-Set the <strong>Time in seconds</strong> to <strong>1</strong>, and the <strong>Timer's name</strong> to <strong>enemy timer</strong> (...nothing special about this name; you can use a different name if you want).</p>
+Set the <strong>Time in seconds</strong> to <strong>1</strong>, and the <strong>Timer's name</strong> to <strong>enemy timer</strong> (...nothing special about this name; you can use a different name if you want).
+For the action, select <strong>Others</strong>, then <strong>Start / Reset a scene timer</strong>, and set the timer name to <strong>enemy timer</strong>.</p>
 <p><img alt="" src="images/timer.png" /></p>
 <p>Next, add a sub-event under the timer event.
 Leave the condition blank, and add an action.
 Select the enemy, then the <strong>Create an object</strong> action.</p>
 <p><img alt="" src="images/createObject.png" /></p>
+<p>Finally, we will need to start the timer when the scene begins.
+Add a new event, click on <strong>Add condition</strong>, select <strong>Other Conditions</strong>, then <strong>At the beginning of the scene</strong>.
+For the action, select <strong>Others</strong>, then <strong>Start / Reset a scene timer</strong>, and set the timer name to <strong>enemy timer</strong>.</p>
 <h2>Expressions</h2>
 <p>We want the enemy to appear at a random <strong>X position</strong> at the top of the screen.
 To do that, do not key in a value for the <strong>X position</strong>, instead click on the expressions button next to it. <img alt="" src="images/expressions.png" /></p>

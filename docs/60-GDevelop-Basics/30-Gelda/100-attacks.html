@@ -98,8 +98,12 @@ Set the timer name to <strong>"swordDelay"</strong>, and time in seconds to <str
 <p><img alt="" src="images/swordEvent7.png" /></p>
 <h2>Delay Before Next Attack</h2>
 <p>To impose a short delay after each attack, add a new condition to the <strong>Touch or mouse down</strong> event.</p>
-<p>For the condition, select <strong>Other ACtions</strong> and <strong>Value of scene timer</strong>.
+<p>For the condition, select <strong>Other Actions</strong> and <strong>Value of scene timer</strong>.
 Set the timer name to <strong>"swordDelay"</strong>, and time in seconds to <strong>0.6</strong>.</p>
+<p>Finally, we will need to start the timer when the scene begins.
+Add a new event, click on <strong>Add condition</strong>, select <strong>Other Conditions</strong>, then <strong>At the beginning of the scene</strong>.
+For the action, select <strong>Others</strong>, then <strong>Start / Reset a scene timer</strong>, and set the timer name to <strong>swordDelay</strong>.</p>
+<p><img alt="" src="images/swordDelayStart.png" /></p>
 <h2>Removing the Monster</h2>
 <p>To remove the monster when the touch the sword, add a new sub-event under <strong>Player Attack</strong>.
 For the condition, select the <strong>Sword</strong>, <strong>Collision</strong>, and choose the <strong>Goblin</strong>.
