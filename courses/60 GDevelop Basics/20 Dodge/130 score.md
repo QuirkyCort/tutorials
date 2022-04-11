@@ -14,6 +14,7 @@ We'll need to create a variable to store the score, and an event to update the s
 First, create a new event, and for the condition, select **At the beginning of the scene**.
 For the conditions, select **Value of a global variable**.
 Set the variable name to **score**, and set it to **0**.
+We should also start a new timer which we will name **score timer**.
 
 ![](images/initScore.png)
 

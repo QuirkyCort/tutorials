@@ -26,6 +26,7 @@ To do that, make use of a timer, and everytime the timer exceeds 1 second, we'll
 Start by adding a new event.
 Click on **Add condition**, select **Other Conditions**, then **Value of a scene timer**.
 Set the **Time in seconds** to **1**, and the **Timer's name** to **enemy timer** (...nothing special about this name; you can use a different name if you want).
+For the action, select **Others**, then **Start / Reset a scene timer**, and set the timer name to **enemy timer**.
 
 ![](images/timer.png)
 
@@ -34,6 +35,10 @@ Leave the condition blank, and add an action.
 Select the enemy, then the **Create an object** action.
 
 ![](images/createObject.png)
+
+Finally, we will need to start the timer when the scene begins.
+Add a new event, click on **Add condition**, select **Other Conditions**, then **At the beginning of the scene**.
+For the action, select **Others**, then **Start / Reset a scene timer**, and set the timer name to **enemy timer**.
 
 ## Expressions
 

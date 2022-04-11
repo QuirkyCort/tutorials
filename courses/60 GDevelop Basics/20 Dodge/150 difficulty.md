@@ -21,6 +21,7 @@ Use the variable name **enemy delay** (...as always, there's nothing special abo
 
 We need to give **enemy delay** a starting value, else it'll be undefined at the start of the scene (...in GDevelop, an undefined variable will default to 0).
 Add a new event with the **At the beginning of the scene** condition, and the **Change scene variable enemy delay set to 1** action.
+We should also start a new timer which we will name **difficulty timer**.
 Like this...
 
 ![](images/initEnemyDelay.png)
