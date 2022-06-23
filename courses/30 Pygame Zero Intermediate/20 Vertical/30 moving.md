@@ -2,19 +2,22 @@ Moving the Ship
 ===
 First, we'll create the ship actor...
 
-```
+```python
 player = Actor('player_ship')
 ```
+
 **If you used a different filename, you'll need to change the 'player_ship' part.**
 
 ...then we create the **draw()** function, and add in a draw command for the player.
 
-```
+```python
 def draw():
     player.draw()
 ```
+
 With that done, your program should now look like this...
-```
+
+```python
 import pgzrun
 
 WIDTH=800
@@ -27,6 +30,7 @@ def draw():
 
 pgzrun.go() # Must be last line
 ```
+
 Run it, and you should see your ship on screen.
 
 Position the ship
@@ -39,7 +43,7 @@ Remember that to move the actor downwards, we need to increase y. The width of t
 
 Add in the following to your program. It should appear right after the line where you created the tank actor.
 
-```
+```python
 player.x = 400
 player.y = 500
 ```
@@ -50,7 +54,7 @@ Moving the Ship
 ===
 Remember how we moved the spaceship in Gem Catcher? We used **keyboard.left** and **keyboard.right** to detect if those keys are pressed.
 
-```
+```python
 def update():
     if keyboard.right:
         player.x += 5
@@ -60,25 +64,25 @@ def update():
 
 Here I'm using a shortform....
 
-```
+```python
 player.x += 5
 ```
 
 This is the same as writing...
 
-```
+```python
 player.x = player.x + 5
 ```
 
 You can also write...
 
-```
+```python
 player.x -= 5
 ```
 
 ...which is the same as writing...
 
-```
+```python
 player.x = player.x - 5
 ```
 
@@ -86,7 +90,7 @@ To detect up and down, we can use **keyboard.up** and **keyboard.down**. For the
 
 To move left and right, we changed **x**. To move up and down, we should change **y**.
 
-```
+```python
 def update():
     if keyboard.up:
         player.y -= 5
@@ -103,7 +107,7 @@ Limiting the Movement
 Right now, your ship should be able to move in all directions (...test it out!), but it can also move too far and exit the screen.
 To prevent this, we should prevent the x and y from getting too large or too small using a new set of **"if"** conditions.
 
-```
+```python
 if player.x < 25:
     player.x = 25
 if player.x > 775:
@@ -124,7 +128,7 @@ At this point...
 
 At the end of these, your program should look like this...
 
-```
+```python
 import pgzrun
 
 WIDTH=800

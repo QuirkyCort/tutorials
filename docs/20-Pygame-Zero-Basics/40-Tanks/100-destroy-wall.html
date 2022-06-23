@@ -36,141 +36,141 @@
         <div id="content">
             <h1>Destroying Walls</h1>
 <p>We want to destroy the wall if the bullet hits it. To detect a hit, we can use the <strong>collidelist</strong> function on the bullet, similar to what we previously did with the tank. Since we have multiple bullets in a list, we will need to go through every bullet using a <strong>for</strong> loop.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    wall_index = bullet.collidelist(walls)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">wall_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span>
 </code></pre></div>
 
 <p>If <strong>wall_index</strong> is <strong>-1</strong>, that means that the bullet didn't hit any walls. Else, <strong>wall_index</strong> will contain the index of the wall section that the bullet hit. We can then delete that wall section using <strong>del</strong>.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    wall_index = bullet.collidelist(walls)
-    del walls[wall_index]
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">wall_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">walls</span><span class="p">[</span><span class="n">wall_index</span><span class="p">]</span>
 </code></pre></div>
 
-<p>The <strong>del</strong> command tells python to delete <strong>walls[wall_index]</strong> from the <strong>walls</strong> list. Test out the <strong>del</strong> command below. Make sure you understand how it works.</p>
-<div class="codehilite"><pre><span></span><code>animals = [&#39;cat&#39;, &#39;dog&#39;, &#39;monkey&#39;, &#39;elephant&#39;]
-print(animals)
-del animals[1]
-print(animals)
+<p>The <strong>del</strong> command tells python to delete <strong>walls[wall_index]</strong> from the <strong>walls</strong> list. Make sure you understand how it works.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;monkey&#39;</span><span class="p">,</span> <span class="s1">&#39;elephant&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">animals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
 </code></pre></div>
 
 <h1>Destroying Bullet</h1>
 <p>Now everytime you fire a bullet, it will pass through all the walls, destroying every wall section that it touches. That's probably not what you want! Let's make the bullet disappear too when it hits a wall. Another way or removing an item from a list is to use the <strong>remove</strong> function.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    wall_index = bullet.collidelist(walls)
-    del walls[wall_index]
-    bullets.remove(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">wall_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">walls</span><span class="p">[</span><span class="n">wall_index</span><span class="p">]</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Just like <strong>del</strong>, the <strong>remove</strong> function will remove an item from a list. The difference is that <strong>del</strong> requires a list with an index, while <strong>remove</strong> expects the value of the item to be removed. Test it out below...</p>
-<div class="codehilite"><pre><span></span><code>animals = [&#39;cat&#39;, &#39;dog&#39;, &#39;monkey&#39;, &#39;elephant&#39;]
-print(animals)
-animals.remove(&#39;monkey&#39;)
-print(animals)
+<p>Just like <strong>del</strong>, the <strong>remove</strong> function will remove an item from a list. The difference is that <strong>del</strong> requires a list with an index, while <strong>remove</strong> expects the value of the item to be removed.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;monkey&#39;</span><span class="p">,</span> <span class="s1">&#39;elephant&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
+<span class="n">animals</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;monkey&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Now everytime your bullet hits a wall, both the bullet and the wall will disappear.</p>
 <h3>Reaching the edge</h3>
 <p>There is one more condition for removing the bullet; and that's when it reaches the edge of the screen.</p>
-<div class="codehilite"><pre><span></span><code>if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
-    bullets.remove(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Can you figure out where to insert this piece of code? Try it out!</p>
 <p>At this point, your code should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-tank = Actor(&#39;tank_blue&#39;)
-tank.y = 575
-tank.x = 400
-tank.angle = 90
+<span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">575</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 
-background = Actor(&#39;grass&#39;)
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-walls = []
-for x in range(16):
-    for y in range(10):
-        if random.randint(0, 100) &lt; 50:
-            wall = Actor(&#39;wall&#39;)
-            wall.x = x * 50 + 25
-            wall.y = y * 50 + 25 + 50
-            walls.append(wall)
+<span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="n">wall</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;wall&#39;</span><span class="p">)</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span> <span class="o">+</span> <span class="mi">50</span>
+            <span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 
-bullets = []
-bullet_holdoff = 0
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">0</span>
 
-def update():
-    global bullet_holdoff
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_holdoff</span>
 
-    # This part is for the tank
-    original_x = tank.x
-    original_y = tank.y
+    <span class="c1"># This part is for the tank</span>
+    <span class="n">original_x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">original_y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
 
-    if keyboard.left:
-        tank.x = tank.x - 2
-        tank.angle = 180
-    elif keyboard.right:
-        tank.x = tank.x + 2
-        tank.angle = 0
-    elif keyboard.up:
-        tank.y = tank.y - 2
-        tank.angle = 90
-    elif keyboard.down:
-        tank.y = tank.y + 2
-        tank.angle = 270
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
 
-    if tank.collidelist(walls) != -1:
-        tank.x = original_x
-        tank.y = original_y
+    <span class="k">if</span> <span class="n">tank</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
 
-    if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
-        tank.x = original_x
-        tank.y = original_y
+    <span class="k">if</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
 
-    # This part is for the bullet
-    if bullet_holdoff == 0:
-        if keyboard.space:
-            bullet = Actor(&#39;bulletblue2&#39;)
-            bullet.angle = tank.angle
-            bullet.x = tank.x
-            bullet.y = tank.y
-            bullets.append(bullet)
-            bullet_holdoff = 100
-    else:
-        bullet_holdoff = bullet_holdoff - 1
+    <span class="c1"># This part is for the bullet</span>
+    <span class="k">if</span> <span class="n">bullet_holdoff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+            <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;bulletblue2&#39;</span><span class="p">)</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">angle</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+            <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="n">bullet_holdoff</span> <span class="o">-</span> <span class="mi">1</span>
 
-    for bullet in bullets:
-        if bullet.angle == 0:
-            bullet.x = bullet.x + 5
-        elif bullet.angle == 90:
-            bullet.y = bullet.y - 5
-        elif bullet.angle == 180:
-            bullet.x = bullet.x - 5
-        elif bullet.angle == 270:
-            bullet.y = bullet.y + 5
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span>
 
-    for bullet in bullets:
-        wall_index = bullet.collidelist(walls)
-        if wall_index != -1:
-            del walls[wall_index]
-            bullets.remove(bullet)
-        if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
-            bullets.remove(bullet)
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">wall_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wall_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">walls</span><span class="p">[</span><span class="n">wall_index</span><span class="p">]</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
 
-def draw():
-    screen.fill((0,0,0))
-    background.draw()
-    tank.draw()
-    for bullet in bullets:
-        bullet.draw()
-    for wall in walls:
-        wall.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <h3>What happens if we don't remove the bullet when it reaches the edge?</h3>

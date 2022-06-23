@@ -36,12 +36,12 @@
         <div id="content">
             <h1>Player Tank</h1>
 <p>As usual, we'll start with an empty window.</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <p>For now, keep your width and height at <strong>800</strong> and <strong>600</strong>. Don't change it yet. This will be important later when we add in the walls.</p>
@@ -49,26 +49,26 @@ pgzrun.go() # Must be last line
 <h1>Adding the Tank</h1>
 <p>Next, we're going to add a tank. </p>
 <p>First, we'll create the tank actor...</p>
-<div class="codehilite"><pre><span></span><code>tank = Actor(&#39;tank_blue&#39;)
+<div class="codehilite"><pre><span></span><code><span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>...then we create the <strong>draw()</strong> function, and add in a draw command for the tank.</p>
-<div class="codehilite"><pre><span></span><code>def draw():
-    tank.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>With that done, your program should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-tank = Actor(&#39;tank_blue&#39;)
+<span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
 
-def draw():
-    tank.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <p>Run it, and you should see your tank on screen.</p>
@@ -77,39 +77,39 @@ pgzrun.go() # Must be last line
 <p>Remember that to move the actor downwards, we need to increase y. The width of the screen is 800, so to put it in the center, we should set x to 400.</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/xy.png" /></p>
 <p>Add in the following to your program. It should appear right after the line where you created the tank actor.</p>
-<div class="codehilite"><pre><span></span><code>tank.y = 600
-tank.x = 400
+<div class="codehilite"><pre><span></span><code><span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
 </code></pre></div>
 
 <p>Run it. Does the tank look right?</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/cut-off-tank.png" /></p>
 <p>It's cut off! When we set the position of the tank actor, it'll set it based on the center of the actor. Let's move it slightly upwards. Change the lines to...</p>
-<div class="codehilite"><pre><span></span><code>tank.y = 575
-tank.x = 400
+<div class="codehilite"><pre><span></span><code><span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">575</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
 </code></pre></div>
 
 <p>Try it. Better right?</p>
 <h3>Rotation</h3>
 <p>To rotate the tank, we need to set an angle...</p>
-<div class="codehilite"><pre><span></span><code>tank.angle = 90
+<div class="codehilite"><pre><span></span><code><span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 </code></pre></div>
 
 <p>This will make the tank rotate 90 degrees clockwise. Now your program should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-tank = Actor(&#39;tank_blue&#39;)
-tank.y = 575
-tank.x = 400
-tank.angle = 90
+<span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">575</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 
 
-def draw():
-    tank.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

@@ -1,7 +1,8 @@
 Player Ship
 ===
 As usual, we'll start with an empty window.
-```
+
+```python
 import pgzrun
 
 WIDTH=800
@@ -9,6 +10,7 @@ HEIGHT=600
 
 pgzrun.go() # Must be last line
 ```
+
 You can use a different width and height if you wish.
 Just be aware that if you do so, you may need to adjust the X and Y position of various actors later in the program.
 

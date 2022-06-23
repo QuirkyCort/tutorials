@@ -22,7 +22,7 @@ Number of wall pieces = 600 / 50 = **12 pieces**
 
 **When drawing the wall, we need to repeat 16 times in the horizontal (x) direction, and 12 times in the vertical (y) direction.**
 
-```
+```python
 walls = []
 for x in range(16):
     for y in range(12):
@@ -31,6 +31,7 @@ for x in range(16):
         wall.y = y * 50
         walls.push(wall)
 ```
+
 This is what each line does...
 
 ```walls = []``` Create an empty list (...no items in it).
@@ -48,14 +49,14 @@ This is what each line does...
 ### Drawing the wall
 Just like the tank, we need to draw the wall in the **draw()** function. As we have a list of walls with many wall actors, we'll need to go through the list and draw each of them one by one using a **for** loop.
 
-```
+```python
 for wall in walls:
     wall.draw()
 ```
 
 With that, your program should now look like this...
 
-```
+```python
 import pgzrun
 
 WIDTH=800
@@ -108,7 +109,7 @@ If you tried running the program, you'll see something like this...
 
 Remember that the position of an actor is based on its center. To fix this problem, we need to add half the width and height of the wall to its x and y. Since the width and height of the wall is 50, this means we need to add 25. Change the **wall.x** and **wall.y** lines to this...
 
-```
+```python
 wall.x = x * 50 + 25
 wall.y = y * 50 + 25
 ```

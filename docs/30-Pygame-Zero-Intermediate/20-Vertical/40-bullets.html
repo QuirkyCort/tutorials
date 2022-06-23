@@ -53,22 +53,22 @@ Due to the way Pygame detects collisions, its recommended to keep your images cl
 Make sure you give the downloaded files a suitable name and put them in the game's images folder.</p>
 <h1>Adding bullets to the game</h1>
 <p>We want to create a new bullet everytime we press the space bar. Since we can have more than one bullet at a time, we'll use a list to hold all our bullets. Start by creating an empty list...</p>
-<div class="codehilite"><pre><span></span><code>bullets = []
+<div class="codehilite"><pre><span></span><code><span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div>
 
 <p>Next, in <strong>update()</strong>, check if the space key is pressed and add a bullet if it is.</p>
-<div class="codehilite"><pre><span></span><code>if keyboard.space:
-    bullet = Actor(&#39;player_bullet&#39;)
-    bullet.x = player.x
-    bullet.y = player.y
-    bullet.angle = 90
-    bullets.append(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+    <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p>We set the bullet angle to be 90, so that it'll point upwards. We also set the x and y of the bullet to be the same as the player, so that the bullet will start from the player.</p>
 <p>Don't forget to draw the bullets in the <strong>draw()</strong> function...</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    bullet.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>When you try out the program, you'll see a bullet created each time you press the space bar. But the bullet just stays there and don't do anything, so next, we'll make the bullet fly.</p>
@@ -82,41 +82,41 @@ Make sure you give the downloaded files a suitable name and put them in the game
 <li>Place the extracted Python file in your game folder</li>
 </ul>
 <p>First thing to do is to import the Pygame Zero Helper module. Add this to your program, just under "import pgzrun".</p>
-<div class="codehilite"><pre><span></span><code>from pgzhelper import *
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 
 <p>This will provide us with the <code>move_forward</code> method on the Actor.</p>
 <h3>Updating position</h3>
 <p>We should move the bullet in the <strong>update()</strong> function. Using a <strong>for</strong> loop.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    bullet.move_forward(15)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 </code></pre></div>
 
 <h3>Removing Bullet</h3>
 <p>As it is, your ship should be able to shoot bullets, but these bullets lasts forever. They will continue to exists even if they are outside of the screen! To prevent that, we should remove bullets that has left the screen.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    bullet.move_forward(15)
-    if bullet.y &lt; 0:
-        bullets.remove(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p><code>bullets.remove(bullet)</code> simply removes <strong>"bullet"</strong> from the <strong>"bullets"</strong> list.</p>
 <h1>Hold-Off</h1>
 <p>Now our bullet looks more like a laser! That's because when we press the space bar, it creates a LOT of bullets very rapidly. We should add a hold-off. This is some code that stops the player for shooting for a while after each bullet. We'll start by creating a new variable.</p>
-<div class="codehilite"><pre><span></span><code>bullet_delay = 0
+<div class="codehilite"><pre><span></span><code><span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>Then modify our shoot code...</p>
-<div class="codehilite"><pre><span></span><code>if keyboard.space and bullet_delay == 0:
-    bullet_delay = 5
-    bullet = Actor(&#39;player_bullet&#39;)
-    bullet.x = player.x
-    bullet.y = player.y
-    bullet.angle = 90
-    bullets.append(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="n">bullet_delay</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-if bullet_delay &gt; 0:
-    bullet_delay -= 1
+<span class="k">if</span> <span class="n">bullet_delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">bullet_delay</span> <span class="o">-=</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>There is also a bullet hold-off in the tank game, but it was implemented differently. In programming, there are many ways to solve a problem. Can you compare the two and figure out the good and bad of each of these implementations?</p>
@@ -124,69 +124,69 @@ if bullet_delay &gt; 0:
 <p>What the above code does is...</p>
 <p><code>if keyboard.space and bullet_delay == 0:</code> Only fire if space key is pressed <strong>and</strong> bullet_delay is 0.</p>
 <p><code>bullet_delay = 5</code> Set the bullet_delay to 5. This will prevent firing since it is no longer zero. You can try changing this value and see what effects it has.</p>
-<div class="codehilite"><pre><span></span><code>if bullet_delay &gt; 0:
-    bullet_delay -= 1
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">bullet_delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">bullet_delay</span> <span class="o">-=</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>If the bullet_delay is greater than zero, we'll decrease it by one. This will gradually reduce it until it reaches zero again.</p>
 <p>Your code should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-from pgzhelper import *
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-player = Actor(&#39;player&#39;)
-player.x = 400
-player.y = 500
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">500</span>
 
-bullets = []
-bullet_delay = 0
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">0</span>
 
-def update():
-    global bullet_delay
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_delay</span>
 
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.right:
-        player.x += 5
-    if keyboard.left:
-        player.x -= 5
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 
-    if player.x &lt; 25:
-        player.x = 25
-    if player.x &gt; 775:
-        player.x = 775
-    if player.y &lt; 30:
-        player.y = 30
-    if player.y &gt; 570:
-        player.y = 570
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">775</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">775</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">570</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">570</span>
 
-    if keyboard.space and bullet_delay == 0:
-        bullet_delay = 5
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="n">bullet_delay</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    if bullet_delay &gt; 0:
-        bullet_delay -= 1
+    <span class="k">if</span> <span class="n">bullet_delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet_delay</span> <span class="o">-=</span> <span class="mi">1</span>
 
-    for bullet in bullets:
-        bullet.move_forward(15)
-        if bullet.y &lt; 0:
-            bullets.remove(bullet)
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-def draw():
-    screen.clear()
-    player.draw()
-    for bullet in bullets:
-        bullet.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <h3>What's missing?</h3>

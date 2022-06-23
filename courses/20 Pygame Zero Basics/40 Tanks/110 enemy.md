@@ -2,7 +2,7 @@ Adding One Enemy
 ===
 We'll be adding many enemies eventually, but let us start with just one. Create a new actor for the enemy. I'm using the "tank_red" image, but you can use a different one if you want to.
 
-```
+```python
 enemy = Actor('tank_red')
 enemy.y = 25
 enemy.x = 400
@@ -13,7 +13,7 @@ I'm setting **y** to 25; this will put it at the top, and **angle** to 270 to ma
 
 Make sure to draw your enemy in the **draw()** function.
 
-```
+```python
 enemy.draw()
 ```
 
@@ -27,7 +27,7 @@ We want our enemy to do three things...
 
 ...and we'll get it to randomly choose one of these action. Inside update, we'll add in...
 
-```
+```python
 choice = random.randint(0, 2)
 if choice == 0:
     enemy.move_count = 20
@@ -52,7 +52,7 @@ Moving
 ===
 First, let's set **enemy.move_count** to zero at the start.
 
-```
+```python
 enemy = Actor('tank_red')
 enemy.y = 25
 enemy.x = 400
@@ -62,7 +62,7 @@ enemy.move_count = 0  # Add this line
 
 Now, we are going to modify our enemy choice code.
 
-```
+```python
 choice = random.randint(0, 2)
 if enemy.move_count > 0:
     enemy.move_count = enemy.move_count - 1
@@ -90,14 +90,14 @@ Turning
 ===
 Next, we are going to add in turning. Change this part of the code...
 
-```
+```python
 elif choice == 1:
     print('turn')
 ```
 
 ...into this...
 
-```
+```python
 elif choice == 1:
     enemy.angle = random.randint(0, 3) * 90
 ```
@@ -110,7 +110,7 @@ Wall
 ===
 To prevent moving through the wall, we change the enemy movement code to...
 
-```
+```python
 if enemy.move_count > 0:
     enemy.move_count = enemy.move_count - 1
 
@@ -135,7 +135,7 @@ This is similar to how the player tank avoids moving through the wall. We first 
 
 We should also prevent it from moving off the screen...
 
-```
+```python
 if enemy.x < 0 or enemy.x > 800 or enemy.y < 0 or enemy.y > 600:
     enemy.x = original_x
     enemy.y = original_y
@@ -144,7 +144,7 @@ if enemy.x < 0 or enemy.x > 800 or enemy.y < 0 or enemy.y > 600:
 
 Now the enemy tank should move around without going through the walls or leaving the screen. The code at this point should look like this...
 
-```
+```python
 import pgzrun
 import random
 

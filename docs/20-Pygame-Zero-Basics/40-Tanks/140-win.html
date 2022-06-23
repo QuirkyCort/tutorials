@@ -36,36 +36,36 @@
         <div id="content">
             <h1>Destroy and Win</h1>
 <p>Right now, our bullet can destroy the wall, but does nothing to the enemy tank. Let's change that!</p>
-<div class="codehilite"><pre><span></span><code>enemy_index = bullet.collidelist(enemies)
-if enemy_index != -1:
-    del enemies[enemy_index]
-    bullets.remove(bullet)
+<div class="codehilite"><pre><span></span><code><span class="n">enemy_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">enemy_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">enemies</span><span class="p">[</span><span class="n">enemy_index</span><span class="p">]</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p>This code is the same as what we have for the wall, but with the list changes to <strong>enemies</strong> instead. With this, you can now destroy the enemy tanks!</p>
 <h1>Winning</h1>
 <p>We should win the game when all the enemy tanks are destroyed. We can count the number of enemy tanks remaining in the <strong>enemies</strong> list using <strong>len(enemies)</strong>.</p>
 <p>Change <strong>draw()</strong> to...</p>
-<div class="codehilite"><pre><span></span><code>def draw():
-    if len(enemies) == 0:
-        screen.fill((0,0,0))
-        screen.draw.text(&#39;You Win!&#39;, (260,250), color=(255,255,255), fontsize=100)
-    else:
-        background.draw()
-        tank.draw()
-        for enemy in enemies:
-            enemy.draw()
-        for bullet in bullets:
-            bullet.draw()
-        for bullet in enemy_bullets:
-            bullet.draw()
-        for wall in walls:
-            wall.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;You Win!&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">260</span><span class="p">,</span><span class="mi">250</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">enemy_bullets</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>The new code...</p>
-<div class="codehilite"><pre><span></span><code>if len(enemies) == 0:
-    screen.draw.text(&#39;You Win!&#39;, (260,250), color=(255,255,255), fontsize=100)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;You Win!&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">260</span><span class="p">,</span><span class="mi">250</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Checks if the number of enemies is zero. If it is, it'll fill the screen with black and draw the words "You Win!" in white.</p>

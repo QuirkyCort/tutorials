@@ -4,7 +4,7 @@ Right now the walls don't do much; you can drive right through them! To prevent 
 
 If we collide with the wall when moving the tank, we will cancel the movement.
 
-```
+```python
 def update():
     # Save the original position of the tank
     original_x = tank.x
@@ -32,14 +32,14 @@ def update():
 
 This is what the code does...
 
-```
+```python
 original_x = tank.x
 original_y = tank.y
 ```
 
 This saves the original position of the tank into the **original_x** and **original_y** variable.
 
-```
+```python
 if tank.collidelist(walls) != -1:
     tank.x = original_x
     tank.y = original_y
@@ -51,7 +51,7 @@ Off Screen
 ===
 Now our tank can't move through the walls anymore, but it can still drive off the screen! To prevent that, we need to check the position of the tank after movement, and return it back to the original position if it is off the screen.
 
-```
+```python
 if tank.x < 0 or tank.x > 800 or tank.y < 0 or tank.y > 600:
     tank.x = original_x
     tank.y = original_y

@@ -16,7 +16,7 @@ I'm using the **Text** function to write "Game Over"...
 
 We'll add this to our game, but don't draw it yet.
 
-```
+```python
 game_over = Actor('game_over')
 game_over.x = 400
 game_over.y = 300
@@ -34,20 +34,20 @@ In each of theses states, the program will do and show different things. For exa
 
 To keep track of the game state, we'll create a new variable.
 
-```
+```python
 game_state = 1
 ```
 
 We'll use 1 to represent the "Actual game" state, and 2 to represent the "Game over screen" state. When the player touches the enemy bullet or enemy, we'll change the state to 2.
 
-```
+```python
 if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
     game_state = 2
 ```
 
 Since we are changing ```game_state```, remember to declare it as global.
 
-```
+```python
 global bullet_delay, powerup1, powerup2, game_state
 ```
 
@@ -56,7 +56,7 @@ Explosion and Sound Effects
 
 Let's add in an explosion if the player is destroyed. See if you can figure out where to put this code.
 
-```
+```python
 explosion = Actor('explosion1')
 explosion.x = player.x
 explosion.y = player.y
@@ -70,7 +70,7 @@ This works the same as the enemy explosion, except that we made it last longer (
 
 We'll also have some sound effects...
 
-```
+```python
 sounds.main_theme.stop()
 sounds.sfx_exp_medium12.play()
 sounds.subdued_theme.play(-1)
@@ -88,28 +88,28 @@ Game Over
 ===
 If ```game_state``` is 2, we'll draw the game over screen.
 
-```
+```python
 if game_state == 2:
     game_over.draw()
 ```
 
 We should also modify our program, so that it'll only draw the player if ```game_state``` is 1.
 
-```
+```python
 if game_state == 1:
     player.draw()
 ```
 
 Similarly, we'll allow shooting only if ```game_state``` is 1.
 
-```
+```python
 if keyboard.space and bullet_delay == 0 and game_state == 1:
     shoot()
 ```
 
 Also, we can only pickup powerups if ```game_state``` is 1.
 
-```
+```python
 hit = player.collidelist(powerups)
 if hit != -1 and game_state == 1:
 .
@@ -121,7 +121,7 @@ Finally, you may have noticed a bug when you test the program. Sometimes after t
 
 Let's modify the player collision code so that the player cannot collide unless the ```game_state``` is 1.
 
-```
+```python
 if game_state == 1:
     if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
     .

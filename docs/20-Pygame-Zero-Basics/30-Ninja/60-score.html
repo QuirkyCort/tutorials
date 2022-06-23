@@ -36,20 +36,20 @@
         <div id="content">
             <h1>Keeping Score</h1>
 <p>Just like in the gem catcher program, we'll use a variable named <code>score</code>  to keep track of our score.</p>
-<div class="codehilite"><pre><span></span><code>score = 0
+<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>We'll increase our score each time the obstacle disappears off the left side of the screen. Inside <code>update()</code>, let's change this...</p>
-<div class="codehilite"><pre><span></span><code>  for actor in obstacles:
-    actor.x -= 8
+<div class="codehilite"><pre><span></span><code>  <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">8</span>
 </code></pre></div>
 
 <p>...into this...</p>
-<div class="codehilite"><pre><span></span><code>  for actor in obstacles:
-    actor.x -= 8
-    if actor.x &lt; -50:
-      obstacles.remove(actor)
-      score += 1
+<div class="codehilite"><pre><span></span><code>  <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">8</span>
+    <span class="k">if</span> <span class="n">actor</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span><span class="p">:</span>
+      <span class="n">obstacles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+      <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>This is what each line means...</p>
@@ -58,13 +58,13 @@
 <p><code>score += 1</code> : ...and increase score by 1. <strong>Remember to declare <code>score</code> as a global!</strong>.</p>
 <h1>Drawing Obstacles and Score</h1>
 <p>The obstacles won't appear on screen if we don't draw it inside the <code>draw()</code> function. So let's add in...</p>
-<div class="codehilite"><pre><span></span><code>for actor in obstacles:
-  actor.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+  <span class="n">actor</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>This will go through the list of obstacles and draw each one.</p>
 <p>We should also display the score on screen using...</p>
-<div class="codehilite"><pre><span></span><code>screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(0,0,0), fontsize=30)
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Feel free to change the color, position, or fontsize.</p>

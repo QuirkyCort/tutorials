@@ -37,99 +37,99 @@
             <h1>Game Over</h1>
 <p>Right now, the game does nothing even if our ninja crashes into the cactus. Let's add in a <strong>game over</strong> condition. If the ninja touches any of the obstacles, we'll end the game.</p>
 <p>First, we'll add in a variable called <code>game_over</code> and set it to <code>False</code> at the start.</p>
-<div class="codehilite"><pre><span></span><code>game_over = False
+<div class="codehilite"><pre><span></span><code><span class="n">game_over</span> <span class="o">=</span> <span class="kc">False</span>
 </code></pre></div>
 
 <p>Inside the <code>update()</code> function, we'll detect if our runner collided with any of the obstacles. If she did, we'll set <code>game_over</code> to <code>True</code>.</p>
-<div class="codehilite"><pre><span></span><code>if runner.collidelist(obstacles) != -1:
-  game_over = True
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">runner</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">obstacles</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+  <span class="n">game_over</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 
 <p><strong> Important: Remember to declare <code>game_over</code> as a global in the <code>update()</code> function.</strong></p>
 <p>The <code>runner.collidelist(obstacles)</code> checks if the runner collided with any of the actors in the <code>obstacles</code> list. If she didn't, the <code>collidelist</code> function will give us the value <code>-1</code>.</p>
 <p>Next, we'll need to draw the game over text inside <code>draw()</code> by changing this...</p>
-<div class="codehilite"><pre><span></span><code>  runner.draw()
-  for actor in obstacles:
-    actor.draw()
-  screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(0,0,0), fontsize=30)
+<div class="codehilite"><pre><span></span><code>  <span class="n">runner</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </code></pre></div>
 
 <p>...into this...</p>
-<div class="codehilite"><pre><span></span><code>if game_over:
-  screen.draw.text(&#39;Game Over&#39;, centerx=400, centery=270, color=(255,255,255), fontsize=60)
-  screen.draw.text(&#39;Score: &#39; + str(score), centerx=400, centery=330, color=(255,255,255), fontsize=60)
-else:
-  runner.draw()
-  for actor in obstacles:
-    actor.draw()
-  screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(0,0,0), fontsize=30)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Game Over&#39;</span><span class="p">,</span> <span class="n">centerx</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">centery</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="n">centerx</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">centery</span><span class="o">=</span><span class="mi">330</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">runner</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Your final game should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-from pgzhelper import *
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-runner = Actor(&#39;run__000&#39;)
-run_images = [&#39;run__000&#39;, &#39;run__001&#39;, &#39;run__002&#39;, &#39;run__003&#39;, &#39;run__004&#39;, &#39;run__005&#39;, &#39;run__006&#39;, &#39;run__007&#39;, &#39;run__008&#39;, &#39;run__009&#39;]
-runner.images = run_images
-runner.x = 100
-runner.y = 400
+<span class="n">runner</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;run__000&#39;</span><span class="p">)</span>
+<span class="n">run_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;run__000&#39;</span><span class="p">,</span> <span class="s1">&#39;run__001&#39;</span><span class="p">,</span> <span class="s1">&#39;run__002&#39;</span><span class="p">,</span> <span class="s1">&#39;run__003&#39;</span><span class="p">,</span> <span class="s1">&#39;run__004&#39;</span><span class="p">,</span> <span class="s1">&#39;run__005&#39;</span><span class="p">,</span> <span class="s1">&#39;run__006&#39;</span><span class="p">,</span> <span class="s1">&#39;run__007&#39;</span><span class="p">,</span> <span class="s1">&#39;run__008&#39;</span><span class="p">,</span> <span class="s1">&#39;run__009&#39;</span><span class="p">]</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="n">run_images</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">400</span>
 
-velocity_y = 0
-gravity = 1
+<span class="n">velocity_y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">gravity</span> <span class="o">=</span> <span class="mi">1</span>
 
-obstacles = []
-obstacles_timeout = 0
+<span class="n">obstacles</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">obstacles_timeout</span> <span class="o">=</span> <span class="mi">0</span>
 
-score = 0
-game_over = False
+<span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">game_over</span> <span class="o">=</span> <span class="kc">False</span>
 
-def update():
-  global velocity_y, obstacles_timeout, score, game_over
-  runner.next_image()
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+  <span class="k">global</span> <span class="n">velocity_y</span><span class="p">,</span> <span class="n">obstacles_timeout</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">game_over</span>
+  <span class="n">runner</span><span class="o">.</span><span class="n">next_image</span><span class="p">()</span>
 
-  obstacles_timeout += 1
-  if obstacles_timeout &gt; 50:
-    actor = Actor(&#39;cactus&#39;)
-    actor.x = 850
-    actor.y = 430
-    obstacles.append(actor)
-    obstacles_timeout = 0
+  <span class="n">obstacles_timeout</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">if</span> <span class="n">obstacles_timeout</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+    <span class="n">actor</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;cactus&#39;</span><span class="p">)</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">850</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">430</span>
+    <span class="n">obstacles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+    <span class="n">obstacles_timeout</span> <span class="o">=</span> <span class="mi">0</span>
 
-  for actor in obstacles:
-    actor.x -= 8
-    if actor.x &lt; -50:
-      obstacles.remove(actor)
-      score += 1
+  <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">8</span>
+    <span class="k">if</span> <span class="n">actor</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">50</span><span class="p">:</span>
+      <span class="n">obstacles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+      <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
 
-  if keyboard.up:
-    velocity_y = -15
+  <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+    <span class="n">velocity_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span>
 
-  runner.y += velocity_y
-  velocity_y += gravity
-  if runner.y &gt; 400:
-    velocity_y = 0
-    runner.y = 400
+  <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">velocity_y</span>
+  <span class="n">velocity_y</span> <span class="o">+=</span> <span class="n">gravity</span>
+  <span class="k">if</span> <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">400</span><span class="p">:</span>
+    <span class="n">velocity_y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">400</span>
 
-  if runner.collidelist(obstacles) != -1:
-    game_over = True
+  <span class="k">if</span> <span class="n">runner</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">obstacles</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">game_over</span> <span class="o">=</span> <span class="kc">True</span>
 
-def draw():
-  screen.draw.filled_rect(Rect(0,0,800,400), (163, 232, 254))
-  screen.draw.filled_rect(Rect(0,400,800,200), (88, 242, 152))
-  if game_over:
-    screen.draw.text(&#39;Game Over&#39;, centerx=400, centery=270, color=(255,255,255), fontsize=60)
-    screen.draw.text(&#39;Score: &#39; + str(score), centerx=400, centery=330, color=(255,255,255), fontsize=60)
-  else:
-    runner.draw()
-    for actor in obstacles:
-      actor.draw()
-    screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(0,0,0), fontsize=30)
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">filled_rect</span><span class="p">(</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">400</span><span class="p">),</span> <span class="p">(</span><span class="mi">163</span><span class="p">,</span> <span class="mi">232</span><span class="p">,</span> <span class="mi">254</span><span class="p">))</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">filled_rect</span><span class="p">(</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">152</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">game_over</span><span class="p">:</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Game Over&#39;</span><span class="p">,</span> <span class="n">centerx</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">centery</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="n">centerx</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">centery</span><span class="o">=</span><span class="mi">330</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+      <span class="n">actor</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

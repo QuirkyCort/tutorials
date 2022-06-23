@@ -2,7 +2,7 @@ Keeping Score
 ===
 Let's keep a score, so we can compare and see who's the better player! Start by adding a ```score``` variable.
 
-```
+```python
 score = 0
 ```
 
@@ -14,14 +14,14 @@ I'm programming in two ways to gain score...
 
 Look for this code in your program...
 
-```
+```python
 explosions.append(explosion)
 enemies.remove(enemies[hit])
 ```
 
 ...and add code for increasing the score...
 
-```
+```python
 explosions.append(explosion)
 enemies.remove(enemies[hit])
 score += 10
@@ -29,7 +29,7 @@ score += 10
 
 For the chocolate donuts, look for this code...
 
-```
+```python
 if powerups[hit].image == 'powerup2':
     powerup1 += 1
 elif powerups[hit].image == 'powerup3':
@@ -38,7 +38,7 @@ elif powerups[hit].image == 'powerup3':
 
 ...and change it to this...
 
-```
+```python
 if powerups[hit].image == 'powerup2':
     powerup1 += 1
 elif powerups[hit].image == 'powerup3':
@@ -49,7 +49,7 @@ else:
 
 We are changing ```score```  from inside the ```update()``` function, so don't forget to declare it as global.
 
-```
+```python
 global bullet_delay, powerup1, powerup2, game_state, score
 ```
 
@@ -57,7 +57,7 @@ Displaying the score
 ===
 We can draw the score the same way we did in space gems, by adding a ```screen.draw.text()``` fuction in ```draw()```.
 
-```
+```python
 screen.draw.text(str(score), (10, 10), color=(255,255,255), fontsize=40)
 ```
 
@@ -69,7 +69,7 @@ You game is now complete! Sort of... No program is ever truly complete, as you c
 
 Your program should now look like this...
 
-```
+```python
 import pgzrun
 import random
 from pgzhelper import *

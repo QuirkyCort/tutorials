@@ -2,13 +2,13 @@ Drawing the Cannon Bullet
 ===
 We want to create a new cannon bullet everytime we press the space bar. Since we can have more than one bullet at a time, we'll use a list to hold all our bullets. Start by creating an empty list...
 
-```
+```python
 bullets = []
 ```
 
 Next, in **update()**, check if the space key is pressed and add a bullet if it is.
 
-```
+```python
 if keyboard.space:
     bullet = Actor('bulletblue2')
     bullet.angle = tank.angle
@@ -21,7 +21,7 @@ We set the bullet angle to be the same as the tank so that they'll face the same
 
 Don't forget to draw the bullets in the **draw()** function...
 
-```
+```python
 for bullet in bullets:
     bullet.draw()
 ```
@@ -41,7 +41,7 @@ In update, we can move the bullet by changing x or y. To decide which direction 
 
 We should move the bullet in the **update()** function. Using a **for** loop.
 
-```
+```python
 for bullet in bullets:
     if bullet.angle == 0:
         bullet.x = bullet.x + 5
@@ -57,13 +57,13 @@ Hold-Off
 ===
 Now our bullet looks more like a laser! That's because when we press the space bar, it creates a LOT of bullets very rapidly. We should add a hold-off. This is some code that stops the tank for shooting for a while after each bullet. We'll start by creating a new variable.
 
-```
+```python
 bullet_holdoff = 0
 ```
 
 Then modify our shoot code...
 
-```
+```python
 if bullet_holdoff == 0:
     if keyboard.space:
         bullet = Actor('bulletblue2')
@@ -84,7 +84,7 @@ What the above code does is...
 
 ```bullet_holdoff = 100``` Set the bullet_holdoff to 100. This will prevent firing since it is no longer zero. You can try changing this value and see what effects it has.
 
-```
+```python
 else:
     bullet_holdoff = bullet_holdoff - 1
 ```
@@ -93,7 +93,7 @@ If the bullet_holdoff is not zero, we'll decrease it by one. This will gradually
 
 Your code should now look like this...
 
-```
+```python
 import pgzrun
 import random
 

@@ -36,47 +36,47 @@
         <div id="content">
             <h1>Enemy Bullets</h1>
 <p>Just like with our player bullet, there can be more than one enemy bullet, so we'll create a list to store all of them.</p>
-<div class="codehilite"><pre><span></span><code>enemy_bullets = []
+<div class="codehilite"><pre><span></span><code><span class="n">enemy_bullets</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div>
 
 <p>To shoot, we'll create a new bullet and add it to the <strong>enemy_bullets</strong> list. This is similar to how the player shoots.</p>
 <p>Replace this line...</p>
-<div class="codehilite"><pre><span></span><code>print(&#39;shoot&#39;)
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shoot&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>...with this...</p>
-<div class="codehilite"><pre><span></span><code>bullet = Actor(&#39;bulletred2&#39;)
-bullet.angle = enemy.angle
-bullet.x = enemy.x
-bullet.y = enemy.y
-enemy_bullets.append(bullet)
+<div class="codehilite"><pre><span></span><code><span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;bulletred2&#39;</span><span class="p">)</span>
+<span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span>
+<span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span>
+<span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span>
+<span class="n">enemy_bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p>You'll also need to draw the bullet. Add this into the <strong>draw()</strong> function...</p>
-<div class="codehilite"><pre><span></span><code>for bullet in enemy_bullets:
-    bullet.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">enemy_bullets</span><span class="p">:</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>If you run the program now, you'll see the enemy tank creating bullets, but the bullets will just stay there and not move.</p>
 <h1>Moving the bullets</h1>
 <p>We want the enemy bullets to move. And just like the player bullet, it should destroy the walls and disappear when it hits the wall or the edge of the screen. The code is the same as for the player bullet, but with the list variable changed to <strong>enemy_bullets</strong>.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in enemy_bullets:
-    if bullet.angle == 0:
-        bullet.x = bullet.x + 5
-    elif bullet.angle == 90:
-        bullet.y = bullet.y - 5
-    elif bullet.angle == 180:
-        bullet.x = bullet.x - 5
-    elif bullet.angle == 270:
-        bullet.y = bullet.y + 5
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">enemy_bullets</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span>
 
-for bullet in enemy_bullets:
-    wall_index = bullet.collidelist(walls)
-    if wall_index != -1:
-        del walls[wall_index]
-        enemy_bullets.remove(bullet)
-    if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
-        enemy_bullets.remove(bullet)
+<span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">enemy_bullets</span><span class="p">:</span>
+    <span class="n">wall_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">wall_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">walls</span><span class="p">[</span><span class="n">wall_index</span><span class="p">]</span>
+        <span class="n">enemy_bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">enemy_bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

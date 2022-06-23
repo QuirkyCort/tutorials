@@ -94,25 +94,25 @@ We are going to create a scrolling background. This means that the background wi
 
 If we try to do this with just one background actor, the actor will not be able to cover the screen all of the time. So we'll need at two actors. Just like with bullets, if we have more than one actor, we'll start by creating a list for it.
 
-```
+```python
 backgrounds = []
 ```
 
 Since I have 3 background images, I'll create a list for the images filenames as well.
 
-```
+```python
 background_images = ['background1','background2','background3']
 ```
 
 I will be using the ```random``` module to help me randomly select a background image, so we'll need to import ```random```...
 
-```
+```python
 import random
 ```
 
 Next, we'll create two actors for the background and add them to the list.
 
-```
+```python
 background = Actor(random.choice(background_images))
 background.x = 400
 background.y = 300
@@ -131,14 +131,14 @@ The first actor is placed right at the center of the screen, while the second ac
 
 To move the background downwards, we need to increase its y position in the ```update``` function...
 
-```
+```python
 for background in backgrounds:
     background.y += 3
 ```
 
 But it shouldn't just keep going down forever. Once it exits the screen from the bottom, we should return it to the top.
 
-```
+```python
 for background in backgrounds:
     background.y += 3
     if background.y > 900:
@@ -152,10 +152,10 @@ I'm also changing the image to a random background image whenever it returns to 
 
 As always, you have to tell Pygame Zero to draw the background, or you'll never see it.
 
-```
+```python
 for background in backgrounds:
     background.draw()
-````
+```
 
 You can also remove the ```screen.clear()```. We won't need it anymore, as the background will be redrawn over the entire screen each frame, so there is no need to clear the old images from the screen.
 
@@ -163,7 +163,7 @@ At this point...
 ===
 At the end of these, your program should look like this...
 
-```
+```python
 import pgzrun
 import random
 from pgzhelper import *

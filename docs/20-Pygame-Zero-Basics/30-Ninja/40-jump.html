@@ -39,22 +39,22 @@
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/jump.gif" /></p>
 <p>In real life, objects are affected by gravity. To make our ninja jump realistically, we'll need to simulate the effects of gravity in our game.</p>
 <p>Let's start by adding in a variable for <code>velocity_y</code> and <code>gravity</code>.</p>
-<div class="codehilite"><pre><span></span><code>velocity_y = 0
-gravity = 1
+<div class="codehilite"><pre><span></span><code><span class="n">velocity_y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">gravity</span> <span class="o">=</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>Explanation for each line...</p>
 <p><code>velocity_y = 0</code> : This represents how fast our ninja should be moving in the up/down direction. It starts at zero, as our ninja isn't jumping yet.</p>
 <p><code>gravity = 1</code> : Gravity will change our velocity. We can change this later and see its effects, but leave it at 1 for now.</p>
 <p>Next, in <code>update()</code> we are going to change the velocity when the up arrow is pressed.</p>
-<div class="codehilite"><pre><span></span><code>def update():
-  global velocity_y
-  runner.next_image()
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+  <span class="k">global</span> <span class="n">velocity_y</span>
+  <span class="n">runner</span><span class="o">.</span><span class="n">next_image</span><span class="p">()</span>
 
-  if keyboard.up:
-    velocity_y = -15
+  <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+    <span class="n">velocity_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span>
 
-  runner.y += velocity_y
+  <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">velocity_y</span>
 </code></pre></div>
 
 <p>This is what each line does...</p>
@@ -62,56 +62,56 @@ gravity = 1
 <p><code>if keyboard.up;</code> : When the up arrow is pressed...</p>
 <p><code>velocity_y = -15</code> : Set the up/down velocity to -15. A negative number means it's going upwards.</p>
 <p><code>runner.y += velocity_y</code> : Change our ninja's position using the velocity. The <code>+=</code> means to add <code>velocity_y</code> to <code>runner.y</code>.</p>
-<div class="codehilite"><pre><span></span><code># Tips
-a += 1      # This line is the same as...
-a = a + 1   # ...this line.
+<div class="codehilite"><pre><span></span><code><span class="c1"># Tips</span>
+<span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>      <span class="c1"># This line is the same as...</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>   <span class="c1"># ...this line.</span>
 </code></pre></div>
 
 <p>Try it out! If you programmed it correctly, the ninja should fly up into the sky when you press up. That's because we haven't added gravity yet!</p>
 <h1>Gravity</h1>
 <p>Gravity will change our velocity. Under the <code>runner.y += velocity_y</code> line, let's add it in <code>velocity_y += gravity</code>.</p>
 <p>Now our ninja falls straight down! We haven't tell our ninja when to stop falling yet! Let's add that in next...</p>
-<div class="codehilite"><pre><span></span><code>if runner.y &gt; 400:
-  velocity_y = 0
-  runner.y = 400
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">400</span><span class="p">:</span>
+  <span class="n">velocity_y</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">400</span>
 </code></pre></div>
 
 <p>Here we are treating <code>`y = 400</code> as the "ground", and if the ninja is at a y position that's greater than 400, we will set her velocity_y to 0 and her y position to 400. This will prevent her from falling through the ground.</p>
 <p>Your program should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-from pgzhelper import *
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-runner = Actor(&#39;run__000&#39;)
-run_images = [&#39;run__000&#39;, &#39;run__001&#39;, &#39;run__002&#39;, &#39;run__003&#39;, &#39;run__004&#39;, &#39;run__005&#39;, &#39;run__006&#39;, &#39;run__007&#39;, &#39;run__008&#39;, &#39;run__009&#39;]
-runner.images = run_images
-runner.x = 100
-runner.y = 400
+<span class="n">runner</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;run__000&#39;</span><span class="p">)</span>
+<span class="n">run_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;run__000&#39;</span><span class="p">,</span> <span class="s1">&#39;run__001&#39;</span><span class="p">,</span> <span class="s1">&#39;run__002&#39;</span><span class="p">,</span> <span class="s1">&#39;run__003&#39;</span><span class="p">,</span> <span class="s1">&#39;run__004&#39;</span><span class="p">,</span> <span class="s1">&#39;run__005&#39;</span><span class="p">,</span> <span class="s1">&#39;run__006&#39;</span><span class="p">,</span> <span class="s1">&#39;run__007&#39;</span><span class="p">,</span> <span class="s1">&#39;run__008&#39;</span><span class="p">,</span> <span class="s1">&#39;run__009&#39;</span><span class="p">]</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="n">run_images</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">400</span>
 
-velocity_y = 0
-gravity = 1
+<span class="n">velocity_y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">gravity</span> <span class="o">=</span> <span class="mi">1</span>
 
-def update():
-  global velocity_y
-  runner.next_image()
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+  <span class="k">global</span> <span class="n">velocity_y</span>
+  <span class="n">runner</span><span class="o">.</span><span class="n">next_image</span><span class="p">()</span>
 
-  if keyboard.up:
-    velocity_y = -15
+  <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+    <span class="n">velocity_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span>
 
-  runner.y += velocity_y
-  velocity_y += gravity
-  if runner.y &gt; 400:
-    velocity_y = 0
-    runner.y = 400
+  <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">velocity_y</span>
+  <span class="n">velocity_y</span> <span class="o">+=</span> <span class="n">gravity</span>
+  <span class="k">if</span> <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">400</span><span class="p">:</span>
+    <span class="n">velocity_y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">400</span>
 
-def draw():
-  screen.draw.filled_rect(Rect(0,0,800,400), (163, 232, 254))
-  screen.draw.filled_rect(Rect(0,400,800,200), (88, 242, 152))
-  runner.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">filled_rect</span><span class="p">(</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">400</span><span class="p">),</span> <span class="p">(</span><span class="mi">163</span><span class="p">,</span> <span class="mi">232</span><span class="p">,</span> <span class="mi">254</span><span class="p">))</span>
+  <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">filled_rect</span><span class="p">(</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">152</span><span class="p">))</span>
+  <span class="n">runner</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

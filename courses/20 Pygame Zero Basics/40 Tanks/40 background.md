@@ -2,20 +2,20 @@ Background
 ===
 To draw the background, we create a new actor using the background image.
 
-```
+```python
 background = Actor('grass')
 ```
 
 ...and remember to **draw** it inside the **draw()** function.
 
-```
+```python
 background.draw()
 ```
 Remember I told you not to change the width and height of the game window? That's because our background image is 800 pixels by 600 pixels. If you had changed the game window size, you'll need a different background image that will fit the size you choose.
 
 Your full program should now look like this...
 
-```
+```python
 import pgzrun
 
 WIDTH=800

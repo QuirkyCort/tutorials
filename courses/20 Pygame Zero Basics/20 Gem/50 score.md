@@ -2,13 +2,13 @@ Keeping Score
 ===
 We can track the score easily using a variable. Let's add a variable named ```score``` and give it the value of 0 at the start of the program.
 
-```
+```python
 score = 0
 ```
 
 Now everytime the spaceship catches the gem, we'll increase ```score``` by 1.
 
-```
+```python
 if gem.colliderect(ship):
     gem.x = random.randint(20, 780)
     gem.y = 0
@@ -17,19 +17,19 @@ if gem.colliderect(ship):
 
 If you try out this program, you'll get an error...
 
-```
+```python
 UnboundLocalError: local variable 'score' referenced before assignment
 ```
 
 That's because the ```score``` variable is declared outside of the ```update()``` function, but we are trying to write it from inside the ```update()``` function. In Python, we can read variables that are outside a function (...these are called global variables), but cannot write to them unless we declare them as global inside the function.
 
-```
+```python
 global score
 ```
 
 After this change, your ```update()``` function should now look like this...
 
-```
+```python hl_lines="2 16"
 def update():
     global score
     
@@ -52,7 +52,7 @@ Displaying Score
 ===
 To display the score, we will use the ```screen.draw.text()``` function.
 
-```
+```python
 screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
 ```
 
@@ -68,7 +68,7 @@ The parameters are...
 
 Like all the other drawing functions, we'll need to put this inside the ```draw()``` function. After this is done, your program should look like this...
 
-```
+```python hl_lines="15 18 32 38"
 import pgzrun
 import random
 

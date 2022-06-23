@@ -10,7 +10,7 @@ Next, we'll choose a random number. The range is up to you, but I'm going with 0
 
 ...and we'll draw the wall only if the random number meets a certain condition, for example, if it is less than 50.
 
-```
+```python
 for x in range(16):
     for y in range(10):
         if random.randint(0, 100) < 50:

@@ -4,13 +4,13 @@ Right now the game is too easy. Not to brag, but I can score over 300 without br
 
 Look for this line...
 
-```
+```python
 gem.y = gem.y + 4
 ```
 
 ...and change it to this...
 
-```
+```python
 gem.y = gem.y + 4 + score / 5
 ```
 

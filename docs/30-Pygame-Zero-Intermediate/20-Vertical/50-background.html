@@ -84,129 +84,131 @@ In this case, I would recommend using "background" as a filename.</p>
 <p>We are going to create a scrolling background. This means that the background will continuously move from top to bottom, making it look like the ship is flying.</p>
 <h3>Adding background</h3>
 <p>If we try to do this with just one background actor, the actor will not be able to cover the screen all of the time. So we'll need at two actors. Just like with bullets, if we have more than one actor, we'll start by creating a list for it.</p>
-<div class="codehilite"><pre><span></span><code>backgrounds = []
+<div class="codehilite"><pre><span></span><code><span class="n">backgrounds</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div>
 
 <p>Since I have 3 background images, I'll create a list for the images filenames as well.</p>
-<div class="codehilite"><pre><span></span><code>background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
+<div class="codehilite"><pre><span></span><code><span class="n">background_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;background1&#39;</span><span class="p">,</span><span class="s1">&#39;background2&#39;</span><span class="p">,</span><span class="s1">&#39;background3&#39;</span><span class="p">]</span>
 </code></pre></div>
 
 <p>I will be using the <code>random</code> module to help me randomly select a background image, so we'll need to import <code>random</code>...</p>
-<div class="codehilite"><pre><span></span><code>import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
 </code></pre></div>
 
 <p>Next, we'll create two actors for the background and add them to the list.</p>
-<div class="codehilite"><pre><span></span><code>background = Actor(random.choice(background_images))
-background.x = 400
-background.y = 300
-backgrounds.append(background)
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = -300
-backgrounds.append(background)
+<div class="codehilite"><pre><span></span><code><span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The first actor is placed right at the center of the screen, while the second actor is placed directly above it. The <code>random.choice</code> function is used to randomly select a filename from the list of background filenames.</p>
 <p><strong>random.choice(background_images)</strong> : Randomly select one item from the <code>background_images</code> list and returns it.</p>
 <h3>Making it move</h3>
 <p>To move the background downwards, we need to increase its y position in the <code>update</code> function...</p>
-<div class="codehilite"><pre><span></span><code>for background in backgrounds:
-    background.y += 3
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
 </code></pre></div>
 
 <p>But it shouldn't just keep going down forever. Once it exits the screen from the bottom, we should return it to the top.</p>
-<div class="codehilite"><pre><span></span><code>for background in backgrounds:
-    background.y += 3
-    if background.y &gt; 900:
-        background.y -= 1200
-        background.image = random.choice(background_images)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">900</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">1200</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">)</span>
 </code></pre></div>
 
 <p>I'm also changing the image to a random background image whenever it returns to the top. Not necessary, but it makes the background look more varied.</p>
 <h3>Drawing the background</h3>
 <p>As always, you have to tell Pygame Zero to draw the background, or you'll never see it.</p>
-<div class="codehilite"><pre><span></span><code>for background in backgrounds:
-    background.draw()
-````
-
-You can also remove the ```screen.clear()```. We won&#39;t need it anymore, as the background will be redrawn over the entire screen each frame, so there is no need to clear the old images from the screen.
-
-At this point...
-===
-At the end of these, your program should look like this...
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
-<p>import pgzrun
-import random
-from pgzhelper import *</p>
-<p>WIDTH=800
-HEIGHT=600</p>
-<p>player = Actor('player')
-player.x = 400
-player.y = 500</p>
-<p>bullets = []
-bullet_delay = 0</p>
-<p>background_images = ['background1','background2','background3']
-backgrounds = []
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = 300
-backgrounds.append(background)
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = -300
-backgrounds.append(background)</p>
-<p>def update():
-    global bullet_delay</p>
-<div class="codehilite"><pre><span></span><code>if keyboard.up:
-    player.y -= 5
-if keyboard.down:
-    player.y += 5
-if keyboard.right:
-    player.x += 5
-if keyboard.left:
-    player.x -= 5
+<p>You can also remove the <code>screen.clear()</code>. We won't need it anymore, as the background will be redrawn over the entire screen each frame, so there is no need to clear the old images from the screen.</p>
+<h1>At this point...</h1>
+<p>At the end of these, your program should look like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 
-if player.x &lt; 25:
-    player.x = 25
-if player.x &gt; 775:
-    player.x = 775
-if player.y &lt; 30:
-    player.y = 30
-if player.y &gt; 570:
-    player.y = 570
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-if keyboard.space and bullet_delay == 0:
-    bullet_delay = 5
-    bullet = Actor(&#39;player_bullet&#39;)
-    bullet.x = player.x
-    bullet.y = player.y
-    bullet.angle = 90
-    bullets.append(bullet)
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">500</span>
 
-if bullet_delay &gt; 0:
-    bullet_delay -= 1
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">0</span>
 
-for bullet in bullets:
-    bullet.move_forward(15)
-    if bullet.y &lt; 0:
-        bullets.remove(bullet)
+<span class="n">background_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;background1&#39;</span><span class="p">,</span><span class="s1">&#39;background2&#39;</span><span class="p">,</span><span class="s1">&#39;background3&#39;</span><span class="p">]</span>
+<span class="n">backgrounds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
 
-for background in backgrounds:
-    background.y += 3
-    if background.y &gt; 900:
-        background.y -= 1200
-        background.image = random.choice(background_images)
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_delay</span>
+
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">775</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">775</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">570</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">570</span>
+
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="n">bullet_delay</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">bullet_delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet_delay</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
+        <span class="k">if</span> <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">900</span><span class="p">:</span>
+            <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">1200</span>
+            <span class="n">background</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
-
-<p>def draw():
-    for background in backgrounds:
-        background.draw()
-    player.draw()
-    for bullet in bullets:
-        bullet.draw()</p>
-<p>pgzrun.go() # Must be last line</p>
-<p>```</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

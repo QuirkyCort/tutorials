@@ -40,328 +40,328 @@
 <p>The drone looks best if it's smaller than the player ship. Beyond that, it's really up to you. My own drone isn't exactly fantastic, so I'm sure you can do better.</p>
 <h1>Adding the Drone</h1>
 <p>Since we are expecting only one drone, we won't need a list for it.</p>
-<div class="codehilite"><pre><span></span><code>drone = Actor(&#39;drone&#39;)
+<div class="codehilite"><pre><span></span><code><span class="n">drone</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;drone&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>We need to keep track of whether we have picked up the strawberry power up, so we'll add in a new variable. We'll set this variable to <code>False</code> at the start of the game (...haven't picked up powerup yet).</p>
-<div class="codehilite"><pre><span></span><code>powerup2 = False
+<div class="codehilite"><pre><span></span><code><span class="n">powerup2</span> <span class="o">=</span> <span class="kc">False</span>
 </code></pre></div>
 
 <p>Look for this code in your program...</p>
-<div class="codehilite"><pre><span></span><code>if powerups[hit].image == &#39;powerup2&#39;:
-    powerup1 += 1
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">powerups</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;powerup2&#39;</span><span class="p">:</span>
+    <span class="n">powerup1</span> <span class="o">+=</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>That's where we detect the type of powerup that we've picked up. We are going to modify it to detect the strawberry powerup.</p>
-<div class="codehilite"><pre><span></span><code>if powerups[hit].image == &#39;powerup2&#39;:
-    powerup1 += 1
-elif powerups[hit].image == &#39;powerup3&#39;:
-    powerup2 = True
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">powerups</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;powerup2&#39;</span><span class="p">:</span>
+    <span class="n">powerup1</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">elif</span> <span class="n">powerups</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;powerup3&#39;</span><span class="p">:</span>
+    <span class="n">powerup2</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 
 <p>Since we are modifying <code>powerup2</code>, be sure to declare it as global...</p>
-<div class="codehilite"><pre><span></span><code>global bullet_delay, powerup1, powerup2
+<div class="codehilite"><pre><span></span><code><span class="k">global</span> <span class="n">bullet_delay</span><span class="p">,</span> <span class="n">powerup1</span><span class="p">,</span> <span class="n">powerup2</span>
 </code></pre></div>
 
 <p>We only draw our drone if we <code>powerup2</code> is True. So add this to your <code>draw()</code> function.</p>
-<div class="codehilite"><pre><span></span><code>if powerup2:  // This is the same as writing: if powerup2 == True:
-    drone.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">powerup2</span><span class="p">:</span>  <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span> <span class="n">writing</span><span class="p">:</span> <span class="k">if</span> <span class="n">powerup2</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">drone</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>We want our drone to follow our ship, so add this to the <code>update()</code> function.</p>
-<div class="codehilite"><pre><span></span><code>drone.move_towards(player, 3)
+<div class="codehilite"><pre><span></span><code><span class="n">drone</span><span class="o">.</span><span class="n">move_towards</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </code></pre></div>
 
 <h1>Making it Shoot</h1>
 <p>The code to make the drone shoot is similar to that for the player. To keep it neat, we should put it inside our <code>shoot()</code> function, together with the rest of the shoot code.</p>
-<div class="codehilite"><pre><span></span><code>if powerup2:
-    bullet = Actor(&#39;player_bullet&#39;)
-    bullet.x = drone.x
-    bullet.y = drone.y
-    bullet.angle = 90
-    bullets.append(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">powerup2</span><span class="p">:</span>
+    <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">drone</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">drone</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The only difference here is that the bullet's x and y starts at the drone rather than at the player.</p>
 <h1>At this Point...</h1>
 <p>Right now, both your power ups should be completed. You can add more powerups if you like, and there will be some ideas for that in the challenges section at the end. Your code at this point should look like this.</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
-from pgzhelper import *
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-player = Actor(&#39;player&#39;)
-player.x = 400
-player.y = 500
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">500</span>
 
-drone = Actor(&#39;drone&#39;)
+<span class="n">drone</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;drone&#39;</span><span class="p">)</span>
 
-bullets = []
-bullet_delay = 0
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">0</span>
 
-background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
-backgrounds = []
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = 300
-backgrounds.append(background)
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = -300
-backgrounds.append(background)
+<span class="n">background_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;background1&#39;</span><span class="p">,</span><span class="s1">&#39;background2&#39;</span><span class="p">,</span><span class="s1">&#39;background3&#39;</span><span class="p">]</span>
+<span class="n">backgrounds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
 
-enemies = []
+<span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
 
-explosions = []
+<span class="n">explosions</span> <span class="o">=</span> <span class="p">[]</span>
 
-enemy_bullets = []
+<span class="n">enemy_bullets</span> <span class="o">=</span> <span class="p">[]</span>
 
-powerups = []
-powerup_images = [&#39;powerup1&#39;, &#39;powerup2&#39;, &#39;powerup3&#39;]
-powerup1 = 0
-powerup2 = False
+<span class="n">powerups</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">powerup_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;powerup1&#39;</span><span class="p">,</span> <span class="s1">&#39;powerup2&#39;</span><span class="p">,</span> <span class="s1">&#39;powerup3&#39;</span><span class="p">]</span>
+<span class="n">powerup1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">powerup2</span> <span class="o">=</span> <span class="kc">False</span>
 
-sounds.main_theme.play(-1)
+<span class="n">sounds</span><span class="o">.</span><span class="n">main_theme</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-def shoot():
-    global bullet_delay
+<span class="k">def</span> <span class="nf">shoot</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_delay</span>
 
-    sounds.sfx_sounds_interaction25.play()
-    bullet_delay = 5
+    <span class="n">sounds</span><span class="o">.</span><span class="n">sfx_sounds_interaction25</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+    <span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">5</span>
 
-    if powerup1 == 0:
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+    <span class="k">if</span> <span class="n">powerup1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    elif powerup1 == 1:
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x - 15
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+    <span class="k">elif</span> <span class="n">powerup1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">15</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x + 15
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">15</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    elif powerup1 == 2:
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 110
-        bullets.append(bullet)
+    <span class="k">elif</span> <span class="n">powerup1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">110</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 70
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">70</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    elif powerup1 == 3:
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 110
-        bullets.append(bullet)
+    <span class="k">elif</span> <span class="n">powerup1</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">110</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x - 15
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">15</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x + 15
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">15</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 70
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">70</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    elif powerup1 &gt;= 4:
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 115
-        bullets.append(bullet)
+    <span class="k">elif</span> <span class="n">powerup1</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">115</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 100
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 80
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">80</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 65
-        bullets.append(bullet)
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">65</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    if powerup2:
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = drone.x
-        bullet.y = drone.y
-        bullet.angle = 90
-        bullets.append(bullet)
+    <span class="k">if</span> <span class="n">powerup2</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">drone</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">drone</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-def update():
-    global bullet_delay, powerup1, powerup2
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_delay</span><span class="p">,</span> <span class="n">powerup1</span><span class="p">,</span> <span class="n">powerup2</span>
 
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.right:
-        player.x += 5
-    if keyboard.left:
-        player.x -= 5
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 
-    if player.x &lt; 25:
-        player.x = 25
-    if player.x &gt; 775:
-        player.x = 775
-    if player.y &lt; 30:
-        player.y = 30
-    if player.y &gt; 570:
-        player.y = 570
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">775</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">775</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">570</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">570</span>
 
-    drone.move_towards(player, 3)
+    <span class="n">drone</span><span class="o">.</span><span class="n">move_towards</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-    if keyboard.space and bullet_delay == 0:
-        shoot()
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="n">bullet_delay</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">shoot</span><span class="p">()</span>
 
-    if bullet_delay &gt; 0:
-        bullet_delay -= 1
+    <span class="k">if</span> <span class="n">bullet_delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet_delay</span> <span class="o">-=</span> <span class="mi">1</span>
 
-    for bullet in bullets:
-        bullet.move_forward(15)
-        if bullet.y &lt; 0:
-            bullets.remove(bullet)
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    for background in backgrounds:
-        background.y += 3
-        if background.y &gt; 900:
-            background.y -= 1200
-            background.image = random.choice(background_images)
+    <span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
+        <span class="k">if</span> <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">900</span><span class="p">:</span>
+            <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">1200</span>
+            <span class="n">background</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">)</span>
 
-    if random.randint(0, 1000) &gt; 980:
-        enemy = Actor(&#39;enemy1_1&#39;)
-        enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
-        enemy.fps = 5
-        enemy.y = -50
-        enemy.x = random.randint(100, 700)
-        enemy.direction = random.randint(-100, -80)
-        enemies.append(enemy)
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">980</span><span class="p">:</span>
+        <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">)</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">,</span> <span class="s1">&#39;enemy1_2&#39;</span><span class="p">]</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+        <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-    if random.randint(0, 1000) &gt; 998:
-        powerup = Actor(&#39;powerup1&#39;)
-        powerup.y = -50
-        powerup.x = random.randint(100, 700)
-        powerups.append(powerup)
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">998</span><span class="p">:</span>
+        <span class="n">powerup</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;powerup1&#39;</span><span class="p">)</span>
+        <span class="n">powerup</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+        <span class="n">powerup</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+        <span class="n">powerups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">powerup</span><span class="p">)</span>
 
-    for powerup in powerups:
-        powerup.y += 4
+    <span class="k">for</span> <span class="n">powerup</span> <span class="ow">in</span> <span class="n">powerups</span><span class="p">:</span>
+        <span class="n">powerup</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">4</span>
 
-    for enemy in enemies:
-        enemy.move_in_direction(4)
-        enemy.animate()
-        if random.randint(0, 1000) &gt; 990:
-            bullet = Actor(&#39;enemy_bullet&#39;)
-            bullet.x = enemy.x
-            bullet.y = enemy.y
-            bullet.angle = random.randint(0, 359)
-            enemy_bullets.append(bullet)
-        if enemy.y &gt; 700:
-            enemies.remove(enemy)
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">move_in_direction</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">990</span><span class="p">:</span>
+            <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;enemy_bullet&#39;</span><span class="p">)</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">)</span>
+            <span class="n">enemy_bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">:</span>
+            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-    for bullet in bullets:
-        hit = bullet.collidelist(enemies)
-        if hit != -1:
-            bullets.remove(bullet)
-            explosion = Actor(&#39;explosion1&#39;)
-            explosion.x = enemies[hit].x
-            explosion.y = enemies[hit].y
-            explosion.images = [&#39;explosion1&#39;, &#39;explosion2&#39;]
-            explosion.fps = 8
-            explosion.life = 15
-            explosions.append(explosion)
-            enemies.remove(enemies[hit])
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hit</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+            <span class="n">explosion</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;explosion1&#39;</span><span class="p">)</span>
+            <span class="n">explosion</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemies</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">explosion</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemies</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">explosion</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;explosion1&#39;</span><span class="p">,</span> <span class="s1">&#39;explosion2&#39;</span><span class="p">]</span>
+            <span class="n">explosion</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">8</span>
+            <span class="n">explosion</span><span class="o">.</span><span class="n">life</span> <span class="o">=</span> <span class="mi">15</span>
+            <span class="n">explosions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">explosion</span><span class="p">)</span>
+            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemies</span><span class="p">[</span><span class="n">hit</span><span class="p">])</span>
 
-    for bullet in enemy_bullets:
-        bullet.move_forward(5)
-        if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
-            enemy_bullets.remove(bullet)
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">enemy_bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="n">enemy_bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    for explosion in explosions:
-        explosion.animate()
-        explosion.life -= 1
-        if explosion.life == 0:
-            explosions.remove(explosion)
+    <span class="k">for</span> <span class="n">explosion</span> <span class="ow">in</span> <span class="n">explosions</span><span class="p">:</span>
+        <span class="n">explosion</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
+        <span class="n">explosion</span><span class="o">.</span><span class="n">life</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">explosion</span><span class="o">.</span><span class="n">life</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">explosions</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">explosion</span><span class="p">)</span>
 
-    for powerup in powerups:
-        hit = powerup.collidelist(bullets)
-        if hit != -1:
-            powerup.y -= 40
-            powerup.image = random.choice(powerup_images)
-            bullets.remove(bullets[hit])
+    <span class="k">for</span> <span class="n">powerup</span> <span class="ow">in</span> <span class="n">powerups</span><span class="p">:</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">powerup</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">bullets</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hit</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">powerup</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">40</span>
+            <span class="n">powerup</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">powerup_images</span><span class="p">)</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullets</span><span class="p">[</span><span class="n">hit</span><span class="p">])</span>
 
-    hit = player.collidelist(powerups)
-    if hit != -1:
-        sounds.sfx_sounds_fanfare3.play()
-        if powerups[hit].image == &#39;powerup2&#39;:
-            powerup1 += 1
-        elif powerups[hit].image == &#39;powerup3&#39;:
-            powerup2 = True
-        powerups.remove(powerups[hit])
+    <span class="n">hit</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">powerups</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hit</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">sounds</span><span class="o">.</span><span class="n">sfx_sounds_fanfare3</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">powerups</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;powerup2&#39;</span><span class="p">:</span>
+            <span class="n">powerup1</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">powerups</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span><span class="o">.</span><span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;powerup3&#39;</span><span class="p">:</span>
+            <span class="n">powerup2</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">powerups</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">powerups</span><span class="p">[</span><span class="n">hit</span><span class="p">])</span>
 
-def draw():
-    screen.clear()
-    for background in backgrounds:
-        background.draw()
-    for explosion in explosions:
-        explosion.draw()
-    for bullet in enemy_bullets:
-        bullet.draw()
-    for enemy in enemies:
-        enemy.draw()
-    for powerup in powerups:
-        powerup.draw()
-    if powerup2:
-        drone.draw()
-    player.draw()
-    for bullet in bullets:
-        bullet.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">explosion</span> <span class="ow">in</span> <span class="n">explosions</span><span class="p">:</span>
+        <span class="n">explosion</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">enemy_bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">powerup</span> <span class="ow">in</span> <span class="n">powerups</span><span class="p">:</span>
+        <span class="n">powerup</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">powerup2</span><span class="p">:</span>
+        <span class="n">drone</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

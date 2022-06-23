@@ -40,13 +40,13 @@
 <p>Next, we'll choose a random number. The range is up to you, but I'm going with 0 to 100.</p>
 <p><code>random.randint(0, 100)</code></p>
 <p>...and we'll draw the wall only if the random number meets a certain condition, for example, if it is less than 50.</p>
-<div class="codehilite"><pre><span></span><code>for x in range(16):
-    for y in range(10):
-        if random.randint(0, 100) &lt; 50:
-            wall = Actor(&#39;wall&#39;)
-            wall.x = x * 50 + 25
-            wall.y = y * 50 + 25 + 50
-            walls.append(wall)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="n">wall</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;wall&#39;</span><span class="p">)</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span> <span class="o">+</span> <span class="mi">50</span>
+            <span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 </code></pre></div>
 
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/random-walls.png" /></p>

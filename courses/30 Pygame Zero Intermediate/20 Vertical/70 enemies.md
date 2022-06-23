@@ -16,13 +16,13 @@ When you are done, export the images and put them in your game's images folder. 
 
 We can have more than one enemy at a time, so just like the bullet, we'll create a list to store these enemies...
 
-```
+```python
 enemies = []
 ```
 
 We want to add the enemy randomly, so we'll use ```random.randint(0, 1000)``` to pick a random number from 0 to 1000, and we'll create an enemy if it is greater than 980 (...try changing this number and see what it does). At the end, we'll add this new enemy to the enemies list. All these need to be added to the ```update()``` function.
 
-```
+```python
 if random.randint(0, 1000) > 980:
     enemy = Actor('enemy1_1')
     enemies.append(enemy)
@@ -30,27 +30,27 @@ if random.randint(0, 1000) > 980:
 
 I want my enemy to start at above the top of the screen, so I'll set y to a negative value. I also want the x position to be random, so I'll use randint to pick a value.
 
-```
+```python
 enemy.y = -50
 enemy.x = random.randint(100, 700)
 ```
 
 Since I have two images for the enemy, I'll set them both in ```images```. I'll also set fps (frames per second) to 5. This will make the image change 5 times per second.
 
-```
+```python
 enemy.images = ['enemy1_1', 'enemy1_2']
 enemy.fps = 5
 ```
 
 Finally, I want the direction of the enemy to be random, so I'll use randint to pick a random direction from -100 degrees to -80 degrees (...remember that 0 degrees means move to the right, so -90 is to move down). Feel free to change this angle range and see the effects.
 
-```
+```python
 enemy.direction = random.randint(-100, -80)
 ```
 
 Your completed enemy adding code should look like this...
 
-```
+```python
 if random.randint(0, 1000) > 980:
     enemy = Actor('enemy1_1')
     enemy.images = ['enemy1_1', 'enemy1_2']
@@ -65,7 +65,7 @@ if random.randint(0, 1000) > 980:
 
 As always, the enemy won't appear if we don't draw them, so we'll add this to the ```draw()``` function.
 
-```
+```python
 for enemy in enemies:
     enemy.draw()
 ```
@@ -76,20 +76,20 @@ Now we have code to create the enemies and display them on screen, but they don'
 
 Since we have multiple enemies, we'll need to use a for loop to apply this to all of them...
 
-```
+```python
 for enemy in enemies:
     enemy.move_in_direction(4)
 ```
 
 Within the same loop, I should also run the ```animate()``` function. This will make its appearance switch between the two enemy images.
 
-```
+```python
 enemy.animate()
 ```
 
 Like the bullet, we don't want our enemies to stick around forever, so we'll remove them when the leave the screen...
 
-```
+```python
 if enemy.y > 700:
     enemies.remove(enemy)
 ```
@@ -98,7 +98,7 @@ Note that although our screen height is only 600 pixels, we are only removing th
 
 The completed enemy movement code should look like this...
 
-```
+```python
 for enemy in enemies:
     enemy.move_in_direction(4)
     enemy.animate()
@@ -110,7 +110,7 @@ At this Point...
 ===
 Your program should now have a scrolling background, random enemies, and a player ship that can move and shoot. The code should look like this...
 
-```
+```python
 import pgzrun
 import random
 from pgzhelper import *

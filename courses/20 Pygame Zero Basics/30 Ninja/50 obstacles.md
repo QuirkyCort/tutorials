@@ -9,20 +9,20 @@ In our gem catcher game, we only have a single gem at a time and it returns to t
 
 First, let's add an empty list called ```obstacles``` and a integer variable ```obstacles_timeout```
 
-```
+```python
 obstacles = []
 obstacles_timeout = 0
 ```
 
 Now in our ```update()``` function, we are going to increase out timeout by 1 each time.
 
-```
+```python
 obstacles_timeout += 1
 ```
 
 Next, if the timeout is greater than 50, we'll add in an obstacle and reset the timeout to zero.
 
-```
+```python
 if obstacles_timeout > 50:
   actor = Actor('cactus')
   actor.x = 850
@@ -37,7 +37,7 @@ The only thing new here is ```obstacles.append(actor)```. This adds ```actor``` 
 
 Now to make the obstacles move across the screen...
 
-```
+```python
 for actor in obstacles:
   actor.x -= 8
 ```
@@ -46,14 +46,14 @@ This will go through the entire obstacles list and reduce the x position for obs
 
 Finally, we need to draw the obstacles on screen. In the ```draw()``` function, add...
 
-```
+```python
 for actor in obstacles:
   actor.draw()
 ```
 
 Your program should now look like this...
 
-```
+```python
 import pgzrun
 from pgzhelper import *
 

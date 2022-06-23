@@ -32,5 +32,6 @@ There are many areas where the game can be improved. You can attempt the followi
 
 ### Graphical Effects
 These may not affect the gameplay, but can make the game look better.
+
 * Add some drifting clouds.
 * Add some animated images in the background (eg. turning windmill).

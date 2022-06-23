@@ -8,7 +8,7 @@ First, add a gem image to the **images** folder. I'm using this one...
 
 Next, add a new gem **Actor**...
 
-```
+```python
 gem = Actor('gemgreen')
 gem.x = 350
 gem.y = 0
@@ -16,13 +16,13 @@ gem.y = 0
 
 Setting x to 350 will place it roughly in the middle horizontally, while setting y to 0 will place it at the top. Don't forget to also draw the gem in the ```draw()``` function.
 
-```
+```python
 gem.draw()
 ```
 
 Your program should now look like this...
 
-```
+```python hl_lines="10 11 12 22"
 import pgzrun
 
 WIDTH = 800
@@ -54,20 +54,20 @@ Moving the Gem
 ===
 Previously, we have written code in the ```update()``` function to make the ship move by changing its x position when the left or right key is pressed. For the gem, we'll make it move continuously downwards by changing the y position.
 
-```
+```python
 gem.y = gem.y + 4
 ```
 
 We also want the gem to return to the top when it reaches the bottom. To do that, we'll set the y position to 0 (top), when it exceeds 600 (bottom most position).
 
-```
+```python
 if gem.y > 600:
     gem.y = 0
 ```
 
 Add that into your program!
 
-```
+```python hl_lines="20 21 22"
 import pgzrun
 
 WIDTH = 800

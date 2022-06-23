@@ -6,7 +6,7 @@ Same as before, we start programming our game by...
 * Setting the window's width and height
 * Running ```pgzrun.go()```
 
-```
+```python
 import pgzrun
 
 WIDTH=800
@@ -31,7 +31,7 @@ To learn more about these function, you can refer to the Pygame Zero [documentat
 
 For now, we'll just be using ```screen.draw.filled_rect()```. This draws a rectangle to the screen, so we'll need to add it to the ```draw()``` function.
 
-```
+```python
 import pgzrun
 
 WIDTH=800
@@ -55,7 +55,7 @@ Draw Ground
 ===
 The previous step drew in the sky. Now let's add a second rectangle to draw the ground.
 
-```
+```python
 import pgzrun
 
 WIDTH=800

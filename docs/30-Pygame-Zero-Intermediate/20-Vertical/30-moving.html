@@ -36,27 +36,27 @@
         <div id="content">
             <h1>Moving the Ship</h1>
 <p>First, we'll create the ship actor...</p>
-<div class="codehilite"><pre><span></span><code>player = Actor(&#39;player_ship&#39;)
+<div class="codehilite"><pre><span></span><code><span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_ship&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p><strong>If you used a different filename, you'll need to change the 'player_ship' part.</strong></p>
 <p>...then we create the <strong>draw()</strong> function, and add in a draw command for the player.</p>
-<div class="codehilite"><pre><span></span><code>def draw():
-    player.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>With that done, your program should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-player = Actor(&#39;player_ship&#39;)
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_ship&#39;</span><span class="p">)</span>
 
-def draw():
-    player.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <p>Run it, and you should see your ship on screen.</p>
@@ -65,56 +65,56 @@ pgzrun.go() # Must be last line
 <p>Remember that to move the actor downwards, we need to increase y. The width of the screen is 800, so to put it in the center, we should set x to 400.</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/xy.png" /></p>
 <p>Add in the following to your program. It should appear right after the line where you created the tank actor.</p>
-<div class="codehilite"><pre><span></span><code>player.x = 400
-player.y = 500
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">500</span>
 </code></pre></div>
 
 <p>That will set the starting position of the ship somewhere near the center bottom of the screen.</p>
 <h1>Moving the Ship</h1>
 <p>Remember how we moved the spaceship in Gem Catcher? We used <strong>keyboard.left</strong> and <strong>keyboard.right</strong> to detect if those keys are pressed.</p>
-<div class="codehilite"><pre><span></span><code>def update():
-    if keyboard.right:
-        player.x += 5
-    if keyboard.left:
-        player.x -= 5
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>Here I'm using a shortform....</p>
-<div class="codehilite"><pre><span></span><code>player.x += 5
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>This is the same as writing...</p>
-<div class="codehilite"><pre><span></span><code>player.x = player.x + 5
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>You can also write...</p>
-<div class="codehilite"><pre><span></span><code>player.x -= 5
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>...which is the same as writing...</p>
-<div class="codehilite"><pre><span></span><code>player.x = player.x - 5
+<div class="codehilite"><pre><span></span><code><span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>To detect up and down, we can use <strong>keyboard.up</strong> and <strong>keyboard.down</strong>. For the full list of keys you can use, you can refer to the <a href="https://pygame-zero.readthedocs.io/en/stable/hooks.html#buttons-and-keys">Pygame Zero documentations</a>.</p>
 <p>To move left and right, we changed <strong>x</strong>. To move up and down, we should change <strong>y</strong>.</p>
-<div class="codehilite"><pre><span></span><code>def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.right:
-        player.x += 5
-    if keyboard.left:
-        player.x -= 5
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 </code></pre></div>
 
 <h1>Limiting the Movement</h1>
 <p>Right now, your ship should be able to move in all directions (...test it out!), but it can also move too far and exit the screen.
 To prevent this, we should prevent the x and y from getting too large or too small using a new set of <strong>"if"</strong> conditions.</p>
-<div class="codehilite"><pre><span></span><code>if player.x &lt; 25:
-    player.x = 25
-if player.x &gt; 775:
-    player.x = 775
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">775</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">775</span>
 </code></pre></div>
 
 <p>These will force the x position to stay between 25 to 775.
@@ -126,39 +126,39 @@ What about y?
 Try and implement it yourself.</p>
 <h1>At this point...</h1>
 <p>At the end of these, your program should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-player = Actor(&#39;player&#39;)
-player.x = 400
-player.y = 500
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">500</span>
 
-def update():
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.right:
-        player.x += 5
-    if keyboard.left:
-        player.x -= 5
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 
-    if player.x &lt; 25:
-        player.x = 25
-    if player.x &gt; 775:
-        player.x = 775
-    if player.y &lt; 30:
-        player.y = 30
-    if player.y &gt; 570:
-        player.y = 570
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">775</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">775</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">570</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">570</span>
 
-def draw():
-    screen.clear()
-    player.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

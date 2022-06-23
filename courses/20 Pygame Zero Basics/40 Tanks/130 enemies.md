@@ -2,13 +2,13 @@ Many Enemies
 ===
 It's very easy to change our program to have many enemies instead of just one. First we'll create a list to store all the enemy tanks...
 
-```
+```python
 enemies = []
 ```
 
 Next, I'll use a loop to create 3 enemies and add them to the list.
 
-```
+```python
 for i in range(3):
     enemy = Actor('tank_red')
     enemy.y = 25
@@ -20,7 +20,7 @@ for i in range(3):
 
 This line...
 
-```
+```python
 enemy.x = i * 200 + 100
 ```
 
@@ -28,7 +28,7 @@ enemy.x = i * 200 + 100
 
 The entire enemy section in **update()** needs to be put in a **for** loop like this...
 
-```
+```python
 for enemy in enemies:  # This is the only new line!
     choice = random.randint(0, 2)
     if enemy.move_count > 0:
@@ -71,14 +71,14 @@ Only the first line is new. The rest of the lines are the same as what you have 
 
 Lastly, we need to put the **enemy.draw()** inside the **draw()** function in a **for** loop as well.
 
-```
+```python
 for enemy in enemies:  # Only this line is new!
     enemy.draw()
 ```
 
 The code at this point should look like this...
 
-```
+```python
 import pgzrun
 import random
 

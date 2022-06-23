@@ -43,172 +43,172 @@
 <p>When you are done, export the images and put them in your game's images folder. I've named mine "enemy1_1.png" and "enemy1_2.png".</p>
 <h3>Adding Enemies to the Game</h3>
 <p>We can have more than one enemy at a time, so just like the bullet, we'll create a list to store these enemies...</p>
-<div class="codehilite"><pre><span></span><code>enemies = []
+<div class="codehilite"><pre><span></span><code><span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div>
 
 <p>We want to add the enemy randomly, so we'll use <code>random.randint(0, 1000)</code> to pick a random number from 0 to 1000, and we'll create an enemy if it is greater than 980 (...try changing this number and see what it does). At the end, we'll add this new enemy to the enemies list. All these need to be added to the <code>update()</code> function.</p>
-<div class="codehilite"><pre><span></span><code>if random.randint(0, 1000) &gt; 980:
-    enemy = Actor(&#39;enemy1_1&#39;)
-    enemies.append(enemy)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">980</span><span class="p">:</span>
+    <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">)</span>
+    <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 </code></pre></div>
 
 <p>I want my enemy to start at above the top of the screen, so I'll set y to a negative value. I also want the x position to be random, so I'll use randint to pick a value.</p>
-<div class="codehilite"><pre><span></span><code>enemy.y = -50
-enemy.x = random.randint(100, 700)
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Since I have two images for the enemy, I'll set them both in <code>images</code>. I'll also set fps (frames per second) to 5. This will make the image change 5 times per second.</p>
-<div class="codehilite"><pre><span></span><code>enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
-enemy.fps = 5
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">,</span> <span class="s1">&#39;enemy1_2&#39;</span><span class="p">]</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>Finally, I want the direction of the enemy to be random, so I'll use randint to pick a random direction from -100 degrees to -80 degrees (...remember that 0 degrees means move to the right, so -90 is to move down). Feel free to change this angle range and see the effects.</p>
-<div class="codehilite"><pre><span></span><code>enemy.direction = random.randint(-100, -80)
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Your completed enemy adding code should look like this...</p>
-<div class="codehilite"><pre><span></span><code>if random.randint(0, 1000) &gt; 980:
-    enemy = Actor(&#39;enemy1_1&#39;)
-    enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
-    enemy.fps = 5
-    enemy.y = -50
-    enemy.x = random.randint(100, 700)
-    enemy.direction = random.randint(-100, -80)
-    enemies.append(enemy)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">980</span><span class="p">:</span>
+    <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">)</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">,</span> <span class="s1">&#39;enemy1_2&#39;</span><span class="p">]</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 </code></pre></div>
 
 <h3>Drawing the Enemies</h3>
 <p>As always, the enemy won't appear if we don't draw them, so we'll add this to the <code>draw()</code> function.</p>
-<div class="codehilite"><pre><span></span><code>for enemy in enemies:
-    enemy.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <h3>Moving and Animating the Enemies</h3>
 <p>Now we have code to create the enemies and display them on screen, but they don't move yet. In the Gem Catcher game, we moved the gems downwards by changing y, but that will only make it move straight down. To make our enemy move in the random direction we have set earlier, we'll use <code>move_in_direction()</code>.</p>
 <p>Since we have multiple enemies, we'll need to use a for loop to apply this to all of them...</p>
-<div class="codehilite"><pre><span></span><code>for enemy in enemies:
-    enemy.move_in_direction(4)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_in_direction</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Within the same loop, I should also run the <code>animate()</code> function. This will make its appearance switch between the two enemy images.</p>
-<div class="codehilite"><pre><span></span><code>enemy.animate()
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
 </code></pre></div>
 
 <p>Like the bullet, we don't want our enemies to stick around forever, so we'll remove them when the leave the screen...</p>
-<div class="codehilite"><pre><span></span><code>if enemy.y &gt; 700:
-    enemies.remove(enemy)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">:</span>
+    <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Note that although our screen height is only 600 pixels, we are only removing the enemy when it reaches a y of 700. This is because at y=600, half of the enemy is still within the screen.</p>
 <p>The completed enemy movement code should look like this...</p>
-<div class="codehilite"><pre><span></span><code>for enemy in enemies:
-    enemy.move_in_direction(4)
-    enemy.animate()
-    if enemy.y &gt; 700:
-        enemies.remove(enemy)
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_in_direction</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">:</span>
+        <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 </code></pre></div>
 
 <h1>At this Point...</h1>
 <p>Your program should now have a scrolling background, random enemies, and a player ship that can move and shoot. The code should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
-from pgzhelper import *
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">pgzhelper</span> <span class="kn">import</span> <span class="o">*</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-player = Actor(&#39;player&#39;)
-player.x = 400
-player.y = 500
+<span class="n">player</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">)</span>
+<span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">500</span>
 
-bullets = []
-bullet_delay = 0
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">0</span>
 
-background_images = [&#39;background1&#39;,&#39;background2&#39;,&#39;background3&#39;]
-backgrounds = []
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = 300
-backgrounds.append(background)
-background = Actor(random.choice(background_images))
-background.x = 400
-background.y = -300
-backgrounds.append(background)
+<span class="n">background_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;background1&#39;</span><span class="p">,</span><span class="s1">&#39;background2&#39;</span><span class="p">,</span><span class="s1">&#39;background3&#39;</span><span class="p">]</span>
+<span class="n">backgrounds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">))</span>
+<span class="n">background</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+<span class="n">backgrounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
 
-enemies = []
+<span class="n">enemies</span> <span class="o">=</span> <span class="p">[]</span>
 
-sounds.main_theme.play(-1)
+<span class="n">sounds</span><span class="o">.</span><span class="n">main_theme</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-def update():
-    global bullet_delay
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_delay</span>
 
-    if keyboard.up:
-        player.y -= 5
-    if keyboard.down:
-        player.y += 5
-    if keyboard.right:
-        player.x += 5
-    if keyboard.left:
-        player.x -= 5
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
 
-    if player.x &lt; 25:
-        player.x = 25
-    if player.x &gt; 775:
-        player.x = 775
-    if player.y &lt; 30:
-        player.y = 30
-    if player.y &gt; 570:
-        player.y = 570
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">775</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">775</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">570</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">570</span>
 
-    if keyboard.space and bullet_delay == 0:
-        sounds.sfx_sounds_interaction25.play()
-        bullet_delay = 5
-        bullet = Actor(&#39;player_bullet&#39;)
-        bullet.x = player.x
-        bullet.y = player.y
-        bullet.angle = 90
-        bullets.append(bullet)
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="n">bullet_delay</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sounds</span><span class="o">.</span><span class="n">sfx_sounds_interaction25</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+        <span class="n">bullet_delay</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;player_bullet&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    if bullet_delay &gt; 0:
-        bullet_delay -= 1
+    <span class="k">if</span> <span class="n">bullet_delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet_delay</span> <span class="o">-=</span> <span class="mi">1</span>
 
-    for bullet in bullets:
-        bullet.move_forward(15)
-        if bullet.y &lt; 0:
-            bullets.remove(bullet)
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">move_forward</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    for background in backgrounds:
-        background.y += 3
-        if background.y &gt; 900:
-            background.y -= 1200
-            background.image = random.choice(background_images)
+    <span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">3</span>
+        <span class="k">if</span> <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">900</span><span class="p">:</span>
+            <span class="n">background</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">1200</span>
+            <span class="n">background</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">background_images</span><span class="p">)</span>
 
-    if random.randint(0, 1000) &gt; 980:
-        enemy = Actor(&#39;enemy1_1&#39;)
-        enemy.images = [&#39;enemy1_1&#39;, &#39;enemy1_2&#39;]
-        enemy.fps = 5
-        enemy.y = -50
-        enemy.x = random.randint(100, 700)
-        enemy.direction = random.randint(-100, -80)
-        enemies.append(enemy)
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">980</span><span class="p">:</span>
+        <span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">)</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;enemy1_1&#39;</span><span class="p">,</span> <span class="s1">&#39;enemy1_2&#39;</span><span class="p">]</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+        <span class="n">enemies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-    for enemy in enemies:
-        enemy.move_in_direction(4)
-        enemy.animate()
-        if enemy.y &gt; 700:
-            enemies.remove(enemy)
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">move_in_direction</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">:</span>
+            <span class="n">enemies</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
 
-def draw():
-    screen.clear()
-    for background in backgrounds:
-        background.draw()
-    for enemy in enemies:
-        enemy.draw()
-    player.draw()
-    for bullet in bullets:
-        bullet.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">background</span> <span class="ow">in</span> <span class="n">backgrounds</span><span class="p">:</span>
+        <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

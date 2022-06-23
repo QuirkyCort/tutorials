@@ -36,15 +36,15 @@
         <div id="content">
             <h1>Adding One Enemy</h1>
 <p>We'll be adding many enemies eventually, but let us start with just one. Create a new actor for the enemy. I'm using the "tank_red" image, but you can use a different one if you want to.</p>
-<div class="codehilite"><pre><span></span><code>enemy = Actor(&#39;tank_red&#39;)
-enemy.y = 25
-enemy.x = 400
-enemy.angle = 270
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_red&#39;</span><span class="p">)</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
 </code></pre></div>
 
 <p>I'm setting <strong>y</strong> to 25; this will put it at the top, and <strong>angle</strong> to 270 to make it point downwards.</p>
 <p>Make sure to draw your enemy in the <strong>draw()</strong> function.</p>
-<div class="codehilite"><pre><span></span><code>enemy.draw()
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <h1>Enemy Behaviour</h1>
@@ -55,14 +55,14 @@ enemy.angle = 270
 <li>Shoot</li>
 </ul>
 <p>...and we'll get it to randomly choose one of these action. Inside update, we'll add in...</p>
-<div class="codehilite"><pre><span></span><code>choice = random.randint(0, 2)
-if choice == 0:
-    enemy.move_count = 20
-    print(&#39;move&#39;)
-elif choice == 1:
-    print(&#39;turn&#39;)
-else:
-    print(&#39;shoot&#39;)
+<div class="codehilite"><pre><span></span><code><span class="n">choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;turn&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shoot&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>What this code does is...</p>
@@ -72,212 +72,212 @@ else:
 <p><code>print('move'), print('turn'), print('shoot')</code> : These are just temporary. We'll replace them with the actual code to make the tank move, turn, or shoot later.</p>
 <h1>Moving</h1>
 <p>First, let's set <strong>enemy.move_count</strong> to zero at the start.</p>
-<div class="codehilite"><pre><span></span><code>enemy = Actor(&#39;tank_red&#39;)
-enemy.y = 25
-enemy.x = 400
-enemy.angle = 270
-enemy.move_count = 0  # Add this line
+<div class="codehilite"><pre><span></span><code><span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_red&#39;</span><span class="p">)</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Add this line</span>
 </code></pre></div>
 
 <p>Now, we are going to modify our enemy choice code.</p>
-<div class="codehilite"><pre><span></span><code>choice = random.randint(0, 2)
-if enemy.move_count &gt; 0:
-    enemy.move_count = enemy.move_count - 1
-    if enemy.angle == 0:
-        enemy.x = enemy.x + 2
-    elif enemy.angle == 90:
-        enemy.y = enemy.y - 2
-    elif enemy.angle == 180:
-        enemy.x = enemy.x - 2
-    elif enemy.angle == 270:
-        enemy.y = enemy.y + 2
-elif choice == 0:
-    enemy.move_count = 20
-elif choice == 1:
-    print(&#39;turn&#39;)
-else:
-    print(&#39;shoot&#39;)
+<div class="codehilite"><pre><span></span><code><span class="n">choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;turn&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shoot&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Run the code. You should see the tank moving forward (...with an occasional short pause). The pause occurs when the tank chooses "turn" or "shoot" (...which currently does nothing).</p>
 <p>How this code works is when the <strong>choice</strong> is 0, we set <strong>move_count</strong> to 20. Then if <strong>move_count</strong> is greater than zero, we ignore the choice, move the tank in the direction it is facing, and reduce <strong>move_count</strong> by 1. This will make it move 20 times before we check for the <strong>choice</strong> again.</p>
 <h1>Turning</h1>
 <p>Next, we are going to add in turning. Change this part of the code...</p>
-<div class="codehilite"><pre><span></span><code>elif choice == 1:
-    print(&#39;turn&#39;)
+<div class="codehilite"><pre><span></span><code><span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;turn&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>...into this...</p>
-<div class="codehilite"><pre><span></span><code>elif choice == 1:
-    enemy.angle = random.randint(0, 3) * 90
+<div class="codehilite"><pre><span></span><code><span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">90</span>
 </code></pre></div>
 
 <p>This will choose a random number and multiply it by 90. The random number can be 0, 1, 2, or 3. So after multiplying by 90, it will be 0, 90, 180, or 270. That will make it face right, up, left, or down.</p>
 <p>Now the enemy tank will move around randomly, but it will drive through the walls! Let's fix that next.</p>
 <h1>Wall</h1>
 <p>To prevent moving through the wall, we change the enemy movement code to...</p>
-<div class="codehilite"><pre><span></span><code>if enemy.move_count &gt; 0:
-    enemy.move_count = enemy.move_count - 1
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">-</span> <span class="mi">1</span>
 
-    original_x = enemy.x
-    original_y = enemy.y
-    if enemy.angle == 0:
-        enemy.x = enemy.x + 2
-    elif enemy.angle == 90:
-        enemy.y = enemy.y - 2
-    elif enemy.angle == 180:
-        enemy.x = enemy.x - 2
-    elif enemy.angle == 270:
-        enemy.y = enemy.y + 2
+    <span class="n">original_x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">original_y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span>
+    <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
 
-    if enemy.collidelist(walls) != -1:
-        enemy.x = original_x
-        enemy.y = original_y
-        enemy.move_count = 0
+    <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>This is similar to how the player tank avoids moving through the wall. We first save the tank's x and y position, then check if it is colliding with all of the walls. If it is, we return it to it's original position. The only difference is that we also set <strong>move_count</strong> to zero. This will make the enemy choose a new action immediately.</p>
 <p>We should also prevent it from moving off the screen...</p>
-<div class="codehilite"><pre><span></span><code>if enemy.x &lt; 0 or enemy.x &gt; 800 or enemy.y &lt; 0 or enemy.y &gt; 600:
-    enemy.x = original_x
-    enemy.y = original_y
-    enemy.move_count = 0
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>Now the enemy tank should move around without going through the walls or leaving the screen. The code at this point should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-tank = Actor(&#39;tank_blue&#39;)
-tank.y = 575
-tank.x = 400
-tank.angle = 90
+<span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">575</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 
-enemy = Actor(&#39;tank_red&#39;)
-enemy.y = 25
-enemy.x = 400
-enemy.angle = 270
-enemy.move_count = 0
+<span class="n">enemy</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_red&#39;</span><span class="p">)</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
+<span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-background = Actor(&#39;grass&#39;)
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-walls = []
-for x in range(16):
-    for y in range(10):
-        if random.randint(0, 100) &lt; 50:
-            wall = Actor(&#39;wall&#39;)
-            wall.x = x * 50 + 25
-            wall.y = y * 50 + 25 + 50
-            walls.append(wall)
+<span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="n">wall</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;wall&#39;</span><span class="p">)</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span> <span class="o">+</span> <span class="mi">50</span>
+            <span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 
-bullets = []
-bullet_holdoff = 0
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">0</span>
 
-def update():
-    global bullet_holdoff
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_holdoff</span>
 
-    # This part is for the tank
-    original_x = tank.x
-    original_y = tank.y
+    <span class="c1"># This part is for the tank</span>
+    <span class="n">original_x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">original_y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
 
-    if keyboard.left:
-        tank.x = tank.x - 2
-        tank.angle = 180
-    elif keyboard.right:
-        tank.x = tank.x + 2
-        tank.angle = 0
-    elif keyboard.up:
-        tank.y = tank.y - 2
-        tank.angle = 90
-    elif keyboard.down:
-        tank.y = tank.y + 2
-        tank.angle = 270
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
 
-    if tank.collidelist(walls) != -1:
-        tank.x = original_x
-        tank.y = original_y
+    <span class="k">if</span> <span class="n">tank</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
 
-    if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
-        tank.x = original_x
-        tank.y = original_y
+    <span class="k">if</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
 
-    # This part is for the bullet
-    if bullet_holdoff == 0:
-        if keyboard.space:
-            bullet = Actor(&#39;bulletblue2&#39;)
-            bullet.angle = tank.angle
-            bullet.x = tank.x
-            bullet.y = tank.y
-            bullets.append(bullet)
-            bullet_holdoff = 100
-    else:
-        bullet_holdoff = bullet_holdoff - 1
+    <span class="c1"># This part is for the bullet</span>
+    <span class="k">if</span> <span class="n">bullet_holdoff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+            <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;bulletblue2&#39;</span><span class="p">)</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">angle</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+            <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="n">bullet_holdoff</span> <span class="o">-</span> <span class="mi">1</span>
 
-    for bullet in bullets:
-        if bullet.angle == 0:
-            bullet.x = bullet.x + 5
-        elif bullet.angle == 90:
-            bullet.y = bullet.y - 5
-        elif bullet.angle == 180:
-            bullet.x = bullet.x - 5
-        elif bullet.angle == 270:
-            bullet.y = bullet.y + 5
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span>
 
-    for bullet in bullets:
-        wall_index = bullet.collidelist(walls)
-        if wall_index != -1:
-            del walls[wall_index]
-            bullets.remove(bullet)
-        if bullet.x &lt; 0 or bullet.x &gt; 800 or bullet.y &lt; 0 or bullet.y &gt; 600:
-            bullets.remove(bullet)
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">wall_index</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wall_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">walls</span><span class="p">[</span><span class="n">wall_index</span><span class="p">]</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 
-    # This part is for the enemy
-    choice = random.randint(0, 2)
-    if enemy.move_count &gt; 0:
-        enemy.move_count = enemy.move_count - 1
+    <span class="c1"># This part is for the enemy</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">-</span> <span class="mi">1</span>
 
-        original_x = enemy.x
-        original_y = enemy.y
-        if enemy.angle == 0:
-            enemy.x = enemy.x + 2
-        elif enemy.angle == 90:
-            enemy.y = enemy.y - 2
-        elif enemy.angle == 180:
-            enemy.x = enemy.x - 2
-        elif enemy.angle == 270:
-            enemy.y = enemy.y + 2
+        <span class="n">original_x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">original_y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
 
-        if enemy.collidelist(walls) != -1:
-            enemy.x = original_x
-            enemy.y = original_y
-            enemy.move_count = 0
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-        if enemy.x &lt; 0 or enemy.x &gt; 800 or enemy.y &lt; 0 or enemy.y &gt; 600:
-            enemy.x = original_x
-            enemy.y = original_y
-            enemy.move_count = 0
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-    elif choice == 0:
-        enemy.move_count = 20
-    elif choice == 1:
-        enemy.angle = random.randint(0, 3) * 90
-    else:
-        print(&#39;shoot&#39;)
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">move_count</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">90</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shoot&#39;</span><span class="p">)</span>
 
-def draw():
-    screen.fill((0,0,0))
-    background.draw()
-    tank.draw()
-    enemy.draw()
-    for bullet in bullets:
-        bullet.draw()
-    for wall in walls:
-        wall.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

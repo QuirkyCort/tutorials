@@ -4,13 +4,13 @@ Right now, the game does nothing even if our ninja crashes into the cactus. Let'
 
 First, we'll add in a variable called ```game_over``` and set it to ```False``` at the start.
 
-```
+```python
 game_over = False
 ```
 
 Inside the ```update()``` function, we'll detect if our runner collided with any of the obstacles. If she did, we'll set ```game_over``` to ```True```.
 
-```
+```python
 if runner.collidelist(obstacles) != -1:
   game_over = True
 ```
@@ -21,7 +21,7 @@ The ```runner.collidelist(obstacles)``` checks if the runner collided with any o
 
 Next, we'll need to draw the game over text inside ```draw()``` by changing this...
 
-```
+```python
   runner.draw()
   for actor in obstacles:
     actor.draw()
@@ -30,7 +30,7 @@ Next, we'll need to draw the game over text inside ```draw()``` by changing this
 
 ...into this...
 
-```
+```python
 if game_over:
   screen.draw.text('Game Over', centerx=400, centery=270, color=(255,255,255), fontsize=60)
   screen.draw.text('Score: ' + str(score), centerx=400, centery=330, color=(255,255,255), fontsize=60)
@@ -43,7 +43,7 @@ else:
 
 Your final game should look like this...
 
-```
+```python
 import pgzrun
 from pgzhelper import *
 

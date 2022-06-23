@@ -4,13 +4,13 @@ It's not much fun to play a game that you cannot lose. So let's add in a **game 
 
 First, add in a new variable called ```game_over``` and set it to ```False```.
 
-```
+```python
 game_over = False
 ```
 
 Inside the ```update()``` function, look for these lines...
 
-```
+```python
 if gem.y > 600:
     gem.x = random.randint(20, 780)
     gem.y = 0
@@ -18,7 +18,7 @@ if gem.y > 600:
 
 ...and change them to these...
 
-```
+```python hl_lines="2"
 if gem.y > 600:
     game_over = True
 ```
@@ -29,16 +29,16 @@ You will also need to add ```global game_over``` to the top of the ```update()``
 
 Inside the ```draw()``` function, change these lines...
 
-```
+```python
 screen.fill((80,0,70))
 gem.draw()
 ship.draw()
 screen.draw.text('Score: ' + str(score), (15,10), color=(255,255,255), fontsize=30)
 ```
 
-...into these...
+...into these (watch out for the indents)...
 
-```
+```python hl_lines="2 3 4 5"
 screen.fill((80,0,70))
 if game_over:
     screen.draw.text('Game Over', (360, 300), color=(255,255,255), fontsize=60)
@@ -53,7 +53,7 @@ This will make it draw the **game over** text when the ```game_over``` variable 
 
 Your final program should look like this...
 
-```
+```python hl_lines="16 22 31 39 40 41 42"
 import pgzrun
 import random
 

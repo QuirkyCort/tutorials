@@ -2,20 +2,20 @@ Keeping Score
 ===
 Just like in the gem catcher program, we'll use a variable named ```score```  to keep track of our score.
 
-```
+```python
 score = 0
 ```
 
 We'll increase our score each time the obstacle disappears off the left side of the screen. Inside ```update()```, let's change this...
 
-```
+```python
   for actor in obstacles:
     actor.x -= 8
 ```
 
 ...into this...
 
-```
+```python
   for actor in obstacles:
     actor.x -= 8
     if actor.x < -50:
@@ -35,7 +35,7 @@ Drawing Obstacles and Score
 ===
 The obstacles won't appear on screen if we don't draw it inside the ```draw()``` function. So let's add in...
 
-```
+```python
 for actor in obstacles:
   actor.draw()
 ```
@@ -44,7 +44,7 @@ This will go through the list of obstacles and draw each one.
 
 We should also display the score on screen using...
 
-```
+```python
 screen.draw.text('Score: ' + str(score), (15,10), color=(0,0,0), fontsize=30)
 ```
 

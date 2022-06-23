@@ -37,11 +37,11 @@
             <h1>Making it harder</h1>
 <p>Right now the game is too easy. Not to brag, but I can score over 300 without breaking a sweat. Let's make it harder by making the gem fall faster the higher your score is.</p>
 <p>Look for this line...</p>
-<div class="codehilite"><pre><span></span><code>gem.y = gem.y + 4
+<div class="codehilite"><pre><span></span><code><span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span>
 </code></pre></div>
 
 <p>...and change it to this...</p>
-<div class="codehilite"><pre><span></span><code>gem.y = gem.y + 4 + score / 5
+<div class="codehilite"><pre><span></span><code><span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">score</span> <span class="o">/</span> <span class="mi">5</span>
 </code></pre></div>
 
 <p>This will increase the falling speed as your score goes up. When your score is zero, the gem will fall at speed 4. When your score is 10, the gem will fall at speed 6 (4 + 10 / 5).</p>

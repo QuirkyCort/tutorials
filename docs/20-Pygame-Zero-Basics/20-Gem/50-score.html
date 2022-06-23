@@ -36,46 +36,46 @@
         <div id="content">
             <h1>Keeping Score</h1>
 <p>We can track the score easily using a variable. Let's add a variable named <code>score</code> and give it the value of 0 at the start of the program.</p>
-<div class="codehilite"><pre><span></span><code>score = 0
+<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>Now everytime the spaceship catches the gem, we'll increase <code>score</code> by 1.</p>
-<div class="codehilite"><pre><span></span><code>if gem.colliderect(ship):
-    gem.x = random.randint(20, 780)
-    gem.y = 0
-    score = score + 1
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">ship</span><span class="p">):</span>
+    <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+    <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>If you try out this program, you'll get an error...</p>
-<div class="codehilite"><pre><span></span><code>UnboundLocalError: local variable &#39;score&#39; referenced before assignment
+<div class="codehilite"><pre><span></span><code><span class="ne">UnboundLocalError</span><span class="p">:</span> <span class="n">local</span> <span class="n">variable</span> <span class="s1">&#39;score&#39;</span> <span class="n">referenced</span> <span class="n">before</span> <span class="n">assignment</span>
 </code></pre></div>
 
 <p>That's because the <code>score</code> variable is declared outside of the <code>update()</code> function, but we are trying to write it from inside the <code>update()</code> function. In Python, we can read variables that are outside a function (...these are called global variables), but cannot write to them unless we declare them as global inside the function.</p>
-<div class="codehilite"><pre><span></span><code>global score
+<div class="codehilite"><pre><span></span><code><span class="k">global</span> <span class="n">score</span>
 </code></pre></div>
 
 <p>After this change, your <code>update()</code> function should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>def update():
-    global score
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+<span class="hll">    <span class="k">global</span> <span class="n">score</span>
+</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
 
-    if keyboard.left:
-        ship.x = ship.x - 5
-    if keyboard.right:
-        ship.x = ship.x + 5
-
-    gem.y = gem.y + 4
-    if gem.y &gt; 600:
-        gem.x = random.randint(20, 780)
-        gem.y = 0
-    if gem.colliderect(ship):
-        gem.x = random.randint(20, 780)
-        gem.y = 0
-        score = score + 1
-</code></pre></div>
+    <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">ship</span><span class="p">):</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="hll">        <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span>
+</span></code></pre></div>
 
 <h1>Displaying Score</h1>
 <p>To display the score, we will use the <code>screen.draw.text()</code> function.</p>
-<div class="codehilite"><pre><span></span><code>screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(255,255,255), fontsize=30)
+<div class="codehilite"><pre><span></span><code><span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The parameters are...</p>
@@ -84,46 +84,46 @@
 <p><code>color=(255,255,255)</code> : This is the color of the text, in this case, it is white</p>
 <p><code>fontsize=30</code> : The size of the font.</p>
 <p>Like all the other drawing functions, we'll need to put this inside the <code>draw()</code> function. After this is done, your program should look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-ship = Actor(&#39;playership1_blue&#39;)
-ship.x = 370
-ship.y = 550
+<span class="n">ship</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;playership1_blue&#39;</span><span class="p">)</span>
+<span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">370</span>
+<span class="n">ship</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">550</span>
 
-gem = Actor(&#39;gemgreen&#39;)
-gem.x = random.randint(20, 780)
-gem.y = 0
+<span class="n">gem</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;gemgreen&#39;</span><span class="p">)</span>
+<span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+<span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 
-score = 0
+<span class="hll"><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+<span class="hll">    <span class="k">global</span> <span class="n">score</span>
+</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
 
-def update():
-    global score
-
-    if keyboard.left:
-        ship.x = ship.x - 5
-    if keyboard.right:
-        ship.x = ship.x + 5
-
-    gem.y = gem.y + 4
-    if gem.y &gt; 600:
-        gem.x = random.randint(20, 780)
-        gem.y = 0
-    if gem.colliderect(ship):
-        gem.x = random.randint(20, 780)
-        gem.y = 0
-        score = score + 1
-
-def draw():
-    screen.fill((80,0,70))
-    gem.draw()
-    ship.draw()
-    screen.draw.text(&#39;Score: &#39; + str(score), (15,10), color=(255,255,255), fontsize=30)
-
-pgzrun.go() # Must be last line
+    <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">ship</span><span class="p">):</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+        <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="hll">        <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">70</span><span class="p">))</span>
+    <span class="n">gem</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">ship</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="hll">    <span class="n">screen</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

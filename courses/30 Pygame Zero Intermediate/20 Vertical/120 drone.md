@@ -10,26 +10,26 @@ Adding the Drone
 ===
 Since we are expecting only one drone, we won't need a list for it.
 
-```
+```python
 drone = Actor('drone')
 ```
 
 We need to keep track of whether we have picked up the strawberry power up, so we'll add in a new variable. We'll set this variable to ```False``` at the start of the game (...haven't picked up powerup yet).
 
-```
+```python
 powerup2 = False
 ```
 
 Look for this code in your program...
 
-```
+```python
 if powerups[hit].image == 'powerup2':
     powerup1 += 1
 ```
 
 That's where we detect the type of powerup that we've picked up. We are going to modify it to detect the strawberry powerup.
 
-```
+```python
 if powerups[hit].image == 'powerup2':
     powerup1 += 1
 elif powerups[hit].image == 'powerup3':
@@ -38,20 +38,20 @@ elif powerups[hit].image == 'powerup3':
 
 Since we are modifying ```powerup2```, be sure to declare it as global...
 
-```
+```python
 global bullet_delay, powerup1, powerup2
 ```
 
 We only draw our drone if we ```powerup2``` is True. So add this to your ```draw()``` function.
 
-```
+```python
 if powerup2:  // This is the same as writing: if powerup2 == True:
     drone.draw()
 ```
 
 We want our drone to follow our ship, so add this to the ```update()``` function.
 
-```
+```python
 drone.move_towards(player, 3)
 ```
 
@@ -59,7 +59,7 @@ Making it Shoot
 ===
 The code to make the drone shoot is similar to that for the player. To keep it neat, we should put it inside our ```shoot()``` function, together with the rest of the shoot code.
 
-```
+```python
 if powerup2:
     bullet = Actor('player_bullet')
     bullet.x = drone.x
@@ -74,7 +74,7 @@ At this Point...
 ===
 Right now, both your power ups should be completed. You can add more powerups if you like, and there will be some ideas for that in the challenges section at the end. Your code at this point should look like this.
 
-```
+```python
 import pgzrun
 import random
 from pgzhelper import *

@@ -21,7 +21,7 @@ The first sound that I'm adding is the shooting sound. I've selected the file **
 
 To play a sound, we need to add a Python statement that looks like this...
 
-```
+```python
 sounds.sfx_sounds_interaction25.play()
 ```
 
@@ -33,7 +33,7 @@ sounds.sfx_sounds_interaction25.play()
 
 Since this sound should play when we shoot a bullet, we'll put it under the code where we detect the space key...
 
-```
+```python
 if keyboard.space and bullet_delay == 0:
     sounds.sfx_sounds_interaction25.play()
     .
@@ -51,7 +51,7 @@ I'm using the file **main_theme.wav** which is not from your sound pack. I found
 
 To play the music and make it repeat forever, we need to add...
 
-```
+```python
 sounds.main_theme.play(-1)
 ```
 

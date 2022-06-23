@@ -36,12 +36,12 @@
         <div id="content">
             <h1>First Program</h1>
 <p>This is the structure of a Pygame Zero program...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <p>The first line, <code>import pgzrun</code>, loads the Pygame Zero module, and the last line, <code>pgzrun.go()</code>, is a function that starts Pygame Zero. In the middle we have <code>WIDTH = 800</code> and <code>HEIGHT = 600</code> which sets the width and height of the game window.</p>
@@ -51,23 +51,23 @@ pgzrun.go() # Must be last line
 <p>Remember the <strong>images</strong> folder I told you to create inside your project folder? That's where your spaceship image need to go. Open the zip file, choose a suitable image, and copy it into the <strong>images</strong> folder. I'm using this image...</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/02/playership1_blue.png" /></p>
 <p><strong>IMPORTANT: Your image filename must only contain lowercase letters, numbers and underscores.</strong></p>
-<p>Once that is done, you can add the spaceship to your Python program...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<p>Once that is done, you can add the spaceship to your Python program (new and modified lines are highlighted in yellow)...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-ship = Actor(&#39;playership1_blue&#39;)
-ship.x = 370
-ship.y = 550
-
-def draw():
-    ship.draw()
-
-pgzrun.go() # Must be last line
+<span class="hll"><span class="n">ship</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;playership1_blue&#39;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">370</span>
+</span><span class="hll"><span class="n">ship</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">550</span>
+</span>
+<span class="hll"><span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+</span><span class="hll">    <span class="n">ship</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
-<p>This is what each line does...</p>
+<p>This is what each new line does...</p>
 <p><code>ship = Actor('playership1_blue')</code> : Create a new <strong>Actor</strong> using the <em>playership1_blue</em> image file. If you are using a different file, you'll need  to change this.</p>
 <p><code>ship.x = 370</code> : Set the x position of the ship to 370. <strong>Try changing this!</strong></p>
 <p><code>ship.y = 550</code> : Set the y position of the ship to 550. <strong>Try changing this!</strong></p>

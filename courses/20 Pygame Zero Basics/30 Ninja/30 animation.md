@@ -2,7 +2,7 @@ Animation
 ===
 In Scratch, you can make your sprites animate by changing its costumes. In Pygame Zero, we do the same by changing the images. One way to do this is...
 
-```
+```python
 def update():
     if runner.image == 'run__000':
       runner.image == 'run__001'
@@ -22,7 +22,7 @@ Next, open up the downloaded zip file and copy the ```pgzhelper.py``` file that'
 
 Finally, we need to load the ```pgyhelper.py``` module. Add ```from pgzhelper import *``` to your Python game file. It should now look like this...
 
-```
+```python
 import pgzrun
 from pgzhelper import *
 
@@ -54,7 +54,7 @@ Programming the Ninja
 ===
 We'll add in the ninja into our game using...
 
-```
+```python
 runner = Actor('run__000')
 run_images = ['run__000', 'run__001', 'run__002', 'run__003', 'run__004', 'run__005', 'run__006', 'run__007', 'run__008', 'run__009']
 runner.images = run_images
@@ -70,7 +70,7 @@ This is what each line does...
 
 We'll also need to add ```runner.draw()``` into the ```draw()``` function. Once completed, your program should look like this...
 
-```
+```python
 import pgzrun
 from pgzhelper import *
 
@@ -91,7 +91,7 @@ pgzrun.go() # Must be last line
 
 That should display your ninja on screen, but it's not running yet! Add in the update function like this...
 
-```
+```python
 def update():
   runner.next_image()
 ```
@@ -101,7 +101,7 @@ This tells Pygame Zero to switch to the next image everytime it updates. With th
 ### Adjusting Position
 You can adjust the position of the ninja using ```runner.x``` and ```runner.y```. Try the following...
 
-```
+```python
 runner.x = 100
 runner.y = 400
 ```

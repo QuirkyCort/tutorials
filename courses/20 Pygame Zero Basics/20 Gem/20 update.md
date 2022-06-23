@@ -4,7 +4,7 @@ Earlier, we created the ```draw()``` function. This is a special function that P
 
 Let's add in the ```update()``` function and program it to react to keypresses.
 
-```
+```python hl_lines="10 11 12 13 14"
 import pgzrun
 
 WIDTH = 800
@@ -26,16 +26,6 @@ def draw():
 pgzrun.go() # Must be last line
 ```
 
-This is what we added...
-
-```
-def update():
-    if keyboard.left:
-        ship.x = ship.x - 5
-    if keyboard.right:
-        ship.x = ship.x + 5
-```
-
 Whenever Pygame Zero runs our ```update()``` function, we will check if the **left key** is pressed. If it is, we'll **reduce** the **x position** by **5**. If the **right key** is pressed, we'll **increase** the **x position** by **5**.
 
 Try out the program! Write it in **IDLE** and run it using **F5** or **Run -> Run Module**. Did that work the way you expected?
@@ -50,7 +40,7 @@ That's because we told Pygame Zero to update the ship's position and draw it to 
 
 To erase the screen, we'll fill the entire screen with a single color. We'll do this in the ```draw()``` function, using...
 
-```
+```python
 screen.fill((80,0,70))
 ```
 
@@ -58,7 +48,7 @@ The ```(80,0,70)``` is a **tuple** (...a tuple is like a list, but it cannot be 
 
 Your progam should now look like this...
 
-```
+```python hl_lines="17"
 import pgzrun
 
 WIDTH = 800

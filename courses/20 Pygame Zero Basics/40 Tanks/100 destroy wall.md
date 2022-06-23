@@ -2,22 +2,22 @@ Destroying Walls
 ===
 We want to destroy the wall if the bullet hits it. To detect a hit, we can use the **collidelist** function on the bullet, similar to what we previously did with the tank. Since we have multiple bullets in a list, we will need to go through every bullet using a **for** loop.
 
-```
+```python
 for bullet in bullets:
     wall_index = bullet.collidelist(walls)
 ```
 
 If **wall_index** is **-1**, that means that the bullet didn't hit any walls. Else, **wall_index** will contain the index of the wall section that the bullet hit. We can then delete that wall section using **del**.
 
-```
+```python
 for bullet in bullets:
     wall_index = bullet.collidelist(walls)
     del walls[wall_index]
 ```
 
-The **del** command tells python to delete **walls[wall_index]** from the **walls** list. Test out the **del** command below. Make sure you understand how it works.
+The **del** command tells python to delete **walls[wall_index]** from the **walls** list. Make sure you understand how it works.
 
-```python.run
+```python
 animals = ['cat', 'dog', 'monkey', 'elephant']
 print(animals)
 del animals[1]
@@ -28,16 +28,16 @@ Destroying Bullet
 ===
 Now everytime you fire a bullet, it will pass through all the walls, destroying every wall section that it touches. That's probably not what you want! Let's make the bullet disappear too when it hits a wall. Another way or removing an item from a list is to use the **remove** function.
 
-```
+```python
 for bullet in bullets:
     wall_index = bullet.collidelist(walls)
     del walls[wall_index]
     bullets.remove(bullet)
 ```
 
-Just like **del**, the **remove** function will remove an item from a list. The difference is that **del** requires a list with an index, while **remove** expects the value of the item to be removed. Test it out below...
+Just like **del**, the **remove** function will remove an item from a list. The difference is that **del** requires a list with an index, while **remove** expects the value of the item to be removed.
 
-```python.run
+```python
 animals = ['cat', 'dog', 'monkey', 'elephant']
 print(animals)
 animals.remove('monkey')
@@ -49,7 +49,7 @@ Now everytime your bullet hits a wall, both the bullet and the wall will disappe
 ### Reaching the edge
 There is one more condition for removing the bullet; and that's when it reaches the edge of the screen.
 
-```
+```python
 if bullet.x < 0 or bullet.x > 800 or bullet.y < 0 or bullet.y > 600:
     bullets.remove(bullet)
 ```
@@ -58,7 +58,7 @@ Can you figure out where to insert this piece of code? Try it out!
 
 At this point, your code should look like this...
 
-```
+```python
 import pgzrun
 import random
 

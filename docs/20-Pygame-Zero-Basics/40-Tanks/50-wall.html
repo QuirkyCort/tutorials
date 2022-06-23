@@ -49,13 +49,13 @@ Number of wall pieces = 800 / 50 = <strong>16 pieces</strong></p>
 Height of wall = 50<br />
 Number of wall pieces = 600 / 50 = <strong>12 pieces</strong></p>
 <p><strong>When drawing the wall, we need to repeat 16 times in the horizontal (x) direction, and 12 times in the vertical (y) direction.</strong></p>
-<div class="codehilite"><pre><span></span><code>walls = []
-for x in range(16):
-    for y in range(12):
-        wall = Actor(&#39;wall&#39;)
-        wall.x = x * 50
-        wall.y = y * 50
-        walls.push(wall)
+<div class="codehilite"><pre><span></span><code><span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;wall&#39;</span><span class="p">)</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span>
+        <span class="n">walls</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 </code></pre></div>
 
 <p>This is what each line does...</p>
@@ -67,61 +67,61 @@ for x in range(16):
 <p><code>walls.push(wall)</code> We add the piece of wall into our list of walls.</p>
 <h3>Drawing the wall</h3>
 <p>Just like the tank, we need to draw the wall in the <strong>draw()</strong> function. As we have a list of walls with many wall actors, we'll need to go through the list and draw each of them one by one using a <strong>for</strong> loop.</p>
-<div class="codehilite"><pre><span></span><code>for wall in walls:
-    wall.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
+    <span class="n">wall</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>With that, your program should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-tank = Actor(&#39;tank_blue&#39;)
-tank.y = 575
-tank.x = 400
-tank.angle = 90
+<span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">575</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 
-background = Actor(&#39;grass&#39;)
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-walls = []
-for x in range(16):
-    for y in range(12):
-        wall = Actor(&#39;wall&#39;)
-        wall.x = x * 50
-        wall.y = y * 50
-        walls.append(wall)
+<span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;wall&#39;</span><span class="p">)</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span>
+        <span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 
-def update():
-    if keyboard.left:
-        tank.x = tank.x - 2
-        tank.angle = 180
-    elif keyboard.right:
-        tank.x = tank.x + 2
-        tank.angle = 0
-    elif keyboard.up:
-        tank.y = tank.y - 2
-        tank.angle = 90
-    elif keyboard.down:
-        tank.y = tank.y + 2
-        tank.angle = 270
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
 
-def draw():
-    screen.fill((0,0,0))
-    background.draw()
-    tank.draw()
-    for wall in walls:
-        wall.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <h3>Fixing the wall</h3>
 <p>If you tried running the program, you'll see something like this...</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2020/09/wall-problem.png" /></p>
 <p>Remember that the position of an actor is based on its center. To fix this problem, we need to add half the width and height of the wall to its x and y. Since the width and height of the wall is 50, this means we need to add 25. Change the <strong>wall.x</strong> and <strong>wall.y</strong> lines to this...</p>
-<div class="codehilite"><pre><span></span><code>wall.x = x * 50 + 25
-wall.y = y * 50 + 25
+<div class="codehilite"><pre><span></span><code><span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span>
+<span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span>
 </code></pre></div>
 
 <p>Done! The walls covered up our tank, but that's ok for now. In the next section, we'll remove some of the walls to make space for our tank.</p>

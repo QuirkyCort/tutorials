@@ -36,22 +36,22 @@
         <div id="content">
             <h1>Drawing the Cannon Bullet</h1>
 <p>We want to create a new cannon bullet everytime we press the space bar. Since we can have more than one bullet at a time, we'll use a list to hold all our bullets. Start by creating an empty list...</p>
-<div class="codehilite"><pre><span></span><code>bullets = []
+<div class="codehilite"><pre><span></span><code><span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div>
 
 <p>Next, in <strong>update()</strong>, check if the space key is pressed and add a bullet if it is.</p>
-<div class="codehilite"><pre><span></span><code>if keyboard.space:
-    bullet = Actor(&#39;bulletblue2&#39;)
-    bullet.angle = tank.angle
-    bullet.x = tank.x
-    bullet.y = tank.y
-    bullets.append(bullet)
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+    <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;bulletblue2&#39;</span><span class="p">)</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">angle</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
 </code></pre></div>
 
 <p>We set the bullet angle to be the same as the tank so that they'll face the same direction. We also set the x and y of the bullet to be the same as the tank, so that the bullet will start from the tank.</p>
 <p>Don't forget to draw the bullets in the <strong>draw()</strong> function...</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    bullet.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>When you try out the program, you'll see a bullet created each time you press the space bar. But the bullet just stays there and don't do anything, so next, we'll make the bullet fly.</p>
@@ -89,130 +89,130 @@
 </tbody>
 </table>
 <p>We should move the bullet in the <strong>update()</strong> function. Using a <strong>for</strong> loop.</p>
-<div class="codehilite"><pre><span></span><code>for bullet in bullets:
-    if bullet.angle == 0:
-        bullet.x = bullet.x + 5
-    elif bullet.angle == 90:
-        bullet.y = bullet.y - 5
-    elif bullet.angle == 180:
-        bullet.x = bullet.x - 5
-    elif bullet.angle == 270:
-        bullet.y = bullet.y + 5
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span>
 </code></pre></div>
 
 <h1>Hold-Off</h1>
 <p>Now our bullet looks more like a laser! That's because when we press the space bar, it creates a LOT of bullets very rapidly. We should add a hold-off. This is some code that stops the tank for shooting for a while after each bullet. We'll start by creating a new variable.</p>
-<div class="codehilite"><pre><span></span><code>bullet_holdoff = 0
+<div class="codehilite"><pre><span></span><code><span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>Then modify our shoot code...</p>
-<div class="codehilite"><pre><span></span><code>if bullet_holdoff == 0:
-    if keyboard.space:
-        bullet = Actor(&#39;bulletblue2&#39;)
-        bullet.angle = tank.angle
-        bullet.x = tank.x
-        bullet.y = tank.y
-        bullets.append(bullet)
-        bullet_holdoff = 100
-else:
-    bullet_holdoff = bullet_holdoff - 1
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">bullet_holdoff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+        <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;bulletblue2&#39;</span><span class="p">)</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">angle</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+        <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="n">bullet_holdoff</span> <span class="o">-</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>If you try to run the code now, you'll get an error. Do you know why? Look at the <strong>Score</strong> section in Gem Catcher and see if you can figure out what's missing! (Answer is at the bottom of this page, but try to figure it out on your own!)</p>
 <p>What the above code does is...</p>
 <p><code>if bullet_holdoff == 0:</code> Only allow firing if bullet_holdoff is 0.</p>
 <p><code>bullet_holdoff = 100</code> Set the bullet_holdoff to 100. This will prevent firing since it is no longer zero. You can try changing this value and see what effects it has.</p>
-<div class="codehilite"><pre><span></span><code>else:
-    bullet_holdoff = bullet_holdoff - 1
+<div class="codehilite"><pre><span></span><code><span class="k">else</span><span class="p">:</span>
+    <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="n">bullet_holdoff</span> <span class="o">-</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>If the bullet_holdoff is not zero, we'll decrease it by one. This will gradually reduce it until it reaches zero again.</p>
 <p>Your code should now look like this...</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-WIDTH=800
-HEIGHT=600
+<span class="n">WIDTH</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">HEIGHT</span><span class="o">=</span><span class="mi">600</span>
 
-tank = Actor(&#39;tank_blue&#39;)
-tank.y = 575
-tank.x = 400
-tank.angle = 90
+<span class="n">tank</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;tank_blue&#39;</span><span class="p">)</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">575</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
 
-background = Actor(&#39;grass&#39;)
+<span class="n">background</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;grass&#39;</span><span class="p">)</span>
 
-walls = []
-for x in range(16):
-    for y in range(10):
-        if random.randint(0, 100) &lt; 50:
-            wall = Actor(&#39;wall&#39;)
-            wall.x = x * 50 + 25
-            wall.y = y * 50 + 25 + 50
-            walls.append(wall)
+<span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="n">wall</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;wall&#39;</span><span class="p">)</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">25</span> <span class="o">+</span> <span class="mi">50</span>
+            <span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 
-bullets = []
-bullet_holdoff = 0
+<span class="n">bullets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">0</span>
 
-def update():
-    global bullet_holdoff
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">bullet_holdoff</span>
 
-    # This part is for the tank
-    original_x = tank.x
-    original_y = tank.y
+    <span class="c1"># This part is for the tank</span>
+    <span class="n">original_x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">original_y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
 
-    if keyboard.left:
-        tank.x = tank.x - 2
-        tank.angle = 180
-    elif keyboard.right:
-        tank.x = tank.x + 2
-        tank.angle = 0
-    elif keyboard.up:
-        tank.y = tank.y - 2
-        tank.angle = 90
-    elif keyboard.down:
-        tank.y = tank.y + 2
-        tank.angle = 270
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">180</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">270</span>
 
-    if tank.collidelist(walls) != -1:
-        tank.x = original_x
-        tank.y = original_y
+    <span class="k">if</span> <span class="n">tank</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">walls</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
 
-    if tank.x &lt; 0 or tank.x &gt; 800 or tank.y &lt; 0 or tank.y &gt; 600:
-        tank.x = original_x
-        tank.y = original_y
+    <span class="k">if</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">800</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">original_x</span>
+        <span class="n">tank</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">original_y</span>
 
-    # This part is for the bullet
-    if bullet_holdoff == 0:
-        if keyboard.space:
-            bullet = Actor(&#39;bulletblue2&#39;)
-            bullet.angle = tank.angle
-            bullet.x = tank.x
-            bullet.y = tank.y
-            bullets.append(bullet)
-            bullet_holdoff = 100
-    else:
-        bullet_holdoff = bullet_holdoff - 1
+    <span class="c1"># This part is for the bullet</span>
+    <span class="k">if</span> <span class="n">bullet_holdoff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+            <span class="n">bullet</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;bulletblue2&#39;</span><span class="p">)</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">angle</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">bullets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+            <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bullet_holdoff</span> <span class="o">=</span> <span class="n">bullet_holdoff</span> <span class="o">-</span> <span class="mi">1</span>
 
-    for bullet in bullets:
-        if bullet.angle == 0:
-            bullet.x = bullet.x + 5
-        elif bullet.angle == 90:
-            bullet.y = bullet.y - 5
-        elif bullet.angle == 180:
-            bullet.x = bullet.x - 5
-        elif bullet.angle == 270:
-            bullet.y = bullet.y + 5
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="k">elif</span> <span class="n">bullet</span><span class="o">.</span><span class="n">angle</span> <span class="o">==</span> <span class="mi">270</span><span class="p">:</span>
+            <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">bullet</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span>
 
-def draw():
-    screen.fill((0,0,0))
-    background.draw()
-    tank.draw()
-    for bullet in bullets:
-        bullet.draw()
-    for wall in walls:
-        wall.draw()
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">background</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">tank</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">bullets</span><span class="p">:</span>
+        <span class="n">bullet</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
+        <span class="n">wall</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
 
 <h3>What's missing?</h3>

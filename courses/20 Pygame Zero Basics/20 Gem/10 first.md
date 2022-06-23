@@ -2,7 +2,7 @@ First Program
 ===
 This is the structure of a Pygame Zero program...
 
-```
+```python
 import pgzrun
 
 WIDTH = 800
@@ -25,9 +25,9 @@ Remember the **images** folder I told you to create inside your project folder? 
 
 **IMPORTANT: Your image filename must only contain lowercase letters, numbers and underscores.**
 
-Once that is done, you can add the spaceship to your Python program...
+Once that is done, you can add the spaceship to your Python program (new and modified lines are highlighted in yellow)...
 
-```
+```python hl_lines="6 7 8 10 11"
 import pgzrun
 
 WIDTH = 800
@@ -43,7 +43,7 @@ def draw():
 pgzrun.go() # Must be last line
 ```
 
-This is what each line does...
+This is what each new line does...
 
 ```ship = Actor('playership1_blue')``` : Create a new **Actor** using the *playership1_blue* image file. If you are using a different file, you'll need  to change this.
 

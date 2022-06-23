@@ -43,9 +43,9 @@
 <p>...and adding a background to it using a rounded rectangle...</p>
 <p><img alt="" src="https://www.aposteriori.com.sg/wp-content/uploads/2021/01/game-over.png" /></p>
 <p>We'll add this to our game, but don't draw it yet.</p>
-<div class="codehilite"><pre><span></span><code>game_over = Actor(&#39;game_over&#39;)
-game_over.x = 400
-game_over.y = 300
+<div class="codehilite"><pre><span></span><code><span class="n">game_over</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;game_over&#39;</span><span class="p">)</span>
+<span class="n">game_over</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">game_over</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
 </code></pre></div>
 
 <h1>Game States</h1>
@@ -57,34 +57,34 @@ game_over.y = 300
 </ul>
 <p>In each of theses states, the program will do and show different things. For example, in the "Game over screen" state, you can't shoot, and the player isn't shown.</p>
 <p>To keep track of the game state, we'll create a new variable.</p>
-<div class="codehilite"><pre><span></span><code>game_state = 1
+<div class="codehilite"><pre><span></span><code><span class="n">game_state</span> <span class="o">=</span> <span class="mi">1</span>
 </code></pre></div>
 
 <p>We'll use 1 to represent the "Actual game" state, and 2 to represent the "Game over screen" state. When the player touches the enemy bullet or enemy, we'll change the state to 2.</p>
-<div class="codehilite"><pre><span></span><code>if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
-    game_state = 2
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemy_bullets</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">game_state</span> <span class="o">=</span> <span class="mi">2</span>
 </code></pre></div>
 
 <p>Since we are changing <code>game_state</code>, remember to declare it as global.</p>
-<div class="codehilite"><pre><span></span><code>global bullet_delay, powerup1, powerup2, game_state
+<div class="codehilite"><pre><span></span><code><span class="k">global</span> <span class="n">bullet_delay</span><span class="p">,</span> <span class="n">powerup1</span><span class="p">,</span> <span class="n">powerup2</span><span class="p">,</span> <span class="n">game_state</span>
 </code></pre></div>
 
 <h1>Explosion and Sound Effects</h1>
 <p>Let's add in an explosion if the player is destroyed. See if you can figure out where to put this code.</p>
-<div class="codehilite"><pre><span></span><code>explosion = Actor(&#39;explosion1&#39;)
-explosion.x = player.x
-explosion.y = player.y
-explosion.images = [&#39;explosion1&#39;, &#39;explosion2&#39;]
-explosion.fps = 8
-explosion.life = 100
-explosions.append(explosion)
+<div class="codehilite"><pre><span></span><code><span class="n">explosion</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;explosion1&#39;</span><span class="p">)</span>
+<span class="n">explosion</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span>
+<span class="n">explosion</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">y</span>
+<span class="n">explosion</span><span class="o">.</span><span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;explosion1&#39;</span><span class="p">,</span> <span class="s1">&#39;explosion2&#39;</span><span class="p">]</span>
+<span class="n">explosion</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">explosion</span><span class="o">.</span><span class="n">life</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">explosions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">explosion</span><span class="p">)</span>
 </code></pre></div>
 
 <p>This works the same as the enemy explosion, except that we made it last longer (...life = 100).</p>
 <p>We'll also have some sound effects...</p>
-<div class="codehilite"><pre><span></span><code>sounds.main_theme.stop()
-sounds.sfx_exp_medium12.play()
-sounds.subdued_theme.play(-1)
+<div class="codehilite"><pre><span></span><code><span class="n">sounds</span><span class="o">.</span><span class="n">main_theme</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="n">sounds</span><span class="o">.</span><span class="n">sfx_exp_medium12</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+<span class="n">sounds</span><span class="o">.</span><span class="n">subdued_theme</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 
 <p>This will...</p>
@@ -96,35 +96,35 @@ sounds.subdued_theme.play(-1)
 <p>They only work if you have the corresponding sound files in your sounds folder. You don't have to use the same sound as me; choose whichever sound and music you like.</p>
 <h1>Game Over</h1>
 <p>If <code>game_state</code> is 2, we'll draw the game over screen.</p>
-<div class="codehilite"><pre><span></span><code>if game_state == 2:
-    game_over.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">game_state</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">game_over</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>We should also modify our program, so that it'll only draw the player if <code>game_state</code> is 1.</p>
-<div class="codehilite"><pre><span></span><code>if game_state == 1:
-    player.draw()
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">game_state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre></div>
 
 <p>Similarly, we'll allow shooting only if <code>game_state</code> is 1.</p>
-<div class="codehilite"><pre><span></span><code>if keyboard.space and bullet_delay == 0 and game_state == 1:
-    shoot()
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="n">bullet_delay</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">game_state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">shoot</span><span class="p">()</span>
 </code></pre></div>
 
 <p>Also, we can only pickup powerups if <code>game_state</code> is 1.</p>
-<div class="codehilite"><pre><span></span><code>hit = player.collidelist(powerups)
-if hit != -1 and game_state == 1:
-.
-.
-.
+<div class="codehilite"><pre><span></span><code><span class="n">hit</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">powerups</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">hit</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">game_state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
 </code></pre></div>
 
 <p>Finally, you may have noticed a bug when you test the program. Sometimes after the player is destroyed, you may see another explosion happen out of nowhere. That happens because the player is still able to collide with the enemy even if the player isn't drawn on screen!</p>
 <p>Let's modify the player collision code so that the player cannot collide unless the <code>game_state</code> is 1.</p>
-<div class="codehilite"><pre><span></span><code>if game_state == 1:
-    if player.collidelist(enemy_bullets) != -1 or player.collidelist(enemies) != -1:
-    .
-    .
-    .
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">game_state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemy_bullets</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">player</span><span class="o">.</span><span class="n">collidelist</span><span class="p">(</span><span class="n">enemies</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

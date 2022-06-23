@@ -15,7 +15,7 @@ Detecting when Enemy is Hit
 
 Same as in previous games, we can detect a hit using ```collidelist()```. If a collision occurs, we'll remove both the bullet and the enemy.
 
-```
+```python
 for bullet in bullets:
     hit = bullet.collidelist(enemies)
     if hit != -1:
@@ -33,13 +33,13 @@ Creating an Explosion
 ===
 The explosion effect isn't absolutely necessary, but it makes the game look more professional. We can have multiple explosions on screen at any time, so as usual, we'll create a list for it...
 
-```
+```python
 explosions = []
 ```
 
 Each time a bullet hit an enemy, we'll add an explosion at the spot where the enemy was and add it to the explosions list.
 
-```
+```python
 explosion = Actor('explosion1')
 explosion.x = enemies[hit].x
 explosion.y = enemies[hit].y
@@ -50,20 +50,20 @@ Make sure you place this code **before** the ```enemies.remove()```. If you had 
 
 Since I have two explosion images, I'll add both of them to ```images``` and set an fps.
 
-```
+```python
 explosion.images = ['explosion1', 'explosion2']
 explosion.fps = 8
 ```
 
 Next, I'll set a variable inside explosion, which I'm calling ```life```. You can use any variable name you want. This variable will store a countdown that represents how long the explosion will be displayed. Feel free to change this number and see what it does.
 
-```
+```python
 explosion.life = 15
 ```
 
 We only want the explosion to appear for a short while, so we'll decrease ```life``` on each update, and when it reaches zero, we'll delete away the explosion. We'll also run the ```animate()``` function here, so that the explosion will look animated.
 
-```
+```python
 for explosion in explosions:
     explosion.animate()
     explosion.life -= 1
@@ -73,7 +73,7 @@ for explosion in explosions:
 
 Finally, we'll need to draw the explosion...
 
-```
+```python
 for explosion in explosions:
     explosion.draw()
 ```
@@ -84,7 +84,7 @@ At this Point...
 ===
 Now you should be able to destroy the enemies!
 
-```
+```python
 import pgzrun
 import random
 from pgzhelper import *

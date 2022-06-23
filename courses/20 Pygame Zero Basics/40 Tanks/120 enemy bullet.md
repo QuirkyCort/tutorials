@@ -2,7 +2,7 @@ Enemy Bullets
 ===
 Just like with our player bullet, there can be more than one enemy bullet, so we'll create a list to store all of them.
 
-```
+```python
 enemy_bullets = []
 ```
 
@@ -10,13 +10,13 @@ To shoot, we'll create a new bullet and add it to the **enemy_bullets** list. Th
 
 Replace this line...
 
-```
+```python
 print('shoot')
 ```
 
 ...with this...
 
-```
+```python
 bullet = Actor('bulletred2')
 bullet.angle = enemy.angle
 bullet.x = enemy.x
@@ -26,7 +26,7 @@ enemy_bullets.append(bullet)
 
 You'll also need to draw the bullet. Add this into the **draw()** function...
 
-```
+```python
 for bullet in enemy_bullets:
     bullet.draw()
 ```
@@ -37,7 +37,7 @@ Moving the bullets
 ===
 We want the enemy bullets to move. And just like the player bullet, it should destroy the walls and disappear when it hits the wall or the edge of the screen. The code is the same as for the player bullet, but with the list variable changed to **enemy_bullets**.
 
-```
+```python
 for bullet in enemy_bullets:
     if bullet.angle == 0:
         bullet.x = bullet.x + 5

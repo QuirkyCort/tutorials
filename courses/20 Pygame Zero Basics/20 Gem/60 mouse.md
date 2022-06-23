@@ -4,7 +4,7 @@ We can also modify our game to make it work with the mouse. Like Scratch, Pygame
 
 To detect mouse movement, we can use the ```on_mouse_move(pos, rel, buttons)``` function. Try adding this to your game...
 
-```
+```python
 def on_mouse_move(pos, rel, buttons):
     ship.x = pos[0]
 ```
@@ -17,11 +17,12 @@ The purpose of the 3 parameters are...
 
 ```buttons``` : This provides a list of mouse buttons that are pressed. For example, if you want to check if the left button is pressed...
 
-```
+```python
 def on_mouse_move(pos, rel, buttons):
     if mouse.LEFT in buttons:
         print('left click')
 ```
+
 ***This is just an example. Don't add it to your game***
 
 Other Events
@@ -45,7 +46,7 @@ Besides mouse move, there are also other functions that will be run by Pygame Ze
 
 ```mod``` : A bitmask of modifier keys that were depressed. You can check them as follows...
 
-```
+```python
 def on_key_down(key, mod, unicode):
     if mod & keymods.LSHIFT:
         print('Left shift button pressed')
@@ -53,7 +54,7 @@ def on_key_down(key, mod, unicode):
 
 ```unicode``` : Where relevant, the character that was typed. You can check it like this...
 
-```
+```python
 def on_key_down(key, mod, unicode):
     if unicode == 'e':
         print('e button pressed')

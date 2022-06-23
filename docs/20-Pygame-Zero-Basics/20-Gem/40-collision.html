@@ -36,62 +36,62 @@
         <div id="content">
             <h1>Collision</h1>
 <p>We also want the gem to go back to the top if it touches the spaceship. If you had done Scratch before, you might remember the <code>if touching sprite</code> command. In Pygame Zero, we'll use <code>if gem.colliderect(ship):</code> or <code>if ship.colliderect(gem):</code> (...both works the same).</p>
-<div class="codehilite"><pre><span></span><code>if gem.colliderect(ship):
-    gem.y = 0
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">ship</span><span class="p">):</span>
+    <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p>...or...</p>
-<div class="codehilite"><pre><span></span><code>if ship.colliderect(gem):
-    gem.y = 0
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">ship</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">gem</span><span class="p">):</span>
+    <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 
 <p><strong>Try it out!</strong></p>
 <h1>Random</h1>
 <p>It's not vey interesting to have the gem fall from the same spot everytime. In <a href="https://trinket.io/aposteriori/courses/introduction-to-python#/fundamentals-loops/turtle-graphics">Introduction to Python</a>, you learned to use the <code>random</code> module. We'll use it here to randomize the x position of the gem.</p>
 <p>Before we can use the <code>random</code> module, we'll need to import it.</p>
-<div class="codehilite"><pre><span></span><code>import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
 </code></pre></div>
 
 <p>To assign a random x position, we use...</p>
-<div class="codehilite"><pre><span></span><code>gem.x = random.randint(20, 780)
+<div class="codehilite"><pre><span></span><code><span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The <code>random.randint(20, 780)</code> function will provide a random number between 20 to 780. This should be added whenever we return the gem to the top of the screen.</p>
 <p>Your program should look like this now.</p>
-<div class="codehilite"><pre><span></span><code>import pgzrun
-import random
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pgzrun</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">random</span>
+</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
 
-WIDTH = 800
-HEIGHT = 600
+<span class="n">ship</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;playership1_blue&#39;</span><span class="p">)</span>
+<span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">370</span>
+<span class="n">ship</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">550</span>
 
-ship = Actor(&#39;playership1_blue&#39;)
-ship.x = 370
-ship.y = 550
+<span class="n">gem</span> <span class="o">=</span> <span class="n">Actor</span><span class="p">(</span><span class="s1">&#39;gemgreen&#39;</span><span class="p">)</span>
+<span class="hll"><span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+</span><span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 
-gem = Actor(&#39;gemgreen&#39;)
-gem.x = random.randint(20, 780)
-gem.y = 0
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">keyboard</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
 
-def update():
-    if keyboard.left:
-        ship.x = ship.x - 5
-    if keyboard.right:
-        ship.x = ship.x + 5
+    <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+<span class="hll">        <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+</span>        <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="hll">    <span class="k">if</span> <span class="n">gem</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="n">ship</span><span class="p">):</span>
+</span><span class="hll">        <span class="n">gem</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">780</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">gem</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span>
+<span class="k">def</span> <span class="nf">draw</span><span class="p">():</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">70</span><span class="p">))</span>
+    <span class="n">gem</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">ship</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-    gem.y = gem.y + 4
-    if gem.y &gt; 600:
-        gem.x = random.randint(20, 780)
-        gem.y = 0
-    if gem.colliderect(ship):
-        gem.x = random.randint(20, 780)
-        gem.y = 0
-
-def draw():
-    screen.fill((80,0,70))
-    gem.draw()
-    ship.draw()
-
-pgzrun.go() # Must be last line
+<span class="n">pgzrun</span><span class="o">.</span><span class="n">go</span><span class="p">()</span> <span class="c1"># Must be last line</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">

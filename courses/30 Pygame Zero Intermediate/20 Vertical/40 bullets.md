@@ -31,13 +31,13 @@ Adding bullets to the game
 
 We want to create a new bullet everytime we press the space bar. Since we can have more than one bullet at a time, we'll use a list to hold all our bullets. Start by creating an empty list...
 
-```
+```python
 bullets = []
 ```
 
 Next, in **update()**, check if the space key is pressed and add a bullet if it is.
 
-```
+```python
 if keyboard.space:
     bullet = Actor('player_bullet')
     bullet.x = player.x
@@ -50,7 +50,7 @@ We set the bullet angle to be 90, so that it'll point upwards. We also set the x
 
 Don't forget to draw the bullets in the **draw()** function...
 
-```
+```python
 for bullet in bullets:
     bullet.draw()
 ```
@@ -71,7 +71,7 @@ To solve this, we can use some simple trigonometry (...sin, cos), but since you 
 
 First thing to do is to import the Pygame Zero Helper module. Add this to your program, just under "import pgzrun".
 
-```
+```python
 from pgzhelper import *
 ```
 
@@ -81,7 +81,7 @@ This will provide us with the ```move_forward``` method on the Actor.
 
 We should move the bullet in the **update()** function. Using a **for** loop.
 
-```
+```python
 for bullet in bullets:
     bullet.move_forward(15)
 ```
@@ -89,7 +89,7 @@ for bullet in bullets:
 ### Removing Bullet
 As it is, your ship should be able to shoot bullets, but these bullets lasts forever. They will continue to exists even if they are outside of the screen! To prevent that, we should remove bullets that has left the screen.
 
-```
+```python
 for bullet in bullets:
     bullet.move_forward(15)
     if bullet.y < 0:
@@ -102,13 +102,13 @@ Hold-Off
 ===
 Now our bullet looks more like a laser! That's because when we press the space bar, it creates a LOT of bullets very rapidly. We should add a hold-off. This is some code that stops the player for shooting for a while after each bullet. We'll start by creating a new variable.
 
-```
+```python
 bullet_delay = 0
 ```
 
 Then modify our shoot code...
 
-```
+```python
 if keyboard.space and bullet_delay == 0:
     bullet_delay = 5
     bullet = Actor('player_bullet')
@@ -131,7 +131,7 @@ What the above code does is...
 
 ```bullet_delay = 5``` Set the bullet_delay to 5. This will prevent firing since it is no longer zero. You can try changing this value and see what effects it has.
 
-```
+```python
 if bullet_delay > 0:
     bullet_delay -= 1
 ```
@@ -140,7 +140,7 @@ If the bullet_delay is greater than zero, we'll decrease it by one. This will gr
 
 Your code should now look like this...
 
-```
+```python
 import pgzrun
 from pgzhelper import *
 

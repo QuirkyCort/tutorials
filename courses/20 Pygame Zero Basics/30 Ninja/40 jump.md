@@ -8,7 +8,7 @@ In real life, objects are affected by gravity. To make our ninja jump realistica
 
 Let's start by adding in a variable for ```velocity_y``` and ```gravity```.
 
-```
+```python
 velocity_y = 0
 gravity = 1
 ```
@@ -22,7 +22,7 @@ Explanation for each line...
 
 Next, in ```update()``` we are going to change the velocity when the up arrow is pressed.
 
-```
+```python
 def update():
   global velocity_y
   runner.next_image()
@@ -43,7 +43,7 @@ This is what each line does...
 
 ```runner.y += velocity_y``` : Change our ninja's position using the velocity. The ```+=``` means to add ```velocity_y``` to ```runner.y```.
 
-```
+```python
 # Tips
 a += 1      # This line is the same as...
 a = a + 1   # ...this line.
@@ -58,7 +58,7 @@ Gravity will change our velocity. Under the ```runner.y += velocity_y``` line, l
 
 Now our ninja falls straight down! We haven't tell our ninja when to stop falling yet! Let's add that in next...
 
-```
+```python
 if runner.y > 400:
   velocity_y = 0
   runner.y = 400
@@ -68,7 +68,7 @@ Here we are treating ```y = 400`` as the "ground", and if the ninja is at a y po
 
 Your program should now look like this...
 
-```
+```python
 import pgzrun
 from pgzhelper import *
 

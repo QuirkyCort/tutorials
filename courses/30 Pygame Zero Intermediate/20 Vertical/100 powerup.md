@@ -54,13 +54,13 @@ Adding to Game
 ===
 We can have more than one powerup at a time, so we'll start with an empty list.
 
-```
+```python
 powerups = []
 ```
 
 Just like with our enemies, we are going to make the power-ups appear randomly, but with much lower frequency.
 
-```
+```python
 if random.randint(0, 1000) > 998:
     powerup = Actor('powerup1')
     powerup.y = -50
@@ -72,7 +72,7 @@ Unlike the enemy, I'm going to make my power go straight down, so I won't need a
 
 When a bullet hits the powerup, I want to make it jump up a little, and change to a random color. To help with that, I'll start by creating a variable that contains a list of all the powerup image names.
 
-```
+```python
 powerup_images = ['powerup1', 'powerup2', 'powerup3']
 ```
 
@@ -82,7 +82,7 @@ Next, we'll iterate through the powerups and see if any of them are colliding wi
 * Change the image to a random image
 * Remove the bullet
 
-```
+```python
 for powerup in powerups:
     hit = powerup.collidelist(bullets)
     if hit != -1:
@@ -95,7 +95,7 @@ Picking up
 ===
 When our player ship touches the powerup, it should disappear.
 
-```
+```python
 hit = player.collidelist(powerups)
     if hit != -1:
         powerups.remove(powerups[hit])
@@ -103,7 +103,7 @@ hit = player.collidelist(powerups)
 
 I'm also going to add a sound, to let the player know that they have successfully picked up a powerup. I'm using the "sfx_sounds_fanfare3.wav" soundfile, but you can use whatever you like.
 
-```
+```python
 sounds.sfx_sounds_fanfare3.play()
 ```
 
@@ -113,7 +113,7 @@ Right now, your player ship can shoot the powerup to change it, and can pick up 
 
 Your code should look like this now...
 
-```
+```python
 import pgzrun
 import random
 from pgzhelper import *

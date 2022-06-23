@@ -2,13 +2,13 @@ Losing
 ===
 It won't be much of a game if the enemy bullets can't hurt us. Let's fix that next. First we create a variable named **game_over** and put it outside of any functions (...I put mine just above **update()**, but you can put it further up if you want to).
 
-```
+```python
 game_over = False
 ```
 
 Next, we will set **game_over** to **True** if the enemy bullet hits our tank.
 
-```
+```python
 if bullet.colliderect(tank):
     game_over = True
 ```
@@ -17,7 +17,7 @@ Note that since our tank is not a list, we are using **colliderect** instead of 
 
 Finally, in **draw()**, we check if **game_over** is true...
 
-```
+```python
 elif game_over:
     screen.fill((0,0,0))
     screen.draw.text('You Lose!', (260,250), color=(255,255,255), fontsize=100)
@@ -29,7 +29,7 @@ Completed!
 ===
 The completed game should look like this...
 
-```
+```python
 import pgzrun
 import random
 
