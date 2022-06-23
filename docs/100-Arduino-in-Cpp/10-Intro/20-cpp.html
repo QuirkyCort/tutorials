@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li class="current">Intro to C++</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Intro to C++</h1>
+<p>Before C++, there was the C programming language.
+C was developed in 1972 by Dennis Ritchie and compared to the alternatives at the time, it provided many benefits such as portability (...the same code can run on different CPU) and efficiency.</p>
+<p>C++ was developed by Bjarne Stroustrup in 1979 to add new features to C, most notably support for object oriented programming.
+As for what an "object" is, well, that's something we'll leave for much later.</p>
+<p>Today, while more modern programming languages such as Python and Javascript may lead in popularity, C and C++ remains the most common programming language when performance and control is needed.
+Most operating systems are written in C/C++, and micro-controllers are mostly programmed in the same.</p>
+<h2>Arduino App</h2>
+<p>First, find the Arduino app on your computer and start it up...</p>
+<p><img alt="" src="images/arduinoIcon.jpg" /></p>
+<p>The Arduino app is an open-sourced platform for programming micro-controllers.
+You should now see a window with the following template code in it.
+If you see some other code, click on "File -&gt; New" to start a new sketch.</p>
+<p><img alt="" src="images/newSketch.png" /></p>
+<h2>Setup and Loop</h2>
+<p>In the default template, you will see two special functions; <strong>setup</strong> and <strong>loop</strong>.</p>
+<p>When an Arduino starts up (...or resets), it'll run the <strong>setup</strong> function <strong>one time</strong>.
+After that, it'll run the <strong>loop</strong> function <strong>repeatedly forever</strong>.</p>
+<p><img alt="" src="images/setupAndLoop.png" /></p>
+<p>Right now, both of these functions are empty.
+The lines with the <strong>//</strong> infront of them are comments; they do nothing.</p>
+<p>This is what each component in the code means...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// put your setup code here, to run once:</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>void</strong> : The <strong>void</strong> infront of <strong>setup</strong> means that the <strong>setup</strong> functions does not return any values.</p>
+<p><strong>setup()</strong> : The <strong>()</strong> at the end of <strong>setup</strong> tells the Arduino compiler that <strong>setup</strong> is a function.</p>
+<p><strong>{}</strong> : The curly brackets (...also call "braces") demarcates the content of the <strong>setup</strong> function.</p>
+<p><strong>//</strong> : The double slashes indicates that everything after it is a comment. The compiler will ignore it.</p>
+<h2>Our First Program</h2>
+<p>Modify the code to the following (new and modified lines are highlighted)...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// put your setup code here, to run once:</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// put your main code here, to run repeatedly:</span>
+<span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Here is what the code mean...</p>
+<p><strong>Serial.begin(9600);</strong> : This initializes the serial port at a baudrate of 9600. When the Arduino is plugged into the computer, it provides a serial connection that you can use to communicate with the Arduino. We'll be using it later in the code to send messages to the computer.</p>
+<p>Notice the semi-colon at the end of the line? Every statement in C++ must end with a <strong>;</strong>, it indicates to the compiler that the statement has ended.</p>
+<p><strong>Serial.print("Hello");</strong> : This sends the message "Hello" to the computer. Note that the double quotes <strong>""</strong> indicate that "Hello" is a string. Strings are used to represents words, sentences, and paragraphs.</p>
+<p><strong>delay(1000);</strong> : This creates a 1000ms (...1 second) delay. Basically, the Arduino will do nothing for 1 second before moving on to the next instruction.</p>
+<p><strong>Serial.println("World");</strong> : Notice that this is a little different from the previous <strong>Serial.print</strong>? When using <strong>Serial.println</strong>, the Arduino will add a newline at the end; that means that the next print will start on the next line.</p>
+<h2>Running and Monitoring</h2>
+<p>Before continuing, connect your Arduino to your computer. Then make sure you set the board and port correctly...</p>
+<p><img alt="" src="images/boardAndPort.png" /></p>
+<p>Your port may be different from mine, but the board should be the same "Arduino UNO" (...unless you are using something else).</p>
+<h3>Compile</h3>
+<p>Click the "Verify" button...</p>
+<p><img alt="" src="images/verify.jpg" /></p>
+<p>It will ask you to save the file if you haven't yet. You can call it whatever you want...</p>
+<p>If there are no errors, proceed. If there are errors, read the error message and try to fix them.</p>
+<h3>Upload</h3>
+<p>Click the "Upload" button...</p>
+<p><img alt="" src="images/upload.jpg" /></p>
+<p>It'll take a few seconds to upload the program to the Arduino and you should get a success message at the end.</p>
+<h3>Monitor</h3>
+<p>Click on the serial monitor button.</p>
+<p><img alt="" src="images/serialMonitorButton.png" /></p>
+<p>It should open up a new serial monitor window.
+If you have programmed your Arduino correctly, you should see the message "HelloWorld" appear on screen, with a 1 second delay between each word.</p>
+<h2>Serial Monitor</h2>
+<p>The serial monitor is a useful feature that can help immensely in debugging. Make liberal use of the Serial.print statements to keep track of what your program is doing.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

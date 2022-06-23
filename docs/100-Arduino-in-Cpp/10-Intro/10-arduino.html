@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li class="current">Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Introductions</h1>
+<p>In this program, you will learn what is an Arduino and as well as the basics of C++.
+This course is designed for people with no coding experience, and there are no prerequisite skills for this course.</p>
+<p>You will need either a PC (Windows, Mac, or Linux) and an Arduino for the program.
+There are many different models of Arduino that can be used, and most of what is covered here is identical across all models, but we will be using an Arduino UNO for our examples and you may find that it is easiest to follow along if you have the same.</p>
+<h2>What is an Arduino?</h2>
+<p><em>Short answer: This is an Arduino</em></p>
+<p><img alt="" src="images/arduino.jpg" /></p>
+<p>First we’ll need to know what is a “micro-controller”...</p>
+<p><img alt="" src="images/atmega328.jpg" /></p>
+<h3>Micro-controllers are...</h3>
+<p>Like a miniature computers...</p>
+<ul>
+<li>Contains processor, RAM, storage, and more</li>
+<li>Can be programmed like a computer</li>
+</ul>
+<p>Unlike a computer...</p>
+<ul>
+<li>Provides direct electrical connection to external devices</li>
+<li>Can’t run Minecraft or Fortnite...</li>
+</ul>
+<h3>Micro-controllers can be a pain…</h3>
+<p>They usually require a special device to program...</p>
+<p><img alt="" src="images/avrisp.jpg" /></p>
+<p>Require external parts to work (eg. voltage regulator, crystal oscillator, decoupling capacitors)...</p>
+<p><img alt="" src="images/components.jpg" /></p>
+<h3>So what is an Arduino?</h3>
+<p>Combines a micro-controller with all the other components into a single device</p>
+<p><img alt="" src="images/combineIntoArduino.jpg" /></p>
+<h2>Different Types of Arduino</h2>
+<p>There are many different types of Arduino, and they differ in size and capabilities.
+You can find Arduinos with...</p>
+<ul>
+<li>Internet capabilities through WiFi or ethernet</li>
+<li>Built-in Bluetooth</li>
+<li>Faster or slower processor</li>
+<li>More or less memory</li>
+<li>More pins (...connect more components) or less pins (...smaller size)</li>
+</ul>
+<p><img alt="" src="images/arduinoFamily.jpg" /></p>
+<p>Popular models includes...</p>
+<h3>Arduino UNO.</h3>
+<p>The first Arduino.
+It's one of the most basic Arduino, but it remains one of the most popular and commonly used model.</p>
+<p><img alt="" src="images/arduino.jpg" /></p>
+<h3>Arduino Nano</h3>
+<p>Pretty much the same as the UNO, just smaller.</p>
+<p><img alt="" src="images/arduinoNano.jpg" /></p>
+<h3>ESP32</h3>
+<p>Technically not an Arduino, but it can be programmed the same way using the Arduino software.
+The ESP32 has a much faster processor, more memory, and built-in WiFi and Bluetooth.
+It is also a 3.3V device (...the UNO and Nano are 5V); this matters when connecting to external components as some components are designed for 3.3V while others are designed for 5V.</p>
+<p><img alt="" src="images/esp32.jpg" /></p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
