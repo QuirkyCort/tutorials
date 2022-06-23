@@ -182,7 +182,7 @@ def mkdir_if_needed(*args):
 def write_html(html, course, section, filename):
     path = mkdir_if_needed(HTML_DIR, course, section)
     path = os.path.join(path, filename)
-    
+
     f = open(path, mode='w')
     f.write(html)
     f.close()
@@ -203,7 +203,7 @@ def compile_scss(course):
     if not os.path.isdir(src):
         return
     dest = mkdir_if_needed(HTML_DIR, course, 'css')
-    
+
     os.system('sass --sourcemap=none --update ' + src + ':' + dest)
 
 def compile_md(content):
@@ -211,16 +211,31 @@ def compile_md(content):
 
 def filter_out_path(path):
     return re.sub(' ', '-', path)
-    
+
+def get_latest_mtime(path):
+    files_list = []
+    for root, directories, files in os.walk(path):
+        for d in directories:
+            files_list.append(os.path.join(root, d))
+        for f in files:
+            files_list.append(os.path.join(root, f))
+    return max(map(os.path.getmtime, files_list))
+
 ### Main ###
 
 # Clean up
-if os.path.isdir(HTML_DIR):
-    print('Removing html directory: ' + HTML_DIR)
-    shutil.rmtree(HTML_DIR)
-elif os.path.exists(HTML_DIR):
+# if os.path.isdir(HTML_DIR):
+#     print('Removing html directory: ' + HTML_DIR)
+#     shutil.rmtree(HTML_DIR)
+if not os.path.isdir(HTML_DIR):
     print('html exists but is not directory: ' + HTML_DIR)
     sys.exit()
+
+for directory in COPY_DIR:
+    directory = os.path.join(HTML_DIR, directory)
+    if os.path.isdir(directory):
+        print('Removing directory: ' + directory)
+        shutil.rmtree(directory)
 
 # Root
 print('Processing root')
@@ -247,7 +262,30 @@ for course in courses:
     course_meta = get_course_meta(course_path, course)
     course_title = course_meta['title']
     course_short_description = course_meta['shortDescription']
-    
+
+    # Skip if not modified, but add entry to directory
+    last_modified = get_latest_mtime(course_path)
+    out_directory = os.path.join(HTML_DIR, course)
+    out_directory = filter_out_path(out_directory)
+    if os.path.exists(out_directory):
+        last_generated = get_latest_mtime(out_directory)
+        if last_modified < last_generated:
+            print('  Not modified. Skipping.')
+
+            sections = get_dir(course_path)
+            section = sections[0]
+            section_out = filter_out_path(section)
+            section_path = os.path.join(course_path, section)
+
+            pages = get_md_files(section_path)
+            page = pages[0]
+            filename_out = filter_out_path(page[:-3] + '.html')
+            if not course_title in directory:
+                directory[course_title] = urllib.parse.quote(course_out + '/' + section_out + '/' + filename_out)
+
+            continue
+
+    # Not skipped. Get templates
     course_template = get_template(course_path)
     course_redirect = get_redirect(course_path)
 
@@ -272,18 +310,18 @@ for course in courses:
 
         section_meta = get_section_meta(section_path, section)
         section_title = section_meta['title']
-        
+
         pages = get_md_files(section_path)
 
         toc_section = {
             'title': section_title,
             'pages': []
         }
-        
+
         for page in pages:
             print('    Page: '  + page)
             filename_out = filter_out_path(page[:-3] + '.html')
-            
+
             if not course_title in directory:
                 directory[course_title] = urllib.parse.quote(course_out + '/' + section_out + '/' + filename_out)
 
@@ -306,10 +344,10 @@ for course in courses:
 
         section_template = get_template(section_path)
         section_redirect = get_redirect(section_path)
-        
+
         section_meta = get_section_meta(section_path, section)
         section_title = section_meta['title']
-        
+
         pages = get_md_files(section_path)
 
         section_first_page = None
@@ -333,7 +371,7 @@ for course in courses:
                 template = course_template
             if section_template:
                 template = section_template
-                
+
             html = gen_html(template, {
                 'title': course_title,
                 'toc': toc_html,
@@ -342,7 +380,7 @@ for course in courses:
             })
 
             write_html(html, course_out, section_out, filename_out)
-        
+
         print('    Generate section redirect page')
         redirect = root_redirect
         if course_redirect:
