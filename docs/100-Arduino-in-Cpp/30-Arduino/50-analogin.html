@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li class="current">Analog Input</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Analog Input</h1>
+<h2>Pins on the Arduino</h2>
+<p>On the Arduino, only the pins starting with <strong>A</strong> are capable of analogInput.
+These are pins A0 to A5.</p>
+<h2>Fixed and Variable Resistors</h2>
+<p>Fixed resistors have a fixed resistance. They only have two connection points.</p>
+<p><img alt="" src="images/fixedResistors.jpg" /></p>
+<p>Variable resistors have a variable resistance.
+They have three connection points, one on each end, and a moveable third connection point in the middle.</p>
+<p><img alt="" src="images/variableResistors.jpg" /></p>
+<p>Depending on where the moveable middle connection point is placed, the voltage in the middle can range from 0V to 5V and any values inbetween.</p>
+<p><img alt="" src="images/resistorWiper.png" /></p>
+<h2>Wiring</h2>
+<p>Connect your potentiometer as follows...</p>
+<p><img alt="" src="images/potentiometerWiring.png" /></p>
+<p>Depending on the type of your potentiometer, your wiring may look a little different.
+What's important is that one end of the potentiometer is connected to 0V, the other end to 5V, and the middle is connected to <strong>A0</strong> (...or any of the <strong>A</strong> pins).</p>
+<h2>analogRead</h2>
+<p>The <strong>analogRead</strong> command will provide you with a reading that ranges from 0 (0V) to 1023 (5V).
+The following code demonstrates how to use it...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">analogRead</span><span class="p">(</span><span class="n">A0</span><span class="p">));</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>analogRead(A0)</strong> : This reads from pin A0 and returns a value that ranges from 0 to 1023.</p>
+<p>Upload your code then open up the serial monitor. If your wiring and code is correct, you should see the value in the serial monitor change depending on the position of the potentiometer.</p>
+<h2>LED Brightness Control</h2>
+<p>Add an LED to your circuit as follows...</p>
+<p><img alt="" src="images/potentiometerAndLED.jpg" /></p>
+<p>Change the code to...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">a0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analogRead</span><span class="p">(</span><span class="n">A0</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1023</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>a0 = analogRead(A0)</strong> : This reads from pin A0 and returns a value that ranges from 0 to 1023.</p>
+<p><strong>power = map(a0, 0, 1023, 0, 255)</strong> : The value from <strong>analogRead</strong> ranges from 0 to 1023, but when doing a <strong>analogWrite</strong>, we need a value that ranges from 0 to 255.
+To convert one range into another, we'll use the <strong>map</strong> function (...see <a href="https://www.arduino.cc/reference/en/language/functions/math/map/">documentation</a> for details)</p>
+<div class="info">
+<strong>analogRead</strong> is useful for building remote controls. You can use it to steer a robot or control its speed.
+</div>
+
+<h2>Exercise</h2>
+<p>Using the <strong>LED Brightness Control</strong> circuit, modify the code so that instead of controlling the brightness of the LED, it will control how fast it blinks.
+When the potentiometer is turned to zero, the LED should blink once every 2 seconds.
+When the potentiometer is turned to max, the LED should blink once every 0.1 seconds.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

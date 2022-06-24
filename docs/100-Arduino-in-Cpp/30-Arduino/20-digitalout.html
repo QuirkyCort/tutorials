@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li class="current">Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Digital Output</h1>
+<div class="tip">
+Ideally, you should have completed <strong>Basics of C++</strong> before starting on this section of the course.
+If you have not, you can still continue, but refer back to the <strong>Basics of C++</strong> tutorial if you encounter code that you do not understand.
+</div>
+
+<h2>Blink</h2>
+<div class="important">
+If you do not have an Arduino, you can use the simulator at <a href="https://wokwi.com/">Wokwi</a>.
+Most of the lessons in this course can be completed using the above simulator.
+</div>
+
+<p>We can control the value of any of the Arduino GPIO (General Purpose Input Output) pins using the <strong>digitalWrite</strong> command.
+Here's an example...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>pinMode(13, OUTPUT)</strong> : By default, all the pins starts in the <strong>INPUT</strong> mode, this sets the mode of pin 13 to <strong>OUTPUT</strong>.
+We only need to do this once, so we'll put this line in <strong>setup</strong>.</p>
+<p><strong>digitalWrite(13, HIGH)</strong> : This sets pin 13 to <strong>HIGH</strong>.
+High means 5V on the Arduino UNO.
+We are using pin 13 as it is a little special, it has a built-in LED connected to it on the Arduino board.
+When we set pin 13 to <strong>HIGH</strong>, the LED will light up.</p>
+<p><strong>delay(1000)</strong> : This makes the Arduino wait for 1000ms (1 second).</p>
+<p><strong>digitalWrite(13, LOW)</strong> : This sets pin 13 to <strong>LOW</strong>.
+LOW means 0V.
+When we set pin 13 to <strong>LOW</strong>, the LED will turn off.</p>
+<p>Upload the code to your Arduino. You should see an LED start to blink on your Arduino board. Try changing the duration of the delay and see what happens.</p>
+<div class="info">
+You can read more about <strong>pinMode</strong> and <strong>digitalWrite</strong> in the <a href="https://www.arduino.cc/reference/en/">Arduino documentations</a>.
+</div>
+
+<h2>Blink (External LED)</h2>
+<p>Connect an external LED to your Arduino as follows...</p>
+<p><img alt="" src="images/externalLed.jpg" /></p>
+<p>For the resistor, any value from 300 ohms to 2000 ohms should do fine.
+Pay attention to the length of the LED's legs; the short leg should be connected to <strong>Gnd</strong> while the long legs are connected to pin <strong>11</strong>.
+If you do not wish to use pin 11, you can also use any of the other pins from 2 to 13.</p>
+<p>Modify your earlier code to use pin 11 instead...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Upload your code. If your wiring and code is correct, you should now see the external LED blinking.</p>
+<h2>Exercise</h2>
+<p>Write a program that makes the external LED and the built-in LED blink alternately.
+This means that when the built-in LED is on, the external LED should be off, and vice versa.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

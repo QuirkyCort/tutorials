@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li class="current">Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Functions</h1>
+<p>Functions are like recipes, they store your instructions and allow us to reuse them again and again.
+Here's an example of how functions are created and used in C++...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kt">float</span><span class="w"> </span><span class="nf">add_and_half</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_and_half</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">result</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>int add_and_double(int a, int b)</strong> : This defines <strong>add_and_double</strong> as a function that returns a <strong>float</strong> value.
+It takes two parameters; <strong>a</strong> and <strong>b</strong>, both of which are <strong>int</strong> types.
+The code inside the curly brackets are the content of this function; they will run whenever we call the function.</p>
+<p><strong>float result = add_and_half(2, 3)</strong> : In this line, we call the function <strong>add_and_half</strong>.
+We supply it with <strong>2</strong> for the first parameter and <strong>3</strong> for the second.
+The value that the <strong>add_and_half</strong> function returns will be stored in the <strong>result</strong> variable.</p>
+<p><strong>float c = (a + b) / 2.0</strong> : Here we add <strong>a</strong> and <strong>b</strong> together, then divide it by <strong>2.0</strong>.
+Note that we are using <strong>2.0</strong> and not <strong>2</strong>. If we had used <strong>2</strong>, the Arduino will perform an integer calculation (...you can try it and see what happens).</p>
+<p><strong>return c</strong> : This ends the <strong>add_and_half</strong> function, and causes it to return the value of the variable <strong>c</strong>.</p>
+<h2>Return Types and void</h2>
+<p>You can create functions that returns any types of values (eg. int, float, String).
+If your function does not need to return any value, you should define it as type <strong>void</strong> like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kt">void</span><span class="w"> </span><span class="nf">prints_a_and_b</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">prints_a_and_b</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<h2>No Parameters</h2>
+<p>If your function does not require any parameters, you should use an empty <strong>()</strong> like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kt">void</span><span class="w"> </span><span class="nf">prints_nothing</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;nothing&quot;</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">prints_nothing</span><span class="p">();</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Exercise 1</h2>
+<p>Write a function that takes a single <strong>int</strong> as parameter, and returns the cube (power of 3) of that number.</p>
+<h2>Exercise 2</h2>
+<p>Make an alternate version of the previous function (...use a different name), and modify it so that instead of returning the cube of the provided number, it will simply print it out.</p>
+<div class="tip">
+Functions are not strictly necessary in a program, but they help reduce code repetition and improve the neatness of your code; this becomes important as your code gets longer and more complicated.
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

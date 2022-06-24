@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li class="current">Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Variables and Types</h1>
+<div class="important">
+Before you start, make sure you've completed <strong>Intro to C++</strong> as we'll be using the Serial prints that was covered there.
+</div>
+
+<p>In programming, variables are used to store values.
+These values can be of different types, such as integers, floats, and strings.</p>
+<h2>Defining Variables</h2>
+<p>In C++, we must define the the variables before we can use them. To illustrate, try the following example...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kt">int</span><span class="w"> </span><span class="n">foo1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60000</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="kt">long</span><span class="w"> </span><span class="n">foo3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2000000000</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="kt">float</span><span class="w"> </span><span class="n">foo4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">123.456</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="kt">char</span><span class="w"> </span><span class="n">foo5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="n">String</span><span class="w"> </span><span class="n">foo6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="kt">bool</span><span class="w"> </span><span class="n">foo7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// put your setup code here, to run once:</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// put your main code here, to run repeatedly:</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo3</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo4</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo5</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo6</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo7</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>int foo1 = 100</strong> : This defines the variable <strong>foo1</strong> as type <strong>int</strong> (integer) and a starting value of 100.
+<strong>foo1</strong> is the name of the variable, and you can use (almost) any name you want, as long as it starts with a alphabet and does not contain spaces or special characters.
+On most Arduinos, an <strong>int</strong> is a 16-bits value, and it can store a number that ranges from -32,768 to 32,767.
+It can only store integers (...whole numbers), and cannot store non-integer numbers such as <strong>1.2</strong> or <strong>45.6</strong>.</p>
+<p><strong>unsigned int foo2</strong> : This defines the variable <strong>foo2</strong> as type <strong>unsigned int</strong> (unsigned integer).
+On most Arduinos, an unsigned integer is a 16-bits value, and it can store a number that ranges from 0 to 65,535.
+It can store numbers twice the size of <strong>int</strong>, but cannot store negative numbers.</p>
+<p><strong>long foo3</strong> : This defines a the variable <strong>foo3</strong> as type <strong>long</strong> (long integer).
+On most Arduinos, an <strong>int</strong> is a 16-bits value, and it can store a number that ranges from -2,147,483,648 to 2,147,483,647.
+There is also an unsigned version of long (<strong>unsigned long</strong>) that allows you to store numbers twice the size, at the cost of being unable to handle negative numbers.</p>
+<p><strong>float foo4</strong> : This defines the variable <strong>foo4</strong> as type <strong>float</strong> (floating point number), a number that has a decimal point.
+A floating point number has around 6-7 decimal digits of precision.
+That's the total number of digits, not the number to the right of the decimal point.
+It can store a number that ranges from -3.4028235E+38 to 3.4028235E+38.</p>
+<p><strong>char foo5 = 'A'</strong> : This defines the variable <strong>foo5</strong> as type <strong>char</strong> (character).
+<strong>char</strong> are used to store a single character.
+Note that when specifying the value for the character, we use single quotes <strong>'A'</strong>; double quotes are used for strings.</p>
+<p><strong>String foo6 = "Hello World"</strong> : This defines the variable <strong>foo6</strong> as type <strong>String</strong>.
+Strings are used to store words, sentences, or paragraphs, and when specifying the value for a String, we use double quotes <strong>"Hello World"</strong>.</p>
+<p><strong>bool foo7 = true</strong> : This defines the variable <strong>foo6</strong> as type <strong>bool</strong> (boolean).
+Booleans have only two possible values; <strong>true</strong> or <strong>false</strong>.</p>
+<h2>Variable Scope</h2>
+<p>In the above example, all of the variables are defined outside of <strong>setup</strong> and <strong>loop</strong>.
+Such variables are called <strong>global variables</strong>, and they can be used in any functions.</p>
+<p>Functions that are defined inside of a function are called <strong>local variables</strong>, and they can only be used within that function itself.
+Here's an example that illustrates the difference...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kt">int</span><span class="w"> </span><span class="n">foo1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">foo2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+
+<span class="hll"><span class="w">  </span><span class="c1">// Both foo1 and foo2 can be used here</span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo1</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo2</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo1</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">foo2</span><span class="p">);</span><span class="w"> </span><span class="c1">// This line will cause an error as foo2 isn&#39;t available outside of setup.</span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>The above code won't work as <strong>foo2</strong> is defined inside of <strong>setup</strong>, so it cannot be used in <strong>loop</strong>.
+If you remove the <strong>Serial.println(foo2);</strong> in <strong>loop</strong>, the code will then work.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

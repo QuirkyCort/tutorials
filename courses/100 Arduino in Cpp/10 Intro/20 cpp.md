@@ -21,6 +21,11 @@ If you see some other code, click on "File -> New" to start a new sketch.
 
 ![](images/newSketch.png)
 
+<div class="important">
+If you do not have an Arduino, you can use the simulator at <a href="https://wokwi.com/">Wokwi</a>.
+Most of the lessons in this course can be completed using the above simulator.
+</div>
+
 ## Setup and Loop
 
 In the default template, you will see two special functions; **setup** and **loop**.
@@ -35,7 +40,7 @@ The lines with the **//** infront of them are comments; they do nothing.
 
 This is what each component in the code means...
 
-```C
+```cpp
 void setup() {
     // put your setup code here, to run once:
 }
@@ -53,7 +58,7 @@ void setup() {
 
 Modify the code to the following (new and modified lines are highlighted)...
 
-```c hl_lines="8 9 10 11"
+```cpp hl_lines="8 9 10 11"
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -115,6 +120,6 @@ Click on the serial monitor button.
 It should open up a new serial monitor window.
 If you have programmed your Arduino correctly, you should see the message "HelloWorld" appear on screen, with a 1 second delay between each word.
 
-## Serial Monitor
-
+<div class="tip">
 The serial monitor is a useful feature that can help immensely in debugging. Make liberal use of the Serial.print statements to keep track of what your program is doing.
+</div>

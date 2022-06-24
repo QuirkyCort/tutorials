@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li class="current">Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Analog Output</h1>
+<h2>PWM</h2>
+<p>Most micro-controllers can only output full voltage (5V or 3.3V depending on the model) or zero volts.
+They are usually not capable of outputing any voltages inbetween these (eg. 2.5V).</p>
+<p>But we often need to control power (eg. brightness of a LED, speed of a motor).
+To do so, we rely on a technique call Pulse Width Modulation (PWM).</p>
+<p>PWM is really simple...</p>
+<p><img alt="" src="images/pwmGraph.png" /></p>
+<p>...if we can't supply half the voltage, we'll simply supply <strong>full</strong> voltage, but for half the time.
+By changing the ratio between the on time and the off time, we can achieve any power level that we want.</p>
+<h2>Pins on the Arduino</h2>
+<p>On the Arduino, only the pins marked with a tilde <strong>~</strong> are capable of PWM output.
+These are pins 3, 5, 6, 9, 10, 11.</p>
+<h2>analogWrite</h2>
+<p>The <strong>analogWrite</strong> command can be used to set the PWM power level of the specified pin.
+Here are a few examples...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">   </span><span class="c1">// Set the power on pin 11 to zero (off)</span>
+<span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span><span class="w"> </span><span class="c1">// Set the power on pin 11 to 255 (max)</span>
+<span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span><span class="w"> </span><span class="c1">// Set the power on pin 11 to 127 (around 50%)</span>
+</code></pre></div>
+
+<h2>Brightness control</h2>
+<p>Connect an external LED to your Arduino as follows (...same wiring as in the <strong>Digital Output</strong> section)...</p>
+<p><img alt="" src="images/externalLed.jpg" /></p>
+<p>...then try the following code.</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">a</span><span class="o">&lt;</span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="n">a</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>analogWrite(11, a)</strong> : The <strong>for</strong> loop will write a power of 0 to 255 to pin 11.
+There is a short delay of 10ms, else the entire loop will complete in a short fraction of a second (...too fast to see).</p>
+<p>Upload your code. If your wiring and code is correct, the external LED should gradually change from dimly lit to max brightness.</p>
+<div class="info">
+<strong>analogWrite</strong> is useful for controlling motor speed. Without this, you'll only be able to run your motors at full speed.
+</div>
+
+<h2>Exercise</h2>
+<p>In the above example, the brightness goes gradually from zero to max.
+But once it reaches max brightness, it abruptly changes back to zero brightness.
+Modify the program so that it will gradually change back from max to zero.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
