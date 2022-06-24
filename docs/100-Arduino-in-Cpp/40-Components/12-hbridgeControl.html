@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li class="current">Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-ultrasonic.html"><li ></li></a><a href="../40-Components/40-servo.html"><li ></li></a><a href="../40-Components/50-addressableLed.html"><li ></li></a><a href="../40-Components/60-proximity.html"><li ></li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Controlling a H-Bridge Motor Driver</h1>
+<p>We will be using the TA6586 motor driver for this part of the course.</p>
+<p><img alt="" src="images/TA6586.jpg" /></p>
+<p>This motor driver board contains two H-Bridges, making it suitable for controlling two motors with just one board.
+It support voltages of 3 to 14V and up to 5A of current.</p>
+<h2>Two Pins or Three Pins</h2>
+<p>Most H-Bridge motor driver boards uses either 2 pins or 3 pins to control each motor.
+For the TA6586, it uses 2 pins per motor.
+If you have a different motor driver board that also uses 2 pins, you can use the same code and it should work fine, but if you have a motor driver board that requires 3 pins per motor, you'll need a different set of code.</p>
+<h2>Wiring</h2>
+<p>Connect your battery, motor driver board, and motor as follows.</p>
+<p><img alt="" src="images/motorDriverWiring.jpg" /></p>
+<div class="important">
+In the diagram above, the battery is only supplying power to the motor driver board, not the Arduino.
+The Arduino needs to be supplied with power to work.
+If the Arduino is connected to your computer via the USB cable, that will provide it with power.
+Else, you can connect the 12V battery to the barrel plug of the Arduino, or to the <strong>VIN</strong> pin.
+</div>
+
+<div class="info">
+In the diagram above, we are using pin 10 and 11 to control the motor driver.
+You can use any of the PWM pins (...pins with a tilde ~ next to their number), but pins 5 and 6 behaves a little differently and while they are usable, it's best to avoid them.
+You can read the <a href="https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/">analogWrite documentations</a> for more details.
+</div>
+
+<h2>Code</h2>
+<p>We'll be programming the H-Bridge to operate in <a href="https://www.modularcircuits.com/blog/articles/h-bridge-secrets/sign-magnitude-drive/">Sign Magnitude Drive</a> mode.
+What that means is pretty complicated, and you can read the linked article if you're interested to understand more.</p>
+<p>Try the following code...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+</span>
+<span class="hll"><span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>pinMode</strong> : We set both pin 10 and pin 11 to <strong>OUTPUT</strong> mode.</p>
+<p><strong>analogWrite(10, 127)</strong> : We set pin 10 to a power of 127 (...around 50%).</p>
+<p><strong>digitalWrite(11, HIGH)</strong> : We are not controlling pin 11, so we set it to <strong>HIGH</strong>.
+Note that at any point in time, we should only control the power of one pin with <strong>analogWrite</strong>, and the other pin should be set to <strong>HIGH</strong> using <strong>digitalWrite</strong>.</p>
+<p>Upload your code. If your wiring and code is correct, the motor should start turning at 50% speed.</p>
+<h2>Speed Control</h2>
+<p>Try changing the power from 127 to 64 (...around 25%). Did the motor turn faster or slower? Try 191 (...around 75%). What did you observe?</p>
+<p>By now you should have noticed that the relationship between power and speed are reversed.
+The higher the power, the lower the speed.
+That's a result of how Sign Magnitude Drive works.</p>
+<h2>Direction Control</h2>
+<p>Change the order of the pins...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+
+<span class="hll"><span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>You should see the motor turning in the opposite direction from before.</p>
+<h2>Motor Control Function</h2>
+<p>It's useful to build a function to control the motor. Try the following code.</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kt">void</span><span class="w"> </span><span class="nf">left_motor</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">power</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">analogWrite</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">power</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">analogWrite</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">power</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">left_motor</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span><span class="w">  </span><span class="c1">// 25% speed</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">left_motor</span><span class="p">(</span><span class="mi">127</span><span class="p">);</span><span class="w"> </span><span class="c1">// 50% speed</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">left_motor</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w">   </span><span class="c1">// Stop</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">left_motor</span><span class="p">(</span><span class="mi">-64</span><span class="p">);</span><span class="w"> </span><span class="c1">// Reverse</span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>void left_motor(int power)</strong> : The <strong>left_motor</strong> function accepts a single <strong>power</strong> parameter, which can range from -255 to 255.</p>
+<p><strong>if (power &gt; 0)</strong> : If <strong>power</strong> is a positive value, it'll set the power to pin 10, else it'll set power to pin 11.</p>
+<p><strong>analogWrite(10, 255 - power)</strong> : Remember that the relationship between power and motor speed is reversed? The <strong>255 - power</strong> reverses it again, so that setting a high power will give us a high speed and a low power will give us a low speed.</p>
+<p><strong>analogWrite(11, 255 + power)</strong> : If <strong>power</strong> is negative, we'll add instead (...adding a negative number is the same a doing a subtraction).</p>
+<h2>Exercise 1</h2>
+<p>Wire up the second motor and write a function to control the second motor.</p>
+<h2>Exercise 2</h2>
+<p>Add a potentiometer and use it to control the motor speed.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

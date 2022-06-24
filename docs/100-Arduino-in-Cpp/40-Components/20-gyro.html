@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li class="current">Gyro</li></a><a href="../40-Components/30-ultrasonic.html"><li ></li></a><a href="../40-Components/40-servo.html"><li ></li></a><a href="../40-Components/50-addressableLed.html"><li ></li></a><a href="../40-Components/60-proximity.html"><li ></li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Gyro</h1>
+<p>We'll be using this gyro...</p>
+<p><img alt="" src="images/mpu6050.jpg" /></p>
+<p>This is the <strong>GY 521</strong> (...name of the board), but it's also referred to as the <strong>MPU-6050</strong> (...name of the chip on the board).
+Features of the board includes...</p>
+<ul>
+<li>3-axis Accelerometer</li>
+<li>3-axis Rate Gyro</li>
+<li>I2C communication protocol</li>
+</ul>
+<h2>Pins</h2>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Provides the gyro with power. Connect to 5V or 3.3V on the Arduino.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Provides the gyro with power. Connect to GND on the Arduino</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>Serial Clock. This is used to communicate with the Arduino</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>Serial Data. This is used to communicate with the Arduino</td>
+</tr>
+<tr>
+<td>XDA, XCL, AD0, INT</td>
+<td>Ignore. They have special uses which we do not need.</td>
+</tr>
+</tbody>
+</table>
+<h2>Rate Gyro</h2>
+<p>The gyro on these modules are rate gyros.
+Unlike the gyros found on ships and planes, these rate gyros cannot tell you which direction is north.
+Instead, a rate gyro can only tell you how fast it is rotating.</p>
+<p>By integrating the rate of rotation, we can determine how much the gyro has turned from its starting position.</p>
+<p>Every rate gyro must go through a calibration step (...typically done in <strong>setup</strong>), and it's important that the gyro is perfectly stationary during this time.
+If the calibration is done while the gyro is moving, it will lead to large errors in the reading.
+Note that rate gyros all suffers from drift over time, but if calibration is done well, this drift can be as little as 1 degree per minute.</p>
+<h2>Wiring</h2>
+<p>This gyro communicates using the I2C communication protocol.
+I2C requires two pins, SCL and SDA, and you can find these pins on the Arduino.</p>
+<p><img alt="" src="images/i2cPins.png" /></p>
+<p>Note that SCL and SDA are connected to the A4 and A5 pins (ie. you cannot use A4 and A5 if you are using SCL and SDA).
+You can find more details of the Arduino pinouts on the <a href="https://docs.arduino.cc/hardware/uno-rev3">Arduino website</a>.</p>
+<p>Connect the gyro to the Arduino as follows...</p>
+<p><img alt="" src="images/gyroWiring.jpg" /></p>
+<h2>Libraries</h2>
+<p>While we can write our own code to read the gyro (...see <a href="https://www.aposteriori.com.sg/wp-content/uploads/2020/11/Arduino-Lesson-5.pdf">this set of slides</a> if you're interested), the code can be rather complicated.
+So we'll make use of libraries that others have written to help us read the gyro.</p>
+<p>In the Arduino software, click on <strong>"Tools -&gt; Manage Libraries"</strong>.</p>
+<p><img alt="" src="images/manageLibraries.jpg" /></p>
+<p>There are too many libraries to scroll through one-by-one, so in the search field, key in <strong>"MPU6050"</strong>.
+There should now be only a few libraries left.</p>
+<p><img alt="" src="images/librarySearchMPU6050.jpg" /></p>
+<p>Look for the library named **MPU6050_tockn" and install it.</p>
+<p><img alt="" src="images/mpu6050_tockn.png" /></p>
+<h2>Code</h2>
+<p>Use this code to read the gyro...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;MPU6050_tockn.h&gt;</span><span class="cp"></span>
+</span><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Wire.h&gt;</span><span class="cp"></span>
+</span>
+<span class="hll"><span class="n">MPU6050</span><span class="w"> </span><span class="nf">mpu6050</span><span class="p">(</span><span class="n">Wire</span><span class="p">);</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">calcGyroOffsets</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">update</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;angleX : &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">mpu6050</span><span class="p">.</span><span class="n">getAngleX</span><span class="p">());</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; angleY : &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">mpu6050</span><span class="p">.</span><span class="n">getAngleY</span><span class="p">());</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; angleZ : &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">mpu6050</span><span class="p">.</span><span class="n">getAngleZ</span><span class="p">());</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>#include <MPU6050_tockn.h></strong> : This includes the <strong>MPU6050_tockn</strong> library into your program.</p>
+<p><strong>#include <Wire.h></strong> : This is the <strong>Wire</strong> library. It's used by <strong>MPU6050_tockn</strong> for I2C communication with the gyro.</p>
+<p><strong>MPU6050 mpu6050(Wire)</strong> : This creates a <strong>MPU6050</strong> object named <strong>mpu6050</strong>.
+We'll use this object in the later part of the code to read the gyro.</p>
+<p><strong>Wire.begin()</strong> : This initialize the <strong>Wire</strong> library and get it ready for I2C communication.</p>
+<p><strong>mpu6050.begin()</strong> : This initialize the <strong>mpu6050</strong> object and gets it ready for communication with the gyro.</p>
+<p><strong>mpu6050.calcGyroOffsets(true)</strong> : This calibrates the gyro.
+Makes sure the gyro is stationary or the calibration will be incorrect!</p>
+<p><strong>mpu6050.update()</strong> : This reads the rotation rate from the gyro and integrates it to get the angle of the gyro.</p>
+<p><strong>mpu6050.getAngleX(), mpu6050.getAngleY(), mpu6050.getAngleZ()</strong> : This provides the angle of the gyro about the X/Y/Z axis.</p>
+<p>Upload the code and open the serial terminal. Be sure not to move the gyro until the calibration is complete. After that, you can rotate the gyro and see the change in the angle.</p>
+<h2>Exercise</h2>
+<p>No need to write any code for this exercise. Just play around with the gyro and try to determine which direction is the X, Y, and Z axis.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
