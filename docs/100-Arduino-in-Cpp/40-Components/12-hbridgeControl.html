@@ -31,7 +31,7 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
-            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li class="current">Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-ultrasonic.html"><li ></li></a><a href="../40-Components/40-servo.html"><li ></li></a><a href="../40-Components/50-addressableLed.html"><li ></li></a><a href="../40-Components/60-proximity.html"><li ></li></a></ul>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li class="current">Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a></ul>
         </nav>
         <div id="content">
             <h1>Controlling a H-Bridge Motor Driver</h1>
@@ -39,6 +39,45 @@
 <p><img alt="" src="images/TA6586.jpg" /></p>
 <p>This motor driver board contains two H-Bridges, making it suitable for controlling two motors with just one board.
 It support voltages of 3 to 14V and up to 5A of current.</p>
+<h2>Pins</h2>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Black Screw Terminals</td>
+<td>Power supply for the board. Polarity (+/-) is printed on the bottom of the board. Must not be reversed.</td>
+</tr>
+<tr>
+<td>Blue Screw Terminals x 2</td>
+<td>Connection for the motors. There are two pairs of terminals for two separate motors.</td>
+</tr>
+<tr>
+<td>Gnd</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the Arduino.</td>
+</tr>
+<tr>
+<td>3V3</td>
+<td>This provides a 3.3V supply that can be used for powering external components such as the micro-controller. If you don't require 3.3V, you can just leave this unconnected.</td>
+</tr>
+<tr>
+<td>D0 &amp; D1</td>
+<td>Controls the first motor. Motor will turn if one pin is high and the other is low. If both are high or both are low, the motor will not turn.</td>
+</tr>
+<tr>
+<td>D2 &amp; D3</td>
+<td>Controls the second motor. Motor will turn if one pin is high and the other is low. If both are high or both are low, the motor will not turn.</td>
+</tr>
+<tr>
+<td>VT</td>
+<td>Not used. Ignore.</td>
+</tr>
+</tbody>
+</table>
 <h2>Two Pins or Three Pins</h2>
 <p>Most H-Bridge motor driver boards uses either 2 pins or 3 pins to control each motor.
 For the TA6586, it uses 2 pins per motor.

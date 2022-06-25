@@ -326,10 +326,11 @@ for course in courses:
                 directory[course_title] = urllib.parse.quote(course_out + '/' + section_out + '/' + filename_out)
 
             page_title = get_md_title(section_path, page)
-            toc_section['pages'].append({
-                'title': page_title,
-                'path': urllib.parse.quote(section_out + '/' + filename_out)
-            })
+            if os.path.getsize(os.path.join(section_path, page)) > 0:
+                toc_section['pages'].append({
+                    'title': page_title,
+                    'path': urllib.parse.quote(section_out + '/' + filename_out)
+                })
 
         toc.append(toc_section)
 

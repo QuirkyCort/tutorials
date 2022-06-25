@@ -7,6 +7,18 @@ We will be using the TA6586 motor driver for this part of the course.
 This motor driver board contains two H-Bridges, making it suitable for controlling two motors with just one board.
 It support voltages of 3 to 14V and up to 5A of current.
 
+## Pins
+
+| Pin | Description |
+| --- | --- |
+| Black Screw Terminals | Power supply for the board. Polarity (+/-) is printed on the bottom of the board. Must not be reversed. |
+| Blue Screw Terminals x 2 | Connection for the motors. There are two pairs of terminals for two separate motors. |
+| Gnd | Ground pin. This should be connected to the **GND** pin on the Arduino. |
+| 3V3 | This provides a 3.3V supply that can be used for powering external components such as the micro-controller. If you don't require 3.3V, you can just leave this unconnected. |
+| D0 & D1 | Controls the first motor. Motor will turn if one pin is high and the other is low. If both are high or both are low, the motor will not turn. |
+| D2 & D3 | Controls the second motor. Motor will turn if one pin is high and the other is low. If both are high or both are low, the motor will not turn. |
+| VT | Not used. Ignore. |
+
 ## Two Pins or Three Pins
 
 Most H-Bridge motor driver boards uses either 2 pins or 3 pins to control each motor.
