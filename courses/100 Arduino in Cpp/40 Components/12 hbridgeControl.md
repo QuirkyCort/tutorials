@@ -4,8 +4,8 @@ We will be using the TA6586 motor driver for this part of the course.
 
 ![](images/TA6586.jpg)
 
-This motor driver board contains two H-Bridges, making it suitable for controlling two motors with just one board.
-It support voltages of 3 to 14V and up to 5A of current.
+This motor driver board contains two H-Bridges, making it suitable for controlling **two motors** with just one board.
+It support voltages of **3 to 14V** and up to **5A** of current.
 
 ## Pins
 
@@ -21,8 +21,8 @@ It support voltages of 3 to 14V and up to 5A of current.
 
 ## Two Pins or Three Pins
 
-Most H-Bridge motor driver boards uses either 2 pins or 3 pins to control each motor.
-For the TA6586, it uses 2 pins per motor.
+Most H-Bridge motor driver boards uses either **2 pins or 3 pins** to control each motor.
+**For the TA6586, it uses 2 pins per motor.**
 If you have a different motor driver board that also uses 2 pins, you can use the same code and it should work fine, but if you have a motor driver board that requires 3 pins per motor, you'll need a different set of code.
 
 ## Wiring

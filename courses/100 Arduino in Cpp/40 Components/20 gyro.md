@@ -5,6 +5,7 @@ We'll be using this gyro...
 ![](images/mpu6050.jpg)
 
 This is the **GY 521** (...name of the board), but it's also referred to as the **MPU-6050** (...name of the chip on the board).
+This gyro is cheap and commonly available, making one of the most popular model.
 Features of the board includes...
 
 * 3-axis Accelerometer
@@ -15,32 +16,32 @@ Features of the board includes...
 
 | Pin | Purpose |
 | --- | --- |
-| VCC | Provides the gyro with power. Connect to 5V or 3.3V on the Arduino. |
-| GND | Provides the gyro with power. Connect to GND on the Arduino |
+| VCC | Provides the gyro with power. Connect to **5V** or **3.3V** on the Arduino. |
+| GND | Provides the gyro with power. Connect to **GND** on the Arduino |
 | SCL | Serial Clock. This is used to communicate with the Arduino |
 | SDA | Serial Data. This is used to communicate with the Arduino |
 | XDA, XCL, AD0, INT | Ignore. They have special uses which we do not need. |
 
 ## Rate Gyro
 
-The gyro on these modules are rate gyros.
+The gyro on these modules are **rate gyros**.
 Unlike the gyros found on ships and planes, these rate gyros cannot tell you which direction is north.
 Instead, a rate gyro can only tell you how fast it is rotating.
 
-By integrating the rate of rotation, we can determine how much the gyro has turned from its starting position.
+By [integrating](https://www.mathsisfun.com/calculus/integration-introduction.html) the rate of rotation, we can determine how much the gyro has turned from its starting position.
 
-Every rate gyro must go through a calibration step (...typically done in **setup**), and it's important that the gyro is perfectly stationary during this time.
+Every rate gyro must go through a **calibration** step (...typically done in **setup**), and it's important that the gyro is perfectly stationary during this time.
 If the calibration is done while the gyro is moving, it will lead to large errors in the reading.
 Note that rate gyros all suffers from drift over time, but if calibration is done well, this drift can be as little as 1 degree per minute.
 
 ## Wiring
 
-This gyro communicates using the I2C communication protocol.
-I2C requires two pins, SCL and SDA, and you can find these pins on the Arduino.
+This gyro communicates using the **I2C** communication protocol.
+**I2C** requires two pins, **SCL** and **SDA**, and you can find these pins on the Arduino.
 
 ![](images/i2cPins.png)
 
-Note that SCL and SDA are connected to the A4 and A5 pins (ie. you cannot use A4 and A5 if you are using SCL and SDA).
+Note that **SCL** and **SDA** are connected to the **A4** and **A5** pins (ie. you cannot use **A4** and **A5** if you are using **SCL** and **SDA**).
 You can find more details of the Arduino pinouts on the [Arduino website](https://docs.arduino.cc/hardware/uno-rev3).
 
 Connect the gyro to the Arduino as follows...
@@ -61,7 +62,7 @@ There should now be only a few libraries left.
 
 ![](images/librarySearchMPU6050.jpg)
 
-Look for the library named **MPU6050_tockn" and install it.
+Look for the library named **MPU6050_tockn** and install it.
 
 ![](images/mpu6050_tockn.png)
 

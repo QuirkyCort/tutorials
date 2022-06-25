@@ -38,6 +38,7 @@
 <p>We'll be using this gyro...</p>
 <p><img alt="" src="images/mpu6050.jpg" /></p>
 <p>This is the <strong>GY 521</strong> (...name of the board), but it's also referred to as the <strong>MPU-6050</strong> (...name of the chip on the board).
+This gyro is cheap and commonly available, making one of the most popular model.
 Features of the board includes...</p>
 <ul>
 <li>3-axis Accelerometer</li>
@@ -55,11 +56,11 @@ Features of the board includes...</p>
 <tbody>
 <tr>
 <td>VCC</td>
-<td>Provides the gyro with power. Connect to 5V or 3.3V on the Arduino.</td>
+<td>Provides the gyro with power. Connect to <strong>5V</strong> or <strong>3.3V</strong> on the Arduino.</td>
 </tr>
 <tr>
 <td>GND</td>
-<td>Provides the gyro with power. Connect to GND on the Arduino</td>
+<td>Provides the gyro with power. Connect to <strong>GND</strong> on the Arduino</td>
 </tr>
 <tr>
 <td>SCL</td>
@@ -76,18 +77,18 @@ Features of the board includes...</p>
 </tbody>
 </table>
 <h2>Rate Gyro</h2>
-<p>The gyro on these modules are rate gyros.
+<p>The gyro on these modules are <strong>rate gyros</strong>.
 Unlike the gyros found on ships and planes, these rate gyros cannot tell you which direction is north.
 Instead, a rate gyro can only tell you how fast it is rotating.</p>
-<p>By integrating the rate of rotation, we can determine how much the gyro has turned from its starting position.</p>
-<p>Every rate gyro must go through a calibration step (...typically done in <strong>setup</strong>), and it's important that the gyro is perfectly stationary during this time.
+<p>By <a href="https://www.mathsisfun.com/calculus/integration-introduction.html">integrating</a> the rate of rotation, we can determine how much the gyro has turned from its starting position.</p>
+<p>Every rate gyro must go through a <strong>calibration</strong> step (...typically done in <strong>setup</strong>), and it's important that the gyro is perfectly stationary during this time.
 If the calibration is done while the gyro is moving, it will lead to large errors in the reading.
 Note that rate gyros all suffers from drift over time, but if calibration is done well, this drift can be as little as 1 degree per minute.</p>
 <h2>Wiring</h2>
-<p>This gyro communicates using the I2C communication protocol.
-I2C requires two pins, SCL and SDA, and you can find these pins on the Arduino.</p>
+<p>This gyro communicates using the <strong>I2C</strong> communication protocol.
+<strong>I2C</strong> requires two pins, <strong>SCL</strong> and <strong>SDA</strong>, and you can find these pins on the Arduino.</p>
 <p><img alt="" src="images/i2cPins.png" /></p>
-<p>Note that SCL and SDA are connected to the A4 and A5 pins (ie. you cannot use A4 and A5 if you are using SCL and SDA).
+<p>Note that <strong>SCL</strong> and <strong>SDA</strong> are connected to the <strong>A4</strong> and <strong>A5</strong> pins (ie. you cannot use <strong>A4</strong> and <strong>A5</strong> if you are using <strong>SCL</strong> and <strong>SDA</strong>).
 You can find more details of the Arduino pinouts on the <a href="https://docs.arduino.cc/hardware/uno-rev3">Arduino website</a>.</p>
 <p>Connect the gyro to the Arduino as follows...</p>
 <p><img alt="" src="images/gyroWiring.jpg" /></p>
@@ -99,7 +100,7 @@ So we'll make use of libraries that others have written to help us read the gyro
 <p>There are too many libraries to scroll through one-by-one, so in the search field, key in <strong>"MPU6050"</strong>.
 There should now be only a few libraries left.</p>
 <p><img alt="" src="images/librarySearchMPU6050.jpg" /></p>
-<p>Look for the library named **MPU6050_tockn" and install it.</p>
+<p>Look for the library named <strong>MPU6050_tockn</strong> and install it.</p>
 <p><img alt="" src="images/mpu6050_tockn.png" /></p>
 <h2>Code</h2>
 <p>Use this code to read the gyro...</p>
