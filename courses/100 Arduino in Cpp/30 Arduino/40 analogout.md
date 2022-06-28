@@ -25,7 +25,7 @@ These are pins 3, 5, 6, 9, 10, 11.
 The **analogWrite** command can be used to set the PWM power level of the specified pin.
 Here are a few examples...
 
-```c
+```cpp
 analogWrite(11, 0);   // Set the power on pin 11 to zero (off)
 analogWrite(11, 255); // Set the power on pin 11 to 255 (max)
 analogWrite(11, 127); // Set the power on pin 11 to 127 (around 50%)
@@ -39,7 +39,7 @@ Connect an external LED to your Arduino as follows (...same wiring as in the **D
 
 ...then try the following code.
 
-```c hl_lines="6 7 8 9"
+```cpp hl_lines="6 7 8 9"
 void setup() {
   pinMode(11, OUTPUT);
 }

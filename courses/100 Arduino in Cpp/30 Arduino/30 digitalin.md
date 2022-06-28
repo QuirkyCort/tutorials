@@ -8,7 +8,7 @@ Connect a button to your Arduino as follows...
 
 ...then try the following code.
 
-```c hl_lines="2 6 7 8 9 10"
+```cpp hl_lines="2 6 7 8 9 10"
 void setup() {
   pinMode(13, OUTPUT);
 }
@@ -38,7 +38,7 @@ Whenever the button is pressed, we'll check if the LED is on; if it is on, we'll
 
 We'll also need to add a short delay, so that the LED won't keep switching between on and off.
 
-```c hl_lines="1 8 9 10 11 12 13 14 15 16 17"
+```cpp hl_lines="1 8 9 10 11 12 13 14 15 16 17"
 bool ledOn = false;
 
 void setup() {

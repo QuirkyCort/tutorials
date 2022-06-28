@@ -31,10 +31,112 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
-            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a></ul>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li class="current">Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a></ul>
         </nav>
         <div id="content">
-            
+            <h1>Serial</h1>
+<p>Serial communication can allow the Arduino to send or receive data from another device, such as a computer, a Raspberry PI, some types of sensors (...most of the Lego EV3 sensors as well as many GPS modules uses serial), as well as another Arduino.</p>
+<p>We have already seen how to use <strong>Serial.print</strong> to display messages on the Arduino serial console, and in this section, we'll look at both sending and receiving serial data in details.</p>
+<h2>Serial Wiring (To Computer)</h2>
+<p>To achieve a serial connection between a computer and an Arduino, you simply need to connect them using the USB cable.
+A special chip on the Arduino allows the USB connection to act as a serial port.</p>
+<h2>Serial Wiring (To Other Devices)</h2>
+<p>To achieve a serial connection between an Arduino and a device without a USB port, it requires a bit of wiring.
+Here is an example of two Arduinos connected together via serial...</p>
+<p><img alt="" src="images/arduinoToArduino.png" /></p>
+<p>The <strong>TX</strong> (transmit pin, aka pin 0) on one Arduino needs to be connected to the <strong>RX</strong> (receive pin, aka pin 1) on the other Arduino and vice versa.
+The <strong>Gnd</strong> pins on the two Arduinos must be connected together (...there are many <strong>Gnd</strong> pins, but they are all the same; you can connect any two of them).
+Finally, both Arduinos needs to be powered.</p>
+<div class="tip">
+Other than a few special cases, <strong>Gnd</strong> pin on different devices should usually be connected together.
+</div>
+
+<h2>Baudrate</h2>
+<p>When starting the serial connection, you may have seen this code in <strong>setup()</strong>...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>This starts the serial connection with a baudrate of <strong>9600 bits per second</strong>, which is also the default used by the Arduino serial monitor.</p>
+<p>You can use a different baudrate, but you'll need to watch out for the following...</p>
+<ul>
+<li>Both devices <strong>MUST</strong> use the same baudrate.</li>
+<li>Higher baudrate may give faster communication speed, but it'll also make it more prone to errors.</li>
+</ul>
+<p>So unless you need the higher speed, it's usually a good idea to just leave it at 9600.</p>
+<h2>Sending Data</h2>
+<p>To send data, we have the following options...</p>
+<ul>
+<li>Serial.print</li>
+<li>Serial.println</li>
+<li>Serial.write</li>
+</ul>
+<h3>Serial.print and Serial.println</h3>
+<p><strong>Serial.print</strong> and <strong>Serial.println</strong> will send the provided data as <strong>text</strong>.
+Example...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span><span class="p">;</span><span class="w"></span>
+<span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>In the above example, the serial monitor will receive...</p>
+<div class="codehilite"><pre><span></span><code>123
+</code></pre></div>
+
+<p>...which is <strong>3 characters</strong> (ie. a "1" character, a "2" character, and a "3" character).</p>
+<p>The difference between <strong>Serial.print</strong> and <strong>Serial.println</strong> is that <strong>Serial.println</strong> will add a newline at the end; that means that the next print will start on the next line.</p>
+<h3>Serial.write</h3>
+<p><strong>Serial.write</strong> will write the data as a single byte binary value.</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span><span class="p">;</span><span class="w"></span>
+<span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>In the above example, the <strong>Serial.write</strong> will send a <strong>single byte</strong> with the value 123.
+In the serial monitor, you will see a single <strong>"{"</strong> character, as that is the character represented by the value 123.
+Not all values have a displayable character, so depending on the value sent, you may not see anything meaningful or anything at all.</p>
+<p><strong>Serial.write</strong> is a bit more efficient than <strong>Serial.print</strong>, but it's harder to debug as the output is often undisplayable.
+For beginners, I would recommend sticking to <strong>Serial.print</strong>.</p>
+<h2>Receiving Data</h2>
+<p>Reading from serial can be a little more tricky.
+For example, an Arduino may be connected to a servo motor and an LED, and it may need to receive two different commands; one for turning the servo to an angle, and another for setting the LED brightness.</p>
+<p>To handle this, one way is to add a command character to the start of every message.
+Something like this...</p>
+<div class="codehilite"><pre><span></span><code># Command for setting servo angle to 40.7 degrees
+S 40.7
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code># Command for setting the third LED to a brightness of 200
+L 3 200
+</code></pre></div>
+
+<p>The character at the start of the message (...the <strong>S</strong> and <strong>L</strong>) helps to indicate what type of message this is.</p>
+<p>When reading the message, we'll first check for a valid command character, then read the numeric data that follows...</p>
+<div class="codehilite"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">command</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;S&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">parseFloat</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Setting servo to &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">servoAngle</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Replace this comment with code for moving the servo</span>
+
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">command</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;L&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// For LED, we&#39;ll read twice, the first is the LED number, while the second is the brightness</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ledNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">parseInt</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">brightness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">parseInt</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Setting LED &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">ledNumber</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; to brightness level &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">brightness</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Replace this comment with code for setting LED brightness</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>Serial.available()</strong> : This tells us how many characters are available to read.
+We'll use the <strong>while</strong> loop to keep reading repeatedly, as long as the number of available characters is greater than zero.</p>
+<p><strong>Serial.read()</strong> : This reads and returns a single character.</p>
+<p><strong>Serial.parseFloat()</strong> : This reads a floating point number.
+It returns a <strong>float</strong>.</p>
+<p><strong>Serial.parseInt()</strong> : This reads an integer.
+It returns a <strong>long</strong> (...in this example, we are assigning it to an <strong>int</strong>, and that's fine as long as the sent value is within the size limits of an <strong>int</strong>).</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

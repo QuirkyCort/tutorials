@@ -60,7 +60,7 @@ If you do not wish to use pin 11, you can also use any of the other pins from 2 
 
 Modify your earlier code to use pin 11 instead...
 
-```c hl_lines="2 6 8"
+```cpp hl_lines="2 6 8"
 void setup() {
   pinMode(11, OUTPUT);
 }
