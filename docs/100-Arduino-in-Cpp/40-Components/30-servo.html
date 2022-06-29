@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li class="current">Servo</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Servo</h1>
+<p>The term <strong>servo</strong> refers to a device that uses feedback to correct its action.
+For example, the rudders on a ship uses a servo to ensure that it turns to the correct angle ordered by the bridge.
+Servos for the rudders of a ship can weigh more than a large truck, while servos for a remote control plane can be as light as a sheet of paper.</p>
+<p>When used with an Arduino, the term <strong>servo</strong> usually refers to <strong>Hobby servo</strong> (aka <strong>RC servo</strong>).
+These are small geared motors that can receive a signal, and based on the signal, rotate and stay at a particular angle.
+Here are some examples of <strong>Hobby servos</strong>...</p>
+<p><img alt="" src="images/servosExamples.jpg" /></p>
+<p>There are many different models of such servos, and they mainly differ in their size and torque.
+Common features among these servos includes...</p>
+<ul>
+<li>Rotates between 0 to 180 degrees. (Exceptions exists, but are uncommon)</li>
+<li>Typically accepts power ranging from 4.8V to 7.2V.</li>
+<li>Controlled using the same type of signal.</li>
+<li>Uses 3 wires.</li>
+</ul>
+<h2>Pins</h2>
+<p>Hobby servos usually have 3 wires.
+These wires are color coded (Red, Black/Brown, Orange/Yellow/White/Blue) to indicate their purpose.</p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red</td>
+<td>Provides the servo with power. For one or two small servos, connect to <strong>5V</strong> on the Arduino.</td>
+</tr>
+<tr>
+<td>Black/Brown</td>
+<td>Provides the servo with power. Connect to <strong>GND</strong> on the Arduino</td>
+</tr>
+<tr>
+<td>Orange/Yellow/White/Blue</td>
+<td>Signal. This is used to tell the servo what angle to turn to. Connect to any of the GPIO pins on the Arduino.</td>
+</tr>
+</tbody>
+</table>
+<h2>Power</h2>
+<p>There are a few options for powering your servo...</p>
+<h3>Arduino 5V Pin</h3>
+<p>For one or two small servos (...such as the SG90), you can connect the <strong>Red</strong> wire to the <strong>5V</strong> pin and the <strong>Black/Brown</strong> wire to any of the <strong>GND</strong> pins.</p>
+<p>You cannot use this method for larger servos or if you are using many servos, as the Arduino <strong>5V</strong> pin won't be able to supply enough current and may reset or turn off.</p>
+<h3>Arduino VIN Pin</h3>
+<p>If your Arduino is being powered by a power supply that is 7.2V or less, you can connect the <strong>Red</strong> wire to the <strong>VIN</strong> pin and the <strong>Black/Brown</strong> wire to any of the <strong>GND</strong> pins.</p>
+<p>This method will provide the servo with the same voltage as the power supply, potentially allowing you to drive your servo at a higher voltage (...giving more speed and torque).
+You can also draw a slightly more current using this method</p>
+<h3>External Power</h3>
+<p>If powering large or many servos, you should connect the servo directly to the power supply (eg. battery pack).
+Connect the <strong>Red</strong> wire to the <strong>positive</strong> terminal of your power supply and the <strong>Black/Brown</strong> wire to the <strong>negative</strong> terminal.
+Ensure that the <strong>negative</strong> terminal of the battery is also connected to the <strong>GND</strong> pin on the Arduino.</p>
+<p>Using this method, you can power any number of motors of any size or voltage, as long as your power supply is able to provide the required current.</p>
+<h2>Wiring</h2>
+<p>Regardless of the powering method used, the <strong>signal</strong> wire (Orange/Yellow/White/Blue) should be connected to a GPIO pin on the Arduino.
+Here is an example that uses the Arduino <strong>5V</strong> pin for power...</p>
+<p><img alt="" src="images/arduinoToServo.jpg" /></p>
+<p>This second example uses external power...</p>
+<p><img alt="" src="images/arduinoToServoExt.jpg" /></p>
+<h2>Libraries</h2>
+<p>While we can write our own code to control the servo, the code can be rather complicated.
+So we'll make use of libraries that others have written to help us control the servo.</p>
+<p>In the Arduino software, click on <strong>"Tools -&gt; Manage Libraries"</strong>.</p>
+<p><img alt="" src="images/manageLibraries.jpg" /></p>
+<p>There are too many libraries to scroll through one-by-one, so in the search field, key in <strong>"servo"</strong>.
+There should now be only a few libraries left.</p>
+<p><img alt="" src="images/librarySearchServo.jpg" /></p>
+<p>Look for the library described as <strong>Built-In by Arduino</strong> and install it.</p>
+<p><img alt="" src="images/servo_builtin.png" /></p>
+<div class="important">
+On most Arduino boards, using the servo library will prevent the use of <strong>analogWrite</strong> on pins 9 and 10.
+</div>
+
+<h2>Code</h2>
+<p>Use this code to control the servo...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span><span class="cp"></span>
+</span>
+<span class="hll"><span class="n">Servo</span><span class="w"> </span><span class="n">myservo</span><span class="p">;</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">myservo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">myservo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">myservo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>#include &lt;Servo.h&gt;</strong> : This includes the <strong>Servo</strong> library into your program.</p>
+<p><strong>Servo myservo</strong> : This creates a <strong>Servo</strong> object named <strong>myservo</strong>.
+If you are controlling more than one servo, create a separate <strong>Servo</strong> object for each servo.
+We'll use this object in the later part of the code to control the servo.</p>
+<p><strong>myservo.attach(9)</strong> : Connect to the servo on pin <strong>9</strong>.
+Change this if you are using a different pin.</p>
+<p><strong>myservo.write(0)</strong> : This tells the servo to turn to <strong>0</strong> degrees.
+This will make the servo turn to 0 degrees and stay there.
+Note that the servo cannot turn to a negative angle.</p>
+<p><strong>myservo.write(180)</strong> : This tells the servo to turn to <strong>180</strong> degrees.
+This will make the servo turn to 180 degrees and stay there.
+Note that for most servos, 180 degrees is the maximum.</p>
+<h2>Exercise</h2>
+<p>If you have done the <strong>Serial</strong> section of this tutorial, combine what you have learned there with this section.
+Write a program that reads a command from serial and set the servo angle accordingly.
+This means that if I type <strong>S 90</strong> in the serial terminal, the servo should turn to 90 degrees.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Define Constants
 
-In the section on **Digital Out**, you will see this code for blinking an external LED that is connected to pin 11.
+In the section on **Digital Output** (...under **Arduino Basics**), you will see this code for blinking an external LED that is connected to pin 11.
 
 ```cpp hl_lines="2 6 8"
 void setup() {

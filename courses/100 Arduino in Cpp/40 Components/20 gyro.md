@@ -94,9 +94,9 @@ void loop() {
 }
 ```
 
-**#include <MPU6050_tockn.h>** : This includes the **MPU6050_tockn** library into your program.
+**#include &lt;MPU6050_tockn.h&gt;** : This includes the **MPU6050_tockn** library into your program.
 
-**#include <Wire.h>** : This is the **Wire** library. It's used by **MPU6050_tockn** for I2C communication with the gyro.
+**#include &lt;Wire.h&gt;** : This is the **Wire** library. It's used by **MPU6050_tockn** for I2C communication with the gyro.
 
 **MPU6050 mpu6050(Wire)** : This creates a **MPU6050** object named **mpu6050**.
 We'll use this object in the later part of the code to read the gyro.
