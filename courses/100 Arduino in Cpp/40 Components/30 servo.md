@@ -125,7 +125,11 @@ Note that the servo cannot turn to a negative angle.
 This will make the servo turn to 180 degrees and stay there.
 Note that for most servos, 180 degrees is the maximum.
 
-## Exercise
+## Exercise 1
+
+Add a potentiometer and use it to control the servo position.
+
+## Exercise 2
 
 If you have done the **Serial** section of this tutorial, combine what you have learned there with this section.
 Write a program that reads a command from serial and set the servo angle accordingly.

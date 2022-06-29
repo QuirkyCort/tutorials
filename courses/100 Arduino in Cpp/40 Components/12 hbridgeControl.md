@@ -147,3 +147,9 @@ Wire up the second motor and write a function to control the second motor.
 ## Exercise 2
 
 Add a potentiometer and use it to control the motor speed.
+
+## Exercise 3
+
+If you have done the **Serial** section of this tutorial, combine what you have learned there with this section.
+Write a program that reads a command from serial and set the motor speed for the left and right motors.
+This means that if I type **L 100** in the serial terminal, the left motor should be set to **100** power, and if I type **R -50**, the right motor should be set to **-50** power.
