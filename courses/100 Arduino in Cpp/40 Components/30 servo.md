@@ -131,6 +131,6 @@ Add a potentiometer and use it to control the servo position.
 
 ## Exercise 2
 
-If you have done the **Serial** section of this tutorial, combine what you have learned there with this section.
+If you have done the **Serial** section of this course, combine what you have learned there with this section.
 Write a program that reads a command from serial and set the servo angle accordingly.
 This means that if I type **S 90** in the serial terminal, the servo should turn to 90 degrees.
