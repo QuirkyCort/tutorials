@@ -79,13 +79,30 @@ TCCR2B = TCCR2B & B11111000 | B00000101;   //   245.10 Hz
 TCCR2B = TCCR2B & B11111000 | B00000110;   //   122.55 Hz
 TCCR2B = TCCR2B & B11111000 | B00000111;   //    30.64 Hz
 ```
-
+<br>
 <div class="info">
-The <strong>&amp;</strong> is an <strong>AND</strong> operator.
-We use it to clear bits (...change a bit to zero).
-Any bits that we want to clear is set to zero, and any bits that should be left unchanged set to one.<br>
-The <strong>|</strong> is an <strong>OR</strong> operator.
-We use it to set bits (...change a bit to one).
-Any bits that we want to set is set to one, and any bits that should be left unchanged set to zero.<br>
-The value starting with a <strong>B</strong> is a binary number.
+    <p>
+        The value starting with a <strong>B</strong> is a binary number.
+        So <strong>B11111000</strong> would mean a value where the first 5 bits are 1 and the last 3 bits are 0.
+    </p>
+    <p>
+        The <strong>&amp;</strong> is an <strong>AND</strong> operator.
+        We use it to clear bits (...change a bit to zero).
+        Any bits that we want to clear is set to zero, and any bits that should be left unchanged set to one.
+        Example...
+    </p>
+    <pre>
+TCCR0B = TCCR0B & B11111000;
+// Change the last 3 bits of TCCR0B to zero (...leaving the rest unchanged),
+// and put the result back into TCCR0B.</pre>
+    <p>
+        The <strong>|</strong> is an <strong>OR</strong> operator.
+        We use it to set bits (...change a bit to one).
+        Any bits that we want to set is set to one, and any bits that should be left unchanged set to zero.
+        Example...
+    </p>
+    <pre>
+TCCR0B = TCCR0B | B00000001;
+// Change the last bit of TCCR0B to one (...leaving the rest unchanged),
+// and put the result back into TCCR0B.</pre>
 </div>

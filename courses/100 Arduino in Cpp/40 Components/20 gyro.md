@@ -93,6 +93,10 @@ void loop() {
   Serial.println(mpu6050.getAngleZ());
 }
 ```
+<div class="important">
+Your program must run <strong>mpu6050.update()</strong> frequently, else the angles will not be correct.
+This means that you should not use <strong>delay()</strong>, or if you must, the delay need to be very short.
+</div>
 
 **#include &lt;MPU6050_tockn.h&gt;** : This includes the **MPU6050_tockn** library into your program.
 

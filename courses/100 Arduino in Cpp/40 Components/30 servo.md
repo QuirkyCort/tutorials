@@ -37,7 +37,7 @@ There are a few options for powering your servo...
 
 For one or two small servos (...such as the SG90), you can connect the **Red** wire to the **5V** pin and the **Black/Brown** wire to any of the **GND** pins.
 
-You cannot use this method for larger servos or if you are using many servos, as the Arduino **5V** pin won't be able to supply enough current and may reset or turn off.
+You cannot use this method for larger servos or if you are using many servos; the Arduino **5V** pin won't be able to supply enough current and may cause the Arduino to reset or turn off.
 
 ### Arduino VIN Pin
 

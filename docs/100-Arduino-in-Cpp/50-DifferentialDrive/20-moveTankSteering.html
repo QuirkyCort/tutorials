@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a></ul><p>Differential Drive</p><ul><a href="../50-DifferentialDrive/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-DifferentialDrive/20-moveTankSteering.html"><li class="current">Move Tank, Move Steering</li></a><a href="../50-DifferentialDrive/30-gyroTurn.html"><li >Gyro Turn</li></a><a href="../50-DifferentialDrive/40-gyroMove.html"><li >Gyro Move</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Move Tank, Move Steering</h1>
+<p>Those who are familiar with the older EV3 Lab software for the Lego EV3 robot should recognize the terms <strong>Move Tank</strong> and <strong>Move Steering</strong>.
+These functions remains available in the newer EV3 Classroom software, but these terms are no longer in use.</p>
+<p>In this section, we'll look at what each of these function do, and replicate them for our robot.</p>
+<h2>Move Tank</h2>
+<p>The <strong>Move Tank</strong> function simply allows us to control both the left and right wheel speed in a single function call.
+It's simple...</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">move_tank</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left_power</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right_power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">left_motor</span><span class="p">(</span><span class="n">left_power</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">right_motor</span><span class="p">(</span><span class="n">right_power</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<div class="important">
+The above function requires that you have the <strong>left_motor</strong> and <strong>right_motor</strong> functions already written.
+If you haven't done that, refer to the section on H-Bridge Control and write those functions first.
+</div>
+
+<h2>Move Steering</h2>
+<p>One drawback of using <strong>Move Tank</strong> is that if you need to change the speed of a move, you'll need to change the speed for both the left and right wheels.
+To maintain the same turning radius, you'll need to ensure that the speed ratio of the left and right wheels are the same.</p>
+<p>The <strong>Move Steering</strong> function separates the turning radius from the speed, allowing you to change each of these independently (eg. change speed without affecting the turning radius).</p>
+<p>Following the convention used by the EV3 software, we'll implement our <strong>Move Steering</strong> function with a steering value that ranges from <strong>-100</strong> (on the spot left turn) to <strong>100</strong> (on the spot right turn).
+If you prefer, you can also implement it with a range of -255 to 255, or -1.0 to 1.0, but note that programmers often avoid floating point values, as many microcontrollers have poor floating point performance.</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">move_steering</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">steer</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">speed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">steer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">left_motor</span><span class="p">(</span><span class="n">speed</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">right_motor</span><span class="p">(</span><span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">left_motor</span><span class="p">(</span><span class="n">speed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">right_motor</span><span class="p">(</span><span class="n">speed</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<div class="info">
+<p>
+    Note that we use <strong>steer * speed / 50</strong> and not <strong>steer / 50 * speed</strong>.
+    These may be identical mathematically, but in the C++ programming language, there is a subtle difference.
+</p>
+<p>
+    Here we are working with integer numbers, so the result of each operation is always an integer.
+    Consider...
+</p>
+<pre>
+int steer = 50;
+print(steer / 50);                 // This will output 1.
+
+int speed = 100;
+print(speed - steer / 50 * speed); // This will output 0.
+</pre>
+<p>
+    What if we change <strong>steer</strong> to <strong>70</strong>?
+</p>
+<pre>
+int steer = 70;
+print(steer / 50);                 // This will still output 1! It can't be 1.4 as that is not an integer!
+
+int speed = 100;
+print(speed - steer / 50 * speed); // This will still output 0. Same speed as before!
+print(speed - steer * speed / 50); // This will output -40 which is the correct result
+</pre>
+<p>
+    When working with integer numbers, it's often best to multiply first before dividing to avoid such problems.
+</p>
+</div>
+
+<p>The way the above code works is...</p>
+<ul>
+<li>Outer wheel always runs at the specified speed (...when turning right, the left wheel is the outer wheel).</li>
+<li>Inner wheel speed is reduced based on the steering value...</li>
+</ul>
+<h3>steer == 0</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Inner wheel speed</span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="w"></span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="w">      </span><span class="c1">// Replace &quot;steer&quot; with 0</span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">speed</span><span class="w">                       </span><span class="c1">// Inner wheel runs at &quot;speed&quot;, same as the outer wheel</span>
+</code></pre></div>
+
+<p>If steering is 0, there is no reduction and the inner wheel runs at the same speed as the outer.
+Robot travels straight forward.</p>
+<h3>steer == 50</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Inner wheel speed</span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="w"></span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="w">     </span><span class="c1">// Replace &quot;steer&quot; with 0</span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">speed</span><span class="w">               </span><span class="c1">// 50 / 50 = 1</span>
+<span class="mi">0</span><span class="w">                           </span><span class="c1">// Inner wheel is stopped</span>
+</code></pre></div>
+
+<p>If steering is 50, the inner wheel is stopped.
+Robot turns with one wheel stopped.</p>
+<h3>steer == 100</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Inner wheel speed</span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">steer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="w"></span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">50</span><span class="w">    </span><span class="c1">// Replace &quot;steer&quot; with 0</span>
+<span class="n">speed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w">           </span><span class="c1">// 100 / 50 = 2</span>
+<span class="o">-</span><span class="n">speed</span><span class="w">                      </span><span class="c1">// Inner wheel runs at same speed as the outer wheel, but opposite direction</span>
+</code></pre></div>
+
+<p>If the steering is 100, the inner wheel runs at the same speed but opposite direction from the outer wheel.
+Robot turns with one wheel moving forward and the other wheel moving backwards.</p>
+<h2>Speed or Power?</h2>
+<p>While we have been using the term <strong>speed</strong> through out this section, the <strong>left_motor</strong> and <strong>right_motor</strong> functions from the H-Bridge Control section actually controls the power delivered to the motors and not the speed.
+To actually control the speed of the motor, we'll need to add additional sensors (eg. motor encoders) and a control loop to regulate the motor speed.</p>
+<p>Thankfully, the motor speed is largely proportional to the motor power, so controlling power isn't too terrible an option.
+With just power control, you should not expect the robot to drive straight when commanded to, but you won't expect it to spin crazily in place either (...unless you screwed up somewhere).</p>
+<p>If you do add in motor encoders and code for speed control, you can replace the <strong>left_motor</strong> and <strong>right_motor</strong> functions with their speed based equivalent.
+This will give you some improvement in movement accuracy (ie. the robot will drive a little straighter).
+An alternative is to stick to the power based functions, but use gyros and other sensors (eg. ultrasonic) to control the direction and position of the robot; these can provide better accuracy than relying on motor encoders.</p>
+<h2>Low Power Caveat</h2>
+<p>While the motor speed is largely proportional to motor power, this approximation falls apart at low power / duty cycle and you may find your motors performing very inaccurately or even stop completely.
+Depending on your hardware and PWM frequency, this low power limit can be anywhere from 10% to 50%.
+If you find that you are unable to achieve a sufficiently low speed, reducing your PWM frequency can help; read the <strong>Analog Output (Frequency)</strong> chapter to learn how.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
