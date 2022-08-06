@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Arduino in C++</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Arduino in C++
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a></ul><p>Robotics</p><ul><a href="../50-Robotics/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-Robotics/20-moveTankSteering.html"><li >Move Tank, Move Steering</li></a><a href="../50-Robotics/30-gyroTurn.html"><li class="current">Gyro Turn</li></a><a href="../50-Robotics/40-gyroMove.html"><li >Gyro Move</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Gyro Turn</h1>
+<p>Before starting on this chapter, make sure you have completed the <strong>Gyro</strong> chapter and the <strong>Move Tank and Move Steering</strong> chapter.
+We'll be using the <strong>move_steering</strong> function from the latter chapter.</p>
+<div class="important">
+We assume that the angle in the Z axis increases when your robot turns left.
+Depending on how your gyro is mounted, this may or may not be true.
+It's not a problem, but you'll need to adjust your code to use the correct axis / direction.
+</div>
+
+<h2>Gyro Turn (2 states)</h2>
+<p>To do a left turn using the gyro, this is the basic approach...</p>
+<ol>
+<li>Start turning at a high speed</li>
+<li>Wait until the gyro angle is close to the target direction</li>
+<li>Continue turning, but at a lower speed</li>
+<li>Wait until the gyro angle reaches or exceeds the target direction</li>
+<li>Stop</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">left_turn</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">direction</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">move_steering</span><span class="p">(</span><span class="mi">-100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">);</span><span class="w">                      </span><span class="c1">// Start turning fast</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">mpu6050</span><span class="p">.</span><span class="n">getAngleZ</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Wait until robot is close to target direction</span>
+<span class="w">        </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">update</span><span class="p">();</span><span class="w">                          </span><span class="c1">// Need to update the gyro, else the angle will not change</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">move_steering</span><span class="p">(</span><span class="mi">-100</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">);</span><span class="w">                       </span><span class="c1">// Continue turning, but at a lower speed</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">mpu6050</span><span class="p">.</span><span class="n">getAngleZ</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">direction</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// Wait until robot reach or exceeds the target direction</span>
+<span class="w">        </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">update</span><span class="p">();</span><span class="w">                          </span><span class="c1">// Need to update the gyro, else the angle will not change</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">move_steering</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">                           </span><span class="c1">// Stop</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Gyro Turn (Proportional)</h2>
+<p>A proportional gyro turn will gradually slow down the robot as it approaches the target direction.
+As nice as it sounds, this doesn't necessarily perform better than the 2 states approach and can be harder to tune.</p>
+<p>This is the proportional approach...</p>
+<ol>
+<li>Calculate the error (difference between target direction and current direction)</li>
+<li>If the robot is close to the target angle (...error is small), break from the loop and stop</li>
+<li>Multiply the error by a gain (...gain is up to you to tune) to get the speed</li>
+<li>Ensure the speed isn't too high (...to prevent turning too fast)...</li>
+<li>...or too low (...less than the minimum speed for your motors)</li>
+<li>Turn at the calculated speed and repeat from step 1</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">turn</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">direction</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                                   </span><span class="c1">// Keep repeating</span>
+<span class="w">        </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">update</span><span class="p">();</span><span class="w">                            </span><span class="c1">// Need to update the gyro, else the angle will not change</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mpu6050</span><span class="p">.</span><span class="n">getAngleZ</span><span class="p">();</span><span class="w"> </span><span class="c1">// Calculate error</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                        </span><span class="c1">// If the error is below a limit (1 degree here),</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w">                                   </span><span class="c1">// break from the loop</span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">                       </span><span class="c1">// Multiply by gain (2 here) to get speed</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">speed</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                             </span><span class="c1">// Check if speed is positive or negative</span>
+<span class="w">            </span><span class="n">speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constrain</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">);</span><span class="w">       </span><span class="c1">// Constrain it to between 50 to 200</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constrain</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="w"> </span><span class="mi">-200</span><span class="p">,</span><span class="w"> </span><span class="mi">-50</span><span class="p">);</span><span class="w">     </span><span class="c1">// If speed is negative, constrain it to between -200 to -50</span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">move_steering</span><span class="p">(</span><span class="mi">-100</span><span class="p">,</span><span class="w"> </span><span class="n">speed</span><span class="p">);</span><span class="w">                  </span><span class="c1">// Turn at the calculated speed</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">move_steering</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">                             </span><span class="c1">// Stop the robot when the loop ends</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Nice thing about a proportional turn is that it will automatically turn left or right depending on the target direction; there's no need for separate left and right turn functions.</p>
+<div class="important">
+Depending on your robot design, minimum speed, and error limit (...less than 1 degree in the above), there is a risk that your robot may oscillate back and forth for some time before it stops.
+If that happens, you can either increase the error limit or reduce the minimum speed.
+</div>
+
+<h2>Exercise 1</h2>
+<p>Write a function to perform a right turn (2 states).</p>
+<h2>Exercise 2</h2>
+<p>Test and tune your turn functions to suit your robot.</p>
+<h2>Exercise 3</h2>
+<p>Sometimes you may want your robot to turn at a lower or higher speed (eg. in a dance performance).
+Modify your turn functions to allow a max speed setting.</p>
+<h2>Exercise 4</h2>
+<p>These turns are all using a steering value of <strong>-100</strong> or <strong>100</strong>, giving us an on-the-spot turn.
+It may also be desirable to allow other types of turns, such as a pivot turn (...one wheel is stationary) or curve turn (...both wheels are moving in the same direction but at different speed).
+Modify your turn functions or write new functions to allow different types of turns.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
