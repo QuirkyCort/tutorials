@@ -1,6 +1,6 @@
 # Introductions
 
-In this program, you will learn what is an Arduino and as well as the basics of C++.
+In this program, you will learn what the basics of C++, how to program an Arduino, and some basic robotics.
 This course is designed for people with no coding experience, and there are no prerequisite skills for this course.
 
 You will need either a PC (Windows, Mac, or Linux) and an Arduino for the program.

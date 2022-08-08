@@ -63,12 +63,15 @@ The gain is a negative value, because when the error is positive (...target dire
 
 ### Residual Error
 
-A proportional control will suffer from some residual error.
+A proportional control will suffer from some residual error (aka offset error).
 What this means is that if your robot / wheels are not perfectly balanced, the proportional control will get your robot to point close to, but not exactly at the target direction.
-This is called the residual error.
 
 You cannot completely eliminate residual error with a proportional only control, but you can reduce it by setting a high gain.
-Be warned however, that setting a high gain may cause the robot to oscillate back and forth.
+Be warned however, that setting too high a gain may cause the robot to oscillate back and forth.
+
+To eliminate residual error, you'll need a **Proportional + Integral** control, but adding more terms makes the code more complicated and harder to tune.
+If a proportional only control is good enough, you may not want to add the integral controls.
+Feel free to read up on [PID controllers](https://en.wikipedia.org/wiki/PID_controller) and implement it yourself if you want to.
 
 ## Looping
 

@@ -30,7 +30,7 @@
     <div id="body">
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
-            <div id="sidebarHeader">Learn the basics of Arduino and C++</div>
+            <div id="sidebarHeader">Learn Arduino, C++, and Robotics</div>
             <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a></ul><p>Robotics</p><ul><a href="../50-Robotics/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-Robotics/20-moveTankSteering.html"><li >Move Tank, Move Steering</li></a><a href="../50-Robotics/30-gyroTurn.html"><li >Gyro Turn</li></a><a href="../50-Robotics/40-gyroMove.html"><li class="current">Gyro Move</li></a></ul>
         </nav>
         <div id="content">
@@ -91,11 +91,13 @@ The gain is a negative value, because when the error is positive (...target dire
 </div>
 
 <h3>Residual Error</h3>
-<p>A proportional control will suffer from some residual error.
-What this means is that if your robot / wheels are not perfectly balanced, the proportional control will get your robot to point close to, but not exactly at the target direction.
-This is called the residual error.</p>
+<p>A proportional control will suffer from some residual error (aka offset error).
+What this means is that if your robot / wheels are not perfectly balanced, the proportional control will get your robot to point close to, but not exactly at the target direction.</p>
 <p>You cannot completely eliminate residual error with a proportional only control, but you can reduce it by setting a high gain.
-Be warned however, that setting a high gain may cause the robot to oscillate back and forth.</p>
+Be warned however, that setting too high a gain may cause the robot to oscillate back and forth.</p>
+<p>To eliminate residual error, you'll need a <strong>Proportional + Integral</strong> control, but adding more terms makes the code more complicated and harder to tune.
+If a proportional only control is good enough, you may not want to add the integral controls.
+Feel free to read up on <a href="https://en.wikipedia.org/wiki/PID_controller">PID controllers</a> and implement it yourself if you want to.</p>
 <h2>Looping</h2>
 <p>None of the <strong>move</strong> functions above will work correctly, as they will only check the angle once.
 To continuously check and correct for errors, the above <strong>move</strong> functions will need to be placed in a loop.
