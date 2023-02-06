@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 import urllib
+import urllib.parse
 
 COURSES_DIR = 'courses'
 HTML_DIR = 'docs'

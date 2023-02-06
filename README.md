@@ -11,6 +11,7 @@ Various STEM related tutorials. View them [here](https://quirkycort.github.io/tu
 ### Pre-requisites
 
 * Python3
+* Python3-markdown
 * Sass
 
 ### Folder structure

@@ -31,10 +31,159 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Learn Arduino, C++, and Robotics</div>
-            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a></ul><p>Robotics</p><ul><a href="../50-Robotics/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-Robotics/20-moveTankSteering.html"><li >Move Tank, Move Steering</li></a><a href="../50-Robotics/30-gyroTurn.html"><li >Gyro Turn</li></a><a href="../50-Robotics/40-gyroMove.html"><li >Gyro Move</li></a></ul>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a><a href="../40-Components/32-servo-driver.html"><li class="current">Servo Driver (PCA9685)</li></a></ul><p>Robotics</p><ul><a href="../50-Robotics/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-Robotics/20-moveTankSteering.html"><li >Move Tank, Move Steering</li></a><a href="../50-Robotics/30-gyroTurn.html"><li >Gyro Turn</li></a><a href="../50-Robotics/40-gyroMove.html"><li >Gyro Move</li></a></ul>
         </nav>
         <div id="content">
-            
+            <h1>Servo Driver (PCA9685)</h1>
+<p>In the previous section, you've learned how to control a servo using the Arduino Servo library.
+It's simple to use if you only have a few servos, but there are a some problems with that approach...</p>
+<ul>
+<li>Requires one Arduino GPIO pin for each servo</li>
+<li>Max of 12 servos on the Arduino UNO</li>
+<li>Disables analogWrite on pins 9 and 10</li>
+</ul>
+<p>One way to work around these limitations is to use the PCA9685 servo driver board.</p>
+<p><img alt="" src="images/PCA9685.webp" /></p>
+<p>Benefits of this board are...</p>
+<ul>
+<li>Uses the I2C communication protocol; only requires 2 pins and multiple I2C devices can share the same pins.</li>
+<li>Each PCA9685 board can control up to 16 servos, and you can use up to 62 of these boards simultaneously (...for 992 servos total).</li>
+</ul>
+<h2>Pins</h2>
+<p><img alt="" src="images/PCA9685_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servo Power Screw Terminals</td>
+<td>Power supply for the <strong>Servos Only</strong>. Most servos max out at 7.2V so you should not exceed that.</td>
+</tr>
+<tr>
+<td>Output to Servos</td>
+<td>16 outputs for servos. You can use as many or as little as you need, but make sure you match the color on the servo wires.</td>
+</tr>
+<tr>
+<td>GND (Signal)</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the Arduino. This is the same as the GND pin on the screw terminals.</td>
+</tr>
+<tr>
+<td>OE (Signal)</td>
+<td>Output Enable pin. If given a <strong>HIGH</strong> (3.3V or 5V) signal, it will disable all the outputs. You can leave this disconnected if you're not using it.</td>
+</tr>
+<tr>
+<td>SCL (Signal)</td>
+<td>Serial Clock. This is used to communicate with the Arduino.</td>
+</tr>
+<tr>
+<td>SDA (Signal)</td>
+<td>Serial Data. This is used to communicate with the Arduino.</td>
+</tr>
+<tr>
+<td>VCC (Signal)</td>
+<td>Provides the PCA9685 with power. This does not provide power to the servo. Connect to <strong>5V</strong> or <strong>3.3V</strong> on the Arduino.</td>
+</tr>
+<tr>
+<td>V+ (Signal)</td>
+<td>Power supply for the <strong>Servos Only</strong>. This is the same as the V+ pin on the screw terminals, and you only need to connect one of them.</td>
+</tr>
+<tr>
+<td>Signal pins on right side</td>
+<td>Identical to the pins on the left side. Useful to chain multiple PCA9685 boards together, but should otherwise leave them alone.</td>
+</tr>
+</tbody>
+</table>
+<h2>Power</h2>
+<p>The PCA9685 board has <strong>TWO</strong> power supply.
+The <strong>V+</strong> pins only supply power to the servos, and does not power the chips on the board.
+The <strong>VCC</strong> pin only supply power to the board, and does not power the servos.
+<strong>Both</strong> pins must be powered for the board to work.</p>
+<p>For testing purposes, you can connect the <strong>5V</strong> pin on the Arduino to the <strong>V+</strong> pin on the PCA9685.
+This will use the Arduino to provide power to the servos on the PCA9685.
+The Arduino 5V pin cannot supply much current, so this will only work with a few small servos, and the servos can only have very light loads.</p>
+<p><img alt="" src="images/PCA9685_testPower.webp" /></p>
+<p>To provide sufficient power to the servos, you should use either...</p>
+<ul>
+<li>A separate battery pack supplying at most 7.2V (eg. 2 x 18650 batteries).</li>
+</ul>
+<p><img alt="" src="images/PCA9685_separateBattery.webp" /></p>
+<p>...or if your battery pack is higher than 7.2V (eg. 12V)...</p>
+<ul>
+<li>A voltage regulator to reduce the higher voltage down to 7.2V.</li>
+</ul>
+<p><img alt="" src="images/PCA9685_voltageRegulator.webp" /></p>
+<p>In either cases, <strong>DO NOT</strong> connect the <strong>V+</strong> pin to your Arduino.</p>
+<h2>I2C</h2>
+<p>The <strong>SCL</strong> and <strong>SDA</strong> pins are for I2C communication with the Arduino.
+Nice thing about I2C, is that you can connect multiple devices to the same I2C pins in parallel...</p>
+<p><img alt="" src="images/IC2_chaining.webp" /></p>
+<p>So if you are using both the MPU-6050 gyro and the PCA9685 servo board, you'll only need two pins on the Arduino to control them all.
+One limitation that you may need to watch out for, is that each device must have a unique address.
+This means that you cannot use more than one of each device unless you can change the device address.</p>
+<h2>Wiring</h2>
+<p>The example below uses a voltage regulator.
+Modify accordingly if you are using a different power source for the servos.</p>
+<p><img alt="" src="images/PCA9685_wiring.webp" /></p>
+<h2>Libraries</h2>
+<p>While we can write our own code to control the PCA9685, the code can be rather complicated.
+So we'll make use of libraries that others have written to help us control the PCA9685.</p>
+<p>In the Arduino software, click on <strong>"Tools -&gt; Manage Libraries"</strong>.</p>
+<p><img alt="" src="images/manageLibraries.jpg" /></p>
+<p>There are too many libraries to scroll through one-by-one, so in the search field, key in <strong>"adafruit pwm"</strong>.
+There should now be only a few libraries left.</p>
+<p><img alt="" src="images/librarySearchAdaPWM.webp" /></p>
+<p>Look for the library named <strong>Adafruit PWM Servo Driver Library</strong> and install it.</p>
+<div class="info">
+There are many other libraries for the PCA9685, and most will work just fine.
+You can use a different library, but the code in the next section will need to be changed.
+</div>
+
+<h2>Code</h2>
+<p>The below code controls one servo on port 15.
+If your servo is connected to a different port, you'll need to change the code to match.</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Adafruit_PWMServoDriver.h&gt;</span><span class="cp"></span>
+</span>
+<span class="hll"><span class="n">Adafruit_PWMServoDriver</span><span class="w"> </span><span class="n">pwm</span><span class="p">;</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">pwm</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">pwm</span><span class="p">.</span><span class="n">setPWMFreq</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">pwm</span><span class="p">.</span><span class="n">writeMicroseconds</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">600</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">pwm</span><span class="p">.</span><span class="n">writeMicroseconds</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">2400</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>#include &lt;Adafruit_PWMServoDriver.h&gt;</strong> : This includes the <strong>Adafruit_PWMServoDriver</strong> library into your program.</p>
+<p><strong>Adafruit_PWMServoDriver pwm;</strong> : This creates a <strong>Adafruit_PWMServoDriver</strong> object named <strong>pwm</strong>.
+We'll use this object in the later part of the code to control the board.</p>
+<p><strong>pwm.begin();</strong> : This initialize the <strong>pwm</strong> object and gets it ready for use.</p>
+<p><strong>pwm.setPWMFreq(50);</strong> : The PCA9685 can operate at different frequencies.
+Most servos works at 50Hz, so that's what we'll use.</p>
+<p><strong>pwm.writeMicroseconds(15, 600);</strong> : This sends a 600 micro-seconds (us) pules signal to servo 15.
+This roughly correspond to the 0 degrees position (...varies depending on the servo).</p>
+<p><strong>pwm.writeMicroseconds(15, 2400);</strong> : This sends a 2400 micro-seconds (us) pulse signal to servo 15.
+This roughly correspond to the 180 degrees position (...varies depending on the servo).</p>
+<div class="important">
+If you hear a growling noise from your servo when it's at the extreme end of its range, that means it has hit its physical limits, and you should step your signal back a little. (eg. if you hear growling noise at 600us, try limiting your code to 650us instead.)
+</div>
+
+<h2>Angles</h2>
+<p>Unlike the Arduino Servo library that we used in the previous section, the Adafruit library uses micro-seconds pulse length instead of degrees of rotation as an input.
+If you prefer to use degrees, you can convert your angle into pulse length using the <a href="https://www.arduino.cc/reference/en/language/functions/math/map/">Arduino <strong>"map()"</strong> function</a>.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">pwm</span><span class="p">.</span><span class="n">writeMicroseconds</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span><span class="w"> </span><span class="mi">2400</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>The above code maps <strong>90</strong> degrees, from a range of <strong>0</strong> to <strong>180</strong> , into a pulse length ranging from <strong>600 us</strong> to <strong>2400us</strong>.
+If required, adjust the pulse length range (...the 600 and 2400) to match your servo.</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>
