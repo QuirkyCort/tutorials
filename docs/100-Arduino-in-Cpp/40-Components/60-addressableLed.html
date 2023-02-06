@@ -31,10 +31,103 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Learn Arduino, C++, and Robotics</div>
-            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a><a href="../40-Components/32-servo-driver.html"><li >Servo Driver (PCA9685)</li></a></ul><p>Robotics</p><ul><a href="../50-Robotics/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-Robotics/20-moveTankSteering.html"><li >Move Tank, Move Steering</li></a><a href="../50-Robotics/30-gyroTurn.html"><li >Gyro Turn</li></a><a href="../50-Robotics/40-gyroMove.html"><li >Gyro Move</li></a></ul>
+            <p>Intro to Arduino and C++</p><ul><a href="../10-Intro/10-arduino.html"><li >Introductions</li></a><a href="../10-Intro/20-cpp.html"><li >Intro to C++</li></a></ul><p>Basics of C++</p><ul><a href="../20-Cpp/10-variables.html"><li >Variables and Types</li></a><a href="../20-Cpp/20-math.html"><li >Math and Type Conversion</li></a><a href="../20-Cpp/30-conditions.html"><li >Conditions</li></a><a href="../20-Cpp/40-loops.html"><li >Loops</li></a><a href="../20-Cpp/50-functions.html"><li >Functions</li></a><a href="../20-Cpp/60-define.html"><li >Define Constants</li></a><a href="../20-Cpp/999-references.html"><li >References</li></a></ul><p>Arduino Basics</p><ul><a href="../30-Arduino/10-pinsAndWiring.html"><li >Pins and Wirings</li></a><a href="../30-Arduino/20-digitalout.html"><li >Digital Output</li></a><a href="../30-Arduino/30-digitalin.html"><li >Digital Input</li></a><a href="../30-Arduino/40-analogout.html"><li >Analog Output</li></a><a href="../30-Arduino/42-analogout2.html"><li >Analog Output (Frequency)</li></a><a href="../30-Arduino/50-analogin.html"><li >Analog Input</li></a><a href="../30-Arduino/60-serial.html"><li >Serial</li></a></ul><p>External Components</p><ul><a href="../40-Components/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../40-Components/12-hbridgeControl.html"><li >Controlling a H-Bridge Motor Driver</li></a><a href="../40-Components/20-gyro.html"><li >Gyro</li></a><a href="../40-Components/30-servo.html"><li >Servo</li></a><a href="../40-Components/32-servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../40-Components/60-addressableLed.html"><li class="current">Addressable LED (WS2812)</li></a></ul><p>Robotics</p><ul><a href="../50-Robotics/10-differentialDrive.html"><li >Differential Drive</li></a><a href="../50-Robotics/20-moveTankSteering.html"><li >Move Tank, Move Steering</li></a><a href="../50-Robotics/30-gyroTurn.html"><li >Gyro Turn</li></a><a href="../50-Robotics/40-gyroMove.html"><li >Gyro Move</li></a></ul>
         </nav>
         <div id="content">
-            
+            <h1>Addressable LED (WS2812)</h1>
+<p><img alt="" src="images/WS2812.webp" /></p>
+<p>The WS2812 LEDs (...also known as the Neopixel after a popular brand), are addressable RGB LEDs.
+Some of their features are...</p>
+<ul>
+<li>Connected in series. Only require one Arduino GPIO pin for all the LEDs.</li>
+<li>Individually addressable. You can control each LED individually.</li>
+<li>RGB. You can set the power for the Red, Green, and Blue component individually, allowing you to create any colors.</li>
+</ul>
+<p>They are often sold in rolls of 5 meters, and are relatively inexpensive, making them great choices for decorating your project.</p>
+<h2>Pins</h2>
+<p><img alt="" src="images/WS2812_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+5V</td>
+<td>Power supply for the LEDs. Connect this to the positive terminal on your power supply (eg. batteries).</td>
+</tr>
+<tr>
+<td>Din</td>
+<td>Digital Input. Signal to control the LEDs. Connect this to a GPIO pin on your Arduino.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the Arduino.</td>
+</tr>
+<tr>
+<td>DO</td>
+<td>Digital Output. This connects from one LED to the next. You should not connect your Arduino to this.</td>
+</tr>
+</tbody>
+</table>
+<div class="important">
+The order of the pins are not always the same!
+Always check the labels on the strip to ensure you connect them correctly.
+</div>
+
+<h2>Wiring</h2>
+<p>Each LED consumes 60mA at max (...red/green/blue all on full brightness), while the Arduino 5V pin can supply only 500mA.
+This means that you can safely power up to 8 LEDs using the 5V pin on the Arduino (...more if you don't turn on all LEDs or colors).</p>
+<p><img alt="" src="images/WS2812_ArduinoPower.webp" /></p>
+<p>In the above example, we are using pin 12 to provide the digital signal to the LED, but you can use any GPIO pins on the Arduino.</p>
+<p>If you require more than 8 LEDs, you will need a separate power supply that can provide 5V.
+One way is to use a voltage regulator to reduce your battery voltage to 5V.</p>
+<p><img alt="" src="images/WS2812_voltageRegulator.webp" /></p>
+<h2>Libraries</h2>
+<p>While we can write our own code to control the WS2812, the code can be rather complicated.
+So we'll make use of libraries that others have written to help us control the LEDs.</p>
+<p>In the Arduino software, click on <strong>"Tools -&gt; Manage Libraries"</strong>.</p>
+<p><img alt="" src="images/manageLibraries.jpg" /></p>
+<p>There are too many libraries to scroll through one-by-one, so in the search field, key in <strong>"neopixel"</strong>.
+There should now be only a few libraries left.</p>
+<p><img alt="" src="images/librarySearchNeopixel.webp" /></p>
+<p>Look for the library named <strong>Adafruit NeoPixel</strong> and install it.</p>
+<h2>Code</h2>
+<p>The below code alternates the color between the first and second LEDs.
+It assumes that your Neopixel has at least two LEDs (...it can be more), and is connected to pin 12 on your Arduino.</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Adafruit_NeoPixel.h&gt;</span><span class="cp"></span>
+</span>
+<span class="hll"><span class="n">Adafruit_NeoPixel</span><span class="w"> </span><span class="nf">strip</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="n">NEO_GRB</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">NEO_KHZ800</span><span class="p">);</span><span class="w"></span>
+</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+
+<span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span><span class="w"></span>
+</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>#include &lt;Adafruit_NeoPixel.h&gt;</strong> : This includes the <strong>Adafruit_NeoPixel</strong> library into your program.</p>
+<p><strong>Adafruit_NeoPixel strip(2, 12, NEO_GRB + NEO_KHZ800);</strong> : This creates a <strong>Adafruit_NeoPixel</strong> object named <strong>strip</strong>.
+It has <strong>2</strong> LEDs, and is connected to pin <strong>12</strong> (...change these to match your strip).
+We'll use this object in the later part of the code to control the LEDs.</p>
+<p><strong>strip.begin();</strong> : This initialize the <strong>strip</strong> object and gets it ready for use.</p>
+<p><strong>strip.setPixelColor(0, 255, 0, 0);</strong> : This sets <strong>LED 0</strong> (...nearest LED to Arduino) to Red (255), Green (0), Blue (0). (ie. Red color).</p>
+<p><strong>strip.setPixelColor(1, 0, 255, 0);</strong> : This sets <strong>LED 1</strong> (...second LED) to Red (0), Green (255), Blue (0). (ie. Green color).</p>
+<p><strong>strip.setPixelColor(1, 255, 0, 255);</strong> : This sets <strong>LED 1</strong> (...second LED) to Red (255), Green (0), Blue (255). (ie. Purple color).</p>
+<p><strong>strip.show();</strong> : Setting the pixel color will not have an immediate effect.
+To display the color, you must run <strong>strip.show()</strong>.</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>
