@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Robotics with GearsBot</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Robotics with GearsBot
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course uses the virtual GearsBot platform to teach basic Robotics.</div>
+            <p>Getting Started</p><ul><a href="../10-Introduction/10-Course-Overview.html"><li >Course Overview</li></a><a href="../10-Introduction/20-Computational-Thinking.html"><li >Computational Thinking</li></a><a href="../10-Introduction/22-Four-Skills.html"><li >Four Computational Thinking Skills</li></a><a href="../10-Introduction/24-Birthday-Party.html"><li class="current">Planning a Birthday Party</li></a><a href="../10-Introduction/30-The-GearsBot-App.html"><li >The GearsBot App</li></a></ul><p>Basic Movements</p><ul><a href="../20-Basic-Movements/10-Sequences.html"><li >Sequences</li></a><a href="../20-Basic-Movements/20-Turning.html"><li >Turning</li></a><a href="../20-Basic-Movements/30-Taking-a-Break.html"><li >Pause, Sleep, Rest</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Planning a Birthday Party</h1>
+<h2>Step 1 (Decomposition)</h2>
+<p>Write down what needs to be done.</p>
+<ul>
+<li>Send invitation</li>
+<li>Decorate house</li>
+<li>Bake a cake</li>
+</ul>
+<h2>Step 2 (Pattern Recognition)</h2>
+<p>Take a look at the birthday invitation...</p>
+<p><img alt="" src="images/birthdayInvite.webp" /></p>
+<p>...which parts are the same for every invite?
+How can we make use of this similarity to make our work easier?</p>
+<h2>Step 3 (Abstraction)</h2>
+<p>Let's look for some decorating ideas from YouTube...</p>
+<p><img alt="" src="images/youtubeDecorating.webp" /></p>
+<p>Those looks great!
+But my house don't look the same as the ones in the video (different types of curtains, tables, chairs, etc).
+Can I still use the ideas from the videos?
+Which parts of the videos are important and which are not?</p>
+<h2>Step 4 (Algorithmic Design)</h2>
+<p>What are the steps to bake a cake?</p>
+<p><img alt="" src="images/cakeSteps.webp" /></p>
+<p>Can you come up with your own steps to bake a cake?</p>
+<p>We will come back to these idea, when we discuss different activities in coding and designing our robot!</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

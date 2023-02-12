@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Robotics with GearsBot</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Robotics with GearsBot
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course uses the virtual GearsBot platform to teach basic Robotics.</div>
+            <p>Getting Started</p><ul><a href="../10-Introduction/10-Course-Overview.html"><li >Course Overview</li></a><a href="../10-Introduction/20-Computational-Thinking.html"><li >Computational Thinking</li></a><a href="../10-Introduction/22-Four-Skills.html"><li >Four Computational Thinking Skills</li></a><a href="../10-Introduction/24-Birthday-Party.html"><li >Planning a Birthday Party</li></a><a href="../10-Introduction/30-The-GearsBot-App.html"><li >The GearsBot App</li></a></ul><p>Basic Movements</p><ul><a href="../20-Basic-Movements/10-Sequences.html"><li class="current">Sequences</li></a><a href="../20-Basic-Movements/20-Turning.html"><li >Turning</li></a><a href="../20-Basic-Movements/30-Taking-a-Break.html"><li >Pause, Sleep, Rest</li></a></ul>
+        </nav>
+        <div id="content">
+            <h2>Sequences</h2>
+<p>Let's find out about Sequential programs in <a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F8hJAhhRWox.json&amp;robotJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FygcmWx4oSE.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FqWMgNrD6Bu.json&amp;worldScripts=world_challenges">GearsBot</a>.</p>
+<h2>Blocks Tab</h2>
+<p>Navigate to the Blocks tab.
+Right now, you only have one category of blocks; <strong>Movement</strong>.</p>
+<p>As you progress through the lessons, we will add more categories for you to use.</p>
+<p>You can drag and drop blocks from those panels into the coding canvas.</p>
+<h2>When Started</h2>
+<p>The main program will start executing code from the <strong>When Started</strong> event.  When you press the <strong>Run</strong> button in the simulator, this is where the robot code begins.</p>
+<p><img alt="" src="images/whenStarted.jpg" /></p>
+<h2>Statements</h2>
+<p>The fundamental unit of a code is an execution <strong>statement</strong>.</p>
+<p>Do this.</p>
+<p>Do that.</p>
+<p>When we program a bunch of these statements one after the other, the hub will execute them in the same order.</p>
+<p>This is called a <strong>sequence</strong>, meaning one statement follows another.</p>
+<h2>Sequences</h2>
+<p>Let's try some simple code sequences.</p>
+<p>First, let's make the robot move forward.</p>
+<h3>Robot Movement</h3>
+<p>Find the <strong>Movement</strong> tab, and look at the choices...</p>
+<p><img alt="" src="images/movementCategory.webp" /></p>
+<h3>Forward</h3>
+<p>Let's make the robot move 1 block forward.</p>
+<p>Drag a <code>Move Forward</code> block, and place it below <code>When Started</code>:</p>
+<p><img alt="" src="images/moveForward.webp" /></p>
+<p>Now switch to the <strong>Simulation</strong> tab and click <strong>Run</strong>.</p>
+<p><img alt="" src="images/runReset.webp" /></p>
+<p>Your robot should move forward.</p>
+<h2>Challenges</h2>
+<p>Now we have a series of challenges for you to try out.</p>
+<p>For each challenge, click on the <em>Simulator Tab</em>, then the <em>Mission</em> button to see the mission you need to do.</p>
+<p><img alt="" src="images/simulatorMission.webp" /></p>
+<p>Follow instructions and note down the <em>special Code</em> after doing the challenge successfully!</p>
+<h3>Challenge 1</h3>
+<ul>
+<li>
+<p>Load <a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FB9GeeMU54M.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>This first one is simple; you just need to move forward.</p>
+</li>
+</ul>
+<h3>Challenge 2</h3>
+<ul>
+<li>
+<p>Load <a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FFRe4MNv576.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>What if happens if you put it multiple <code>Move Forward</code> blocks?</p>
+</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
