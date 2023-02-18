@@ -1,5 +1,4 @@
-The GearsBot App
----
+# The GearsBot App
 
 For our programming exercises, we will be using the [GearsBot app](https://gears.aposteriori.com.sg/).
 

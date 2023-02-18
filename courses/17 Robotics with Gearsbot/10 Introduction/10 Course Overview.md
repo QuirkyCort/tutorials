@@ -1,5 +1,4 @@
-Course Overview
----
+# Course Overview
 
 To load this course you can navigate to:
 

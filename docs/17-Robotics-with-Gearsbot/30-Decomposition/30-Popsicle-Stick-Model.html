@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Robotics with GearsBot</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Robotics with GearsBot
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course uses the virtual GearsBot platform to teach basic Robotics.</div>
+            <p>Getting Started</p><ul><a href="../10-Introduction/10-Course-Overview.html"><li >Course Overview</li></a><a href="../10-Introduction/20-Computational-Thinking.html"><li >Computational Thinking</li></a><a href="../10-Introduction/22-Four-Skills.html"><li >Four Computational Thinking Skills</li></a><a href="../10-Introduction/24-Birthday-Party.html"><li >Planning a Birthday Party</li></a><a href="../10-Introduction/30-The-GearsBot-App.html"><li >The GearsBot App</li></a></ul><p>Basic Movements</p><ul><a href="../20-Basic-Movements/10-Sequences.html"><li >Sequences</li></a><a href="../20-Basic-Movements/20-Turning.html"><li >Turning</li></a><a href="../20-Basic-Movements/30-Taking-a-Break.html"><li >Pause, Sleep, Rest</li></a></ul><p>Decomposition</p><ul><a href="../30-Decomposition/10-What-is-Decomposition.html"><li >What is Decomposition?</li></a><a href="../30-Decomposition/20-How-to-Decompose.html"><li >How to Decompose?</li></a><a href="../30-Decomposition/30-Popsicle-Stick-Model.html"><li class="current">Example: Popsicle Stick Model</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Example: Popsicle Stick Model</h1>
+<h3>Can you build this with just popsicle sticks? <a href="https://www.aposteriori.com.sg/wp-content/uploads/decompositionModel.pdf">PDF Version</a></h3>
+<p><img alt="" src="images/modelComplete.webp" /></p>
+<p>That's too complicated! Let's use <strong>decomposition</strong> to break it down into smaller parts.</p>
+<p>To build that model, we'll need to...</p>
+<ol>
+<li>Build the base</li>
+<li>Build the small building</li>
+<li>Build the large building</li>
+<li>Build the ship</li>
+</ol>
+<h3>Build the Small Building</h3>
+<p><img alt="" src="images/smallBuilding.webp" /></p>
+<p>Even the small building is rather complicated! Let's <strong>decompose</strong> it some more!</p>
+<ol>
+<li>Build the base</li>
+<li>Build the small building<ol>
+<li><strong>Build ground floor</strong></li>
+<li><strong>Build second floor</strong></li>
+<li><strong>Build top floor</strong></li>
+</ol>
+</li>
+<li>Build the large building</li>
+<li>Build the ship</li>
+</ol>
+<h3>Build the Ground Floor</h3>
+<p><img alt="" src="images/groundFloor.webp" /></p>
+<p>Build just the ground floor is a lot easier, but let's make it even simpler. We'll <strong>decompose</strong> again!</p>
+<ol>
+<li>Build the base</li>
+<li>Build the small building<ol>
+<li>Build ground floor<ol>
+<li><strong>Build floor</strong></li>
+<li><strong>Build 3 walls</strong></li>
+</ol>
+</li>
+<li>Build second floor</li>
+<li>Build top floor</li>
+</ol>
+</li>
+<li>Build the large building</li>
+<li>Build the ship</li>
+</ol>
+<h3>Build the Wall</h3>
+<p><img alt="" src="images/oneWall.webp" /></p>
+<p>If it's just one wall, it's really easy to build!</p>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

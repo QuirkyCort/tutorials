@@ -1,5 +1,4 @@
-Pause, Sleep, Rest
----
+# Pause, Sleep, Rest
 
 Sequential programs sometimes require that your robot take a break, pausing for some other actions.
 

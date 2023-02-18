@@ -1,5 +1,4 @@
-Computational Thinking
----
+# Computational Thinking
 
 This program is built around the idea of Computational Thinking, which is a 21st Century Competency buzz phrase all students must recognize!
 
