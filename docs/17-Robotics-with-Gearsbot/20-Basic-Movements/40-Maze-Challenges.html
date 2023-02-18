@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_idle.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Robotics with GearsBot</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Robotics with GearsBot
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course uses the virtual GearsBot platform to teach basic Robotics.</div>
+            <p>Getting Started</p><ul><a href="../10-Introduction/10-Course-Overview.html"><li >Course Overview</li></a><a href="../10-Introduction/20-Computational-Thinking.html"><li >Computational Thinking</li></a><a href="../10-Introduction/22-Four-Skills.html"><li >Four Computational Thinking Skills</li></a><a href="../10-Introduction/24-Birthday-Party.html"><li >Planning a Birthday Party</li></a><a href="../10-Introduction/30-The-GearsBot-App.html"><li >The GearsBot App</li></a></ul><p>Basic Movements</p><ul><a href="../20-Basic-Movements/10-Sequences.html"><li >Sequences</li></a><a href="../20-Basic-Movements/20-Turning.html"><li >Turning</li></a><a href="../20-Basic-Movements/30-Taking-a-Break.html"><li >Pause, Sleep, Rest</li></a><a href="../20-Basic-Movements/40-Maze-Challenges.html"><li class="current">Maze Challenges</li></a></ul><p>Decomposition</p><ul><a href="../30-Decomposition/10-What-is-Decomposition.html"><li >What is Decomposition?</li></a><a href="../30-Decomposition/20-How-to-Decompose.html"><li >How to Decompose?</li></a><a href="../30-Decomposition/30-Popsicle-Stick-Model.html"><li >Example: Popsicle Stick Model</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Maze Challenges</h1>
+<p>Try using <strong>Decomposition</strong> to solve these maze challenges!</p>
+<h2>Example 1</h2>
+<p>This challenge will be opened in a new tab.
+Open it, take a look, then switch back to this page.</p>
+<p><a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FrVcSxDkM3r.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic" target="_blank">Open Challenge</a></p>
+<p><img alt="" src="images/maze1.webp" /></p>
+<h3>Decompose</h3>
+<p>To solve this maze, we'll need to visit...</p>
+<ol>
+<li>Red Box 1</li>
+<li>Red Box 2</li>
+</ol>
+<div class="important">
+Your robot will need to stop for 1 second inside each box!
+</div>
+
+<p>Let's decompose step 1 a little more...</p>
+<ol>
+<li>Red Box 1<ol>
+<li><strong>Turn Right</strong></li>
+<li><strong>Move Forward</strong></li>
+<li><strong>Stop for 1 second</strong></li>
+</ol>
+</li>
+<li>Red Box 2</li>
+</ol>
+<p>Let's write the code for that...</p>
+<p><img alt="" src="images/maze1Code.webp" /></p>
+<p>Try out the code!</p>
+<p>Now we'll decompose step 2...</p>
+<ol>
+<li>Red Box 1<ol>
+<li>Turn Right</li>
+<li>Move Forward 2</li>
+<li>Stop for 1 second</li>
+</ol>
+</li>
+<li>Red Box 2<ol>
+<li><strong>Turn Left</strong></li>
+<li><strong>Move Forward</strong></li>
+<li><strong>Turn Left</strong></li>
+<li><strong>Move Forward</strong></li>
+<li><strong>Stop for 1 second</strong></li>
+</ol>
+</li>
+</ol>
+<p>Now it is your turn to code.
+Add on to your previous code to complete the maze!</p>
+<h2>Challenges</h2>
+<p>Now we have a series of challenges for you to try out.</p>
+<p>For each challenge, click on the <em>Simulator Tab</em>, then the <em>Mission</em> button to see the mission you need to do.</p>
+<p><img alt="" src="images/simulatorMission.webp" /></p>
+<p>Follow instructions and note down the <em>special Code</em> after doing the challenge successfully!</p>
+<h3>Maze Challenge 1</h3>
+<ul>
+<li>Load <a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FeAUDpJ3KFE.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&amp;worldScripts=challenges_basic">this challenge</a></li>
+</ul>
+<h3>Maze Challenge 2</h3>
+<ul>
+<li>
+<p>Load <a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FvPVXEUs2NZ.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>This one is larger than the maze in the example, and it has 3 boxes that you need to visit.</p>
+</li>
+</ul>
+<h3>Maze Challenge 3</h3>
+<ul>
+<li>
+<p>Load <a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FvPVXEUs2NZ.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>There are more than one way to solve this maze. Can you find the fastest path?</p>
+</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
