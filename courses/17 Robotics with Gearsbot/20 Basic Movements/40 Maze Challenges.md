@@ -7,7 +7,7 @@ Try using **Decomposition** to solve these maze challenges!
 This challenge will be opened in a new tab.
 Open it, take a look, then switch back to this page.
 
-<a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FrVcSxDkM3r.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic" target="_blank">Open Challenge</a>
+<a href="https://quirkycort.github.io/gears/public/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FLtJVJrMftN.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic" target="_blank">Open Challenge</a>
 
 ![](images/maze1.webp)
 
