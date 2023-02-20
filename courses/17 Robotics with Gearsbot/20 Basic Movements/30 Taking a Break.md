@@ -18,7 +18,7 @@ Now we have a series of challenges for you to try out.
 
 For each challenge, click on the *Simulator Tab*, then the *Mission* button to see the mission you need to do.
 
-![](images/simulatorMission.webp)
+![](images/checkMission.webp)
 
 Follow instructions and note down the *special Code* after doing the challenge successfully!
 
