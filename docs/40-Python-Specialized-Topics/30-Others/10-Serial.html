@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Network</p><ul><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p>Others</p><ul><a href="../30-Others/10-Serial.html"><li class="current">Serial</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Serial</h1>
+<p>If your Python program needs to communicate with an Arduino or other micro-controllers, you would often need to use the serial protocol.
+The <a href="https://pythonhosted.org/pyserial/">pySerial</a> module can help with that.</p>
+<p>PySerial does not come default with Python, so you'll need to install it.</p>
+<div class="codehilite"><pre><span></span><code>python -m pip install pyserial
+
+or
+
+python3 -m pip install pyserial
+</code></pre></div>
+
+<h2>Writing Data</h2>
+<p>The sample code below prompts the user for an input, and sends it to the serial device.
+It is meant for a Linux or Mac computer that has a serial device at <code>/dev/ttyUSB0</code>.
+If your serial device is not at this location or if you're using Windows, the the serial device name will need to be changed.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">serial</span>
+
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Type your msg here: &#39;</span><span class="p">)</span>
+    <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>import serial</strong> : Imports the serial module. Note that while the package is named <strong>pySerial</strong>, the module is named <strong>serial</strong>.</p>
+<p><strong>ser = serial.Serial('/dev/ttyUSB0', baudrate=9600)</strong> : Create a new serial object using device <code>/dev/ttyUSB0</code> (...see the section on serial port to learn how to determine the correct device name). Baudrate is set to 9600 in this example; you need to make sure this matches the baudrate for the connected device (eg. Arduino). Some devices may require additional settings; read the <a href="https://pyserial.readthedocs.io/en/latest/pyserial_api.html">PySerial Documentations</a> to learn how to set them.</p>
+<p><strong>msg = input('Type your msg here: ')</strong> : This reads a string from the user.</p>
+<p><strong>ser.write(msg.encode() + b'\r\n')</strong> : This sends the user's message to the serial device. Since serial can only send <strong>bytes</strong> object, we'll need to encode the string <code>msg</code> into a bytes object using <code>encode()</code>. See the next line for explanation of the <code>b'\r\n'</code>.</p>
+<p><strong>b'\r\n'</strong> : This are the <strong>Carriage Return</strong> (\r) and <strong>Line Feed</strong> (\n) characters. The <code>b</code> at the front indicates that this is a bytes object and not a string. These characters are added to the end of your message to mark the end of the line. Depending on your device, it may expect just a carriage return, just a line feed, or both.</p>
+<h2>Reading Data</h2>
+<p>This sample code reads from the serial device, one line at a time, and prints it to screen.</p>
+<p>Before reading this code, be sure to read the section on <strong>Writing Data</strong> first, as some of the code are identical and won't be explained again here.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">serial</span>
+
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">read_until</span><span class="p">()</span> <span class="c1"># Blocks!</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>data = ser.read_until()</strong> : Read until a (newline) character is found, then return everything. Basically, this allows you to read one line at a time from the serial port. This is a <strong>blocking</strong> function, which means that the next line of code will not run until serial receives the newline character.</p>
+<p><strong>print(data.decode(), end='')</strong> : This prints the data that was received. Note that the data is a <a href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a> object, and not a string. To print it properly, we'll need to <a href="https://docs.python.org/3/library/stdtypes.html#bytes.decode">decode</a> it into a string first. The <code>end=''</code> indicates to the <code>print</code> function that it should not add a newline to the end when printing (...as the serial data already contains a newline).</p>
+<h2>Serial Port</h2>
+<p>To use the serial module, you'll need to know which serial port your device is connected to.
+There are a few ways to do this...</p>
+<h3>Linux only</h3>
+<ul>
+<li>Plug in your serial device (...if it's already plugged in, unplug it then plug it in again).</li>
+<li>In a terminal, run <code>sudo dmesg</code>. Key in your password if requested.</li>
+<li>Look in the last few lines for a message containing...<ul>
+<li><code>ttyACM0</code>: Your device is <code>/dev/ttyACM0</code></li>
+<li><code>ttyUSB2</code>: Your device is <code>/dev/ttyUSB2</code></li>
+<li><em>Note that the actual message is longer than the above, and the exact message may vary.</em></li>
+</ul>
+</li>
+</ul>
+<h3>Linux, Mac, Windows</h3>
+<ul>
+<li>Unplug your serial device.</li>
+<li>Start up the Arduino IDE software.</li>
+<li>Click on <strong>"Tools -&gt; Port"</strong>, and note down the devices that are listed there.</li>
+<li>Plug in your serial device.</li>
+<li>In the Arduino software, click on <strong>"Tools -&gt; Port"</strong> again and note down which is the new device that appeared. That is your serial device.</li>
+</ul>
+<p>The on Linux and Mac, the serial device name should start with <code>ttyACM</code> or <code>ttyUSB</code>.
+On Windows, the serial port name should start with <code>COM</code> followed by a number (eg. <code>COM3</code>).</p>
+<h2>Further Readings</h2>
+<p>To learn more, read the <a href="https://pyserial.readthedocs.io/en/latest/pyserial_api.html">PySerial Documentations</a>.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li class="current">Before you begin...</li></a></ul><p>Network</p><ul><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p>Others</p><ul><a href="../30-Others/10-Serial.html"><li >Serial</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Before you begin...</h1>
+<p>This course assumes that you already know basic Python.
+If not, please complete at least the following course.</p>
+<ul>
+<li><a href="https://trinket.io/aposteriori/courses/introduction-to-python">Introduction to Python</a>.</li>
+</ul>
+<h2>Topics</h2>
+<p>Each topic in this course is stand-alone; you can take them in any order.</p>
+<p>Depending on what you want to achieve, not all of these topics will be useful to you.
+You can just read the topics that you need and ignore the rest.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

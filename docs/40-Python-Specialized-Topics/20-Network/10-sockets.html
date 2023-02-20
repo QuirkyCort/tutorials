@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Network</p><ul><a href="../20-Network/10-sockets.html"><li class="current">Sockets</li></a></ul><p>Others</p><ul><a href="../30-Others/10-Serial.html"><li >Serial</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Sockets</h1>
+<p>Sockets is an <a href="https://en.wikipedia.org/wiki/Application_programming_interface">application programming interface (API)</a> to allow two programs to send data to each other.
+While sockets can be used between two programs on the same computer, it is most commonly used to communicate between two computers over the internet.</p>
+<p>Today, nearly all operating systems (eg. Linux, Mac, Windows) and programming languages supports some form of sockets.</p>
+<p>In this section, you'll learn to create a socket server (...which waits for a connection), and a socket client (...which initiates the connection), and send messages between the two.
+You can test your program using just a single computer, but for a complete test (...which includes ensuring your router and firewall is suitably configured), you'll need at least two computers.
+Either way, you will need to write <strong>both</strong> the server and client program in order to perform any testing.</p>
+<h2>Server</h2>
+<p>The server is the program that waits for a connection.
+Once the connection is made, there are no significant differences between the server and the client; both of them can send and receive messages.</p>
+<p>Here's the code for the server...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1337</span><span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+
+<span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> <span class="c1"># Blocks!</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Connection from : &#39;</span> <span class="o">+</span> <span class="n">addr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span> <span class="c1"># Blocks!</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Got it!&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>import socket</strong> : This imports the socket module.</p>
+<p><strong>s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</strong> : This creates a new socket. The <code>socket.AR_INET</code> indicates that this is socket is using an internet <a href="https://en.wikipedia.org/wiki/IPv4">IPv4</a> address, while the <code>socket.SOCK_STREAM</code> indicate this is a <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> socket type.</p>
+<div class="info">
+TCP is the most commonly used socket type.
+The HTTP connection used by your browser for retrieving webpages is a TCP connection type.
+</div>
+
+<p><strong>s.bind(('', 1337))</strong> : This associates your socket with a particular address and port on your computer. The empty string ('') indicates that this socket will accept connections coming in on any IPv4 interfaces. For the port number, you can choose any number above 1023. Port number at or below 1023 are reserved, and may require the program to have special priviledges to run.</p>
+<div class="info">
+A computer will typically have more than one IP address.
+Besides the address allocated to your computer by your router, it will at least have the "127.0.0.1" address for the [loopback](https://en.wikipedia.org/wiki/Localhost) interface.
+If you want your server to only respond to connections coming from the same computer, you should replace the empty string in "bind" with '127.0.0.1'.
+</div>
+
+<p><strong>s.listen()</strong> : Tells the socket to start listening for incoming connections.</p>
+<p><strong>conn, addr = s.accept()</strong> : This line waits for a connection from the client. This is a <strong>blocking</strong> function, which means that the next line of code will not run until a connection arrives. It returns a new socket object (<code>conn</code>) and the address (<code>addr</code>) of the connected client. The first element in <code>addr</code> is the IP address of the client, while the second element is the port.</p>
+<p><strong>data = conn.recv(1024)</strong> : This waits for data from the client. The <code>1024</code> indicates that we should receive a maximum of 1024 bytes at a time. Note that this is a <strong>maximum</strong>, and that the actual data received may be less. This is another <strong>blocking</strong> function, meaning that the program will not move on to the next line of code until some data is received.</p>
+<p><strong>if not data:</strong> : If <code>data</code> is empty, this indicates that the connection is closed by the client and we should exit the <code>while True</code> loop.</p>
+<p><strong>print(data.decode())</strong> : This prints the data that was received. Note that the data is a <a href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a> object, and not a string. To print it properly, we'll need to <a href="https://docs.python.org/3/library/stdtypes.html#bytes.decode">decode</a> it into a string first.</p>
+<p><strong>conn.sendall(b'Got it!')</strong> : This sends the message 'Got it!' to the client. Notice the <code>b</code> at the front? This indicates that this is a bytes object and not a string. Sockets can only send bytes and not string. If you have a string, you'll need to <a href="https://docs.python.org/3/library/stdtypes.html#str.encode">encode</a> it first.</p>
+<h2>Client</h2>
+<p>The client is the program that initiates a connection.
+Once the connection is made, there are no significant differences between the server and the client; both of them can send and receive messages.</p>
+<p>Before reading the client code, be sure to read the section on <strong>Server</strong> first, as some of the code are identical and won't be explained again here.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">1337</span><span class="p">))</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Type your msg here: &#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span> <span class="c1"># Blocks!</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</code></pre></div>
+
+<p><strong>s.connect(('127.0.0.1', 1337))</strong> : This connects to the server at address <code>127.0.0.1</code>. If your server and client are on different computers, you'll need to specify the IP address (...that's allocated by the router) of the server here.</p>
+<p><strong>msg = input('Type your msg here: ')</strong> : This reads a string from the user.</p>
+<p><strong>s.sendall(msg.encode())</strong> : This sends the user's message to the server. Since sockets can only send <strong>bytes</strong> object, we'll need to encode the string <code>msg</code> into a bytes object using <code>encode()</code>.</p>
+<p><strong>data = s.recv(1024)</strong> : Wait for data from the server. Read the server section for details.</p>
+<h2>Testing the program</h2>
+<h3>Local Connection</h3>
+<p>A local connection is when both the server and the client programs are running on the same computer.</p>
+<p>Start the server program first.
+It won't do anything yet, as it is waiting for the client to connect.</p>
+<p>In a separate terminal, start the client program next.
+The server program should now display a message indicating that the client has connected, while the client should now prompt the user for inputs.</p>
+<p>Type in your message and press enter.
+The message should be printed on the server terminal, while the client terminal should display 'Got it'.</p>
+<h3>Remote Connection</h3>
+<p>In a remote connection, the server and client are running on different computers.
+Due to restrictions by the operating system and router, you may need to perform some configuration changes to make it work.</p>
+<ul>
+<li>
+<p>Make sure your computer allows incoming connections. In Windows, you should make sure your network is configured to <strong>Private</strong>.</p>
+</li>
+<li>
+<p>If you have a firewall setup on your computer, you'll need to configure it to allow incoming connections on the port you choose.</p>
+</li>
+<li>
+<p>Both the server and client should be connected to the same router.</p>
+</li>
+<li>
+<p>While it's possible to make this work even if they are on different routers, you will need to make some additional router configurations, and that is beyond the scope of this tutorial. It's also possible that your ISP will not allow this at all.</p>
+</li>
+<li>
+<p>Your router must allow the computers connected to it to communicate with each other. Most home routers allows this by default, while phone hotspots usually do not. If your home router do not allow this, you'll need to change your router configurations, and the steps will depend on your router. If you're on a phone hotspot, this may not be possible at all.</p>
+</li>
+</ul>
+<h2>Further Readings</h2>
+<p>Sockets can be a big topic, and this tutorial only touches the very basics.
+To learn more, read the <a href="https://docs.python.org/3/library/socket.html">Python Sockets Documentations</a>.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
