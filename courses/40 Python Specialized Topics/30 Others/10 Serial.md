@@ -79,7 +79,7 @@ There are a few ways to do this...
 * Plug in your serial device.
 * In the Arduino software, click on **"Tools -> Port"** again and note down which is the new device that appeared. That is your serial device.
 
-The on Linux and Mac, the serial device name should start with `ttyACM` or `ttyUSB`.
+On Linux and Mac, the serial device name should start with `ttyACM` or `ttyUSB`.
 On Windows, the serial port name should start with `COM` followed by a number (eg. `COM3`).
 
 ## Further Readings
