@@ -2,7 +2,7 @@
 
 To load this course you can navigate to:
 
-<h1>http://a9i.sg/gearsbasic</h1>
+## http://a9i.sg/gearsp1
 
 In this course, you will...
 
