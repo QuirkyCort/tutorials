@@ -49,7 +49,7 @@ To use Movenet, you will need to install a few libraries...
 This is the software library for machine learning.
 Follow the installation instructions here...
 
-https://www.tensorflow.org/install/pip
+<https://www.tensorflow.org/install/pip>
 
 ### TensorFlow_hub
 Used for loading the Movenet model.
@@ -75,7 +75,7 @@ Movenet provides two models...
 Higher accuracy, lower performance.
 You can download it here...
 
-https://tfhub.dev/google/movenet/singlepose/thunder/4
+<https://tfhub.dev/google/movenet/singlepose/thunder/4>
 
 Note that **Thunder** expects the input image to be 256x256.
 
@@ -83,7 +83,7 @@ Note that **Thunder** expects the input image to be 256x256.
 Lower accuracy, higher performance.
 You can download it here...
 
-https://tfhub.dev/google/movenet/singlepose/lightning/4
+<https://tfhub.dev/google/movenet/singlepose/lightning/4>
 
 Note that **Lightning** expects the input image to be 192x192.
 
