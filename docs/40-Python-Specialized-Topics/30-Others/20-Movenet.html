@@ -188,7 +188,7 @@ In this first step, we'll be using OpenCV to capture a video image and display i
 <p><strong>cap.release()</strong> : Release the camera, allowing other programs to use it.</p>
 <h2>Code (Process Image)</h2>
 <p>In this example, we'll process the captured image to make it fit within the size that Movenet expects.
-Note that <strong>Thunder</strong> expects a 256x256 image, while <strong>Lightning</strong> expects a 192x192.
+Note that <strong>Thunder</strong> expects a 256x256 image, while <strong>Lightning</strong> expects 192x192.
 We are still not doing any Movenet detection yet.</p>
 <div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 </span><span class="kn">import</span> <span class="nn">cv2</span>
@@ -228,7 +228,7 @@ You can change the "imshow" to display "tf_img" instead of the original "img". I
 </div>
 
 <h2>Code (Single Keypoint Only)</h2>
-<p>In this example, we'll print out the position of a single keypoint (nose).
+<p>In this example, we'll print out the position of a single keypoint (left eye).
 Note that the position is <strong>normalized</strong> (ie. the leftmost position is 0, the rightmost is 1.0, and the middle is 0.5).</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="hll"><span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
@@ -365,7 +365,7 @@ It also scales the value against the distance between your <strong>right elbow</
 <span class="hll">    <span class="n">upper_arm_length</span> <span class="o">=</span> <span class="p">((</span><span class="n">shoulder</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">elbow</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">shoulder</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">elbow</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
 </span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="n">wrist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">elbow</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="n">x_pos</span> <span class="o">/</span> <span class="n">upper_arm_length</span>
-</span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 </span>
 <span class="hll">    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
 </span>
@@ -382,7 +382,7 @@ It also scales the value against the distance between your <strong>right elbow</
 <p><strong>upper_arm_length = ((shoulder[0] - elbow[0])**2 + (shoulder[1] - elbow[1])**2) ** 0.5</strong> : Calculates the length of the upper arm using Pythagoras' theorem.</p>
 <p><strong>x_pos = wrist[1] - elbow[1]</strong> : Calculate x position of wrist, relative to the elbow. We want the wrist position to be relative to the elbow, so that the result won't be affected by your position in the camera.</p>
 <p><strong>x_pos = x_pos / upper_arm_length</strong> : Scale the result by the upper arm length. This ensures that the result is not affected by your distance to the camera.</p>
-<p><strong>x_pos = int(x_pos * w + w / 2)</strong> : Calculate the x position to draw the ball. Basically, we scale it by the image width, then add half the width to it to ensure that the ball is at the center of the screen when the wrist is at the zero position.</p>
+<p><strong>x_pos = int((x_pos * w + w) / 2)</strong> : Calculate the x position to draw the ball. Basically, we scale it by the image width, then add width to it and divide by 2 to ensure that the ball is at the center of the screen when the wrist is at the zero position.</p>
 <p><strong>img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)</strong> : Draw the circle. We don't care about the y position in this exercise, so we'll just set it to half the height.</p>
         </div>
         <button type="button" id="hamburger">

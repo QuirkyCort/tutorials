@@ -130,7 +130,7 @@ cap.release()
 ## Code (Process Image)
 
 In this example, we'll process the captured image to make it fit within the size that Movenet expects.
-Note that **Thunder** expects a 256x256 image, while **Lightning** expects a 192x192.
+Note that **Thunder** expects a 256x256 image, while **Lightning** expects 192x192.
 We are still not doing any Movenet detection yet.
 
 ```python hl_lines="1 3 10 11 12 14 15"
@@ -180,7 +180,7 @@ You can change the "imshow" to display "tf_img" instead of the original "img". I
 
 ## Code (Single Keypoint Only)
 
-In this example, we'll print out the position of a single keypoint (nose).
+In this example, we'll print out the position of a single keypoint (left eye).
 Note that the position is **normalized** (ie. the leftmost position is 0, the rightmost is 1.0, and the middle is 0.5).
 
 ```python hl_lines="2 6 7 21 22 23"
@@ -340,7 +340,7 @@ while success:
     upper_arm_length = ((shoulder[0] - elbow[0])**2 + (shoulder[1] - elbow[1])**2) ** 0.5
     x_pos = wrist[1] - elbow[1]
     x_pos = x_pos / upper_arm_length
-    x_pos = int(x_pos * w + w / 2)
+    x_pos = int((x_pos * w + w) / 2)
 
     img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)
 
@@ -360,7 +360,7 @@ cap.release()
 
 **x_pos = x_pos / upper_arm_length** : Scale the result by the upper arm length. This ensures that the result is not affected by your distance to the camera.
 
-**x_pos = int(x_pos * w + w / 2)** : Calculate the x position to draw the ball. Basically, we scale it by the image width, then add half the width to it to ensure that the ball is at the center of the screen when the wrist is at the zero position.
+**x_pos = int((x_pos * w + w) / 2)** : Calculate the x position to draw the ball. Basically, we scale it by the image width, then add width to it and divide by 2 to ensure that the ball is at the center of the screen when the wrist is at the zero position.
 
 **img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)** : Draw the circle. We don't care about the y position in this exercise, so we'll just set it to half the height.
 
