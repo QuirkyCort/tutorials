@@ -71,7 +71,7 @@ The HTTP connection used by your browser for retrieving webpages is a TCP connec
 <p><strong>s.bind(('', 1337))</strong> : This associates your socket with a particular address and port on your computer. The empty string ('') indicates that this socket will accept connections coming in on any IPv4 interfaces. For the port number, you can choose any number above 1023. Port number at or below 1023 are reserved, and may require the program to have special priviledges to run.</p>
 <div class="info">
 A computer will typically have more than one IP address.
-Besides the address allocated to your computer by your router, it will at least have the "127.0.0.1" address for the [loopback](https://en.wikipedia.org/wiki/Localhost) interface.
+Besides the address allocated to your computer by your router, it will at least have the "127.0.0.1" address for the <a href="https://en.wikipedia.org/wiki/Localhost">Loopback</a> interface.
 If you want your server to only respond to connections coming from the same computer, you should replace the empty string in "bind" with '127.0.0.1'.
 </div>
 

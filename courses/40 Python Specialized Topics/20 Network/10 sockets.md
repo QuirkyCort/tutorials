@@ -46,7 +46,7 @@ The HTTP connection used by your browser for retrieving webpages is a TCP connec
 
 <div class="info">
 A computer will typically have more than one IP address.
-Besides the address allocated to your computer by your router, it will at least have the "127.0.0.1" address for the [loopback](https://en.wikipedia.org/wiki/Localhost) interface.
+Besides the address allocated to your computer by your router, it will at least have the "127.0.0.1" address for the <a href="https://en.wikipedia.org/wiki/Localhost">Loopback</a> interface.
 If you want your server to only respond to connections coming from the same computer, you should replace the empty string in "bind" with '127.0.0.1'.
 </div>
 
