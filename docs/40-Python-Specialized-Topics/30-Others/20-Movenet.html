@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Network</p><ul><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p>Others</p><ul><a href="../30-Others/10-Serial.html"><li >Serial</li></a><a href="../30-Others/20-Movenet.html"><li class="current">Movenet</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Movenet</h1>
+<p><a href="https://www.tensorflow.org/hub/tutorials/movenet">Movenet</a> is a machine learning model that detects 17 keypoints of a body from an image or video.</p>
+<p><img alt="" src="images/movenet.webp" /></p>
+<p>You can use it for various purposes, such as...</p>
+<ul>
+<li>Control a robot to mimic a human pose</li>
+<li>Pilot a drone using body movement</li>
+<li>Create an exercise app that can count push-ups, detect yoga poses, etc</li>
+</ul>
+<h2>Capabilities</h2>
+<p>Movenet can run at 30+ FPS on most modern computers, and can detect the following keypoints...</p>
+<table>
+<thead>
+<tr>
+<th>Keypoint</th>
+<th>S/N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nose</td>
+<td>0</td>
+</tr>
+<tr>
+<td>left_eye</td>
+<td>1</td>
+</tr>
+<tr>
+<td>right_eye</td>
+<td>2</td>
+</tr>
+<tr>
+<td>left_ear</td>
+<td>3</td>
+</tr>
+<tr>
+<td>right_ear</td>
+<td>4</td>
+</tr>
+<tr>
+<td>left_shoulder</td>
+<td>5</td>
+</tr>
+<tr>
+<td>right_shoulder</td>
+<td>6</td>
+</tr>
+<tr>
+<td>left_elbow</td>
+<td>7</td>
+</tr>
+<tr>
+<td>right_elbow</td>
+<td>8</td>
+</tr>
+<tr>
+<td>left_wrist</td>
+<td>9</td>
+</tr>
+<tr>
+<td>right_wrist</td>
+<td>10</td>
+</tr>
+<tr>
+<td>left_hip</td>
+<td>11</td>
+</tr>
+<tr>
+<td>right_hip</td>
+<td>12</td>
+</tr>
+<tr>
+<td>left_knee</td>
+<td>13</td>
+</tr>
+<tr>
+<td>right_knee</td>
+<td>14</td>
+</tr>
+<tr>
+<td>left_ankle</td>
+<td>15</td>
+</tr>
+<tr>
+<td>right_ankle</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<p>Given a image or video, Movenet will output the (x, y) coordinates of each of theses points (...provided they are visible in the image).</p>
+<h2>Limitations</h2>
+<p>Movenet <strong>cannot</strong> detect hand poses (eg. hands open or closed).
+It also cannot detect mouth, fingers, toes, etc. If needed, there are other models which can detect those.</p>
+<h2>Installation</h2>
+<p>To use Movenet, you will need to install a few libraries...</p>
+<h3>TensorFlow</h3>
+<p>This is the software library for machine learning.
+Follow the installation instructions here...</p>
+<p>https://www.tensorflow.org/install/pip</p>
+<h3>TensorFlow_hub</h3>
+<p>Used for loading the Movenet model.
+In a terminal, run...</p>
+<div class="codehilite"><pre><span></span><code>pip install -q tensorflow_hub
+</code></pre></div>
+
+<h3>OpenCV</h3>
+<p>This is a computer vision library for processing the image.
+In a terminal, run...</p>
+<div class="codehilite"><pre><span></span><code>pip install -q opencv-python
+</code></pre></div>
+
+<h2>Model Types</h2>
+<p>Movenet provides two models...</p>
+<h3>Thunder</h3>
+<p>Higher accuracy, lower performance.
+You can download it here...</p>
+<p>https://tfhub.dev/google/movenet/singlepose/thunder/4</p>
+<p>Note that <strong>Thunder</strong> expects the input image to be 256x256.</p>
+<h3>Lightning</h3>
+<p>Lower accuracy, higher performance.
+You can download it here...</p>
+<p>https://tfhub.dev/google/movenet/singlepose/lightning/4</p>
+<p>Note that <strong>Lightning</strong> expects the input image to be 192x192.</p>
+<h3>Unpacking</h3>
+<p>You should extract the downloaded files into their own folder.
+In the examples below, it is assumed that the <strong>Thunder</strong> model files are extracted into a directory named <strong>movenet_singlepose_thunder_4</strong>, and the <strong>Lightning</strong> model files are extracted into a directory named <strong>movenet_singlepose_lightning_4</strong>.</p>
+<h2>Code (Display Only)</h2>
+<p>The code for using Movenet is rather complex, so we'll be breaking it up into multiple small steps.
+In this first step, we'll be using OpenCV to capture a video image and display it; there's actually no usage of Movenet here.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>import cv2</strong> : Imports the OpenCV module.</p>
+<p><strong>cap = cv2.VideoCapture(0)</strong> : Open camera 0 for video capture. If you have more than one camera, you can change this number to select a different camera.</p>
+<p><strong>success, img = cap.read()</strong> : Capture one image frame from the camera. It will return a <code>success</code> value indicating if it was successful, and the actual image <code>img</code>.</p>
+<p><strong>cv2.imshow('Movenet', img)</strong> : Displays the image on screen.</p>
+<p><strong>if cv2.waitKey(1) == ord("q"):</strong> : Checks if the "q" button was pressed. If it was, break out of the while loop. <strong>IMPORTANT: The previous <code>imshow</code> will not work without this <code>waitKey</code></strong>.</p>
+<p><strong>cap.release()</strong> : Release the camera, allowing other programs to use it.</p>
+<h2>Code (Process Image)</h2>
+<p>In this example, we'll process the captured image to make it fit within the size that Movenet expects.
+Note that <strong>Thunder</strong> expects a 256x256 image, while <strong>Lightning</strong> expects a 192x192.
+We are still not doing any Movenet detection yet.</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+</span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+<span class="hll">    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span>
+</span><span class="hll">    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf_img</span><span class="p">)</span>
+</span>
+<span class="hll">    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>import tensorflow as tf</strong> : Imports the TensorFlow module.</p>
+<p><strong>import numpy as np</strong> : Imports the numpy module. This module is commonly used on Python for data processing.</p>
+<p><strong>tf_img = cv2.resize(img, (256,256))</strong> : Resize the image to 256x256. If you're using <strong>Lightning</strong>, you'll need to change this to 192x192.</p>
+<p><strong>tf_img = cv2.cvtColor(tf_img, cv2.COLOR_BGR2RGB)</strong> : Change the color format. By default, it is in Blue-Green-Red (BGR), and we'll need to change it to RGB to suit Movenet.</p>
+<p><strong>tf_img = np.asarray(tf_img)</strong> : Converts the image into an numpy array.</p>
+<p><strong>image = np.expand_dims(tf_img,axis=0)</strong> : This adds a dimension to the image data. It's required for Movenet.</p>
+<p><strong>image = tf.cast(image, dtype=tf.int32)</strong> : This converts the image data into int32 format. It's required for Movenet.</p>
+<div class="info">
+You can change the "imshow" to display "tf_img" instead of the original "img". It'll look smaller, and the colors will look wrong, but that's how Movenet expects it.
+</div>
+
+<h2>Code (Single Keypoint Only)</h2>
+<p>In this example, we'll print out the position of a single keypoint (nose).
+Note that the position is <strong>normalized</strong> (ie. the leftmost position is 0, the rightmost is 1.0, and the middle is 0.5).</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
+</span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="hll"><span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;movenet_singlepose_thunder_4&#39;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">movenet</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="s1">&#39;serving_default&#39;</span><span class="p">]</span>
+</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf_img</span><span class="p">)</span>
+
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+<span class="hll">    <span class="n">outputs</span> <span class="o">=</span> <span class="n">movenet</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;output_0&#39;</span><span class="p">]</span>
+</span><span class="hll">    <span class="nb">print</span><span class="p">(</span><span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>import tensorflow_hub as hub</strong> : The <code>tensorflow_hub</code> module is used to help load the Movenet model.</p>
+<p><strong>model = hub.load('movenet_singlepose_thunder_4')</strong> : This loads the <strong>Thunder</strong> model into the variable <code>model</code>. You can alternatively use <strong>Lightning</strong> here.</p>
+<p><strong>movenet = model.signatures['serving_default']</strong> : Loads movenet.</p>
+<p><strong>outputs = movenet(image)</strong> : Loads the image into Movenet. It will then return the keypoints. Note that it will always return 17 keypoints, even if some of them are not visible.</p>
+<p><strong>keypoints = outputs['output_0']</strong> : Extract the output. There is only one output ('output_0') from Movenet.</p>
+<p><strong>print(keypoints[0,0,1])</strong> : Prints out the position of the <strong>left eye</strong> (...s/n 1). Note that the format is <strong>y, x, confidence</strong>. If you want to display a different keypoint, change the last number.</p>
+<div class="important">
+keypoints is a Tensor, and not a list, hence the strange looking index.
+</div>
+
+<p>Run the program, then try moving around and see how the numbers change.
+What happens to the confidence level when the keypoint is not in view of the camera?</p>
+<h2>Code (Mark Keypoints)</h2>
+<p>In this example, we'll mark out the position of the keypoints on screen.
+This is great for visualizing the Movenet results, but it is not strictly necessary if you just need to control a robot or drone.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;movenet_singlepose_thunder_4&#39;</span><span class="p">)</span>
+<span class="n">movenet</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="s1">&#39;serving_default&#39;</span><span class="p">]</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="hll"><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+</span>
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf_img</span><span class="p">)</span>
+
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">movenet</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;output_0&#39;</span><span class="p">]</span>
+
+<span class="hll">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:,:]:</span>
+</span><span class="hll">        <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">yc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+</span><span class="hll">            <span class="n">xc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+</span>
+<span class="hll">            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>h, w, _ = img.shape</strong> : Get the height and width of the original image.</p>
+<p><strong>for k in keypoints[0,0,:,:]:</strong> : Iterates through the 17 keypoints.</p>
+<p><strong>if k[2] &gt; 0.3:</strong> : Check if the confidence level is greater than 0.3; if it's too low, it may be a false result. You can change this threshold to suit your needs.</p>
+<p><strong>yc = int(k[0] * h)</strong> : Multiply normalized (0 to 1.0) y coordinate of the keypoint by the height of the image to get it's y position.</p>
+<p><strong>xc = int(k[1] * w)</strong> : Same as before, but for width.</p>
+<p><strong>img = cv2.circle(img, (xc, yc), 2, (0, 255, 0), 5)</strong> : Draw a circle at the keypoint position.</p>
+<h2>Code (Compare and Scale)</h2>
+<p>If you plan to use Movenet to control something, you will often need to compare the position of two or more keypoints, and scale the result so that you can have a consistent result regardless of whether you are near or far from the camera.</p>
+<p>This example demonstrates how to control an onscreen ball using movement from your right arm.
+It compares the x position of your <strong>right wrist</strong> to your <strong>right elbow</strong> to determine the position of the ball.
+It also scales the value against the distance between your <strong>right elbow</strong> and your <strong>right shoulder</strong>.</p>
+<p>For this example to work right, you should keep your entire right arm in view of the camera, and your elbow should stay directly below your shoulder.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;movenet_singlepose_thunder_4&#39;</span><span class="p">)</span>
+<span class="n">movenet</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="s1">&#39;serving_default&#39;</span><span class="p">]</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">))</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf_img</span><span class="p">)</span>
+
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">movenet</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;output_0&#39;</span><span class="p">]</span>
+
+<span class="hll">    <span class="n">shoulder</span> <span class="o">=</span> <span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+</span><span class="hll">    <span class="n">elbow</span> <span class="o">=</span> <span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+</span><span class="hll">    <span class="n">wrist</span> <span class="o">=</span> <span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+</span>
+<span class="hll">    <span class="n">upper_arm_length</span> <span class="o">=</span> <span class="p">((</span><span class="n">shoulder</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">elbow</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">shoulder</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">elbow</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+</span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="n">wrist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">elbow</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="n">x_pos</span> <span class="o">/</span> <span class="n">upper_arm_length</span>
+</span><span class="hll">    <span class="n">x_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span>
+<span class="hll">    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>upper_arm_length = ((shoulder[0] - elbow[0])**2 + (shoulder[1] - elbow[1])**2) ** 0.5</strong> : Calculates the length of the upper arm using Pythagoras' theorem.</p>
+<p><strong>x_pos = wrist[1] - elbow[1]</strong> : Calculate x position of wrist, relative to the elbow. We want the wrist position to be relative to the elbow, so that the result won't be affected by your position in the camera.</p>
+<p><strong>x_pos = x_pos / upper_arm_length</strong> : Scale the result by the upper arm length. This ensures that the result is not affected by your distance to the camera.</p>
+<p><strong>x_pos = int(x_pos * w + w / 2)</strong> : Calculate the x position to draw the ball. Basically, we scale it by the image width, then add half the width to it to ensure that the ball is at the center of the screen when the wrist is at the zero position.</p>
+<p><strong>img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)</strong> : Draw the circle. We don't care about the y position in this exercise, so we'll just set it to half the height.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
