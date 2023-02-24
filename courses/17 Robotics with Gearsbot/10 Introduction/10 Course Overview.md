@@ -4,6 +4,8 @@ To load this course you can navigate to:
 
 ## http://a9i.sg/p1
 
+![](images/site_qr.svg)
+
 In this course, you will...
 
 * Learn about Computational Thinking
