@@ -342,7 +342,7 @@ while success:
     x_pos = x_pos / upper_arm_length
     x_pos = int((x_pos * w + w) / 2)
 
-    img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)
+    img = cv2.circle(img, (x_pos, int(h/2)), 2, (0, 255, 0), 5)
 
     cv2.imshow('Movenet', img)
 
