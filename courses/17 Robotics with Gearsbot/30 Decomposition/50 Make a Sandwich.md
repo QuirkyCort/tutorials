@@ -1,6 +1,6 @@
 # Example: Make a Sandwich
 
-![Instructor's notes](https://docs.google.com/document/d/1z7bo8QF8mZ2K0_QEzereWLL60uE4IQN2TngY2DouxqI/edit?usp=sharing)
+[Instructor's notes](https://docs.google.com/document/d/1z7bo8QF8mZ2K0_QEzereWLL60uE4IQN2TngY2DouxqI/edit?usp=sharing)
 
 ![](images/sandwich.webp)
 
