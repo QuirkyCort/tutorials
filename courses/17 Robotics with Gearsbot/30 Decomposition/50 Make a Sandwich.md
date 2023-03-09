@@ -13,7 +13,7 @@ Your job is to decompose the steps of making a sandwich, and send the instructio
 * Bread (2 slices)
 * Peanut butter
 * Strawberry jam
-* Popsicle stick
+* Small spoon
 
 ## Important!
 
