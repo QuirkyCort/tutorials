@@ -22,7 +22,7 @@ For each challenge, click on the *Simulator Tab*, then the *Mission* button to s
 
 ![](images/checkMission.webp)
 
-Follow instructions and note down the *special Code* after doing the challenge successfully!
+Follow the instructions and note down the *special Code* after doing the challenge successfully!
 
 ### Dungeon Challenge 1
 
