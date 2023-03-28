@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Robotics with GearsBot</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Robotics with GearsBot
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course uses the virtual GearsBot platform to teach Computational Thinking.</div>
+            <p>Getting Started</p><ul><a href="../10-Introduction/10-Course-Overview.html"><li >Course Overview</li></a><a href="../10-Introduction/20-Computational-Thinking.html"><li >Computational Thinking</li></a><a href="../10-Introduction/22-Four-Skills.html"><li >Four Computational Thinking Skills</li></a><a href="../10-Introduction/24-Birthday-Party.html"><li >Planning a Birthday Party</li></a><a href="../10-Introduction/30-The-GearsBot-App.html"><li >The GearsBot App</li></a></ul><p>Basic Movements</p><ul><a href="../20-Basic-Movements/10-Sequences.html"><li >Sequences</li></a><a href="../20-Basic-Movements/20-Turning.html"><li >Turning</li></a><a href="../20-Basic-Movements/30-Taking-a-Break.html"><li >Pause, Sleep, Rest</li></a><a href="../20-Basic-Movements/40-Maze-Challenges.html"><li >Maze Challenges</li></a><a href="../20-Basic-Movements/50-Dungeon-Challenges.html"><li >Dungeon Challenges</li></a></ul><p>Decomposition</p><ul><a href="../30-Decomposition/10-What-is-Decomposition.html"><li >What is Decomposition?</li></a><a href="../30-Decomposition/20-How-to-Decompose.html"><li >How to Decompose?</li></a><a href="../30-Decomposition/30-Popsicle-Stick-Model.html"><li >Example: Popsicle Stick Model</li></a><a href="../30-Decomposition/40-Importance-of-Details.html"><li >Importance of Details</li></a><a href="../30-Decomposition/50-Make-a-Sandwich.html"><li >Example: Make a Sandwich</li></a></ul><p>Pattern Recognition</p><ul><a href="../40-Pattern-Recognition/10-What-is-Pattern-Recognition.html"><li >What is Pattern Recognition?</li></a><a href="../40-Pattern-Recognition/20-How-to-Find-Patterns1.html"><li >How to Find Patterns (Part 1)</li></a><a href="../40-Pattern-Recognition/30-Simplifying-Patterns1.html"><li >Simplifying Patterns (Part 1)</li></a><a href="../40-Pattern-Recognition/40-How-to-Find-Patterns2.html"><li >How to Find Patterns (Part 2)</li></a><a href="../40-Pattern-Recognition/50-Simplifying-Patterns2.html"><li >Simplifying Patterns (Part 2)</li></a><a href="../40-Pattern-Recognition/60-Benefits-of-Patterns.html"><li >Benefits of Patterns</li></a></ul><p>Movement with Loops</p><ul><a href="../50-Movement-with-Loops/10-Repeat-1.html"><li >Repeat (Part 1)</li></a><a href="../50-Movement-with-Loops/20-Repeat-2.html"><li class="current">Repeat (Part 2)</li></a></ul><p>Abstraction</p><ul><a href="../60-Abstraction/10-What-is-Abstraction.html"><li >What is Abstraction?</li></a><a href="../60-Abstraction/20-Why-use-Abstraction.html"><li >Why use Abstraction?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Repeat (Part 2)</h1>
+<p>The <code>Repeat</code> challenges can be hard to do, and it gets even harder when you need to use more than one loop.</p>
+<p>Best way to solve these challenges, would be to first solve it without loops.</p>
+<h2>Example (Loop in Loop)</h2>
+<ul>
+<li><a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F6gXJj5T6zy.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&amp;worldScripts=challenges_basic">Example challenge</a></li>
+</ul>
+<p>Let's start by moving forward 4 times, then turning left...</p>
+<p><img alt="" src="images/loops3bSolution.webp" /></p>
+<p>We'll need to repeat this 3 times, so we'll put it in a <code>repeat 3</code> loop...</p>
+<p><img alt="" src="images/loops3bSolution2.webp" /></p>
+<p>...but that's still too many blocks! Can we reduce it further?</p>
+<p>Notice that the <code>Move Forward</code> block is repeated 4 times? We can change that into...</p>
+<p><img alt="" src="images/loops3bSolution3.webp" /></p>
+<h2>IMPORTANT!</h2>
+<p><img alt="" src="images/3steps.webp" /></p>
+<h3>Loops Challenge 3</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYWYTrrX7Ao.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Hint: You may need to use more than one repeat loop. Also, it's ok to make an extra turn if it helps you stay within the blocks limit.</p>
+</li>
+</ul>
+<h3>Loops Challenge 4</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FwqEFG9QKzr.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Hint: Not every block needs to be inside a loop.</p>
+</li>
+</ul>
+<h3>Loops Challenge 5</h3>
+<ul>
+<li>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F9EmJ8PuUdV.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&amp;worldScripts=challenges_basic">this challenge</a></li>
+</ul>
+<h3>Loops Challenge 5b</h3>
+<ul>
+<li>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FJiBEhhoKSS.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&amp;worldScripts=challenges_basic">this challenge</a></li>
+</ul>
+<h3>Loops Challenge 6</h3>
+<ul>
+<li>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F9Km3fseepa.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&amp;worldScripts=challenges_basic">this challenge</a></li>
+</ul>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

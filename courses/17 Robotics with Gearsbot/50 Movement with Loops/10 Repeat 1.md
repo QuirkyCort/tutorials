@@ -1,4 +1,4 @@
-# Loops
+# Repeat (Part 1)
 
 To repeat something, we can use the `repeat` block, which is found under the `Loops` category.
 
@@ -46,6 +46,12 @@ Each challenge will have a different blocks limit, so make sure to check each ti
 
 Follow the instructions and note down the *special Code* after doing the challenge successfully!
 
+### Loops Challenge 0b
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FjMoNkaokEq.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
+
+- Tip: This is very similar to the example.
+
 ### Loops Challenge 1
 
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FHqQeiGTXNH.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
@@ -56,22 +62,3 @@ Follow the instructions and note down the *special Code* after doing the challen
 
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FjQEycHT6XZ.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
 
-### Loops Challenge 3
-
-- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYWYTrrX7Ao.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
-
-- Hint: You may need to use more than one repeat loop. Also, it's ok to make an extra turn if it helps you stay within the blocks limit.
-
-### Loops Challenge 4
-
-- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FwqEFG9QKzr.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
-
-- Hint: Not every block needs to be inside a loop.
-
-### Loops Challenge 5
-
-- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2Fz386WiC64X.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
-
-### Loops Challenge 6
-
-- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F9Km3fseepa.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)

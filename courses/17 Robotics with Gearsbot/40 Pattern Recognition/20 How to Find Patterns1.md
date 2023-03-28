@@ -1,4 +1,4 @@
-# How to Find Patterns
+# How to Find Patterns (Part 1)
 
 ## Look for things that are the same...
 
@@ -19,13 +19,3 @@
 ### Now you try!
 
 ![](images/changesExercise.webp)
-
-## Find Patterns in Patterns...
-
-### Example
-
-![](images/patternInPattern.webp)
-
-### Now you try!
-
-![](images/patternInPatternExercise.webp)
