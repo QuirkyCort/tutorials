@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p>Introductions</p><ul><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p>Network</p><ul><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p>Others</p><ul><a href="../30-Others/10-Serial.html"><li >Serial</li></a><a href="../30-Others/20-Movenet.html"><li >Movenet</li></a><a href="../30-Others/30-Filters.html"><li class="current">Signal Filters</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Signal Filters</h1>
+<p>The data we receive from sensors are often noisy.
+This means that while the <strong>average</strong> values are often pretty accurate, each individual value may be off by quite a bit.
+Such errors are often called <strong>jitter</strong>.</p>
+<p>To give an example, if you place a distance sensor at a fixed 1m distance from a wall, you may get readings like...</p>
+<div class="codehilite"><pre><span></span><code>0.97
+1.04
+0.98
+1.01
+1.02
+0.98
+.
+.
+.
+</code></pre></div>
+
+<p>The average reading is pretty good, but the values are changing all the time even though the distance didn't actually change.</p>
+<p>To deal with this problem, we can take the average value, but this reduces your reading rate.
+Eg. If your sensor reads 10 times per second, and you use the average of 10 readings, you'll only have one useful value every second.</p>
+<h1>Low Pass Filters</h1>
+<p>As the errors from jitter are often changing very rapidly (high frequency), we can also use a <a href="https://en.wikipedia.org/wiki/Low-pass_filter">Low Pass Filter</a> to block out the noise, while allowing the actual signal (low frequency) to pass through.</p>
+<p>One simple equation that we can use is...</p>
+<p><img alt="" src="images/lowPass.webp" /></p>
+<p>...where X̂i is the filtered output, Xi is the current input value (...from sensor), and X̂(i-1) is the previous filtered output.</p>
+<p>α is a value between 0 to 1, and is called the weight.</p>
+<ul>
+<li>High α : Respond faster, but more noise (jitter)</li>
+<li>Low α : Less noise, but respond slower (laggy)</li>
+</ul>
+<p>In Python, the above can be implemented as...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">filtered_output</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">low_pass</span><span class="p">(</span><span class="n">in_val</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">filtered_output</span>
+
+    <span class="n">filtered_output</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">in_val</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">filtered_output</span>
+
+    <span class="k">return</span> <span class="n">filtered</span> <span class="n">output</span>
+
+<span class="c1"># Example usage</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">sensor_reading</span> <span class="o">=</span> <span class="n">some_sensor_reading_function</span><span class="p">()</span> <span class="c1"># Replace with actual code</span>
+    <span class="n">out_val</span> <span class="o">=</span> <span class="n">low_pass</span><span class="p">(</span><span class="n">sensor_reading</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">out_val</span><span class="p">)</span>
+</code></pre></div>
+
+<h1>One Euro Filter</h1>
+<p>An improvement to the above low pass filter would be the <a href="https://gery.casiez.net/1euro/">1€ Filter</a>.
+This filter works in the same way as the low pass filter example code, but instead of having a fixed alpha, it automatically adjust alpha to reduce jitter at low speed and improve responds at high speed.</p>
+<ol>
+<li>Open the code for the filter from <a href="https://raw.githubusercontent.com/jaantollander/OneEuroFilter/master/python/one_euro_filter.py">here</a>.</li>
+<li>Right click, select "Save as...", then save the file to the same directory as your Python code.</li>
+<li>Import and use the filter in your code.</li>
+</ol>
+<h2>Sample code</h2>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">one_euro_filter</span> <span class="kn">import</span> <span class="n">OneEuroFilter</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+<span class="n">one_euro_filter</span> <span class="o">=</span> <span class="n">OneEuroFilter</span><span class="p">(</span>
+    <span class="n">time</span><span class="p">(),</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="n">min_cutoff</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">beta</span><span class="o">=</span><span class="mf">0.3</span>
+<span class="p">)</span>
+
+<span class="c1"># Example usage</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">sensor_reading</span> <span class="o">=</span> <span class="n">some_sensor_reading_function</span><span class="p">()</span> <span class="c1"># Replace with actual code</span>
+    <span class="n">out_val</span> <span class="o">=</span> <span class="n">one_euro_filter</span><span class="p">(</span><span class="n">time</span><span class="p">(),</span> <span class="n">sensor_reading</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">out_val</span><span class="p">)</span>
+</code></pre></div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
