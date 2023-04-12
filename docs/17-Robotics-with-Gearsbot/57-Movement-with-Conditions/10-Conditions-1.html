@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Robotics with GearsBot</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Robotics with GearsBot
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course uses the virtual GearsBot platform to teach Computational Thinking.</div>
+            <p>Getting Started</p><ul><a href="../10-Introduction/10-Course-Overview.html"><li >Course Overview</li></a><a href="../10-Introduction/20-Computational-Thinking.html"><li >Computational Thinking</li></a><a href="../10-Introduction/22-Four-Skills.html"><li >Four Computational Thinking Skills</li></a><a href="../10-Introduction/24-Birthday-Party.html"><li >Planning a Birthday Party</li></a><a href="../10-Introduction/30-The-GearsBot-App.html"><li >The GearsBot App</li></a></ul><p>Basic Movements</p><ul><a href="../20-Basic-Movements/10-Sequences.html"><li >Sequences</li></a><a href="../20-Basic-Movements/20-Turning.html"><li >Turning</li></a><a href="../20-Basic-Movements/30-Taking-a-Break.html"><li >Pause, Sleep, Rest</li></a><a href="../20-Basic-Movements/40-Maze-Challenges.html"><li >Maze Challenges</li></a><a href="../20-Basic-Movements/50-Dungeon-Challenges.html"><li >Dungeon Challenges</li></a></ul><p>Decomposition</p><ul><a href="../30-Decomposition/10-What-is-Decomposition.html"><li >What is Decomposition?</li></a><a href="../30-Decomposition/20-How-to-Decompose.html"><li >How to Decompose?</li></a><a href="../30-Decomposition/30-Popsicle-Stick-Model.html"><li >Example: Popsicle Stick Model</li></a><a href="../30-Decomposition/40-Importance-of-Details.html"><li >Importance of Details</li></a><a href="../30-Decomposition/50-Make-a-Sandwich.html"><li >Example: Make a Sandwich</li></a></ul><p>Pattern Recognition</p><ul><a href="../40-Pattern-Recognition/10-What-is-Pattern-Recognition.html"><li >What is Pattern Recognition?</li></a><a href="../40-Pattern-Recognition/20-How-to-Find-Patterns1.html"><li >How to Find Patterns (Part 1)</li></a><a href="../40-Pattern-Recognition/30-Simplifying-Patterns1.html"><li >Simplifying Patterns (Part 1)</li></a><a href="../40-Pattern-Recognition/40-How-to-Find-Patterns2.html"><li >How to Find Patterns (Part 2)</li></a><a href="../40-Pattern-Recognition/50-Simplifying-Patterns2.html"><li >Simplifying Patterns (Part 2)</li></a><a href="../40-Pattern-Recognition/60-Benefits-of-Patterns.html"><li >Benefits of Patterns</li></a></ul><p>Movement with Loops</p><ul><a href="../50-Movement-with-Loops/10-Repeat-1.html"><li >Repeat (Part 1)</li></a><a href="../50-Movement-with-Loops/20-Repeat-2.html"><li >Repeat (Part 2)</li></a></ul><p>Algorithmic Design</p><ul><a href="../55-Algorithmic-Design/10-What-are-Algorithms.html"><li >What are Algorithms?</li></a><a href="../55-Algorithmic-Design/20-Searching.html"><li >Searching for a Book</li></a><a href="../55-Algorithmic-Design/30-Conditions.html"><li >Conditions</li></a><a href="../55-Algorithmic-Design/40-If-Else.html"><li >IF and ELSE</li></a></ul><p>Movement with Conditions</p><ul><a href="../57-Movement-with-Conditions/10-Conditions-1.html"><li class="current">Conditions (Part 1)</li></a></ul><p>Abstraction</p><ul><a href="../60-Abstraction/10-What-is-Abstraction.html"><li >What is Abstraction?</li></a><a href="../60-Abstraction/20-Why-use-Abstraction.html"><li >Why use Abstraction?</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Conditions (Part 1)</h1>
+<p>For this series of challenges, we will need to use the color sensor to determine which way to move.</p>
+<div class="important">
+To properly complete the missions, you will need to reset and run the program a few times.
+This is to make sure your robot can handle all the possible conditions, and not just one.
+</div>
+
+<h2>Example</h2>
+<ul>
+<li><a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FbjAqw2gbLT.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&amp;worldScripts=challenges_basic">Example challenge</a></li>
+</ul>
+<p>Reset the world a few times to see where the green box may appear...</p>
+<p><img alt="" src="images/example1.webp" /></p>
+<p>In this example challenge, the box may appear in front of the robot, or to the right of the robot.</p>
+<p>If the box is in front...</p>
+<p><img alt="" src="images/fwdOnly.webp" /></p>
+<p>If the box is to the right...</p>
+<p><img alt="" src="images/rightFwd.webp" /></p>
+<p>How can we decide which blocks to use?</p>
+<h3>Color Sensor</h3>
+<p>Notice that the ground below the robot is <strong>Green</strong> when the box is on the right, and white when the box is in front?</p>
+<p>We can use a condition to check the color of the ground, then decide which way to move.</p>
+<p><img alt="" src="images/example1Solution.webp" /></p>
+<div class="think">
+The example above uses 5 blocks. Can you reduce it to 4 blocks?
+</div>
+
+<h2>Challenges</h2>
+<p>For each challenge, click on the <em>Simulator Tab</em>, then the <em>Mission</em> button to see the mission you need to do.</p>
+<p>Follow the instructions and note down the <em>special Code</em> after doing the challenge successfully!</p>
+<h3>Conditions Challenge 1</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FoM99WC55Su.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Optional Bonus: Complete this challenge using only 5 blocks.</p>
+</li>
+</ul>
+<h3>Conditions Challenge 2</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F8K64etUnHk.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Optional Bonus: Complete this challenge using only 7 blocks.</p>
+</li>
+</ul>
+<h3>Conditions Challenge 3</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FeXgVxY9zDH.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Optional Bonus: Complete this challenge using only 8 blocks.</p>
+</li>
+</ul>
+<h3>Conditions Challenge 4</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FyeCJq85j9C.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Optional Bonus: Complete this challenge using only 7 blocks.</p>
+</li>
+</ul>
+<h3>Conditions Challenge 5</h3>
+<ul>
+<li>
+<p>Load <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FA5jp5gh9ba.json&amp;filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&amp;worldScripts=challenges_basic">this challenge</a></p>
+</li>
+<li>
+<p>Optional Bonus: Complete this challenge using only 13 blocks.</p>
+</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
