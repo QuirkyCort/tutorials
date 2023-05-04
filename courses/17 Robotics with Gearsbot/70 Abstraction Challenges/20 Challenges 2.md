@@ -47,7 +47,7 @@ Follow the instructions and note down the *special Code* after doing the challen
 
 ### Challenge 8
 
-- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FctsvQ6fnqx.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FPEV2aN2yDg.json&worldScripts=challenges_basic)
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FiGLJw7T9UT.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FPEV2aN2yDg.json&worldScripts=challenges_basic)
 
 ### Challenge 9
 
