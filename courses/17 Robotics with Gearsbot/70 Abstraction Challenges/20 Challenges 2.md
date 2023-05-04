@@ -62,3 +62,7 @@ Follow the instructions and note down the *special Code* after doing the challen
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FhP7sViy6kq.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FPEV2aN2yDg.json&worldScripts=challenges_basic)
 
 - The position of the green block is randomized. Use the sensor block to decide which way to turn.
+
+## Feedback
+
+[Please click here to share your feedback with us.](https://www.aposteriori.com.sg/chij-kellock-computational-thinking-feedback/)
