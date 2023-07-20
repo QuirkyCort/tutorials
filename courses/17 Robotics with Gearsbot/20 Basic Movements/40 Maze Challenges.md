@@ -77,3 +77,15 @@ Follow instructions and note down the *special Code* after doing the challenge s
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FUnrvNWB5Nj.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic)
 
 - There are more than one way to solve this maze. Can you find the fastest path?
+
+### Maze Challenge 4
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FSkJAuQ4nGr.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic)
+
+- This one is big! A special challenge for those who have completed the other mazes fast!
+
+### Maze Challenge 5
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FLieHwiqVCS.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic)
+
+- This one is huge! Only for the most daring maze explorers.
