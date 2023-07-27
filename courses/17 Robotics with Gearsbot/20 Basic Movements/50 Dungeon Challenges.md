@@ -48,4 +48,10 @@ Follow the instructions and note down the *special Code* after doing the challen
 
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2Fye24tWBN2Y.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic)
 
-- Last level of the dungeon. You'll need to use everything you've learned to complete this one.
+- You'll need to use everything you've learned to complete this one.
+
+### Dungeon Challenge 6
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FLmrbKki5Sm.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FYaRSZ9WSdZ.json&worldScripts=challenges_basic)
+
+- Last level of the dungeon!
