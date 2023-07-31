@@ -46,19 +46,35 @@ Each challenge will have a different blocks limit, so make sure to check each ti
 
 Follow the instructions and note down the *special Code* after doing the challenge successfully!
 
-### Loops Challenge 0b
+### Loops Challenge 1
 
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FjMoNkaokEq.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
 
 - Tip: This is very similar to the example.
 
-### Loops Challenge 1
+### Loops Challenge 2
 
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FHqQeiGTXNH.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
 
 - Tip: There's no need to sleep inside the block if your robot ends its program inside it.
 
-### Loops Challenge 2
+### Loops Challenge 3
 
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FjQEycHT6XZ.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
+
+### Loops Challenge 4
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FFTwYVWVGaW.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
+
+### Loops Challenge 5
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FB7EsFEERy9.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
+
+### Loops Challenge 6
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2Fe8Eagn4f8V.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
+
+### Loops Challenge 7
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FJ5DsPLAECJ.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
 
