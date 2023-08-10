@@ -40,7 +40,7 @@ Notice that the `Move Forward` block is repeated 4 times? We can change that int
 
 ### Loops Challenge 3
 
-- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FZRcMY5JQF6.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FyKXbbXGj6R.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FESbF3weeEV.json&worldScripts=challenges_basic)
 
 ### Loops Challenge 4
 
