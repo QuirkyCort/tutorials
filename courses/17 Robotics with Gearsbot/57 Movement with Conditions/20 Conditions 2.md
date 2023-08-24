@@ -61,3 +61,15 @@ Follow the instructions and note down the *special Code* after doing the challen
 - Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FkDt6NbkPSN.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&worldScripts=challenges_basic)
 
 - Optional Bonus: Complete this challenge using only 9 blocks.
+
+### Conditions Challenge 11
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FeY8KAwjFkz.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&worldScripts=challenges_basic)
+
+- This one is like Challenge 7, but with an added twist.
+
+### Conditions Challenge 12
+
+- Load [this challenge](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FrF3bd8K2cn.json&filterBlocksJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2F352uaPiDN7.json&worldScripts=challenges_basic)
+
+- This one is like Challenge 8, but with an added twist.
