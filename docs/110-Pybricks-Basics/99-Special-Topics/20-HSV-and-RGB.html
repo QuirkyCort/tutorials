@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>Basic Programs</p><ul><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p>Special Topics</p><ul><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li class="current">HSV and RGB</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>HSV and RGB</h1>
+<p>In Pybricks, the EV3 color sensor only provides RGB values while the Spike Prime only provides HSV values. To convert between them, you can use the following functions.</p>
+<h2>RGB to HSV</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Expects RGB values to be in the range of 0 to 100</span>
+<span class="c1"># Returns HSV in the range of 0-360 (H) and 0-100 (S,V)</span>
+
+<span class="k">def</span> <span class="nf">rgb_to_hsv</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+    <span class="n">hsv</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">normRgb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+      <span class="n">normRgb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+
+    <span class="n">cMax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">normRgb</span><span class="p">)</span>
+    <span class="n">cMin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">normRgb</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">cMax</span> <span class="o">-</span> <span class="n">cMin</span>
+
+    <span class="k">if</span> <span class="n">cMax</span> <span class="o">==</span> <span class="n">cMin</span><span class="p">:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">cMax</span> <span class="o">==</span> <span class="n">normRgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="n">normRgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">normRgb</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">diff</span>
+    <span class="k">elif</span> <span class="n">cMax</span> <span class="o">==</span> <span class="n">normRgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">normRgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">normRgb</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">diff</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">normRgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">normRgb</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">diff</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">360</span>
+
+    <span class="k">if</span> <span class="n">cMax</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">/</span> <span class="n">cMax</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cMax</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">return</span> <span class="n">hsv</span>
+</code></pre></div>
+
+<h2>HSV to RGB</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Expects H to be in the range of 0 to 360. S and V should be in the range of 0 to 100</span>
+<span class="c1"># Returns RGB in the range of 0-100</span>
+
+<span class="k">def</span> <span class="nf">hsv_to_rgb</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">s</span>
+
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">60</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">h1</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">h1</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">h1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">h1</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">elif</span> <span class="n">h1</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">h1</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">m</span><span class="p">),</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">g1</span> <span class="o">+</span> <span class="n">m</span><span class="p">),</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">b1</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span>
+</code></pre></div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

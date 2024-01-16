@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>Basic Programs</p><ul><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p>Special Topics</p><ul><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li class="current">DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>DriveBase vs Move Steering</h1>
+<p>The <strong>DriveBase</strong> provided by Pybricks can be useful in some cases.
+Some benefits of the <strong>DriveBase</strong> includes...</p>
+<ul>
+<li>Move by distance</li>
+<li>Turn by degrees</li>
+<li>Gradual ramp up/down of speed when moving and turning</li>
+</ul>
+<p>All of these can be replicated using just the normal <strong>Motor</strong> class, but the third one can take a bit more work to do.</p>
+<p>When using the <strong>drive</strong> method in <strong>DriveBase</strong>, you specify the speed and rate of turn (deg/s).
+This causes a few problems...</p>
+<ul>
+<li>When turning, the outer wheel will speed up. This may bring it above the max speed of the motor, causing inconsistent behaviour.</li>
+<li>The turn radius is dependent on the speed. At higher speed, the turn radius will be larger, and the robot may not be able to make a sharp turn.</li>
+<li>To make the sharpest turn, the robot speed must be set to zero.</li>
+<li>Response may be slower due to internal speed control loop.</li>
+</ul>
+<p>These can be compensated by slowing down the robot when making a turn, but to fully compensate for all the problems will require some rather complicated code.</p>
+<h1>Move Steering</h1>
+<p>The <strong>Move Steering</strong> function is available in EV3Dev_Python, EV3Lab, EV3Classroom, and Spike Prime (v3 only).
+Unlike the <strong>drive</strong> method in <strong>DriveBase</strong>, the <strong>Move Steering</strong> functions takes a speed (%) and a "steering" value (-100 to 100) as input.</p>
+<p>The "steering" value control the ratio of speed between the left and right wheel, as illustrated below</p>
+<table>
+<thead>
+<tr>
+<th>Steering</th>
+<th>Left Wheel</th>
+<th>Right Wheel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>25</td>
+<td>100%</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>50</td>
+<td>100%</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>75</td>
+<td>100%</td>
+<td>-50%</td>
+</tr>
+<tr>
+<td>100</td>
+<td>100%</td>
+<td>-100%</td>
+</tr>
+</tbody>
+</table>
+<p>The equation for the <strong>Move Steering</strong> function is...</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">move_steering</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">steer</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">steer</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">left_motor</span><span class="o">.</span><span class="n">dc</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+        <span class="n">right_motor</span><span class="o">.</span><span class="n">dc</span><span class="p">(</span><span class="n">speed</span> <span class="o">-</span> <span class="n">steer</span> <span class="o">*</span> <span class="n">speed</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">left_motor</span><span class="o">.</span><span class="n">dc</span><span class="p">(</span><span class="n">speed</span> <span class="o">+</span> <span class="n">steer</span> <span class="o">*</span> <span class="n">speed</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">right_motor</span><span class="o">.</span><span class="n">dc</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Advantages of the <strong>Move Steering</strong> function includes...</p>
+<ul>
+<li>None of the wheels will speed up when turning. This avoids issues with exceeding the max motor speed and make for a smoother turn.</li>
+<li>Turn radius is not dependent on speed. As long as the steering value is the same, the robot will always make the same turn regardless of speed.</li>
+<li>By changing the steering value only, you can fully control the turning radius from the maximum to the minimum value.</li>
+</ul>
+<p>Note that the above function changes the <strong>duty cycle</strong> (ie. power) of the motor, and not the speed.
+One advantage is that this avoid Pybrick's internal speed control loop, allowing a faster response.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
