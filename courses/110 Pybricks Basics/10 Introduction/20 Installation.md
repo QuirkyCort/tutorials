@@ -2,12 +2,13 @@
 
 To install Pybricks on your EV3, follow these instructions...
 
-https://pybricks.com/ev3-micropython/startinstall.html
-https://pybricks.com/ev3-micropython/startbrick.html
+[https://pybricks.com/ev3-micropython/startinstall.html](https://pybricks.com/ev3-micropython/startinstall.html)
+
+[https://pybricks.com/ev3-micropython/startbrick.html](https://pybricks.com/ev3-micropython/startbrick.html)
 
 ...and for Spike Prime...
 
-https://pybricks.com/install/spike-mindstorms/
+[https://pybricks.com/install/spike-mindstorms/](https://pybricks.com/install/spike-mindstorms/)
 
 ## Writing and Running Programs
 
