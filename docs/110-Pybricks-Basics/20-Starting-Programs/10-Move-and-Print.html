@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>20 Starting Programs</p><ul><a href="../20-Starting-Programs/10-Move-and-Print.html"><li class="current">Move and Print</li></a><a href="../20-Starting-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Starting-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Starting-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Starting-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Move and Print</h1>
+<p>Here's a basic program that moves the robot and print some sensor values.</p>
+<p>You can copy it into the Python tab in GearsBot (...replace all existing content), then switch to the simulator tab to run it.
+If running on a real robot, you need to make sure that all the motors/sensors are present and connected to the correct ports.</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+
+<span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+<span class="c1"># Here is where your code starts</span>
+
+<span class="n">motorA</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">motorB</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor_in3</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+</code></pre></div>
+
+<p>Let's look at what each line does...</p>
+<h2>Hash Bang</h2>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+</code></pre></div>
+
+<p>The EV3 is running a Linux operating system.
+In Linux, the first line starting with a <code>#!</code> is used to indicate the type of script in this file.
+In this case, it tells the operating system that the file is a <code>pybricks-micropython</code> program.
+The Spike Prime doesn't need this (...it doesn't run Linux or any other operating system).</p>
+<h2>Imports</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+</code></pre></div>
+
+<p>The line starting with a <code>#</code> is a comment.
+It's for humans to read, and Python will ignore it.</p>
+<p>The line starting with <code>from</code> are imports lines.
+They import functions from different modules, and make them available for use in your program.</p>
+<p><code>from pybricks.tools import wait</code> imports the <code>wait</code> function from the <code>pybricks.tools</code> module.</p>
+<p><code>from pybricks.ev3devices import *</code> imports ALL the functions form the <code>pybricks.ev3devices</code> module (...the <code>*</code> means everything).</p>
+<h2>Initialize Motors and Sensors</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Create the sensors and motors objects</span>
+<span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This bunch of code create objects representing each motor, sensor, and hub.</p>
+<p><code>ev3 = EV3Brick()</code> creates an object representing the EV3 brick/hub, and assign it to the variable <code>ev3</code>.
+You can change the name on the left to whatever you want, eg. <code>fido = EV3Brick()</code>, but the part on the right cannot be changed.</p>
+<p><code>motorA = Motor(Port.A)</code> creates an object representing a motor, and assign it to the variable <code>motorA</code>.
+We pass in the parameter <code>Port.A</code>, to tell it that we want the motor connected to Port A.
+As before, the name on the left is up to you, so <code>left_motor = Motor(Port.A)</code> is perfectly valid too.</p>
+<p>At this point, you might be wondering where did we get the right hand side from.
+Why is it <code>Motor</code> and not <code>motor</code> or <code>LegoMotor</code>?
+The names on the right are <strong>Classes</strong> and we can find the available classes on the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site</a>.</p>
+<p><img alt="" src="images/ev3motor.webp" /></p>
+<p>The <code>Motor</code> class accepts up to 3 parameters, <strong>port</strong>, <strong>positive_direction</strong>, and <strong>gears</strong>.
+For <strong>positive_direction</strong> and <strong>gears</strong>, we didn't specify them when creating our motor objects, so they'll just use the default values.
+The <strong>port</strong> parameter doesn't have any defaults, so we MUST specify it or we will have an error.</p>
+<div class="important">
+Refer to the pybricks documentation frequently.
+The ability to read documentations is one of the most important skill for a programmer.
+If you can read documentations, millions of modules will be available for you to use in your programming projects.
+If you can't, you'll never go beyond what is in the tutorials.
+</div>
+
+<h2>Moving motors</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">motorA</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">motorB</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</code></pre></div>
+
+<p>These two lines move motor A and motor B, one after the other.</p>
+<p><code>run_angle()</code> is a <strong>method</strong> in the <strong>Motor</strong> object.
+There are many other methods available, and you should refer to the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site</a> to learn more.</p>
+<p><img alt="" src="images/run_angle.webp" /></p>
+<p>From the documentation, you can see that the first parameter is the speed in deg/s.
+The EV3 large motor has a maximum speed of around 1000 deg/s, so 400 deg/s is about 40% speed.</p>
+<div class="note">
+The max speed of the motor is dependent on load, battery type, battery capacity, and varies a little from motor to motor.
+When used to drive a robot, the motor can usually reach only 800 deg/s to 900 deg/s.
+Try to keep your speed settings below 80%, as the robot will behave inaccurately if it hits its limits.
+</div>
+
+<p>The second parameter is the amount to turn in deg.
+In this case, the motor will turn 200 deg (...less than one rotation).</p>
+<p>There are two more parameters that we didn't specify, <strong>then</strong> and <strong>wait</strong>.
+The default value for <strong>then</strong> is <code>Stop.HOLD</code>, which makes the motor hold its stopping position as accurately as it can.</p>
+<p>The default value for <strong>wait</strong> is <code>True</code>, which makes the program stop at that line until the movement is complete.
+If we change it to <code>False</code> by writing <code>motorA.run_angle(400, 200, wait=False)</code>, then as soon as motor A starts moving, the program will move on to the next line and motor B will start to move as well. (...try it and see)</p>
+<p>For motor B, we set the speed to <code>-200</code> which makes it go backwards.</p>
+<h2>Printing Sensor Values</h2>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor_in3</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+</code></pre></div>
+
+<p>This group of code uses the <code>print()</code> function to print out the sensor values.</p>
+<p><code>print()</code> can be used to print a string or value.
+Here's an example... <code>print('hello world')</code> this will print out the words <strong>hello world</strong> in the terminal.</p>
+<p><code>color_sensor_in1.rgb()</code> is a method in the <strong>ColorSensor</strong> object that returns the Red, Green, Blue values measured by the color sensor.
+It is a tuple of 3 values.</p>
+<div class="note">
+Tuples are groups of values.
+We can access each individual value using an index.
+For example, color_sensor_in1.rgb()[0] will provide the first value (Red).
+Note that in most programming languages, we count starting from zero.
+</div>
+
+<p><code>ultrasonic_sensor_in2.distance()</code> returns the distance measured by the ultrasonic sensor in mm.
+It is a single numeric value.</p>
+<p><code>print(color_sensor_in1.rgb())</code> prints out the result of the <code>color_sensor_in1.rgb()</code> method.</p>
+<p>As always, read the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site</a> to learn about all the available methods.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

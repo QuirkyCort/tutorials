@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>20 Starting Programs</p><ul><a href="../20-Starting-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Starting-Programs/20-Distance-Detect-and-Stop.html"><li class="current">Detect and Stop</li></a><a href="../20-Starting-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Starting-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Starting-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Detect and Stop</h1>
+<p>In this program, we move the robot forward until it sees the wall, then stop the robot.</p>
+<p>You can use <a href="https://gears.aposteriori.com.sg">GearsBot</a> for easy testing.
+If you choose to use a physical robot, place a box infront of it to replicate a wall.</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+
+<span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+<span class="c1"># Create a drive base</span>
+
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+
+<span class="c1"># Here is where your code starts</span>
+
+<span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Let's look at what each line does...</p>
+<h2>DriveBase</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This creates an object that represents a two-wheeled robot.
+The first two parameters are the left and right motors.
+The third parameter is the size of the wheel.
+The fourth parameter is the distance between the left and right wheel.</p>
+<div class="think">
+The DriveBase provides convenient functions for moving a robot, but I personally feel that the choice of units for turns (deg/s) makes it difficult to use.
+By default, GearsBot do not use the DriveBase and provides functions for replicating the move_tank and move_steering functions found in EV3Lab and EV3 Classroom.
+</div>
+
+<h2>Move and Stop</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>robot.drive(200, 0)</code> this starts the robot moving forward at a speed of 200 mm/s.
+The second parameter is the rate of turn; zero in this case (ie. going straight)</p>
+<div class="think">
+The standard EV3 wheel diameter is 56mm, and the maximum speed for the large motor is around 1000 deg/s.
+What is the maximum speed (in mm/s) that the robot can move at?
+</div>
+
+<p><code>while ultrasonic_sensor_in2.distance() &gt; 100:</code> as long as the distance is greater than 100mm, we will repeat the code within the <code>while</code> loop.</p>
+<p>The only line inside this <code>while</code> loop is a single <code>pass</code>.
+<code>pass</code> is a special command that does... nothing.
+We can't have an empty <code>while</code> loop, so we place a do-nothing <code>pass</code> inside.</p>
+<p><code>robot.drive(0, 0)</code> this stops the robot and hold the motor at its stop position.
+You can alternatively use <code>robot.stop()</code>, but this will not hold the motor in place, and the robot may coast forward a little. (Try it!)</p>
+<h2>Challenges</h2>
+<ul>
+<li>
+<p>Program the robot to turn on the spot. Read the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site</a> to see what method you can use for this.</p>
+</li>
+<li>
+<p>Program the robot to move in a curve to the left or right by adding a rate of turn to the <code>drive</code> method. Try different rate of turn and see how the robot behaves.</p>
+</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

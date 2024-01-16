@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>20 Starting Programs</p><ul><a href="../20-Starting-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Starting-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Starting-Programs/30-Follow.html"><li class="current">Follow</li></a><a href="../20-Starting-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Starting-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Follow</h1>
+<p>For this next challenge, use <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2Fvvj6X5nYNz.json">this GearsBot world</a>.
+If you're using a physical robot, you can simulate the moving green box with by moving a box by hand.</p>
+<p>This program makes the robot move forward if the green box is more than 150mm away, and back if it is less than 100mm away.</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+
+<span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+<span class="c1"># Create a drive base</span>
+
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+
+<span class="c1"># Here is where your code starts</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Let's look at what each line does...</p>
+<h2>while True</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</code></pre></div>
+
+<p>A <code>while</code> loop will repeat as long as the provided condition is true.
+Since <code>True</code> is always true, a <code>while True:</code> loop will repeat forever.</p>
+<p>If you have used Scratch, this is similar to a repeat forever loop, but unlike Scratch, it is possible to exit a <code>while True:</code> loop by running a <code>break</code> command inside the loop.</p>
+<h2>dist variable</h2>
+<div class="codehilite"><pre><span></span><code>    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
+</code></pre></div>
+
+<p>We will be comparing the distance multiple times later in the <code>if</code> statements, so here we read the distance once and store the result in the <code>dist</code> variable.
+This is slighly more efficient than using <code>ultrasonic_sensor_in2.distance()</code> multiple times (...but it'll work even if you do that).</p>
+<p><code>dist</code> is just a name, and you can use any names that you like (eg. <code>how_far = ultrasonic_sensor_in2.distance()</code>), but it is always best to use a descriptive name that helps the reader of your code understand what is being stored.</p>
+<h2>if elif else</h2>
+<div class="codehilite"><pre><span></span><code>    <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>if dist &gt; 150:</code> Here we first check if the distance is greater than 150mm.
+If it is, we run <code>robot.drive(200, 0)</code> to start the robot moving forward at 200mm/s.</p>
+<p><code>elif dist &gt; 100:</code> Else, if the distance is greater than 100mm (ie. it is between 100mm to 150mm), we'll stop the robot.</p>
+<p><code>else:</code> Else, if none of the conditions are true (ie. the distance is less than 100m), we'll move backwards.</p>
+<p>Note the indentation of the code.
+In Python, we use indents to indicate which statement comes under which condition.
+Here's another example...</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;forward&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;always&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>In the above example, the word <strong>forward</strong> will only be printed if the distance is greater than 150, but the word <strong>always</strong> will always be printed as it is outside of the <code>if</code>.</p>
+<h2>Comparison</h2>
+<p>The <code>&gt;</code> symbol means <strong>greater than</strong>, just like in math.
+So the line <code>if dist &gt; 150:</code> is read as <strong>if dist is greater than 150</strong>.</p>
+<p>Other available operators includes...</p>
+<ul>
+<li><code>&lt;</code> less than</li>
+<li><code>&gt;=</code> greater or equal to</li>
+<li><code>&lt;=</code> less than or equal to</li>
+<li><code>==</code> exactly equal to</li>
+<li><code>!=</code> not equal to</li>
+</ul>
+<p>Note that when performing a comparison, we use double equals <code>==</code>.
+A single equal <code>=</code> is used when assigning a value (eg. <code>a = 1</code> this assigns the value 1 to the variable <strong>a</strong>).</p>
+<p>Some examples...</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">dist</span> <span class="o">==</span> <span class="mi">120</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;exactly 120&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">dist</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;less than or equal to 100&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="think">
+When comparing sensor values, we rarely use ==, that's because the sensors don't return an exact integer value.
+You may want your robot to stop when it is exactly 100mm from the wall, but will it ever get that value?
+The robot may see 105.32mm, 102.51mm, 99.87mm, 98.11mm, etc... but may never land on exactly 100mm.
+It's usually better to use a range instead.
+</div>
+
+<h2>Jerky movements?</h2>
+<p>You may have noticed that the robot moves in a rather jerky manner when it is close to the wall.
+That's because the robot is rapidly switching between moving and stopping when the distance is close to 150mm or 100mm.</p>
+<p>We can make this smoother by adding more conditions...</p>
+<div class="codehilite"><pre><span></span><code>    <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="hll">    <span class="k">elif</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">125</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span>    <span class="k">elif</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="hll">    <span class="k">elif</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">75</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The above is a 5-states algorithm, as the robot can be in 5 different states (...speed of 200, 150, 0, -150, and -200), while the earlier algorithm is 3-states.</p>
+<h2>Proportional Control and Math</h2>
+<p>We can make it the movement even smoother by adding more states, but this get rather tedious (...try creating a 21 states algorithm).
+A better way is to make the robot's speed proportional to the distance.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">-</span> <span class="mi">100</span>
+    <span class="n">correction</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="n">correction</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>error = dist - 100</code> Our desired distance is 100mm, and the <strong>error</strong> is the difference between the actual distance and the desired distance.</p>
+<p><code>correction = error * 4</code> The <strong>correction</strong> is what we apply to try and minimize our error.
+To calculate our correction factor, we multiply the <strong>error</strong> by a value called the <strong>gain</strong>.
+In this case, the <strong>gain</strong> is <strong>4</strong>.</p>
+<div class="note">
+In programming, the * is the multiplication symbol, and the / is the division symbol.
+</div>
+
+<p><code>robot.drive(correction, 0)</code> In this case, we'll apply the correction to the robot's speed.
+The larger the correction, the higher the speed.</p>
+<p>To illustrate, let's imagine that the distance is 200mm.
+This means that...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">error</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">-</span> <span class="mi">100</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mi">200</span> <span class="o">-</span> <span class="mi">100</span>   <span class="c1"># dist is 200</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mi">100</span>
+</code></pre></div>
+
+<p>...and <strong>correction</strong>...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">correction</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">correction</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">4</span>    <span class="c1"># error is 100 as calculated above</span>
+<span class="n">correction</span> <span class="o">=</span> <span class="mi">400</span>
+</code></pre></div>
+
+<p>...finally our speed...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="n">correction</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>         <span class="c1"># correction is 400</span>
+</code></pre></div>
+
+<p>The robot drives forward at a speed of 400.
+What happens when the distance is 100mm? Or 50mm?
+Try to work through the math and figure it out.</p>
+<h2>Challenges</h2>
+<ul>
+<li>
+<p>Experiment with different <strong>gain</strong> and observe how that affects the robot's behaviour.</p>
+</li>
+<li>
+<p>If the green box is far away, the speed (correction) may be very high.
+We want the maximum speed to be 200 mm/s.
+Can you use an <code>if</code> condition to check if the speed is greater than 200, and if it is, set it to 200?</p>
+</li>
+<li>
+<p>Similarly, we don't want the backwards speed to be lesser than -200.
+Add appropriate code to limit the speed to not less than -200.</p>
+</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>20 Starting Programs</p><ul><a href="../20-Starting-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Starting-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Starting-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Starting-Programs/40-Functions.html"><li class="current">Functions</li></a><a href="../20-Starting-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Functions</h1>
+<p>A <strong>Function</strong> is a group of code that runs everytime we <strong>call</strong> the function.</p>
+<p>Functions helps us to organize our code, and minimize repetition.
+A good program should be made up of many short functions, with very little code outside of functions.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">say_hello</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+
+<span class="n">say_hello</span><span class="p">()</span>
+<span class="n">say_hello</span><span class="p">()</span>
+<span class="n">say_hello</span><span class="p">()</span>
+</code></pre></div>
+
+<p>This bunch of code creates a new function named <strong>say_hello</strong>, and calls (run) it 3 times.
+Try it out.</p>
+<p>When creating a function, the first line should take the form... <code>def some_name():</code>, and subsequent lines should be indented (note the <code>def</code> and the colon at the end).</p>
+<p><code>say_hello()</code> this calls (run) the <strong>say_hello</strong> function (note that there is no <code>def</code> and no colon at the end).
+We have 3 lines of <code>say_hello()</code>, so the function will run 3 times.</p>
+<div class="important">
+Defining a function doesn't make it run.
+It only runs when you call it.
+If you don't call a function, the code inside will never run.
+</div>
+
+<h2>Function Parameters</h2>
+<p>A function can have a parameter.
+This allows you to pass in some value when running it.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">say_something</span><span class="p">(</span><span class="n">phrase</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">phrase</span><span class="p">)</span>
+
+<span class="n">say_something</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="n">say_something</span><span class="p">(</span><span class="s1">&#39;how are you&#39;</span><span class="p">)</span>
+<span class="n">say_something</span><span class="p">(</span><span class="s1">&#39;good bye&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>def say_something(phrase):</code> defines the function <strong>say_something</strong>, with one parameter named <code>phrase</code>.
+You can then use the variable <code>phrase</code> inside the function.</p>
+<p><code>say_something('hello')</code> calls (run) the function <strong>say_something</strong>, with the value <code>'hello'</code> passed in as the first parameter.
+The <code>'hello'</code> will be place inside the <code>phrase</code> variable when running the function.</p>
+<h2>Multiple Parameters and Defaults</h2>
+<p>You can also have more than one parameter, and parameters can be supplied with default values.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">dinner</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;seven pm&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Meet at&#39;</span><span class="p">,</span> <span class="n">place</span><span class="p">,</span> <span class="s1">&#39;for dinner at&#39;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+
+<span class="n">dinner</span><span class="p">(</span><span class="s1">&#39;McDonalds&#39;</span><span class="p">)</span>
+<span class="n">dinner</span><span class="p">(</span><span class="s1">&#39;KFC&#39;</span><span class="p">,</span> <span class="s1">&#39;six pm&#39;</span><span class="p">)</span>
+<span class="n">dinner</span><span class="p">(</span><span class="s1">&#39;KFC&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;six pm&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>def dinner(place, time='seven pm'):</code> defines the function <strong>dinner</strong> with two parameters.
+The second parameter, <code>time</code>, is given a default value.</p>
+<p><code>dinner('McDonalds')</code> calls the function <strong>dinner</strong> with the first parameter (place) set as 'McDonalds'.
+The second parameter is not provided, so the default will be used.</p>
+<p><code>dinner('KFC', 'six pm')</code> calls the function <strong>dinner</strong> with both the parameters set.
+This will overide the default value for the second parameter.</p>
+<p><code>dinner('KFC', time='six pm')</code> This works the same, but with the second parameter specified by name.</p>
+<h2>Return values</h2>
+<p>A function can also return a value.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">add_up</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">add_up</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">add_up</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div>
+
+<p><code>return result</code> The <code>return</code> statement can only be used inside a function.
+It immediately ends the function and return the provided value.
+In this case, it returns the result of <code>a + b</code>.</p>
+<p><code>c = add_up(1, 2)</code> calls the function <strong>add_up</strong> and store the return value in a variable named <code>c</code>.</p>
+<p><code>print(add_up(3, 4))</code> calls the function <strong>add_up</strong> and immediately print out the return value.</p>
+<h2>Global Variables</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">say_number</span><span class="p">()</span>
+</code></pre></div>
+
+<p>If you run the above code, you should see <code>123</code> in the terminal output.</p>
+<p>The <code>a</code> variable is defined outside of any functions, so it is called a <strong>global</strong> variable.
+Global variables can be accessed anywhere within your program, including inside a function.</p>
+<h2>Local Variables</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">123</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="n">say_number</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;one more time&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you run the above code, you should see a single <code>123</code> in the terminal output, the line <code>one more time</code>, followed by an error.</p>
+<p>The <code>b</code> variable is defined inside of the <strong>say_number</strong> function, so it is called a <strong>local</strong> variable.
+It is local to the <strong>say_number</strong> function and can only be used inside of that function.</p>
+<p>This results in an error when the last <code>print(b)</code> try to run.</p>
+<h2>global Keyword</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">456</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">say_number</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you run the above code, you should see <code>456</code> in the terminal output, followed by <code>123</code>.</p>
+<p>When we run the <strong>say_number</strong> function, it changes the value of <code>a</code> to <code>456</code>, but when we print out the value of <code>a</code> in the last line, it reverted back to <code>123</code>?</p>
+<p>A function can't normally change a global variable, so when the function runs <code>a = 456</code>, Python create a new local variable (...also named <code>a</code>), and set that local variable to <code>456</code>.
+The global variable <code>a</code> remains unchanged.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+<span class="hll">    <span class="k">global</span> <span class="n">a</span>
+</span>    <span class="n">a</span> <span class="o">=</span> <span class="mi">456</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">say_number</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Here we add the statement <code>global a</code> inside the <strong>say_number</strong> function.
+This tells Python that we want to change the global variable <code>a</code>.</p>
+<p>If you run this code, you should see <code>456</code> appear twice.</p>
+<p>Note that you only need the <code>global</code> statement if you are changing a variable, and not if you only need to read its value.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

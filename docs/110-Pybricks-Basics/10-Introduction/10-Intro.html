@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li class="current">Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>20 Starting Programs</p><ul><a href="../20-Starting-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Starting-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Starting-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Starting-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Starting-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Introduction</h1>
+<p>This course covers the basics of Python and Pybricks.
+It is suitable for students with zero knowledge of either of these.</p>
+<h2>What is Pybricks?</h2>
+<p>Pybricks is an alternative firmware for the Lego EV3 and Spike Prime.
+It provides a set of API (Application Programming Interface) to control the motors and sensors.</p>
+<div class="note">
+An API is basically a collection of functions that you can use to control another software (...in this case, Pybricks).
+</div>
+
+<p>Note that the Spike Prime comes with its own version of Python; this is not the same as Pybricks.
+There really isn't any significant advantages to using one over the other, but this course is targeted at Pybricks and will not cover the usage of the Spike Python API.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
