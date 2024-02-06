@@ -1,7 +1,7 @@
 # Follow
 
 For this next challenge, use [this GearsBot world](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2Fvvj6X5nYNz.json).
-If you're using a physical robot, you can simulate the moving green box with by moving a box by hand.
+If you're using a physical robot, you can simulate the moving green box by moving a box by hand.
 
 This program makes the robot move forward if the green box is more than 150mm away, and back if it is less than 100mm away.
 
