@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>Basic Programs</p><ul><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li class="current">Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p>Special Topics</p><ul><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Movement Challenges</h1>
+<p>Make use of what you have learned to complete the following challenges in <a href="https://gears.aposteriori.com.sg">GearsBot</a>.</p>
+<p>Load the "2022 FLL (Superpowered)" world (Worlds =&gt; Select World =&gt; Missions =&gt; 2022 FLL Superpowered).</p>
+<p><img alt="" src="images/fll_world.webp" /></p>
+<p>Switch to the "Cage Bot" robot (Robot =&gt; Select Robot =&gt; Cage Bot).</p>
+<p><img alt="" src="images/cage_bot.webp" /></p>
+<h2>Challenge</h2>
+<p>Pick up the tray and bring it back to the home area.</p>
+<video width="914" height="579" autoplay loop muted>
+    <source src="images/fll_tray.webm" type="video/webm">
+</video>
+
+<h3>Tips</h3>
+<ul>
+<li>
+<p>The motors and sensors on the "Cage Bot" are not the same as the default "Single Sensor Line Follower" robot (eg. Port 2 on the Cage Bot is not an ultrasonic). You'll need to change your motor / sensor initialization code to suit the Cage Bot, or your program won't even run!</p>
+</li>
+<li>
+<p>The tires will skid if your robot accelerates too rapidly. If your robot does not behave consistently, change the robot base settings to reduce the speed and acceleration to a low value. Read the Pybricks documentation to learn how.</p>
+</li>
+<li>
+<p>You can use the ultrasonic to stop a little more consistently near the tray, but that isn't necessary for this challenge (...in an actual competition, you should be using your sensors extensively to ensure your robot moves consistently).</p>
+</li>
+</ul>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
