@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>Basic Programs</p><ul><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p>Special Topics</p><ul><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li class="current">Run vs DC</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Run vs DC</h1>
+<p>It Pybricks, the <strong>Motor</strong> class provides both the <strong>run</strong> and the <strong>dc</strong> commands.
+Each of these have its uses, and it's good to know how they work.</p>
+<h2>DC</h2>
+<p>DC stands for "Duty Cycle".
+This represents the percentage of time a device is powered.
+For example, if you turn on your lights for 12 hrs per day, it will be operating at 50% duty cycle (12 hrs / 24 hrs).</p>
+<p>When controlling a brushed motor like those used by the EV3 and Spike Prime, we often do so by switching the power on and off rapidly.
+If we were to turn on the power for 10 ms and off for 10 ms, the motor will be at 50% duty cycle.
+If we were to turn it on for 15 ms and off for 5 ms instead, the motor will be at 75% duty cycle.</p>
+<p>Setting the duty cycle can approximately control the speed, but not very well.
+Consider a robot going up and down a slope; at the same 50% duty cycle, it may move very slowly when going up, but very fast when going down.</p>
+<p>If there is a lot of static friction present, the situation may be worse.
+Imagine that your robot requires 70% power to overcome static friction.
+At 65% power, the robot will remain stationary, but at 75% power it will overcome static friction and start moving at a high speed.
+You can then lower the power to 40%, and the robot will continue moving at a lower speed, but if it encounters any obstacles, it may come to a stop again.</p>
+<h2>Run (speed control)</h2>
+<p>To better control the motor speed, we will need some kind of feedback.
+Both the EV3 and Spike Prime motors are equipped with sensors that detects the motor's rotation.
+Pybricks uses this to calculate the actual motor speed, and adjust the power to the motor.
+So when you tell the motor to <strong>run(200)</strong> (...run and 200 deg/s), what Pybricks does is...</p>
+<ol>
+<li>Estimate the duty cycle to achieve that speed and sets it</li>
+<li>Measure the actual motor speed</li>
+<li>Uses a PID algorithm to calculate a correction</li>
+<li>Corrects the duty cycle setting</li>
+<li>Go back to step 2 and keep repeating until it receives a stop command</li>
+</ol>
+<p>The repeated loops of measuring and setting, means that the motor may respond slowly to changes in speed settings.</p>
+<div class="note">
+It's possible to set the PID parameters using "control.pid()".
+Read the Pybricks documentation to know more.
+Be cautioned that it can be very difficult and time consuming to tune PID parameters.
+</div>
+
+<h2>Run (acceleration)</h2>
+<p>In addition, it is often undesirable to immediately go to full speed.
+To rapidly go from stationary to full speed will require a high acceleration, and the robot will need to overcome a lot of inertia.
+If you try to do this, the tires will likely skid, causing a loss of accuracy.</p>
+<p>Pybricks limits the acceleration of the motors, to prevent skidding.
+This means that when you change the speed from 0 to 1000, Pybricks will...</p>
+<ul>
+<li>Set speed to 10</li>
+<li>Wait a while</li>
+<li>Set speed to 20</li>
+<li>Wait a while</li>
+<li>Set speed to 30
+.
+.
+.</li>
+<li>Set speed to 1000</li>
+</ul>
+<p>The gradual change in speed reduces the risk of skidding, but it also means that the wheel speed will respond slowly to commands.</p>
+<div class="note">
+It's possible change the acceleration limit using "control.limits()".
+Read the Pybricks documentation to know more.
+</div>
+
+<h2>Effects of Slow Response</h2>
+<p>We now know that <strong>run</strong> can lead to delays in responds, but how does that affect our robot?
+The below video simulates the effect of a delay during line following (...no delay on left, delay on right).</p>
+<video width="960" height="540" autoplay loop muted>
+    <source src="images/effects_of_lag.webm" type="video/webm">
+</video>
+
+<div class="note">
+This is just a simulation; the actual behavior will depend on the physical aspects of your robot and the control parameters.
+</div>
+
+<h2>Run vs DC</h2>
+<h3>DC</h3>
+<ul>
+<li>DC provides fast response, but speed may be inconsistent</li>
+<li>It can be difficult to achieve low speed when using DC; the power may not be enough to overcome static friction and the motor may stop</li>
+</ul>
+<h3>Run</h3>
+<ul>
+<li>Run provides consistent speed, but response is slower</li>
+<li>Can achieve low speed; if the motor stops due to static friction, the control algorithm will provide enough power to overcome it, then reduce it again to continue moving at low speed.</li>
+</ul>
+<h3>EV3</h3>
+<p>Personally, I find that <strong>dc</strong> works better when using the large motor on an EV3.
+It might be possible to achieve better results with run if you tune the control parameters, but it can be difficult to achieve a good tuning.
+You should test both out and decide for yourself which works better.</p>
+<h3>Spike Prime</h3>
+<p>Using the medium motor on the Spike Prime, I find that you may need a high duty cycle just to get the motors moving, and the motor stops easily unless you are setting a very high duty cycle.
+As such, using <strong>run</strong> works better when using the medium motor on the Spike Prime.
+As always, you should test both out and decide for yourself which works better.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
