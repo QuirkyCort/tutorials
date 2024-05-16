@@ -168,7 +168,7 @@ while True:
 To calculate our correction factor, we multiply the **error** by a value called the **gain**.
 In this case, the **gain** is **4**.
 
-<div class="note">
+<div class="info">
 In programming, the * is the multiplication symbol, and the / is the division symbol.
 </div>
 

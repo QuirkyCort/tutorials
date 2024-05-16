@@ -8,7 +8,7 @@ It is suitable for students with zero knowledge of either of these.
 Pybricks is an alternative firmware for the Lego EV3 and Spike Prime.
 It provides a set of API (Application Programming Interface) to control the motors and sensors.
 
-<div class="note">
+<div class="info">
 An API is basically a collection of functions that you can use to control another software (...in this case, Pybricks).
 </div>
 

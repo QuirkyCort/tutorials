@@ -1,6 +1,6 @@
 # Run vs DC
 
-It Pybricks, the **Motor** class provides both the **run** and the **dc** commands.
+In Pybricks, the **Motor** class provides both the **run** and the **dc** commands.
 Each of these have its uses, and it's good to know how they work.
 
 ## DC
@@ -34,9 +34,9 @@ So when you tell the motor to **run(200)** (...run and 200 deg/s), what Pybricks
 4. Corrects the duty cycle setting
 5. Go back to step 2 and keep repeating until it receives a stop command
 
-The repeated loops of measuring and setting, means that the motor may respond slowly to changes in speed settings.
+It takes time to measuring and adjust dc settings, which means that the motor may respond slowly to changes in speed settings.
 
-<div class="note">
+<div class="info">
 It's possible to set the PID parameters using "control.pid()".
 Read the Pybricks documentation to know more.
 Be cautioned that it can be very difficult and time consuming to tune PID parameters.
@@ -61,9 +61,9 @@ This means that when you change the speed from 0 to 1000, Pybricks will...
 .
 * Set speed to 1000
 
-The gradual change in speed reduces the risk of skidding, but it also means that the wheel speed will respond slowly to commands.
+The gradual change in speed reduces the risk of skidding, but it also means that the wheel speed will respond slower to commands.
 
-<div class="note">
+<div class="info">
 It's possible change the acceleration limit using "control.limits()".
 Read the Pybricks documentation to know more.
 </div>
@@ -77,7 +77,7 @@ The below video simulates the effect of a delay during line following (...no del
     <source src="images/effects_of_lag.webm" type="video/webm">
 </video>
 
-<div class="note">
+<div class="info">
 This is just a simulation; the actual behavior will depend on the physical aspects of your robot and the control parameters.
 </div>
 
@@ -101,6 +101,6 @@ You should test both out and decide for yourself which works better.
 
 ### Spike Prime
 
-Using the medium motor on the Spike Prime, I find that you may need a high duty cycle just to get the motors moving, and the motor stops easily unless you are setting a very high duty cycle.
+Using the medium motor on the Spike Prime, I find that you may need a high duty cycle just to get the motors moving, and the motor stops easily unless you are using a very high duty cycle.
 As such, using **run** works better when using the medium motor on the Spike Prime.
 As always, you should test both out and decide for yourself which works better.

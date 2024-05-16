@@ -79,12 +79,12 @@ When a function `return`, it no longer run any more code within the function.
 
 `else:` if the above condition is not true, the function will return a `False` value.
 
-<div class="note">
+<div class="info">
 True and False are special values in Python.
 They must be spelt exactly as written, with the first letter capitalized.
 </div>
 
-<div class="note">
+<div class="info">
 Where did we get the ranges for Red, Green, and Blue from?
 Move the robot to the green area and use a print statement to display the rgb values for the color sensor.
 Remember than sensors rarely give an exact value, so we need to use a suitable range to ensure our detection is robust.

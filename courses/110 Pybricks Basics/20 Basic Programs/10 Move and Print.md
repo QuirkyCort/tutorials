@@ -126,7 +126,7 @@ There are many other methods available, and you should refer to the [Pybricks do
 From the documentation, you can see that the first parameter is the speed in deg/s.
 The EV3 large motor has a maximum speed of around 1000 deg/s, so 400 deg/s is about 40% speed.
 
-<div class="note">
+<div class="info">
 The max speed of the motor is dependent on load, battery type, battery capacity, and varies a little from motor to motor.
 When used to drive a robot, the motor can usually reach only 800 deg/s to 900 deg/s.
 Try to keep your speed settings below 80%, as the robot will behave inaccurately if it hits its limits.
@@ -159,7 +159,7 @@ Here's an example... `print('hello world')` this will print out the words **hell
 `color_sensor_in1.rgb()` is a method in the **ColorSensor** object that returns the Red, Green, Blue values measured by the color sensor.
 It is a tuple of 3 values.
 
-<div class="note">
+<div class="info">
 Tuples are groups of values.
 We can access each individual value using an index.
 For example, color_sensor_in1.rgb()[0] will provide the first value (Red).
