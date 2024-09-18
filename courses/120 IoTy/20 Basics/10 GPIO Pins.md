@@ -85,7 +85,7 @@ If you do not have a suitable push button, you can used `Pin 0` instead.
 
 ### Code
 
-This example code turns the built-in LED (Pin 2) on when the button is pressed, and off when it is released.
+This example code turns the built-in LED (Pin 2) on when the button (...connected to Pin 4) is pressed, and off when it is released.
 
 ### Blocks
 
@@ -106,6 +106,76 @@ from ioty import pin
 pin.set_pin_mode(4, pin.PULL_UP)
 while True:
     if pin.digital_read(4) == 0:
+        pin.digital_write(2, 1)
+    else:
+        pin.digital_write(2, 0)
+```
+
+## Touch Input
+
+Some of the pins on the ESP32 are capable of detecting capacitive touch.
+This allows you to use these pins as buttons, by simply connecting a wire to the pin and touching the wire.
+
+The values returned by the "touch read pin" block will tend to be high (...100s to over 1000) when there is no contact, and low (...less than 100) when there is contact.
+The exact value will vary, and you'll need to test to determine it.
+
+### Wiring Example
+
+![](images/touchWiring.webp)
+
+Note that the wire is not connected to anything; we'll be using the wire itself to detect touch.
+To make a better touch button, you can connect the wire to an uninsulated paper clip or a piece of metal foil.
+
+### Code (for testing)
+
+We'll start with a simple code that displays the touch values.
+This will let us know what values to expect when there is contact and no contact.
+
+### Blocks (for testing)
+
+![](images/touchBlocks.webp)
+
+### Python (for testing)
+
+```python
+import time
+from ioty import pin
+
+while True:
+    print(pin.touch_read(4))
+    time.sleep(1)
+```
+
+### Results (for testing)
+
+Check the monitor for the results.
+Touch the wire and see how the values change.
+
+![](images/touchTestResults.webp)
+
+In this case, the values are around 500+ when there is no contact, and around 60-140 when there is contact.
+
+### Code (as button)
+
+Based on our test results, we can pick a number between the contact and no-contact values.
+In this case, 300 would be roughly in the middle between the two ranges, but be warned that you may get a different value from me.
+
+If the touch read value is below 300, we'll consider it to be touched, and turn on the Blue LED.
+Else, we'll turn the LED off.
+This is similar to the digital input exercise where we used a button, but here we are using a wire as a button.
+
+### Blocks (as button)
+
+![](images/touchSwitch.webp)
+
+### Python (as button)
+
+```python
+import time
+from ioty import pin
+
+while True:
+    if pin.touch_read(4) < 300:
         pin.digital_write(2, 1)
     else:
         pin.digital_write(2, 0)

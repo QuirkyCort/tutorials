@@ -44,7 +44,9 @@ Select "Filtered Connect", select your device (...there will probably be just on
 
 ## Writing the Code
 
-Write the following code...
+Write the following code in either Blocks or Python...
+
+### Blocks
 
 ![](images/blink.webp)
 
@@ -61,6 +63,20 @@ Feel free to change the duration.
 
 The Blocks code will be automatically converted to Python; you can switch to the Python tab at anytime to see the generated code.
 You can also edit the Python code, but be warned that changes to the Python code will not convert back to Blocks.
+
+### Python
+
+```python
+import time
+from ioty import pin
+
+while True:
+    pin.digital_write(2, 1)
+    time.sleep(1)
+    pin.digital_write(2, 0)
+    time.sleep(1)
+```
+
 
 ## Download to Device
 
@@ -82,4 +98,4 @@ You've completed your first IoTy program!
 You should now know how to connect to your ESP32, write code, and download it to your device.
 
 The following chapters will cover more features of IoTy.
-You can read through them in order, or simply skip to the topic that interest you.
+You can read through them in order or simply skip to the topic that interest you.
