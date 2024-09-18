@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li class="current">Monitor</li></a></ul><p>Intro to IoTy</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Monitor</h1>
+<p>When connected in Serial, Bluetooth, or Internet mode, the monitor tab will be linked to the micropython terminal.
+Error messages will appear here, so you should check the monitor if your code isn't working.
+Messages from the "print" block and Python's "print" command will also appear here.</p>
+<p><img alt="" src="images/monitory.webp" /></p>
+<p>You can abort a running program by clicking the "Abort" button.
+This will drop you into the Python command prompt ("&gt;&gt;&gt;").</p>
+<p>You can send text to your code by typing it into the text box at the top and clicking "Send" or pressing "Enter".
+When in the Python command prompt, Python commands can also be sent using the text box.</p>
+<h3>Bluetooth Mode</h3>
+<p>When the IoTy device is reset, it will cause Bluetooth mode to disconnect.
+By the time you reconnect to your device, you may have already missed some error messages or print messages.</p>
+<p>To avoid this problem, you can set your "When Started" block to "wait for Bluetooth connection".</p>
+<p><img alt="" src="images/waitforBluetooth.webp" /></p>
+<p>A program that is set to "wait for Bluetooth connection" will not run immediately after reset.
+Instead, it will wait for a Bluetooth connection before the program starts running.</p>
+<h3>Internet Mode</h3>
+<p>In Internet mode, the monitor can only display messages; you cannot send text or Python commands to your device.</p>
+<p>The IoTy device will not normally connect to the internet.
+To make it connect to the internet and send messages to the monitor, you need to set the "When Started" block to "wait for internet connection".</p>
+<p><img alt="" src="images/waitforInternet.webp" /></p>
+<p>Your network settings must be configured for this to work.</p>
+<h2>Printing to Monitor</h2>
+<p>Write the following code in either Blocks or Python, download it to your device, then reset your device.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/printTime.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Monitor</h3>
+<p>Switch to the monitor.
+You should see messages like the following...</p>
+<p><img alt="" src="images/monitorTime.webp" /></p>
+<p>The first part of the text is the boot up message.
+The numbers that follows is the time (...in milliseconds) printed by our code.</p>
+<h2>Abort</h2>
+<p>Click the "Abort" button; this will terminate the running program and drop you into the Python prompt ("&gt;&gt;&gt;").</p>
+<p><img alt="" src="images/monitorAbort.webp" /></p>
+<h2>Running Python Commands</h2>
+<p>Type the following command into the text box and click "Send" (...or press "Enter").</p>
+<p><img alt="" src="images/print2x3.webp" /></p>
+<p>You should see the command and the result (6) appear in the monitor.</p>
+<p><img alt="" src="images/printResult.webp" /></p>
+<h2>Running Selected Blocks</h2>
+<p>Instead of typing in Python commands, you can also run selected blocks.
+Switch to the Blocks tab, select the "print" block, open the connection menu, then click "Run selected block".</p>
+<video width="454" height="268" autoplay loop muted>
+    <source src="images/runSelected.mp4" type="video/mp4">
+</video>
+
+<p>Switch back to the Monitor tab and you should see the result.</p>
+<p><img alt="" src="images/runSelectedResult.webp" /></p>
+<h2>Errors</h2>
+<p>Write the following code in either Blocks or Python, download it to your device, then reset your device.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/divideByZero.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Monitor</h3>
+<p>You should see an error displayed in the monitor.</p>
+<p><img alt="" src="images/divideByZeroResult.webp" /></p>
+<p>It's a divide-by-zero error!</p>
+<p>The error will not tell you which Block is responsible for the error, only the Python line number where the error occured.
+Fortunately, even if you do not understand Python, it is usually easy to figure out which Block is responsible for the error by looking at the line of Python code causing the problem.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

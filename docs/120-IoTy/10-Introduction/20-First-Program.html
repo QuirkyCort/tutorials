@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li class="current">First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Intro to IoTy</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>First Program</h1>
+<p>The ESP32 is equipped with a blue LED that we can control using pin 2.
+For this first program, we will make the blue LED blink.</p>
+<p>While it is possible to use IoTy on a phone or tablet, the instructions below are for connection via serial mode which only works on computers.</p>
+<div class="info">
+IoTy supports 4 different ways of connecting to your device.
+Serial is the easiest to use, but does not work on mobile devices.
+To use IoTy on a mobile device (eg. phone, tablets), you'll need to use "Bluetooth", "Internet", or "Access Point" mode.
+Read the section on "Connection Mode" to learn more.
+</div>
+
+<h2>Power and Connection</h2>
+<p>Connect your ESP32 to your computer via the USB cable.
+This provides power to your board as well as a serial connection for transfering programs.</p>
+<p>On power up (...or reset), the blue LED will blink 3 times; this is the boot-up indicator for IoTy.
+If you do not see the 3 blinks, the firmware was probably not flashed correctly.</p>
+<h2>The IoTy interface</h2>
+<p>Open the IoTy coding page... <a href="https://ioty.a9i.sg/editor.html">https://ioty.a9i.sg/editor.html (Main)</a></p>
+<div class="info">
+You can also use the <a href="https://quirkycort.github.io/IoTy/public/editor.html">development page</a> for the latest features.
+</div>
+
+<p><img alt="" src="images/interface.webp" /></p>
+<h2>Connecting your device</h2>
+<p>Open the connection menu (...click on the 3 dots) and select "Connection mode".
+Change the mode to "Serial" then click "Ok".</p>
+<p>Now open the connection menu again, and select "Connect (Serial)".
+Select "Filtered Connect", select your device (...there will probably be just one), and click "Connect".</p>
+<video width="974" height="642" autoplay loop muted>
+    <source src="images/connect.mp4" type="video/mp4">
+</video>
+
+<h2>Writing the Code</h2>
+<p>Write the following code in either Blocks or Python...</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/blink.webp" /></p>
+<p>Your code must be connected to the "When Started" block, and you may only have a single "When Started" block in each program.</p>
+<p>Pin 2 is connected to the built-in blue LED.
+When 1 (HIGH) is written to pin 2, the LED is turned on.
+When 0 (LOW) is written to pin 2, the LED is turned off.</p>
+<p>The "repeat while true" block ensures that the code inside is repeated forever.</p>
+<p>The "sleep" block adds a short delay after turning the LED on or off.
+Feel free to change the duration.</p>
+<p>The Blocks code will be automatically converted to Python; you can switch to the Python tab at anytime to see the generated code.
+You can also edit the Python code, but be warned that changes to the Python code will not convert back to Blocks.</p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Download to Device</h2>
+<p>Open the connection menu (...click on the 3 dots) and select "Download to device".
+When completed, click "Reset" to reset your device; your program will only run after a reset.
+If you accidentally click "Ok" instead, you can reset your device either through the connection menu or by pressing the reset button on your ESP32.</p>
+<video width="974" height="642" autoplay loop muted>
+    <source src="images/download.mp4" type="video/mp4">
+</video>
+
+<p>Once downloaded, the program will be stored on your ESP32.
+The program will run automatically when the ESP32 is powered up, even if it is not connected to a computer.
+Try unplugging your ESP32 from your computer and connect it to a USB charger instead; you should see your program run after the 3 boot-up blinks.</p>
+<h2>What's Next?</h2>
+<p>You've completed your first IoTy program!
+You should now know how to connect to your ESP32, write code, and download it to your device.</p>
+<p>The following chapters will cover more features of IoTy.
+You can read through them in order or simply skip to the topic that interest you.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

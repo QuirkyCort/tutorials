@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li class="current">Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Intro to IoTy</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Introduction</h1>
+<p>This is the documentation for <strong>IoTy</strong>.</p>
+<p>You can find the repository of IoTy at <a href="https://github.com/QuirkyCort/IoTy">https://github.com/QuirkyCort/IoTy</a></p>
+<h2>What is IoTy?</h2>
+<p>IoTy provides a web-based environment for coding micropython devices in Blocks and in Python.
+It also provides a web-based app builder for creating IoT (Internet-of-Things) apps.</p>
+<p><img alt="" src="images/blink.webp" /> <img alt="" src="images/appBuilder.webp" /></p>
+<p>IoTy primarily supports the ESP32 microcontroller, but should work with any micropython devices such as the Raspberry Pi Pico.</p>
+<p>IoTy with ESP32 is similar to the popular Arduino UNO and the micro:bit.
+Compared with the Arduino UNO, IoTy provides...</p>
+<ul>
+<li>Web-based programming interface</li>
+<li>Programming in Blocks or Python</li>
+<li>Faster processor and much more memory</li>
+<li>Built-in WiFi</li>
+</ul>
+<p>Compared with the micro:bit, IoTy provides...</p>
+<ul>
+<li>Faster processor and more memory</li>
+<li>Built-in WiFi</li>
+<li>Lower cost</li>
+<li>Breadboard compatibility</li>
+</ul>
+<h2>ESP32</h2>
+<p>The ESP32 is a low cost (~$4) microcontroller with built-in WiFi and Bluetooth support.
+There are many varients of the ESP32 boards; if this is your first time working with one, I would recommend purchasing the "ESP32-WROOM-32 chip, on a ESP32 DEV KIT DOIT board (30 pin version)" (...see below image).
+It is widely available on Aliexpress, Amazon, etc.</p>
+<p><img alt="" src="images/esp32Parts.webp" /></p>
+<p>This ESP32 board is breadboard compatible, allowing it to easily connect to a variety of low cost components.</p>
+<h2>Installing the firmware</h2>
+<h3>Requirements</h3>
+<ul>
+<li>ESP32</li>
+<li>USB Cable</li>
+<li>Computer (...not a phone or tablet)</li>
+<li>Webbrowser (Chrome is preferred, but others may work too)</li>
+</ul>
+<h3>Instructions</h3>
+<p>The recommended way to install the IoTy firmware on the ESP32 is to use this page: <a href="https://quirkycort.github.io/IoTy-Flash/public/index.html">https://quirkycort.github.io/IoTy-Flash/public/index.html</a>.</p>
+<p>You'll need to connect the ESP32 to your computer via a USB cable.
+If your device could not be detected, you may need to...</p>
+<ul>
+<li><strong>Windows</strong> <a href="https://randomnerdtutorials.com/install-esp32-esp8266-usb-drivers-cp210x-windows/">Install the CP210 driver</a> or <a href="https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all">Install the CH340 driver</a> (...depends on what your ESP32 is using)</li>
+<li><strong>Linux</strong> Add your user to the "dialout" group using: <code>sudo usermod -a -G dialout &lt;username&gt;</code> (...restart your computer for the changes to take effect).</li>
+</ul>
+<p>If you are not using an ESP32 (eg. Raspberry Pi Pico), install the firmware using the instructions here <a href="https://github.com/QuirkyCort/IoTy/wiki/Non%E2%80%90browser-based-setup">https://github.com/QuirkyCort/IoTy/wiki/Non%E2%80%90browser-based-setup</a>.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
