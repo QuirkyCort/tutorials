@@ -7,6 +7,7 @@ import re
 import shutil
 import urllib
 import urllib.parse
+from custom_md_extension import LibDocExtension
 
 COURSES_DIR = 'courses'
 HTML_DIR = 'docs'
@@ -16,7 +17,7 @@ INDEX_FILE = 'index.html'
 REDIRECT_FILE = 'redirect.html'
 EXCLUDE_DIR = ['images', 'css', 'scss', 'js', 'download']
 COPY_DIR = ['images', 'css', 'js', 'download']
-MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite', 'tables', 'md_in_html']
+MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite', 'tables', 'md_in_html', LibDocExtension()]
 MARKDOWN_EXTENSIONS_CONFIGS = {
     'codehilite': {
         'guess_lang': False

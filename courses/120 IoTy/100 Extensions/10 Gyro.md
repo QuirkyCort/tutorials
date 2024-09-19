@@ -75,6 +75,7 @@ As you rotate the gyro, you should see the angles change.
 
 # `class MPU6050` - read and control MPU-6050 gyro
 
+!!!!!
 ## Constructors
 
 ### mpu6050.MPU6050(i2c, addr=104)
@@ -84,6 +85,7 @@ Create an MPU6050 object.
 The arguments are:
 
 * `i2c` An i2c object.
+
 * `addr` The i2c address of the gyro. By default, this should be 104.
 
 Returns an `MPU6050` object.
@@ -108,6 +110,7 @@ The gyro must be stationary during calibration.
 The arguments are:
 
 * `reps` An integer specifying number of readings to take during calibration. A larger number will improve accuracy, but the calibration will take longer.
+
 * `threshold` Difference between consecutive readings during calibration must be below this value to be accepted. This prevents accidental movement from spoiling the calibration. You generally do not need to change this.
 
 Returns `None`.
@@ -130,25 +133,25 @@ The argument are:
 
 Returns `None`.
 
-## MPU6050.accel_all()
+### MPU6050.accel_all()
 
 Gets the acceleration for all 3 axis.
 
 Returns a `list` containing the acceleration (`float`) in milligravity for the x, y, and z axis.
 
-## MPU6050.accel_x(), MPU6050.accel_y(), MPU6050.accel_z()
+### MPU6050.accel_x(), MPU6050.accel_y(), MPU6050.accel_z()
 
 Gets the acceleration for the specified axis.
 
 Returns a `float` containing the acceleration in milligravity for the specified axis.
 
-## MPU6050.temperature_6050()
+### MPU6050.temperature_6050()
 
 Gets the temperature for the chip.
 
 Returns a `float` representing the temperature in Celsius.
 
-## MPU6050.temperature_6500()
+### MPU6050.temperature_6500()
 
 Gets the temperature for the chip.
 Use this if your chip is a MPU-6500.
@@ -161,7 +164,7 @@ Gets the rotation rate for all 3 axis.
 
 Returns a `list` containing the rotation rate (`float`) in degrees per second for the x, y, and z axis.
 
-## MPU6050.rate_x(), MPU6050.rate_y(), MPU6050.rate_z()
+### MPU6050.rate_x(), MPU6050.rate_y(), MPU6050.rate_z()
 
 Gets the rotation rate for the specified axis.
 
@@ -174,14 +177,14 @@ You must run `update_angle` regularly for this to work.
 
 Returns a `list` containing the rotation angle (`float`) in degrees for the x, y, and z axis.
 
-## MPU6050.angle_x(), MPU6050.angle_y(), MPU6050.angle_z()
+### MPU6050.angle_x(), MPU6050.angle_y(), MPU6050.angle_z()
 
 Gets the rotation angle for the specified axis.
 You must run `update_angle` regularly for this to work.
 
 Returns a `float` representing the rotation angle in degrees for the specified axis.
 
-## MPU6050.update_angle()
+### MPU6050.update_angle()
 
 Gets the rotation rate and update the rotation angle through integration.
 
@@ -189,3 +192,4 @@ The gyro angles will not be accurate if you do not run this frequently.
 If you only need rotation rate and acceleration, then you do not need to run this method.
 
 Returns `None`
+!!!!!

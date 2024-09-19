@@ -166,6 +166,19 @@ th {
   content: "🤔 Thinking Point: ";
   font-weight: bold; }
 
+.custom_lib_docs {
+  padding-left: 30px; }
+  .custom_lib_docs h2 {
+    margin-left: -30px; }
+  .custom_lib_docs h3 {
+    border-top: 3px solid #6ab0de;
+    background: #e7f2fa;
+    padding: 6px;
+    margin-left: -30px; }
+  .custom_lib_docs code {
+    background: lightgray;
+    padding: 0.1em; }
+
 @media only screen and (max-width: 600px) {
   #content {
     font-size: 12pt;

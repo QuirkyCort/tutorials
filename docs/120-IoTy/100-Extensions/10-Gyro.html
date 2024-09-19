@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li >Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li class="current">Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Gyro (MPU-6050)</h1>
+<p><img alt="" src="images/gyro.webp" /></p>
+<p>This is the GY 521 (...name of the board), but it's also referred to as the MPU-6050 (...name of the chip on the board). This gyro is cheap and commonly available, making one of the most popular model. Features of the board includes...</p>
+<ul>
+<li>3-axis Accelerometer</li>
+<li>3-axis Rate Gyro</li>
+<li>I2C communication protocol</li>
+</ul>
+<h2>Rate Gyro</h2>
+<p>The gyro on these modules are <strong>rate gyros</strong>.
+Unlike the gyros found on ships and planes, these rate gyros cannot tell you which direction is north.
+Instead, a rate gyro can only tell you how fast it is rotating.</p>
+<p>By <a href="https://www.mathsisfun.com/calculus/integration-introduction.html">integrating</a> the rate of rotation, we can determine how much the gyro has turned from its starting position.</p>
+<p>Every rate gyro must go through a <strong>calibration</strong> step (...typically done in <strong>setup</strong>), and it's important that the gyro is perfectly stationary during this time.
+If the calibration is done while the gyro is moving, it will lead to large errors in the reading.
+Note that rate gyros all suffers from drift over time, but if calibration is done well, this drift can be as little as 1 degree per minute.</p>
+<h2>Pins</h2>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Provides the ultrasonic with power. Connect to <strong>3V3</strong> on the ESP32.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Provides the ultrasonic with power. Connect to <strong>GND</strong> on the ESP32.</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol.</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol.</td>
+</tr>
+<tr>
+<td>XDA, XCL, AD0, INT</td>
+<td>Ignore. They have special uses which we do not need.</td>
+</tr>
+</tbody>
+</table>
+<h2>Wiring</h2>
+<p>In this example, we are using Pin 18 for SCL and Pin 19 for SDA.
+If you use different pins, change your code accordingly.</p>
+<p><img alt="" src="images/gyroWiring.webp" /></p>
+<h2>Code</h2>
+<p>This code will calibrate the gyro, then start displaying the angles rapidly.
+The gyro must be stationary during calibration, else it may never complete.</p>
+<p>The <code>update</code> is required to perform the integration step, and needs to run frequently.
+Without it, the angles will not change.
+Here we introduce a 20ms sleep to prevent printing too often to the monitor; if you don't need to print to monitor, you should run without any sleep.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/gyroBlocks.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">mpu6050</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">mpu6050_device</span> <span class="o">=</span> <span class="n">mpu6050</span><span class="o">.</span><span class="n">MPU6050</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="mi">104</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Start calibration&#39;</span><span class="p">)</span>
+<span class="n">mpu6050_device</span><span class="o">.</span><span class="n">calibrate_gyro</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calibration done&#39;</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">mpu6050_device</span><span class="o">.</span><span class="n">update_angle</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">mpu6050_device</span><span class="o">.</span><span class="n">angle_all</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see angles in the x/y/z axis printed in the monitor.
+As you rotate the gyro, you should see the angles change.</p>
+<h1><code>class MPU6050</code> - read and control MPU-6050 gyro</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>mpu6050.MPU6050(i2c, addr=104)</h3>
+<p>Create an MPU6050 object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the gyro. By default, this should be 104.</p>
+</li>
+</ul>
+<p>Returns an <code>MPU6050</code> object.</p>
+<h2>Methods</h2>
+<h3>MPU6050.reset_gyro(x=0, y=0, z=0)</h3>
+<p>Reset the gyro angles to the specified angles.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>x</code>, <code>y</code>, <code>z</code> A number specifying the angle for each axis in degrees.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>MPU6050.calibrate_gyro(reps=80, threshold=100)</h3>
+<p>Perform a gyro calibration.
+The gyro must be stationary during calibration.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>reps</code> An integer specifying number of readings to take during calibration. A larger number will improve accuracy, but the calibration will take longer.</p>
+</li>
+<li>
+<p><code>threshold</code> Difference between consecutive readings during calibration must be below this value to be accepted. This prevents accidental movement from spoiling the calibration. You generally do not need to change this.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>MPU6050.get_calibration()</h3>
+<p>Gets the calibration values as a list.
+You can use this to save the calibration values to file, and reuse it on the next boot up.</p>
+<p>Returns a <code>list</code> containing the zero error (<code>float</code>) for the x, y, and z rate of rotation.</p>
+<h3>MPU6050.set_calibration(calibration)</h3>
+<p>Sets the calibration values.
+You can use this to restore a previous calibration.</p>
+<p>The argument are:</p>
+<ul>
+<li><code>calibration</code> A list containing the zero error (<code>float</code>) for the x, y, and z rate of rotation.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>MPU6050.accel_all()</h3>
+<p>Gets the acceleration for all 3 axis.</p>
+<p>Returns a <code>list</code> containing the acceleration (<code>float</code>) in milligravity for the x, y, and z axis.</p>
+<h3>MPU6050.accel_x(), MPU6050.accel_y(), MPU6050.accel_z()</h3>
+<p>Gets the acceleration for the specified axis.</p>
+<p>Returns a <code>float</code> containing the acceleration in milligravity for the specified axis.</p>
+<h3>MPU6050.temperature_6050()</h3>
+<p>Gets the temperature for the chip.</p>
+<p>Returns a <code>float</code> representing the temperature in Celsius.</p>
+<h3>MPU6050.temperature_6500()</h3>
+<p>Gets the temperature for the chip.
+Use this if your chip is a MPU-6500.</p>
+<p>Returns a <code>float</code> representing the temperature in Celsius.</p>
+<h3>MPU6050.rate_all()</h3>
+<p>Gets the rotation rate for all 3 axis.</p>
+<p>Returns a <code>list</code> containing the rotation rate (<code>float</code>) in degrees per second for the x, y, and z axis.</p>
+<h3>MPU6050.rate_x(), MPU6050.rate_y(), MPU6050.rate_z()</h3>
+<p>Gets the rotation rate for the specified axis.</p>
+<p>Returns a <code>float</code> representing the rotation rate in degrees per second for the specified axis.</p>
+<h3>MPU6050.angle_all()</h3>
+<p>Gets the rotation angle for all 3 axis.
+You must run <code>update_angle</code> regularly for this to work.</p>
+<p>Returns a <code>list</code> containing the rotation angle (<code>float</code>) in degrees for the x, y, and z axis.</p>
+<h3>MPU6050.angle_x(), MPU6050.angle_y(), MPU6050.angle_z()</h3>
+<p>Gets the rotation angle for the specified axis.
+You must run <code>update_angle</code> regularly for this to work.</p>
+<p>Returns a <code>float</code> representing the rotation angle in degrees for the specified axis.</p>
+<h3>MPU6050.update_angle()</h3>
+<p>Gets the rotation rate and update the rotation angle through integration.</p>
+<p>The gyro angles will not be accurate if you do not run this frequently.
+If you only need rotation rate and acceleration, then you do not need to run this method.</p>
+<p>Returns <code>None</code></p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

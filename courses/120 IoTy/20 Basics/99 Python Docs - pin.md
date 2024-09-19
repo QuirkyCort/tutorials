@@ -38,9 +38,11 @@ pin.servo_write_deg(17, 90)
 print(pin.hc_sr04_ping_cm(12, 14))
 ```
 
+!!!!!
 ## Constructors
 
 None.
+
 Use the `pin` object directly.
 
 ## Methods
@@ -56,11 +58,14 @@ The arguments are:
 * `pin` An integer number specifying the pin number.
 
 * `mode` The pin mode, which can be one of the following:
+
     * `pin.OUT` Set the pin to output mode.
+
     * `pin.IN` Set the pin to input mode without pull-up resistor.
+
     * `pin.PULL_UP` Set pin to input mode with pull-up resistor.
 
-Returns `None``.
+Returns `None`.
 
 ### pin.digital_read(pin)
 
@@ -79,6 +84,7 @@ This method sets the value of the pin.
 The arguments are:
 
 * `pin` An integer number specifying the pin number.
+
 * `value` An integer `1` (HIGH) or `0` (LOW).
 
 Returns `None`.
@@ -110,6 +116,7 @@ This method sets the frequency for PWM output.
 The arguments are:
 
 * `pin` An integer number specifying the pin number.
+
 * `freq` An integer ranging from `1` to `40000000` representing the frequency in Hz.
 
 Returns `None`.
@@ -121,6 +128,7 @@ This method sets the value of the pin.
 The arguments are:
 
 * `pin` An integer number specifying the pin number.
+
 * `value` An integer ranging from `0` (0%) to `1023` (100%) representing the PWM duty cycle.
 
 Returns `None`.
@@ -133,6 +141,7 @@ The output PWM width will range from 500us (0 deg) to 2500us (180 deg).
 The arguments are:
 
 * `pin` An integer number specifying the pin number.
+
 * `deg` An number (int/float) ranging from `0` to `180` representing the angle in degrees.
 
 Returns `None`.
@@ -144,6 +153,7 @@ This method sets a PWM signal on the specified pin suitable for controlling an R
 The arguments are:
 
 * `pin` An integer number specifying the pin number.
+
 * `us` An number (int/float) representing the pulse width in microseconds.
 
 Returns `None`.
@@ -155,7 +165,9 @@ This method triggers a measurement on the ultrasonic distance sensor, and return
 The arguments are:
 
 * `trig` An integer number specifying the pin connected to the TRIG of the ultrasonic. This must be an output capable pin.
+
 * `echo` An integer number specifying the pin connected to the ECHO of the ultrasonic.
+
 * `timeout` An integer representing the duration in microseconds to wait for the echo.
 
 Returns `-1` on timeout, else it will return a float representing the measured distance in centimeters (cm).
@@ -167,7 +179,10 @@ This method triggers a measurement on the ultrasonic distance sensor, and return
 The arguments are:
 
 * `trig` An integer number specifying the pin connected to the TRIG of the ultrasonic. This must be an output capable pin.
+
 * `echo` An integer number specifying the pin connected to the ECHO of the ultrasonic.
+
 * `timeout` An integer representing the duration in microseconds to wait for the echo.
 
 Returns `-1` on timeout, else it will return a integer representing the time for the echo to return in microseconds (us).
+!!!!!

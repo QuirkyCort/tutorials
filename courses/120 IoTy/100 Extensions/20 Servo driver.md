@@ -94,6 +94,7 @@ Depending on the model of your servo, you may find it turning less or more than 
 
 # `class PCA9685` - control PCA9685 servo driver
 
+!!!!!
 ## Constructors
 
 ### pca9685.PCA9685(i2c, addr=64)
@@ -103,6 +104,7 @@ Create a PCA9685 object.
 The arguments are:
 
 * `i2c` An i2c object.
+
 * `addr` The i2c address of the gyro. By default, this should be 64.
 
 Returns an `PCA9685` object.
@@ -128,6 +130,7 @@ This can be useful when using the PCA9685 to control LED or brushed motors (...n
 The arguments are:
 
 * `channel` An integer specifying the channel (0 to 15)
+
 * `duty` A number representing the duty cycle (0 to 4095).
 
 Returns `None`.
@@ -140,6 +143,7 @@ When controlling servos, you would typically use values ranging from 500us to 25
 The arguments are:
 
 * `channel` An integer specifying the channel (0 to 15)
+
 * `us` A number representing the pulse width in microseconds (us).
 
 Returns `None`.
@@ -154,7 +158,8 @@ Depending on the model of your servo, you may find it turning less or more than 
 The arguments are:
 
 * `channel` An integer specifying the channel (0 to 15)
+
 * `us` A number representing the angle in degrees.
 
 Returns `None`.
-
+!!!!!
