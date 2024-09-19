@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li >Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li class="current">Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Intro to H-Bridge</h1>
+<p>The pins on a microcontroller can turn an LED on and off, but motors requires much more current than an LED.
+A motor about the power of the Lego EV3 large motor will draw around 1.5A of current, while the most microcontroller pin can only supply 20mA or less.
+Also, many motors runs at voltages higher than 5V (...12V is probably the most common).</p>
+<h2>Transistors</h2>
+<p>To control a device that requires higher voltage and current than what a microcontroller can supply, we can use a transistor.
+A transistor acts like a switch; when supply with a voltage signal from the microcontroller, the transistor can turn on or off.</p>
+<p><img alt="" src="images/transistorSwitch.webp" /></p>
+<p>A single transistor works well if you just need to turn something on or off, but motors often needs to be reversed as well.</p>
+<h2>H-Bridge</h2>
+<p>To solve this, we can use a H-Bridge...</p>
+<p><img alt="" src="images/hbridge.png" /></p>
+<p>...which looks kinda like the letter "H"...</p>
+<p><img alt="" src="images/hbridgeH.png" /></p>
+<h3>Forward</h3>
+<p>By controlling which transistor is on or off, we can control the direction that the current flows through the motor.
+In this example, we turn on S1 and S4, causing the current to flow from left to right.</p>
+<p><img alt="" src="images/hbridgeForward.png" /></p>
+<h3>Reverse</h3>
+<p>By switching S2 and S3 on instead, we can cause the current to flow from right to left.
+This changes the direction of the motor rotation.</p>
+<p><img alt="" src="images/hbridgeReverse.png" /></p>
+<h2>H-Bridge Driver Boards</h2>
+<p>While we can build our own H-Bridge using 4 transistors and a few other components, it usually easier to just use a H-Bridge driver board.
+These are examples of some common H-Bridge driver boards.</p>
+<p><img alt="" src="images/hbridgeDriversExamples.jpg" /></p>
+<p>These models differs mainly in the voltage and current that they can support, so it's important to choose one that is suitable for the motor that you are using.</p>
+<p>Popular models of H-Bridges includes...</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Voltage</th>
+<th>Current</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MX1508</td>
+<td>2 - 10V</td>
+<td>1.5A</td>
+</tr>
+<tr>
+<td>L9110</td>
+<td>2.5 - 12V</td>
+<td>0.8A</td>
+</tr>
+<tr>
+<td>TB6612</td>
+<td>4.5 - 13.5V</td>
+<td>1.2A</td>
+</tr>
+<tr>
+<td>L293</td>
+<td>4.5 - 36V</td>
+<td>1A</td>
+</tr>
+<tr>
+<td>TA6586</td>
+<td>3 - 14V</td>
+<td>5A</td>
+</tr>
+<tr>
+<td>L298</td>
+<td>7.5 - 46V</td>
+<td>3A</td>
+</tr>
+</tbody>
+</table>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

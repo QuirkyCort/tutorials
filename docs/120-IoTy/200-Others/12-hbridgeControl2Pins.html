@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li >Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li class="current">Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Controlling a H-Bridge (2 pins)</h1>
+<h2>Two Pins or Three Pins</h2>
+<p>Most H-Bridge motor driver boards uses either <strong>2 pins or 3 pins</strong> to control each motor.</p>
+<p>We'll be using the TA6586 motor driver which uses 2 pins in the below example.
+If you have a different motor driver board that also uses 2 pins, you can use the same code and it should work fine.</p>
+<h2>TA6586</h2>
+<p>We will be using the TA6586 motor driver for this part of the course, but many other h-bridge drivers work similarly.</p>
+<p><img alt="" src="images/TA6586.jpg" /></p>
+<p>This motor driver board contains two H-Bridges, making it suitable for controlling <strong>two motors</strong> with just one board.
+It support voltages of <strong>3 to 14V</strong> and up to <strong>5A</strong> of current.</p>
+<h2>Pins</h2>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Black Screw Terminals</td>
+<td>Power supply for the board and motors. Polarity (+/-) is printed on the bottom of the board. Must not be reversed.</td>
+</tr>
+<tr>
+<td>Blue Screw Terminals x 2</td>
+<td>Connection for the motors. There are two pairs of terminals for two separate motors.</td>
+</tr>
+<tr>
+<td>Gnd</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the microcontroller.</td>
+</tr>
+<tr>
+<td>3V3</td>
+<td>This provides a 3.3V supply that can be used for powering external components such as the micro-controller. If you don't require 3.3V, you can just leave this unconnected.</td>
+</tr>
+<tr>
+<td>D0 &amp; D1</td>
+<td>Controls the first motor. Motor will turn if one pin is high and the other is low. If both are high or both are low, the motor will not turn.</td>
+</tr>
+<tr>
+<td>D2 &amp; D3</td>
+<td>Controls the second motor. Motor will turn if one pin is high and the other is low. If both are high or both are low, the motor will not turn.</td>
+</tr>
+<tr>
+<td>VT</td>
+<td>Not used. Ignore.</td>
+</tr>
+</tbody>
+</table>
+<h2>Wiring</h2>
+<p>Connect your battery, motor driver board, and motor as follows.</p>
+<p><img alt="" src="images/hbridgeWiring.webp" /></p>
+<div class="important">
+In the diagram above, the battery is only supplying power to the motor driver board, not the ESP32.
+If the ESP32 is connected to your computer via the USB cable, that will provide it with power.
+Else, you can connect the + side of the battery to the <strong>VIN</strong> pin.
+</div>
+
+<div class="info">
+In the diagram above, we are using pin 16 and 17 to control the motor driver.
+You can use any pins as long as they are output capable.
+</div>
+
+<h2>Code</h2>
+<p>We'll be programming the H-Bridge to operate in <a href="https://www.modularcircuits.com/blog/articles/h-bridge-secrets/sign-magnitude-drive/">Sign Magnitude Drive</a> mode.
+What that means is pretty complicated, and you can read the linked article if you're interested to understand more.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/hbridgeBlocks.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1023</span><span class="p">)</span>
+<span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Speed Control</h2>
+<p>Try changing the value of pin 17 to 255 (...around 25%).
+Did the motor turn faster or slower?
+Try 768 (...around 75%).
+What did you observe?</p>
+<p>By now you should have noticed that the relationship between power and speed are reversed.
+The higher the power, the lower the speed.
+That's a result of how Sign Magnitude Drive works.</p>
+<h2>Direction Control</h2>
+<p>Change the code to set pin 17 at 1023 and reduce pin 16 to 512.
+You should see the motor turning in the opposite direction from before.</p>
+<h2>Motor Control Function</h2>
+<p>It's useful to build a function to control the motor.
+Try the following code.</p>
+<h3>Blocks</h3>
+<p>Create a new function like this...</p>
+<video width="660" height="446" autoplay loop muted>
+    <source src="images/createFunction.mp4" type="video/mp4">
+</video>
+
+<p>Then fill in the following code...</p>
+<p><img alt="" src="images/motorFunction.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">def</span> <span class="nf">motor</span><span class="p">(</span><span class="n">power</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">power</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1023</span><span class="p">)</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="p">(</span><span class="mi">1023</span> <span class="o">-</span> <span class="n">power</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">1023</span> <span class="o">+</span> <span class="n">power</span><span class="p">))</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">1023</span><span class="p">)</span>
+
+<span class="n">motor</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">motor</span><span class="p">(</span><span class="mi">1023</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">motor</span><span class="p">(</span><span class="o">-</span><span class="mi">512</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">motor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see your motor run...</p>
+<ul>
+<li>Forward at half speed for 2 seconds</li>
+<li>Forward at full speed for 2 seconds</li>
+<li>Reverse at half speed for 2 seconds</li>
+<li>Stop</li>
+</ul>
+<p>If the motor direction is wrong, swap the pin numbers.</p>
+<h2>Speed or Power?</h2>
+<p>While I may talk about full speed and half speed, what we are actually controlling is the <strong>power</strong> and not the <strong>speed</strong>.
+To actually control the speed of the motor, we'll need to add additional sensors (eg. motor encoders) and a control loop to regulate the motor speed.</p>
+<p>Thankfully, the motor speed is largely proportional to the motor power, so controlling power isn't too terrible an option.
+But note that depending on load and battery level, the actual speed may vary.</p>
+<h2>Low Power Caveat</h2>
+<p>While the motor speed is largely proportional to motor power, this approximation falls apart at low power / duty cycle and you may find your motors performing very inaccurately or even stop completely.
+Depending on your hardware and PWM frequency, this low power limit can be anywhere from 10% to 50%.
+If you find that you are unable to achieve a sufficiently low speed, reducing your PWM frequency can help.</p>
+<p><img alt="" src="images/motorPwmFreq.webp" /></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="n">pin</span><span class="o">.</span><span class="n">set_analog_write_freq</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">pin</span><span class="o">.</span><span class="n">set_analog_write_freq</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This should improve low speed performance, at the expense of more noise and vibration.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
