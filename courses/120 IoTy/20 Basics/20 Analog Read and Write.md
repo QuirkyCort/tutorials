@@ -3,7 +3,7 @@
 ## Analog Write
 
 The ESP32 can provide (...sort of) an analog output using PWM (Pulse Width Modulation).
-What this means is the ESP32 will rapidly switch the pin on and off, and by changing the ration of on-time vs off-time, it can vary the power output of the pin.
+What this means is the ESP32 will rapidly switch the pin on and off, and by changing the ratio of on-time vs off-time, it can vary the power output of the pin.
 
 When performing an analog write, you need to provide a value ranging from 0 (fully off) to 1023 (full on).
 

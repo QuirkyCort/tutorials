@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li class="current">Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Servo</h1>
+<p>The term <strong>servo</strong> refers to a device that uses feedback to correct its action.
+For example, the rudders on a ship uses a servo to ensure that it turns to the correct angle ordered by the bridge.
+Servos for the rudders of a ship can weigh more than a large truck, while servos for a remote control plane can be as light as a sheet of paper.</p>
+<p>Here, the term <strong>servo</strong> refers to <strong>Hobby servo</strong> (aka <strong>RC servo</strong>).
+These are small geared motors that can receive a signal, and based on the signal, rotate and stay at a particular angle.
+Here are some examples of <strong>Hobby servos</strong>...</p>
+<p><img alt="" src="images/servosExamples.jpg" /></p>
+<p>There are many different models of such servos, and they mainly differ in their size and torque.
+Common features among these servos includes...</p>
+<ul>
+<li>Rotates between 0 to 180 degrees. (Exceptions exists, but are less common)</li>
+<li>Typically accepts power ranging from 4.8V to 7.2V.</li>
+<li>Controlled using the same type of signal.</li>
+<li>Uses 3 wires.</li>
+</ul>
+<h2>Pins</h2>
+<p>Hobby servos usually have 3 wires.
+These wires are color coded (Red, Black/Brown, Orange/Yellow/White/Blue) to indicate their purpose.</p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red</td>
+<td>Provides the servo with power. For one or two small servos, connect to <strong>VIN</strong> on the ESP32.</td>
+</tr>
+<tr>
+<td>Black/Brown</td>
+<td>Provides the servo with power. Connect to <strong>GND</strong> on the ESP32.</td>
+</tr>
+<tr>
+<td>Orange/Yellow/White/Blue</td>
+<td>Signal. This is used to tell the servo what angle to turn to. Connect to any of the output capable pins on the ESP32.</td>
+</tr>
+</tbody>
+</table>
+<h2>Power</h2>
+<p>There are a few options for powering your servo...</p>
+<h3>ESP32 VIN Pin (USB power)</h3>
+<p>If your ESP32 is connected to USB power, you can power one or two small servos (...such as the SG90) using the VIN pin.
+Connect the <strong>Red</strong> wire to the <strong>VIN</strong> pin and the <strong>Black/Brown</strong> wire to any of the <strong>GND</strong> pins.</p>
+<p><img alt="" src="images/servoUsbPower.webp" /></p>
+<p>You cannot use this method for larger servos or if you are using many servos; the <strong>VIN</strong> pin won't be able to supply enough current and may cause the ESP32 to reset or turn off.</p>
+<h3>ESP32 VIN Pin (Parallel power)</h3>
+<p>If your ESP32 is being powered by a power supply that is around 7.2V or less, you can power both the ESP32 and servo in parallel.
+Connect the <strong>Red</strong> wire to the <strong>VIN</strong> pin and the <strong>Black/Brown</strong> wire to any of the <strong>GND</strong> pins.</p>
+<p><img alt="" src="images/servoVinPower.webp" /></p>
+<p>This method will provide the servo with the same voltage as the power supply, potentially allowing you to drive your servo at a higher voltage (...giving more speed and torque).
+You can also draw a more current using this method.</p>
+<h3>Separate Power</h3>
+<p>When the servos are heavily loaded, they can draw very large current, causing the battery voltage to dip.
+This can cause the ESP32 to reset or turn off.</p>
+<p>One way around this is to provide separate power supply for the servo and ESP32 (eg. USB power for ESP32 and a separate battery pack for the servo).
+Connect the <strong>Red</strong> wire to the <strong>positive</strong> terminal of your power supply and the <strong>Black/Brown</strong> wire to the <strong>negative</strong> terminal.
+Ensure that the <strong>negative</strong> terminal of the battery is also connected to the <strong>GND</strong> pin on the Arduino.</p>
+<p><img alt="" src="images/servoSeparatePower.webp" /></p>
+<p>Using this method, you can power any number of motors of any size or voltage, without causing instability in the ESP32.</p>
+<h2>Wiring</h2>
+<p>Regardless of the powering method used, the <strong>signal</strong> wire (Orange/Yellow/White/Blue) should be connected to an output capable pin on the ESP32.
+In this example, we are using Pin 13.</p>
+<h2>Code</h2>
+<p>This code will change the servo angle from 0 to 180 degrees and back.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/servoBlocks.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">servo_write_deg</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">servo_write_deg</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see the servo turn from 0 to 180 degrees and back.
+Depending on the model of your servo, you may find it turning less or more than 180 degrees; different servo models interpretes the servo command signal differently.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
