@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li >Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li class="current">OLED Screen (SSD1306)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>OLED Screen (SSD1306)</h1>
+<p><img alt="" src="images/ssd1306.webp" /></p>
+<p>The SSD1306 is a cheap and commonly available OLED screen.
+It is rather small (~1 inch diagonal), but has high contrast giving a crisp and clear image.
+Features of the board includes...</p>
+<ul>
+<li>Available in 128x64 and 128x32 pixel resolution</li>
+<li>Monochrome (...each pixel is either fully on or fully off)</li>
+<li>Available in white, blue, and yellow (...it cannot change color; if you buy a white board, it will only display white)</li>
+<li>Communicates over I2C (...also available in SPI, but IoTy doesn't provide blocks for that)</li>
+</ul>
+<h2>Pins</h2>
+<p><img alt="" src="images/ssd1306_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the ESP32.</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>Power for the OLED. You can use 3.3V or 5V.</td>
+</tr>
+<tr>
+<td>SCL (Signal)</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol.</td>
+</tr>
+<tr>
+<td>SDA (Signal)</td>
+<td>Serial Data. This is used to communicate with the ESP32 using the I2C protocol.</td>
+</tr>
+</tbody>
+</table>
+<h2>Wiring</h2>
+<p>The example below uses power from <strong>3V3</strong>.
+You can also use power from <strong>VIN</strong> if your ESP32 is running on 5V (eg. USB power).</p>
+<p><img alt="" src="images/ssd1306_wiring.webp" /></p>
+<h2>Code</h2>
+<p>This code will display the time in milliseconds, updating once every second.
+The <code>fill(0)</code> is necessary to clear the screen by filling it with black; without it, new text will be drawn over the previous text.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/ssd1306_blocks.webp" /></p>
+<p>The <code>draw text</code> block only accepts strings as input, so you must use a <code>convert to</code> block to convert the time (integer) into a string.
+You can find the <code>convert to</code> block in the <code>Data</code> category.</p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">ssd1306</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">ssd1306_i2c</span> <span class="o">=</span> <span class="n">ssd1306</span><span class="o">.</span><span class="n">SSD1306_I2C</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">i2c0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">init_display</span><span class="p">()</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see the time (...in milliseconds since reset) drawn on the screen and updating every 1 second.</p>
+<h2>Related Extensions</h2>
+<ul>
+<li><strong>Scaled Text</strong> This extension scales the built-in font to allow drawing of larger text.</li>
+<li><strong>PNG Decoder</strong> Decodes and draw PNG images to screen.</li>
+<li><strong>BMP Image</strong> Decodes and draw BMP images to screen.</li>
+</ul>
+<h1><code>class SSD1306</code> - control SSD1306 and SH1106 OLED displays</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>ssd1306.SSD1306(width, height, external_vcc)</h3>
+<p>Do <strong>NOT</strong> use this constructor.
+You should used the <code>SSD1306_I2C</code> or <code>SSD1306_SPI</code> constructors instead.</p>
+<p>The SSD1306 class extends micropython's built-in <a href="https://docs.micropython.org/en/latest/library/framebuf.html"><code>FrameBuffer</code></a> class.</p>
+<p>Returns an <code>SSD1306</code> object.</p>
+<h3>ssd1306.SSD1306_i2c(width, height, i2c, addr=60, external_vcc=False, driver=TYPE_SSD1306)</h3>
+<p>Use this constructor if your OLED is connected via I2C.</p>
+<p>The SSD1306 class extends micropython's built-in <a href="https://docs.micropython.org/en/latest/library/framebuf.html"><code>FrameBuffer</code></a> class.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>width</code> An integer specifying the width of the screen in pixels.</p>
+</li>
+<li>
+<p><code>height</code> An integer specifying the height of the screen in pixels.</p>
+</li>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the OLED. By default, this should be 60.</p>
+</li>
+<li>
+<p><code>external_vcc</code> Set to <code>True</code> if you are not using the internal charge pump. You should almost always leave this as <code>False</code>.</p>
+</li>
+<li>
+<p><code>driver</code> The type of OLED you're using, which can be one of the following:</p>
+<ul>
+<li>
+<p><code>ssd1306.TYPE_SSD1306</code> For SSD1306 displays.</p>
+</li>
+<li>
+<p><code>ssd1306.TYPE_SH1106</code> For SH1106 displays.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Returns an <code>SSD1306</code> object.</p>
+<h3>ssd1306.SSD1306_spi(width, height, spi, dc, res, cs, external_vcc=False)</h3>
+<p>Use this constructor if your OLED is connected via SPI.</p>
+<p>The SSD1306 class extends micropython's built-in <a href="https://docs.micropython.org/en/latest/library/framebuf.html"><code>FrameBuffer</code></a> class.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>width</code> An integer specifying the width of the screen in pixels.</p>
+</li>
+<li>
+<p><code>height</code> An integer specifying the height of the screen in pixels.</p>
+</li>
+<li>
+<p><code>spi</code> An spi object.</p>
+</li>
+<li>
+<p><code>dc</code> A <code>Pin</code> object initialize to the pin that is connected to <strong>DC</strong> on the OLED.</p>
+</li>
+<li>
+<p><code>res</code> A <code>Pin</code> object initialize to the pin that is connected to <strong>RES</strong> on the OLED.</p>
+</li>
+<li>
+<p><code>cs</code> A <code>Pin</code> object initialize to the pin that is connected to <strong>CS</strong> on the OLED.</p>
+</li>
+<li>
+<p><code>external_vcc</code> Set to <code>True</code> if you are not using the internal charge pump. You should almost always leave this as <code>False</code>.</p>
+</li>
+</ul>
+<p>Returns an <code>SSD1306</code> object.</p>
+<h2>Methods</h2>
+<h3>SSD1306.poweroff()</h3>
+<p>Powers off the OLED.
+Useful if you need to reduce power consumption.</p>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.poweron()</h3>
+<p>Powers on the OLED.
+Useful if you need to reduce power consumption.</p>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.contrast(contrast)</h3>
+<p>Sets the screen contrast.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>contrast</code> An integer specifying the contrast (0 to 255).</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.invert(invert)</h3>
+<p>Inverts the color (<code>0</code> becomes <strong>On</strong>, and <code>1</code> become <strong>Off</strong>).</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>invert</code> An integer (0 or 1). Turns on inversion when <code>1</code> and off when <code>0</code>.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.rotate(rotate)</h3>
+<p>Rotates the screen by 180 degrees.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>rotate</code> An integer (0 or 1). Turns on rotation when <code>1</code> and off when <code>0</code>.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.show()</h3>
+<p>Display whatever was drawn to screen.
+Draw commands (eg. <code>text</code>, <code>line</code>, <code>rect</code>) will not appear on screen until you run <code>show</code>.</p>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.fill(c)</h3>
+<p>Fill the entire screen with the specified color.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.pixel(x, y [, c])</h3>
+<p>If c is not given, get the color value of the specified pixel. If c is given, set the specified pixel to the given color.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer specifing the x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer specifying the y position.</p>
+</li>
+<li>
+<p><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</p>
+</li>
+</ul>
+<p>Returns an <code>integer</code> representing the color if c is not given, else <code>None</code>.</p>
+<h3>SSD1306.hline(x, y, w, c)</h3>
+<h3>SSD1306.vline(x, y, h, c)</h3>
+<h3>SSD1306.hline(x1, y1, x2, y2, c)</h3>
+<p>Draw a line from a set of coordinates using the given color and a thickness of 1 pixel. The line method draws the line up to a second set of coordinates whereas the hline and vline methods draw horizontal and vertical lines respectively up to a given length.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code>, <code>x1</code> An integer specifing the starting x position.</p>
+</li>
+<li>
+<p><code>y</code>, <code>y1</code> An integer specifying the starting y position.</p>
+</li>
+<li>
+<p><code>w</code>, <code>h</code> An integer specifying the width / height.</p>
+</li>
+<li>
+<p><code>x2</code>, <code>y2</code> An integer specifying the ending x/y position.</p>
+</li>
+<li>
+<p><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.rect(x, y, w, h, c [, f])</h3>
+<p>Draw a rectangle at the given location, size and color.</p>
+<p>The optional f parameter can be set to True to fill the rectangle. Otherwise just a one pixel outline is drawn.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer specifing the upper left corner x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer specifying the upper left corner y position.</p>
+</li>
+<li>
+<p><code>w</code>, <code>h</code> An integer specifying the width / height.</p>
+</li>
+<li>
+<p><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</p>
+</li>
+<li>
+<p><code>f</code> A boolean. <code>True</code> to fill the shape, <code>False</code> to draw only outlines.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.ellipse(x, y, xr, yr, c [, f, m])</h3>
+<p>Draw an ellipse at the given location. Radii xr and yr define the geometry; equal values cause a circle to be drawn. The c parameter defines the color.</p>
+<p>The optional f parameter can be set to True to fill the ellipse. Otherwise just a one pixel outline is drawn.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer specifing the center x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer specifying the center y position.</p>
+</li>
+<li>
+<p><code>xr</code>, <code>yr</code> An integer specifying the radius along the x/y axis.</p>
+</li>
+<li>
+<p><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</p>
+</li>
+<li>
+<p><code>f</code> A boolean. <code>True</code> to fill the shape, <code>False</code> to draw only outlines.</p>
+</li>
+<li>
+<p><code>m</code> The optional m parameter enables drawing to be restricted to certain quadrants of the ellipse. The LS four bits determine which quadrants are to be drawn, with bit 0 specifying Q1, b1 Q2, b2 Q3 and b3 Q4. Quadrants are numbered counterclockwise with Q1 being top right.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.poly(x, y, coords, c [, f])</h3>
+<p>Given a list of coordinates, draw an arbitrary (convex or concave) closed polygon at the given x, y location using the given color.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer specifing the starting x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer specifying the starting y position.</p>
+</li>
+<li>
+<p><code>coords</code> The coords must be specified as a array of integers, e.g. <code>array('h', [x0, y0, x1, y1, ... xn, yn])</code>.</p>
+</li>
+<li>
+<p><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</p>
+</li>
+<li>
+<p><code>f</code> A boolean. <code>True</code> to fill the shape, <code>False</code> to draw only outlines.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.text(s, x, y, c)</h3>
+<p>Write text to the FrameBuffer using the the coordinates as the upper-left corner of the text. The color of the text can be defined by the optional argument but is otherwise a default value of 1. All characters have dimensions of 8x8 pixels and there is currently no way to change the font.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>s</code> A string specifying the text to draw.</p>
+</li>
+<li>
+<p><code>x</code> An integer specifing the upper left corner x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer specifying the upper left corner y position.</p>
+</li>
+<li>
+<p><code>c</code> An integer, <code>0</code> (black) or <code>1</code> (white).</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.scroll(xstep, ystep)</h3>
+<p>Shift the contents of the FrameBuffer by the given vector. This may leave a footprint of the previous colors in the FrameBuffer.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>xstep</code> An integer specifing the distance in pixels to shift along the x axis.</p>
+</li>
+<li>
+<p><code>ystep</code> An integer specifing the distance in pixels to shift along the y axis.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>SSD1306.blit(fbuf, x, y, key=-1, palette=None)</h3>
+<p>Draw another FrameBuffer on top of the current one at the given coordinates. If key is specified then it should be a color integer and the corresponding color will be considered transparent: all pixels with that color value will not be drawn. (If the palette is specified then the key is compared to the value from palette, not to the value directly from fbuf.)</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>fbuf</code> A framebuffer object.</p>
+</li>
+<li>
+<p><code>x</code> An integer specifing the upper left corner x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer specifying the upper left corner y position.</p>
+</li>
+<li>
+<p><code>key</code> An integer specifying the color to be considered transparent.</p>
+</li>
+<li>
+<p><code>palette</code> The palette argument enables blitting between FrameBuffers with differing formats. Typical usage is to render a monochrome or grayscale glyph/icon to a color display. The palette is a FrameBuffer instance whose format is that of the current FrameBuffer. The palette height is one pixel and its pixel width is the number of colors in the source FrameBuffer. The palette for an N-bit source needs 2**N pixels; the palette for a monochrome source would have 2 pixels representing background and foreground colors. The application assigns a color to each pixel in the palette. The color of the current pixel will be that of that palette pixel whose x position is the color of the corresponding source pixel.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
