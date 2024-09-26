@@ -75,11 +75,11 @@ After connecting to WiFi, your device will retrieve data from Open-Meteo, and pr
 
 None.
 
-Use the `request` function directly.
+Use the `request` function.
 
 ## Functions
 
-### request(method, url, data=None, json=None, headers={}, auth=None, timeout=None, parse_headers=True)
+### urequests.request(method, url, data=None, json=None, headers={}, auth=None, timeout=None, parse_headers=True)
 
 Make a HTTP request.
 
