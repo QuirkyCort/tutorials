@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li >Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../100-Extensions/40-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions/50-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../100-Extensions/60-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions/70-EZ-HTTPD.html"><li class="current">EZ HTTP (Web Server)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>EZ HTTP (Web Server)</h1>
+<p>This extension allows you to easily create a webserver on your device.
+It works in either station mode (device connected to a router) or AP mode (your device acts as a router).</p>
+<h2>Pins and Wiring</h2>
+<p>None!
+This extension do not require any external components.</p>
+<h2>Code</h2>
+<p>There are multiple code examples here, demonstrating different ways of using the EZ HTTP Server.</p>
+<ul>
+<li>
+<p><strong>Station Mode</strong> Device connects to your router and starts a webserver. Connecting to the device using a web browser will return a page containing the time. The webserver ignores the URL and returns the same page regardless of what was requested.</p>
+</li>
+<li>
+<p><strong>AP Mode</strong> Works the same as example 1, but the device starts as an Access Point (WiFi router). You'll need to first connect to your device via WiFi, before connecting using a web browser.</p>
+</li>
+<li>
+<p><strong>URL and Query</strong> This example returns different values depending on the URL and query string.</p>
+</li>
+</ul>
+<p>The <strong>Results</strong> section will have more details on how to test out your code.</p>
+<h3>Blocks</h3>
+<p><strong>Station Mode</strong></p>
+<p><img alt="" src="images/ez_httpd_blocks_station.webp" /></p>
+<p>You must put in your actual WiFi SSID and password in the <code>Connect to WiFi</code> block, or this will not work.</p>
+<p><strong>AP Mode</strong></p>
+<p><img alt="" src="images/ez_httpd_blocks_ap.webp" /></p>
+<p>Since your device will be acting as the WiFi router in AP mode, you can use anything for the SSID and password.</p>
+<p><strong>URL and Query</strong></p>
+<p><img alt="" src="images/ez_httpd_blocks_url.webp" /></p>
+<p>You must put in your actual WiFi SSID and password in the <code>Connect to WiFi</code> block, or this will not work.</p>
+<h3>Python</h3>
+<p><strong>Station Mode</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<span class="kn">import</span> <span class="nn">ez_httpd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Connect to WiFi</span>
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
+<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+    <span class="k">pass</span> <span class="c1"># Do nothing until wifi is connected</span>
+
+<span class="n">ip</span> <span class="o">=</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wifi connected. IP Address: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+<span class="n">ezhttpd</span> <span class="o">=</span> <span class="n">ez_httpd</span><span class="o">.</span><span class="n">HTTPD</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ezhttpd</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
+        <span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">ezhttpd</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">ezhttpd</span><span class="o">.</span><span class="n">send_response</span><span class="p">((</span><span class="s1">&#39;Time is &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())))</span>
+</code></pre></div>
+
+<p><strong>AP Mode</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<span class="kn">import</span> <span class="nn">ez_httpd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Start as Access Point</span>
+<span class="n">ap</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">AP_IF</span><span class="p">)</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">essid</span><span class="o">=</span><span class="s2">&quot;IoTy_Device&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;12345678&quot;</span><span class="p">)</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">authmode</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">max_clients</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wifi AP started&#39;</span><span class="p">)</span>
+
+<span class="n">ezhttpd</span> <span class="o">=</span> <span class="n">ez_httpd</span><span class="o">.</span><span class="n">HTTPD</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s1">&#39;192.168.4.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ezhttpd</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
+        <span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">ezhttpd</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">ezhttpd</span><span class="o">.</span><span class="n">send_response</span><span class="p">((</span><span class="s1">&#39;Time is &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())))</span>
+</code></pre></div>
+
+<p><strong>URL and Query</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<span class="kn">import</span> <span class="nn">ez_httpd</span>
+
+<span class="c1"># Connect to WiFi</span>
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
+<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+    <span class="k">pass</span> <span class="c1"># Do nothing until wifi is connected</span>
+
+<span class="n">ip</span> <span class="o">=</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wifi connected. IP Address: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+<span class="n">ezhttpd</span> <span class="o">=</span> <span class="n">ez_httpd</span><span class="o">.</span><span class="n">HTTPD</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ezhttpd</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
+        <span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">ezhttpd</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">query</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">query</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">url</span> <span class="o">==</span> <span class="s1">&#39;/add&#39;</span><span class="p">:</span>
+            <span class="n">ezhttpd</span><span class="o">.</span><span class="n">send_response</span><span class="p">((</span><span class="nb">str</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">))))</span>
+        <span class="k">elif</span> <span class="n">url</span> <span class="o">==</span> <span class="s1">&#39;/subtract&#39;</span><span class="p">:</span>
+            <span class="n">ezhttpd</span><span class="o">.</span><span class="n">send_response</span><span class="p">((</span><span class="nb">str</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">))))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ezhttpd</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<ul>
+<li>
+<p><strong>Station Mode</strong></p>
+<ol>
+<li>
+<p>Device will connect to your WiFi router and display its assigned IP address on the IoTy monitor. Note this down.</p>
+</li>
+<li>
+<p>Make sure your computer is connected to the same router. Open a web browser and visit "http://IP_ADDR/" where "IP_ADDR" is replaced with the address from step 1 (eg "http://192.168.1.10/"). You should see a message displaying the device time.</p>
+</li>
+<li>
+<p>In the IoTy monitor, you should see the URL that the web browser is retrieving (...probably "/" and "/favicon.ico"), the query string (...an empty dict "{}"), and the content sent by the web browser (...an empty string).</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>AP Mode</strong></p>
+<ol>
+<li>
+<p>Device will start up in AP mode and display a "Wifi AP started" message in the IoTy monitor.</p>
+</li>
+<li>
+<p>In your computer's wifi menu, connect to your device (...default name "IoTy_Device"). When prompted for password, use "12345678".</p>
+</li>
+<li>
+<p>Open a web browser and visit "http://192.168.4.1/" (...this is the default IP address for your device in AP mode). You should see a message displaying the device time.</p>
+</li>
+<li>
+<p>In the IoTy monitor, you should see the URL that the web browser is retrieving (...probably "/" and "/favicon.ico"), the query string (...an empty dict "{}"), and the content sent by the web browser (...an empty string).</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>URL and Query</strong></p>
+<ol>
+<li>
+<p>Device will connect to your WiFi router and display its assigned IP address on the IoTy monitor. Note this down.</p>
+</li>
+<li>
+<p>Make sure your computer is connected to the same router. Open a web browser and visit "http://IP_ADDR/" where "IP_ADDR" is replaced with the address from step 1 (eg "http://192.168.1.10/"). You should see the message "Hello".</p>
+</li>
+<li>
+<p>Visit "http://IP_ADDR/add?a=2&amp;b=3". You should see the result ("5.0") displayed.</p>
+</li>
+<li>
+<p>Visit "http://IP_ADDR/subtract?a=4&amp;b=7". You should see the result ("-3.0") displayed.</p>
+</li>
+<li>
+<p>The "?" in the URL indicates that everything after it is a <a href="https://en.wikipedia.org/wiki/Query_string">query string</a>. "a=2" sets the value of "a" to 2, and "b=3" sets the value of "b" to 3. Each parameter is separated by a "&amp;".</p>
+</li>
+</ol>
+</li>
+</ul>
+<h1><code>ez_httpd</code> - easy web server</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>ez_httpd.HTTPD(address='192.168.4.1', port=80)</h3>
+<p>Create an HTTPD object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>address</code> A string specifying the IP address of your device. In AP mode, this will be "192.168.4.1". In Station mode, you can retrieve this using <code>ioty_wifi.ifconfig()[0]</code> where <code>ioty_wifi</code> is a <code>network.WLAN</code> object.</p>
+</li>
+<li>
+<p><code>port</code> An integer specifying the port number. The default port for web server is <code>80</code>.</p>
+</li>
+</ul>
+<p>Returns a <code>HTTPD</code> object.</p>
+<h2>Methods</h2>
+<h3>HTTPD.available()</h3>
+<p>Checks if there are pending requests available.
+If it returns <code>True</code>, you can perform a <code>wait_for_connection()</code> without blocking.</p>
+<p>Returns a <code>boolean</code>.</p>
+<h3>HTTPD.wait_for_connection()</h3>
+<p>Wait for a connection and return the url, query string, and request content.</p>
+<p>If there are no pending requests, this will block until a request arrives.
+To prevent blocking, use <code>available()</code> to check for availability of requests first.</p>
+<p>Returns a <code>tuple</code> containing 3 items <code>url, query, content</code>:</p>
+<ul>
+<li>
+<p><code>url</code> A string containing the URL sent by the browser. This excludes the domain name, but includes the leading <code>/</code>. So if you use "http://192.168.4.1/index.html" as the URL in the browser, the <code>url</code> will be <code>/index.html</code>. This will not be blank; "http://192.168.4.1" will return <code>/</code>.</p>
+</li>
+<li>
+<p><code>query</code> A dictionary of the query string. So if you use "http://192.168.4.1/?a=2&amp;b=3" as the URL, <code>query</code> will be <code>{'a':'1', 'b':'2'}</code>.</p>
+</li>
+<li>
+<p><code>content</code> A string containing the content sent by the browser with the request. For GET requests, this should be empty.</p>
+</li>
+</ul>
+<h3>HTTPD.send_response(response_data, status='200 OK'):</h3>
+<p>Send a string response to a request.
+You must perform a <code>wait_for_connection()</code> before this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>response_data</code> A string containing the response to the client's request.</p>
+</li>
+<li>
+<p><code>status</code> The <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status code</a>. The default <code>200 OK</code> is usually the correct choice.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>HTTPD.send_bytes(response_data, status='200 OK')</h3>
+<p>Send a bytes response to a request.
+You must perform a <code>wait_for_connection()</code> before this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>response_data</code> A bytes object containing the response to the client's request.</p>
+</li>
+<li>
+<p><code>status</code> The <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status code</a>. The default <code>200 OK</code> is usually the correct choice.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>HTTPD.send_file(filename)</h3>
+<p>Send the content of a file as the response to a request.
+The file can be uploaded to your device using the Connection Menu (3 dots) =&gt; Files on Device... =&gt; Upload.
+You must perform a <code>wait_for_connection()</code> before this.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>filename</code> A string specifying the file to send.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>HTTPD.start_mjpeg_response()</h3>
+<p>Start an mjpeg (Motion JPEG video) response.
+You must perform a <code>wait_for_connection()</code> before this.</p>
+<p>Unlike the other response methods, mjpeg are sent frame by frame continuously until the connection is closed.
+Starting the mjpeg response will not send any frames, you will need to use <code>send_mjpeg_frame()</code> to send the video frames.</p>
+<p>Returns <code>None</code>.</p>
+<h3>HTTPD.send_mjpeg_frame(frame_data)</h3>
+<p>Send an mjpeg video frame.
+You must perform a <code>start_mjpeg_response()</code> before this.
+You should also check that the mjpeg connection is still open using <code>mjpeg_connection_open()</code> before sending.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>frame_data</code> A bytes object containing the video frame data.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>HTTPD.mjpeg_connection_open()</h3>
+<p>Check if the mjpeg connection is still open.
+If it returns <code>True</code>, you can safely run <code>send_mjpeg_frame()</code>.
+If it returns <code>False</code>, the connection has been closed, and you should not send anymore mjpeg frame until a new request comes in.</p>
+<p>Returns a <code>boolean</code>.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

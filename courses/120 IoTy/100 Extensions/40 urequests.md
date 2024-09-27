@@ -26,7 +26,7 @@ Open this page, [https://open-meteo.com/en/docs](https://open-meteo.com/en/docs)
 
 ![](images/urequests_blocks.webp)
 
-You must put in your actual WiFi SSID and password in the `connect to WiFi` block, or this will not work.
+You must put in your actual WiFi SSID and password in the `Connect to WiFi` block, or this will not work.
 
 The above screenshot does not show the full URL, it should be **https://api.open-meteo.com/v1/forecast?latitude=1.2897&longitude=103.8501&daily=temperature_2m_max&timezone=Asia%2FSingapore&forecast_days=1** (...in a single line).
 
