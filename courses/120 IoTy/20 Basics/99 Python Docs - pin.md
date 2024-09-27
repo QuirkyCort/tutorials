@@ -109,7 +109,7 @@ The arguments are:
 
 Returns an integer ranging from `0` to around `1000`.
 
-### set_analog_write_freq(pin, freq)
+### pin.set_analog_write_freq(pin, freq)
 
 This method sets the frequency for PWM output.
 
