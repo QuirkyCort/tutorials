@@ -31,7 +31,7 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">Internet-of-Things made easy</div>
-            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li class="current">Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features</p><ul><a href="../20-Basics/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics/30-Servo.html"><li >Servo</li></a><a href="../20-Basics/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../100-Extensions/40-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions/50-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../100-Extensions/60-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions/70-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions/80-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li class="current">Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../100-Extensions/40-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions/50-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../100-Extensions/60-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions/70-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions/80-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
         </nav>
         <div id="content">
             <h1>Connection Modes</h1>
@@ -52,15 +52,17 @@
 </ul>
 <h3>Connection Steps</h3>
 <ol>
-<li>Open connection menu.</li>
-</ol>
+<li>
+<p>Open connection menu.</p>
 <p><img alt="" src="images/connectionMenu.webp" /></p>
-<ol>
-<li>Switch to "Serial" mode and click "Ok".</li>
-</ol>
+</li>
+<li>
+<p>Switch to "Serial" mode and click "Ok".</p>
 <p><img alt="" src="images/serialMode.webp" /></p>
-<ol>
-<li>Connect device to computer using USB cable.</li>
+</li>
+<li>
+<p>Connect device to computer using USB cable.</p>
+</li>
 <li>Open connection menu and click "Connect".</li>
 <li>Select "Filtered Connect", select your device (...there will probably be just one), and click "Connect".</li>
 <li>Open connection menu and click "Download to device".</li>
@@ -74,19 +76,21 @@
 </ul>
 <h3>Connection Steps</h3>
 <ol>
-<li>Open connection menu.</li>
-</ol>
+<li>
+<p>Open connection menu.</p>
 <p><img alt="" src="images/connectionMenu.webp" /></p>
-<ol>
-<li>Switch to "Bluetooth" mode and click "Ok".</li>
-</ol>
+</li>
+<li>
+<p>Switch to "Bluetooth" mode and click "Ok".</p>
 <p><img alt="" src="images/bluetoothMode.webp" /></p>
-<ol>
-<li>Switch your device to programming mode by pressing reset, then hold the boot button until the Blue LED stays on.</li>
-</ol>
+</li>
+<li>
+<p>Switch your device to programming mode by pressing reset, then hold the boot button until the Blue LED stays on.</p>
 <p><img alt="" src="images/programmingMode.webp" /></p>
-<ol>
-<li>Open connection menu and click "Connect".</li>
+</li>
+<li>
+<p>Open connection menu and click "Connect".</p>
+</li>
 <li>Select your device (...it should show the name that you've selected when flashing firmware) and click "Connect".</li>
 <li>Open connection menu and click "Download to device".</li>
 <li>Reset your device to run the new code.</li>
@@ -109,19 +113,21 @@
 </ol>
 <h3>Connection Steps</h3>
 <ol>
-<li>Open connection menu.</li>
-</ol>
+<li>
+<p>Open connection menu.</p>
 <p><img alt="" src="images/connectionMenu.webp" /></p>
-<ol>
-<li>Switch to "Internet" mode and click "Ok".</li>
-</ol>
+</li>
+<li>
+<p>Switch to "Internet" mode and click "Ok".</p>
 <p><img alt="" src="images/internetMode.webp" /></p>
-<ol>
-<li>Switch your device to programming mode by pressing reset, then hold the boot button until the Blue LED stays on.</li>
-</ol>
+</li>
+<li>
+<p>Switch your device to programming mode by pressing reset, then hold the boot button until the Blue LED stays on.</p>
 <p><img alt="" src="images/programmingMode.webp" /></p>
-<ol>
-<li>The Blue LED will then perform double blinks while it connects to your WiFi. When the Blue LED stays on, connection to the MQTT server is complete.</li>
+</li>
+<li>
+<p>The Blue LED will then perform double blinks while it connects to your WiFi. When the Blue LED stays on, connection to the MQTT server is complete.</p>
+</li>
 <li>Open connection menu and click "Connect".</li>
 <li>Provide the MQTT Host, Username, and Password. If using the public server provided by <a href="https://www.hivemq.com/mqtt/public-mqtt-broker/">Hivemq</a>, set Host to <code>ws://broker.hivemq.com:8000/mqtt</code>, Username to what you have used when configuring network, and leave password blank. Click "Ok".</li>
 <li>Open connection menu and click "Download to device".</li>
@@ -139,22 +145,28 @@ Click "File", then "Save code to JSON package".</p>
 <p><img alt="" src="images/downloadProgram.webp" /></p>
 <h3>Connection Steps</h3>
 <ol>
-<li>Switch your device to access point mode by pressing reset, then hold the boot button until the Blue LED blinks rapidly.</li>
-</ol>
+<li>
+<p>Switch your device to access point mode by pressing reset, then hold the boot button until the Blue LED blinks rapidly.</p>
 <p><img alt="" src="images/accessPointMode.webp" /></p>
-<ol>
-<li>On your computing device (eg. Computer, phone, tablet), open the WiFi menu and look for an access point with the name of your IoTy device (...name that you have selected when flashing firmware). Connect to that access point.</li>
+</li>
+<li>
+<p>On your computing device (eg. Computer, phone, tablet), open the WiFi menu and look for an access point with the name of your IoTy device (...name that you have selected when flashing firmware). Connect to that access point.</p>
+</li>
 <li>Upon connection, you will lose internet access. <strong>This is normal!</strong></li>
-<li>Click "App", then "Access point page".</li>
-</ol>
+<li>
+<p>Click "App", then "Access point page".</p>
 <p><img alt="" src="images/accessPointPage.webp" /></p>
-<ol>
-<li>In the access point page, look for the "Upload Code" section, select "Choose file", then select the JSON package you have downloaded earlier.</li>
-<li>Click the "Upload" button. You should see a success message.</li>
-</ol>
+</li>
+<li>
+<p>In the access point page, look for the "Upload Code" section, select "Choose file", then select the JSON package you have downloaded earlier.</p>
+</li>
+<li>
+<p>Click the "Upload" button. You should see a success message.</p>
 <p><img alt="" src="images/accessPointUploadJSON.webp" /></p>
-<ol>
-<li>Reset your device to run the new code.</li>
+</li>
+<li>
+<p>Reset your device to run the new code.</p>
+</li>
 </ol>
         </div>
         <button type="button" id="hamburger">

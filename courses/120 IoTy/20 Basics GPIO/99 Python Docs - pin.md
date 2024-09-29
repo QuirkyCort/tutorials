@@ -2,8 +2,12 @@
 
 # `pin` - control GPIO pins
 
-The `pin` object is meant to be easy to use, and do not provide all the capabilities available in micropython.
-If you need more capabilities, you can use the `Pin` class provided by micropython [https://docs.micropython.org/en/latest/library/machine.Pin.html](https://docs.micropython.org/en/latest/library/machine.Pin.html).
+The `pin` object is meant to be easy to use.
+It does not provide all the capabilities available in micropython, but covers most use cases.
+
+<div class="info">
+If you need more capabilities, you can use the <code>Pin</code> class provided by micropython <a href="https://docs.micropython.org/en/latest/library/machine.Pin.html">https://docs.micropython.org/en/latest/library/machine.Pin.html</a>.
+</div>
 
 Usage Model:
 

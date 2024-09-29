@@ -20,11 +20,11 @@ IoTy supports 4 different ways to connect to your device.
 
 1. Open connection menu.
 
-![](images/connectionMenu.webp)
+    ![](images/connectionMenu.webp)
 
 2. Switch to "Serial" mode and click "Ok".
 
-![](images/serialMode.webp)
+    ![](images/serialMode.webp)
 
 3. Connect device to computer using USB cable.
 4. Open connection menu and click "Connect".
@@ -42,15 +42,15 @@ IoTy supports 4 different ways to connect to your device.
 
 1. Open connection menu.
 
-![](images/connectionMenu.webp)
+    ![](images/connectionMenu.webp)
 
 2. Switch to "Bluetooth" mode and click "Ok".
 
-![](images/bluetoothMode.webp)
+    ![](images/bluetoothMode.webp)
 
 3. Switch your device to programming mode by pressing reset, then hold the boot button until the Blue LED stays on.
 
-![](images/programmingMode.webp)
+    ![](images/programmingMode.webp)
 
 4. Open connection menu and click "Connect".
 5. Select your device (...it should show the name that you've selected when flashing firmware) and click "Connect".
@@ -77,15 +77,15 @@ IoTy supports 4 different ways to connect to your device.
 
 1. Open connection menu.
 
-![](images/connectionMenu.webp)
+    ![](images/connectionMenu.webp)
 
 2. Switch to "Internet" mode and click "Ok".
 
-![](images/internetMode.webp)
+    ![](images/internetMode.webp)
 
 3. Switch your device to programming mode by pressing reset, then hold the boot button until the Blue LED stays on.
 
-![](images/programmingMode.webp)
+    ![](images/programmingMode.webp)
 
 4. The Blue LED will then perform double blinks while it connects to your WiFi. When the Blue LED stays on, connection to the MQTT server is complete.
 5. Open connection menu and click "Connect".
@@ -110,17 +110,17 @@ Click "File", then "Save code to JSON package".
 
 1. Switch your device to access point mode by pressing reset, then hold the boot button until the Blue LED blinks rapidly.
 
-![](images/accessPointMode.webp)
+    ![](images/accessPointMode.webp)
 
 2. On your computing device (eg. Computer, phone, tablet), open the WiFi menu and look for an access point with the name of your IoTy device (...name that you have selected when flashing firmware). Connect to that access point.
 3. Upon connection, you will lose internet access. **This is normal!**
 4. Click "App", then "Access point page".
 
-![](images/accessPointPage.webp)
+    ![](images/accessPointPage.webp)
 
 5. In the access point page, look for the "Upload Code" section, select "Choose file", then select the JSON package you have downloaded earlier.
 6. Click the "Upload" button. You should see a success message.
 
-![](images/accessPointUploadJSON.webp)
+    ![](images/accessPointUploadJSON.webp)
 
 7. Reset your device to run the new code.

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-%2528GPIO%2529/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-%2528GPIO%2529/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-%2528GPIO%2529/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-%2528GPIO%2529/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-%2528GPIO%2529/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../100-Extensions/40-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions/50-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../100-Extensions/60-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions/70-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions/80-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Analog Read and Write</h1>
+<h2>Analog Write</h2>
+<p>The ESP32 can provide (...sort of) an analog output using PWM (Pulse Width Modulation).
+What this means is the ESP32 will rapidly switch the pin on and off, and by changing the ratio of on-time vs off-time, it can vary the power output of the pin.</p>
+<p>When performing an analog write, you need to provide a value ranging from 0 (fully off) to 1023 (full on).</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>256</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>512</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>767</td>
+<td>75%</td>
+</tr>
+<tr>
+<td>1023</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p>By default, analog writes will use a PWM frequency of 1000Hz (ie. it will switch on and off 1000 times per second).
+You can change this using the "set analog frequency" block or <code>pin.set_analog_write_freq(2, 500)</code> in Python (...sets pin 2 to 500Hz).</p>
+<h3>Code</h3>
+<p>This code will vary the brightness of the Blue LED from 0% to 100%.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/analogWrite.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1024</span><span class="p">):</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">analog_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see the Blue LED slowly go from dim to bright, then dropping back to dim.</p>
+<div class="info">
+The LED brightness will not appear to be changing linearly. That's because the way humans perceive brightness is not linear. A better approach would be to use an exponential function, but that's outside the scope of this tutorial.
+</div>
+
+<h2>Analog Read</h2>
+<p>The ESP32 can measure voltages on Pins 32 to 39, and return a value ranging between 0 (0V) to 65535 (3.3V).</p>
+<p>This can be used with a potentiometer to measure rotation, or a joystick to measure joystick position.</p>
+<h3>Wiring</h3>
+<p><img alt="" src="images/potentiometer.webp" /></p>
+<p>Most potentiometer will not have labels on their pins.
+If you have such a potentiometer, connect the middle pin to Pin 32, the left pin to GND, and the right pin to 3V3.</p>
+<h3>Code</h3>
+<p>This code will read the value from the potentiometer and print it to the Monitor.
+The "sleep" is required to prevent your device from writing too rapidly to the Monitor (...which can cause your browser to become laggy).</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/analogRead.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see a number ranging from 0 to 65535 printed in the Monitor.
+Turning the potentiometer will change this value.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
