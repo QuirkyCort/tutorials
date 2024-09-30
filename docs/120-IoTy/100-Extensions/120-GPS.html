@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../100-Extensions/40-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions/50-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../100-Extensions/60-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions/70-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions/80-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../100-Extensions/90-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../100-Extensions/100-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../100-Extensions/110-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions/120-GPS.html"><li class="current">GPS (NMEA over serial)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>GPS (NMEA over serial)</h1>
+<p><img alt="" src="images/gps.webp" /></p>
+<p>Most GPS modules returns <a href="https://en.wikipedia.org/wiki/NMEA_0183">NMEA</a> data over a serial line.
+This extension reads and parse the data from the GPS module to provide you with useful data (eg. latitude, longitude, time).</p>
+<div class="info">
+The GPS module shown above is the NEO-6M, but most GPS modules should work with this extension.
+</div>
+
+<h2>Pins</h2>
+<p>Depending on your GPS model, the pin order will be different, but most should have the following pins:</p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Power for the sensor. Connect to <strong>3V3</strong>. If your device is on USB power, you can also use <strong>VIN</strong>.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the ESP32.</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>Data transmit. This should be connected to the UART <strong>RX</strong> pin on the ESP32 (default is Pin 5) .</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>Data receive. This should be connected to the UART <strong>TX</strong> pin on the ESP32 (default is Pin 4) .</td>
+</tr>
+</tbody>
+</table>
+<p>Note that <strong>TX</strong> on the GPS is connected to <strong>RX</strong> on the microcontroller, and <strong>RX</strong> on the GPS is connected to <strong>TX</strong> on the microcontroller.</p>
+<h2>Wiring</h2>
+<p><img alt="" src="images/gps_wiring.webp" /></p>
+<div class="tip">
+You don't necessarily have to connect the RX pin on the GPS. That is only used to configure the GPS module, and we usually don't need to configure it. Configurations are model specific, and the GPS extension do not provide any configuration functions.
+</div>
+
+<h2>Code</h2>
+<p>This code will print out the latitude and longitude.</p>
+<p>The <code>update</code> is required to read from the GPS, and needs to run frequently.
+Here we introduce a 0.2s sleep to prevent printing too often to the monitor; if you don't need to print to monitor, you should run without any sleep.</p>
+<div class="tip">
+Long sleep can cause issues as you might miss some of the messages from the GPS. You can use the EZ Timer extension to print to monitor at long intervals (eg. every 2 seconds), without using sleep.
+</div>
+
+<h3>Blocks</h3>
+<p><img alt="" src="images/gps_blocks.webp" /></p>
+<p>If your GPS is using a different baudrate, you will need to change the <code>9600</code>.</p>
+<p>If you wired your <strong>RX</strong> / <strong>TX</strong> to a different pair of pins, you'll need to change the pins in the <code>init UART</code> block.</p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">gps</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Modify the next line if your baudrate and pins are different</span>
+<span class="n">uart1</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">UART</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">gps_device</span> <span class="o">=</span> <span class="n">gps</span><span class="o">.</span><span class="n">GPS</span><span class="p">(</span><span class="n">uart1</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">gps_device</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Lat / Long:&#39;</span><span class="p">,</span> <span class="n">gps_device</span><span class="o">.</span><span class="n">get_lat</span><span class="p">(),</span> <span class="n">gps_device</span><span class="o">.</span><span class="n">get_lng</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>It can take a few minutes for the GPS to retrieve its latitude / longitude.
+You will also need a clear view of the sky for it to work.
+Until then, you will see <code>Lat / Long</code> followed by <code>None</code> printed in the monitor.</p>
+<p>When the GPS obtains its position, you should start seeing the latitude and longitude printed in the monitor.</p>
+<h1><code>class GPS</code> - read NMEA compatible GPS units</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>gps.GPS(uart)</h3>
+<p>Creates a GPS object.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>uart</code> A UART object.</li>
+</ul>
+<p>Returns a <code>GPS</code> object.</p>
+<h2>Methods</h2>
+<h3>GPS.update()</h3>
+<p>Reads data from the GPS.
+You must run this frequently.</p>
+<p>Returns <code>True</code> if it managed to read a message from the GPS, else it'll return <code>False</code>.
+You can usually ignore this, but it may be useful for troubleshooting.</p>
+<h3>GPS.get_lat_ddm() / GPS.get_lng_ddm()</h3>
+<p>Get the latitude or longitude in DDM (Degree, Decimal Minute) format.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Examples:</p>
+<ul>
+<li><strong>1.5 degrees North</strong> will return <code>[1, 30, b'N']</code></li>
+<li><strong>2.75 degrees South</strong> will return <code>[2, 45, b'S']</code></li>
+</ul>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>tuple</code> containing 3 items <code>degree, minute, dir</code>:</p>
+<ul>
+<li>
+<p><code>degree</code> An integer representing the degrees part of the latitude or longitude.</p>
+</li>
+<li>
+<p><code>minute</code> A float representing the minutes part of the latitude or longitude.</p>
+</li>
+<li>
+<p><code>dir</code> A bytes representing 'N', 'S', 'E', 'W'.</p>
+</li>
+</ul>
+<h3>GPS.get_lat() / GPS.get_lng()</h3>
+<p>Get the latitude or longitude in DD (Decimal Degree) format.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Examples:</p>
+<ul>
+<li><strong>1.5 degrees North</strong> will return <code>1.5</code></li>
+<li><strong>2.75 degrees South</strong> will return <code>-2.75</code></li>
+</ul>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>float</code> representing the latitude / longitude.</p>
+<h3>GPS.get_alt()</h3>
+<p>Gets the altitude above mean sea level.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>float</code> representing the altitude in meters.</p>
+<h3>GPS.get_time()</h3>
+<p>Gets the current UTC time (GMT +0).
+You'll need to perform your own conversion if you require local time.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>tuple</code> containing 3 items <code>hours, minutes, seconds</code>:</p>
+<ul>
+<li>
+<p><code>hours</code> An integer representing the hour.</p>
+</li>
+<li>
+<p><code>minutes</code> An integer representing the minute.</p>
+</li>
+<li>
+<p><code>seconds</code> A float representing the seconds.</p>
+</li>
+</ul>
+<h3>GPS.get_date()</h3>
+<p>Gets the current UTC date (GMT +0).
+You'll need to perform your own conversion if you require local date.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>tuple</code> containing 3 items <code>day, month, year</code>:</p>
+<ul>
+<li>
+<p><code>day</code> An integer representing the day.</p>
+</li>
+<li>
+<p><code>month</code> An integer representing the month.</p>
+</li>
+<li>
+<p><code>year</code> An integer representing the year (eg. 2024).</p>
+</li>
+</ul>
+<h3>GPS.get_datetime()</h3>
+<p>Gets the current UTC date and time in a format that's compatible with the <code>set date and time to</code> block or the Python <code>machine.RTC().datetime()</code>.</p>
+<p>When setting date and time, you can add/subtract to the hours/minutes to convert to local time.
+This works even if the addition/subtraction results in an otherwise invalid time (eg. 27 hours and 70 minutes).</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Sample code:</p>
+<p><img alt="" src="images/gps_get_datetime_blocks.webp" /></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">gps_device</span><span class="o">.</span><span class="n">get_datetime</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">gps_device</span><span class="o">.</span><span class="n">get_datetime</span><span class="p">())</span>
+</code></pre></div>
+
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>tuple</code> containing 8 items <code>year, month, day, weekday, hours, minutes, seconds, subseconds</code>:</p>
+<ul>
+<li>
+<p><code>year</code> An integer representing the year (eg. 2024).</p>
+</li>
+<li>
+<p><code>month</code> An integer representing the month.</p>
+</li>
+<li>
+<p><code>day</code> An integer representing the day.</p>
+</li>
+<li>
+<p><code>weekday</code> This is always <code>0</code>.</p>
+</li>
+<li>
+<p><code>hours</code> An integer representing the hour.</p>
+</li>
+<li>
+<p><code>minutes</code> An integer representing the minute.</p>
+</li>
+<li>
+<p><code>seconds</code> An integer representing the seconds.</p>
+</li>
+<li>
+<p><code>subseconds</code> This is always <code>0</code>.</p>
+</li>
+</ul>
+<h3>GPS.get_sog()</h3>
+<p>Gets the Speed Over Ground.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>float</code> representing the speed in meters per second.</p>
+<h3>GPS.get_cog()</h3>
+<p>Gets the Course Over Ground.</p>
+<p>You must run <code>update()</code> frequently for this to return valid data.</p>
+<p>Returns <code>None</code> if GPS data isn't available yet, else a <code>float</code> representing the course in degrees.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

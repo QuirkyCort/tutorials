@@ -175,7 +175,7 @@ th {
     background: #e7f2fa;
     padding: 6px;
     margin-left: -30px; }
-  .custom_lib_docs code {
+  .custom_lib_docs p > code, .custom_lib_docs li > code {
     background: lightgray;
     padding: 0.1em; }
 

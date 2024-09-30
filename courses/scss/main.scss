@@ -227,7 +227,7 @@ th {
         margin-left: -30px;
     }
 
-    code {
+    p > code, li > code {
         background: lightgray;
         padding: 0.1em;
     }
