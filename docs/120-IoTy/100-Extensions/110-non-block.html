@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions</p><ul><a href="../100-Extensions/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../100-Extensions/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../100-Extensions/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../100-Extensions/40-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions/50-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../100-Extensions/60-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions/70-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions/80-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../100-Extensions/90-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../100-Extensions/100-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../100-Extensions/110-non-block.html"><li class="current">Non-Blocking Read</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Non-Blocking Read</h1>
+<p>Normally, when you read from the terminal (...monitor) using the <code>prompt for input with message</code> block or Python's <code>input()</code>, it works in a <strong>Blocking</strong> manner.
+This means that the program stops at that point until data is available to read.</p>
+<p>Blocking is often undesirable, as it prevents your program from doing anything else while waiting for input.</p>
+<p>This extension allows you to read without blocking.
+If data isn't available, it will return an empty string.</p>
+<h2>Pins and Wiring</h2>
+<p>None!
+This extension do not require any external components.</p>
+<h2>Code</h2>
+<p>This program will blink the built-in Blue LED, while also reading from the input.</p>
+<p>A <code>try except</code> is used to convert the input into a float, as the input may contain an string that cannot be converted into a number (eg. 'abc').
+Without the <code>try except</code>, the program will exit with an exception.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/non_block_blocks.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">non_block</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="n">nblock</span> <span class="o">=</span> <span class="n">non_block</span><span class="o">.</span><span class="n">NonBlock</span><span class="p">()</span>
+<span class="n">delay</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">delay</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">nblock</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>The LED should blink rapidly.
+Type '0.5' into the textbox in Monitor, and send it; you should now see the LED blink slower.</p>
+<h1><code>non_block</code> - non-blocking reading from terminal</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>non_block.NonBlock()</h3>
+<p>Create a NonBlock object.</p>
+<p>Returns a <code>NonBlock</code> object.</p>
+<h2>Methods</h2>
+<h3>NonBlock.read(count)</h3>
+<p>Reads the specified number of characters.
+If the available characters to read is less than what was requested, an empty string will be returned.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>count</code> The number of characters to read. Use <code>-1</code> to read all available characters.</li>
+</ul>
+<p>Returns a <code>string</code> containing the requested number of characters, or an empty string if there are insufficient characters available to read.</p>
+<h3>NonBlock.readline()</h3>
+<p>Reads a full line (...until <code>\n</code> is found)
+If a full line isn't available to read, it will return an empty string.</p>
+<p>Returns a <code>string</code> containing the a line of characters (...including the trailing <code>\n</code>), or an empty string if a full line isn't available to read..</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
