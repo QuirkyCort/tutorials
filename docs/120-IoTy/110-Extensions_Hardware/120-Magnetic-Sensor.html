@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions (Software)</p><ul><a href="../100-Extensions_Software/10-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions_Software/20-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions_Software/30-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions_Software/40-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions_Software/50-EZ-Timer.html"><li >EZ Timer</li></a></ul><p>Extensions (Hardware)</p><ul><a href="../110-Extensions_Hardware/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../110-Extensions_Hardware/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../110-Extensions_Hardware/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../110-Extensions_Hardware/40-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../110-Extensions_Hardware/50-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../110-Extensions_Hardware/60-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../110-Extensions_Hardware/70-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../110-Extensions_Hardware/80-GPS.html"><li >GPS (NMEA over serial)</li></a><a href="../110-Extensions_Hardware/90-hx711.html"><li >Analog-to-Digital (HX711)</li></a><a href="../110-Extensions_Hardware/100-hx710.html"><li >Analog-to-Digital (HX710)</li></a><a href="../110-Extensions_Hardware/110-MFRC522.html"><li >RFID Reader (MFRC522)</li></a><a href="../110-Extensions_Hardware/120-Magnetic-Sensor.html"><li class="current">Magnetic Sensor (QMC5883L, HMC5883L)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Magnetic Sensor (QMC5883L, HMC5883L)</h1>
+<p><img alt="" src="images/qmc5883l.webp" /></p>
+<p>The QMC5883L and HMC5883L are 3-axis magnetic sensors often used as a magnetic compass for navigation purposes.
+Both models works in the same way, but each require their own extension.</p>
+<div class="important">
+It is quite common to find QMC5883L sold as HMC5883L and vice versa.
+You can check which model you have by performing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).
+</div>
+
+<h2>Pins</h2>
+<p><img alt="" src="images/qmc5883l_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Power for the sensor. Connect to <strong>3V3</strong>.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the ESP32.</td>
+</tr>
+<tr>
+<td>SCL (Signal)</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18).</td>
+</tr>
+<tr>
+<td>SDA (Signal)</td>
+<td>Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19).</td>
+</tr>
+<tr>
+<td>DRDY</td>
+<td>Data Ready. We are not using this. Leave unconnected.</td>
+</tr>
+</tbody>
+</table>
+<h2>Wiring</h2>
+<p><img alt="" src="images/qmc5883l_wiring.webp" /></p>
+<h2>Code</h2>
+<p>This code will print the sensor readings for all 3 axis.</p>
+<p>There are two versions provided; for the QMC5883L and HMC5883L.
+Use the code suitable for your sensor.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/qmc5883l_blocks.webp" /></p>
+<h3>Python</h3>
+<p><strong>QMC5883L</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">qmc5883l</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">qmc5883l_device</span> <span class="o">=</span> <span class="n">qmc5883l</span><span class="o">.</span><span class="n">QMC5883L</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">qmc5883l</span><span class="o">.</span><span class="n">SCALE_2G</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">qmc5883l_device</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Readings:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">qmc5883l_device</span><span class="o">.</span><span class="n">get_x</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">qmc5883l_device</span><span class="o">.</span><span class="n">get_y</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">qmc5883l_device</span><span class="o">.</span><span class="n">get_z</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>HMC5883L</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">hmc5883l</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">hmc5883l_device</span> <span class="o">=</span> <span class="n">hmc5883l</span><span class="o">.</span><span class="n">HMC5883L</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">hmc5883l</span><span class="o">.</span><span class="n">SCALE_1300G</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">hmc5883l_device</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Readings:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hmc5883l_device</span><span class="o">.</span><span class="n">get_x</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hmc5883l_device</span><span class="o">.</span><span class="n">get_y</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hmc5883l_device</span><span class="o">.</span><span class="n">get_z</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see the sensor readings printed in the monitor.</p>
+<p>As you turn the sensor, you should see the readings change.
+You should also see changes if you bring a magnetic object or (...to a lesser extent) large metal object close to the sensor.</p>
+<h2>Magnetic Compass</h2>
+<p>To use these magnetic sensors as a compass, you must perform calibration.</p>
+<p>This can be rather involved if you need high accuracy (...<a href="https://atadiat.com/en/e-magnetometer-soft-iron-and-hard-iron-calibration-why-how/">especially in the presence of soft iron distortion</a>), but here we show a simple method which is good enough most of the time.</p>
+<p>The following steps assumes that the Z-axis is facing up. Adjust the code if you have a different axis facing up; the axis facing up or down need not be calibrated.</p>
+<h3>Steps (Calibration):</h3>
+<ol>
+<li>
+<p>Mount the sensor in its intended position (eg. on your robot). This position should be far from any magnetically permeable materials (eg. iron).</p>
+</li>
+<li>
+<p>Transfer the following code on to your device and run it.</p>
+<p><img alt="" src="images/qmc5883l_calibrate_blocks1.webp" /></p>
+</li>
+<li>
+<p>Slowly rotate your device (ie. if the sensor is mounted on a robot, rotate the entire robot and not just the sensor). As you rotate, you should see the minimum and maximum sensor readings printed in the monitor. Keep rotating until no new values are printed and note down the last values.</p>
+</li>
+<li>
+<p>Repeat the same test, but with the axis changed to 'Y-axis' in the code. Note down the last values.</p>
+</li>
+</ol>
+<h3>Steps (Usage as Compass)</h3>
+<ol>
+<li>
+<p>Write the following code in IoTy.</p>
+<p><img alt="" src="images/qmc5883l_calibrate_blocks2.webp" /></p>
+</li>
+<li>
+<p>In the <code>set minX / maxX / minY / maxY</code> blocks, put in the values that you have obtained during calibration.</p>
+</li>
+<li>
+<p>Transfer the following code on to your device and run it.</p>
+</li>
+</ol>
+<p>You should see the compass direction printed in the monitor.
+The values will range from -180 to 180; if you need it to be from 0 to 360, add 360 if the angle is less than 0.</p>
+<h1><code>class QMC5883L</code> / <code>class HMC5883L</code> - control QMC5883L and HMC5883L magnetic sensors</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>qmc5883l.QMC5883L(i2c, addr=13, scale=SCALE_2G)</h3>
+<p>Creates an QMC5883L object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the QMC5883L. By default, this should be 13.</p>
+</li>
+<li>
+<p><code>scale</code> The maximum value readable by the sensor, which can be one of the following:</p>
+<ul>
+<li>
+<p><code>qmc5883l.SCALE_2G</code> Max of 2 gauss. This is enough for a compass.</p>
+</li>
+<li>
+<p><code>qmc5883l.SCALE_8G</code> Max of 8 gauss.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>QMC5883L</code> object.</p>
+<h3>hmc5883l.HMC5883L(i2c, addr=30, scale=SCALE_1300G)</h3>
+<p>Creates an HMC5883L object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the HMC5883L. By default, this should be 30.</p>
+</li>
+<li>
+<p><code>scale</code> The maximum value readable by the sensor, which can be one of the following:</p>
+<ul>
+<li>
+<p><code>hmc5883l.SCALE_880G</code> Max of 0.88 gauss.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_1300G</code> Max of 1.3 gauss. This is enough for a compass.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_1900G</code> Max of 1.9 gauss.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_2500G</code> Max of 2.5 gauss.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_4000G</code> Max of 4.0 gauss.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_4700G</code> Max of 4.7 gauss.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_5600G</code> Max of 5.6 gauss.</p>
+</li>
+<li>
+<p><code>hmc5883l.SCALE_8100G</code> Max of 8.1 gauss.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>HMC5883L</code> object.</p>
+<h2>Methods</h2>
+<h3>QMC5883L.read() / HMC5883L.read()</h3>
+<p>Performs a reading.
+This will read all 3 axis values and store them.</p>
+<p>Returns a list containing 3 integers representing the x, y, and z readings.</p>
+<h3>QMC5883L.get_x() / QMC5883L.get_y() / QMC5883L.get_z()</h3>
+<h3>HMC5883L.get_x() / HMC5883L.get_y() / HMC5883L.get_z()</h3>
+<p>Gets the reading for the specified axis.</p>
+<p>You must perform a <code>read()</code> first.</p>
+<p>Returns an integer representing the reading for the axis</p>
+<h3>QMC5883L.get_all() / QMC5883L.get_all()</h3>
+<p>Gets the readings for all 3 axis.</p>
+<p>You must perform a <code>read()</code> first.
+The values returned by <code>get_all()</code> are the same as the values returned by the last <code>read()</code>.</p>
+<p>Returns a list containing 3 integers representing the x, y, and z readings.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

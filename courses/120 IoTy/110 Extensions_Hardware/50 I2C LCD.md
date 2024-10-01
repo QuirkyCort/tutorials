@@ -17,8 +17,8 @@ Some HD44780 do not come with the PCF8574. This extension does not work on devic
 | --- | --- |
 | GND | Ground pin. This should be connected to the **GND** pin on the ESP32. |
 | VCC | Power for the LCD. Connect to 5V. If using USB power, you can connect to the **VIN** pin on the ESP32. |
-| SCL (Signal) | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol. |
-| SDA (Signal) | Serial Data. This is used to communicate with the ESP32 using the I2C protocol. |
+| SCL (Signal) | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18). |
+| SDA (Signal) | Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19). |
 
 ## Wiring
 

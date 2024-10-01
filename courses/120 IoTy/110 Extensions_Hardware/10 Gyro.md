@@ -26,8 +26,8 @@ Note that rate gyros all suffers from drift over time, but if calibration is don
 | --- | --- |
 | VCC | Provides the ultrasonic with power. Connect to **3V3** on the ESP32. |
 | GND | Provides the ultrasonic with power. Connect to **GND** on the ESP32. |
-| SCL | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol. |
-| SDA | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol. |
+| SCL (Signal) | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18). |
+| SDA (Signal) | Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19). |
 | XDA, XCL, AD0, INT | Ignore. They have special uses which we do not need. |
 
 ## Wiring

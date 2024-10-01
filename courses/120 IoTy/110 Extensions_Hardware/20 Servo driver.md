@@ -25,8 +25,8 @@ Benefits of this board are...
 | Output to Servos | 16 outputs for servos. You can use as many or as little as you need, but make sure you match the color on the servo wires. |
 | GND (Signal) | Ground pin. This should be connected to the **GND** pin on the ESP32. This is the same as the GND pin on the screw terminals. |
 | OE (Signal) | Output Enable pin. If given a **HIGH** (3.3V or 5V) signal, it will disable all the outputs. You can leave this disconnected if you're not using it. |
-| SCL (Signal) | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol. |
-| SDA (Signal) | Serial Data. This is used to communicate with the ESP32 using the I2C protocol. |
+| SCL (Signal) | Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18). |
+| SDA (Signal) | Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19). |
 | VCC (Signal) | Provides the PCA9685 with power. This does not provide power to the servo. Connect to **3V3** on the ESP32. |
 | V+ (Signal) | Power supply for the **Servos Only**. This is the same as the V+ pin on the screw terminals, and you only need to connect one of them. |
 | Signal pins on right side | Identical to the pins on the left side. Useful to chain multiple PCA9685 boards together, but should otherwise leave them alone. |
