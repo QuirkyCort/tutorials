@@ -35,7 +35,7 @@ Note that rate gyros all suffers from drift over time, but if calibration is don
 In this example, we are using Pin 18 for SCL and Pin 19 for SDA.
 If you use different pins, change your code accordingly.
 
-![](images/gyroWiring.webp)
+![](images/gyro_wiring.webp)
 
 ## Code
 
