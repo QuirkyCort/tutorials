@@ -202,7 +202,7 @@ The arguments are:
 
 * `response_data` A string containing the response to the client's request.
 
-* `status` The [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). The default `200 OK` is usually the correct choice.
+* `status` A string containing the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). The default `200 OK` is usually the correct choice.
 
 Returns `None`.
 
@@ -215,7 +215,7 @@ The arguments are:
 
 * `response_data` A bytes object containing the response to the client's request.
 
-* `status` The [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). The default `200 OK` is usually the correct choice.
+* `status` A string containing the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). The default `200 OK` is usually the correct choice.
 
 Returns `None`.
 

@@ -170,15 +170,15 @@ Run the provided [callback function](https://en.wikipedia.org/wiki/Callback_(com
 
 The arguments are:
 
-* `cb` A `function`. EZ Timer will run this callback function at the specified interval.
+* `cb` A function. EZ Timer will run this callback function at the specified interval.
 
-* `interval` A `float` representing the number of seconds between each run of the callback function.
+* `interval` A float representing the number of seconds between each run of the callback function.
 
-* `offset` A `float` representing the number of seconds to delay before the start of this timer.
+* `offset` A float representing the number of seconds to delay before the start of this timer.
 
-* `count` An `integer` representing the maximum number of times to run this timer. A `-1` means that the timer can run for an unlimited number of times.
+* `count` An integer representing the maximum number of times to run this timer. A `-1` means that the timer can run for an unlimited number of times.
 
-Returns a `None`.
+Returns `None`.
 
 ### Timer.set_timeout(cb, interval)
 
@@ -187,11 +187,11 @@ Unlike in the `set_interval` method, the callback function will only run once.
 
 The arguments are:
 
-* `cb` A `function`. EZ Timer will run this [callback function](https://en.wikipedia.org/wiki/Callback_(computer_programming)) at the specified interval.
+* `cb` A function. EZ Timer will run this [callback function](https://en.wikipedia.org/wiki/Callback_(computer_programming)) at the specified interval.
 
-* `interval` A `float` representing the number of seconds between each run of the callback function.
+* `interval` A float representing the number of seconds between each run of the callback function.
 
-Returns a `None`.
+Returns `None`.
 
 ### Timer.update()
 
@@ -200,5 +200,5 @@ Updates all the timers.
 You must run this frequently for EZ Timer to work.
 The callback functions can only run during an update.
 
-Returns a `None`.
+Returns `None`.
 !!!!!

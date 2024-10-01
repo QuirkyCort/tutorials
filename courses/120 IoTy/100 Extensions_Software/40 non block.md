@@ -64,14 +64,14 @@ If the available characters to read is less than what was requested, an empty st
 
 The arguments are:
 
-* `count` The number of characters to read. Use `-1` to read all available characters.
+* `count` An integer specifying the number of characters to read. Use `-1` to read all available characters.
 
-Returns a `string` containing the requested number of characters, or an empty string if there are insufficient characters available to read.
+Returns a string containing the requested number of characters, or an empty string if there are insufficient characters available to read.
 
 ### NonBlock.readline()
 
 Reads a full line (...until `\n` is found)
 If a full line isn't available to read, it will return an empty string.
 
-Returns a `string` containing the a line of characters (...including the trailing `\n`), or an empty string if a full line isn't available to read..
+Returns a string containing the a line of characters (...including the trailing `\n`), or an empty string if a full line isn't available to read..
 !!!!!
