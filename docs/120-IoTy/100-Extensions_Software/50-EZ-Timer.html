@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions (Software)</p><ul><a href="../100-Extensions_Software/10-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions_Software/20-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions_Software/30-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions_Software/40-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions_Software/50-EZ-Timer.html"><li class="current">EZ Timer</li></a></ul><p>Extensions (Hardware)</p><ul><a href="../110-Extensions_Hardware/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../110-Extensions_Hardware/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../110-Extensions_Hardware/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../110-Extensions_Hardware/40-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../110-Extensions_Hardware/50-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../110-Extensions_Hardware/60-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../110-Extensions_Hardware/70-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../110-Extensions_Hardware/80-GPS.html"><li >GPS (NMEA over serial)</li></a><a href="../110-Extensions_Hardware/90-hx711.html"><li >HX711 (Analog-to-Digital, Load Cell)</li></a><a href="../110-Extensions_Hardware/100-hx710.html"><li >HX710 (Analog-to-Digital)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>EZ Timer</h1>
+<p>We often need to run things at regular interval (eg. print a message or blink an LED every second).
+Using a <code>sleep</code> command is an easy solution, but during the <code>sleep</code>, the microcontroller cannot do anything else.</p>
+<p>This can be a problem with certain hardware (eg. GPS needs to run <code>update</code> frequently to read data, gyro needs the same to calculate headings).
+It can also be an issue if you need to read sensors or inputs (ie. you can't check if a button is pressed until the sleep ends).</p>
+<p>The <strong>EZ Timer</strong> extension allows you to run things at regular intervals or after a delay, but without using <code>sleep</code>.</p>
+<div class="important">
+EZ Timer is one of the most important extension in IoTy for intermediate to advanced projects. Avoiding the need to use <code>sleep</code> allows you to build devices that can do multiple things simultaneously (eg. play music, animate LEDs, and detect button presses, all at the same time).
+</div>
+
+<h2>Code</h2>
+<p>We have a few examples here.</p>
+<ul>
+<li>
+<p><strong>Basic</strong> Demonstrates the basic use of EZ Timer.</p>
+</li>
+<li>
+<p><strong>Simultaneous</strong> Demonstrates doing two things simultaneously (detect button press and print to monitor).</p>
+</li>
+<li>
+<p><strong>Offset</strong> Demonstrates using offset to blink an LED.</p>
+</li>
+<li>
+<p><strong>Gyro / GPS</strong> Demonstrates using EZ Timer to update the Gyro and GPS frequently, while printing the result out infrequently. You'll need to connect a Gyro and GPS to run this example.</p>
+</li>
+</ul>
+<h3>Blocks</h3>
+<p><strong>Basic</strong></p>
+<p><img alt="" src="images/ez_timer_blocks1.webp" /></p>
+<p><strong>Simultaneous</strong></p>
+<p><img alt="" src="images/ez_timer_blocks2.webp" /></p>
+<p><strong>Offset</strong></p>
+<p><img alt="" src="images/ez_timer_blocks3.webp" /></p>
+<p>The second timer block runs at the same frequency as the first (0.2s), but the offset of 0.1s makes it start slightly later.</p>
+<p><strong>Gyro / GPS</strong></p>
+<p><img alt="" src="images/ez_timer_blocks4.webp" /></p>
+<h3>Python</h3>
+<p><strong>Basic</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ez_timer</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">print_time</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())</span>
+
+<span class="n">ez_timer_obj</span> <span class="o">=</span> <span class="n">ez_timer</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span>
+<span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">set_interval</span><span class="p">(</span><span class="n">print_time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Simultaneous</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ez_timer</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">def</span> <span class="nf">print_time</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())</span>
+
+<span class="n">ez_timer_obj</span> <span class="o">=</span> <span class="n">ez_timer</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span>
+<span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">set_interval</span><span class="p">(</span><span class="n">print_time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">digital_read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Offset</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ez_timer</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="k">def</span> <span class="nf">led_on</span><span class="p">():</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">led_off</span><span class="p">():</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">digital_write</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ez_timer_obj</span> <span class="o">=</span> <span class="n">ez_timer</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span>
+<span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">set_interval</span><span class="p">(</span><span class="n">led_on</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">set_interval</span><span class="p">(</span><span class="n">led_off</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Gyro / GPS</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">mpu6050</span>
+<span class="kn">import</span> <span class="nn">gps</span>
+<span class="kn">import</span> <span class="nn">ez_timer</span>
+
+<span class="k">def</span> <span class="nf">print_readings</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">mpu6050_device</span><span class="o">.</span><span class="n">angle_z</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gps_device</span><span class="o">.</span><span class="n">get_lat</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gps_device</span><span class="o">.</span><span class="n">get_lng</span><span class="p">())</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">mpu6050_device</span> <span class="o">=</span> <span class="n">mpu6050</span><span class="o">.</span><span class="n">MPU6050</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="mi">104</span><span class="p">)</span>
+<span class="n">mpu6050_device</span><span class="o">.</span><span class="n">calibrate_gyro</span><span class="p">()</span>
+
+<span class="n">uart1</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">UART</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">gps_device</span> <span class="o">=</span> <span class="n">gps</span><span class="o">.</span><span class="n">GPS</span><span class="p">(</span><span class="n">uart1</span><span class="p">)</span>
+
+<span class="n">ez_timer_obj</span> <span class="o">=</span> <span class="n">ez_timer</span><span class="o">.</span><span class="n">Timer</span><span class="p">()</span>
+<span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">set_interval</span><span class="p">(</span><span class="n">print_readings</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">mpu6050_device</span><span class="o">.</span><span class="n">update_angle</span><span class="p">()</span>
+    <span class="n">gps_device</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="n">ez_timer_obj</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p><strong>Basic</strong></p>
+<p>You should see the time (...in ms) printed in the monitor every second.</p>
+<p><strong>Simultaneous</strong></p>
+<p>Same as in <strong>Basic</strong>, you should see the time (...in ms) printed in the monitor every second.
+If you press the boot button, the built-in Blue LED should light up immediately.</p>
+<p><strong>Offset</strong></p>
+<p>You should see the built-in Blue LED blink rapidly (...5 times per second).</p>
+<p><strong>Gyro / GPS</strong></p>
+<p>You should see the gyro heading and GPS position printed in the monitor every second.</p>
+<h1><code>Timer</code> - easy to use, non-blocking timer</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>ez_timer.Timer()</h3>
+<p>Create a Timer object.</p>
+<p>Returns a <code>Timer</code> object.</p>
+<h2>Methods</h2>
+<h3>Timer.set_interval(cb, interval, offset=0, count=-1)</h3>
+<p>Run the provided <a href="https://en.wikipedia.org/wiki/Callback_(computer_programming)">callback function</a> at the specified interval.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>cb</code> A <code>function</code>. EZ Timer will run this callback function at the specified interval.</p>
+</li>
+<li>
+<p><code>interval</code> A <code>float</code> representing the number of seconds between each run of the callback function.</p>
+</li>
+<li>
+<p><code>offset</code> A <code>float</code> representing the number of seconds to delay before the start of this timer.</p>
+</li>
+<li>
+<p><code>count</code> An <code>integer</code> representing the maximum number of times to run this timer. A <code>-1</code> means that the timer can run for an unlimited number of times.</p>
+</li>
+</ul>
+<p>Returns a <code>None</code>.</p>
+<h3>Timer.set_timeout(cb, interval)</h3>
+<p>Run the provided <a href="https://en.wikipedia.org/wiki/Callback_(computer_programming)">callback function</a> after the specified timeout.
+Unlike in the <code>set_interval</code> method, the callback function will only run once.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>cb</code> A <code>function</code>. EZ Timer will run this <a href="https://en.wikipedia.org/wiki/Callback_(computer_programming)">callback function</a> at the specified interval.</p>
+</li>
+<li>
+<p><code>interval</code> A <code>float</code> representing the number of seconds between each run of the callback function.</p>
+</li>
+</ul>
+<p>Returns a <code>None</code>.</p>
+<h3>Timer.update()</h3>
+<p>Updates all the timers.</p>
+<p>You must run this frequently for EZ Timer to work.
+The callback functions can only run during an update.</p>
+<p>Returns a <code>None</code>.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
