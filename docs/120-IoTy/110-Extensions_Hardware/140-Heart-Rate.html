@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions (Software)</p><ul><a href="../100-Extensions_Software/10-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions_Software/20-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions_Software/30-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions_Software/40-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions_Software/50-EZ-Timer.html"><li >EZ Timer</li></a></ul><p>Extensions (Hardware)</p><ul><a href="../110-Extensions_Hardware/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../110-Extensions_Hardware/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../110-Extensions_Hardware/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../110-Extensions_Hardware/40-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../110-Extensions_Hardware/50-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../110-Extensions_Hardware/60-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../110-Extensions_Hardware/70-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../110-Extensions_Hardware/80-GPS.html"><li >GPS (NMEA over serial)</li></a><a href="../110-Extensions_Hardware/90-hx711.html"><li >Analog-to-Digital (HX711)</li></a><a href="../110-Extensions_Hardware/100-hx710.html"><li >Analog-to-Digital (HX710)</li></a><a href="../110-Extensions_Hardware/110-MFRC522.html"><li >RFID Reader (MFRC522)</li></a><a href="../110-Extensions_Hardware/120-Magnetic-Sensor.html"><li >Magnetic Sensor (QMC5883L, HMC5883L)</li></a><a href="../110-Extensions_Hardware/130-Barometric-Pressure.html"><li >Barometric Pressure (BMP280, BME280)</li></a><a href="../110-Extensions_Hardware/140-Heart-Rate.html"><li class="current">Heart Rate Sensor (MAX30102)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Heart Rate Sensor (MAX30102)</h1>
+<p><img alt="" src="images/max30102.webp" /></p>
+<p>The MAX30102 is an integrated pulse oximetry and heart-rate monitor module. This extension allows you to detect heart beats, read heart rate (bpm), and get the raw readings (IR and Red).</p>
+<h2>Pins</h2>
+<p><img alt="" src="images/max30102_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VIN</td>
+<td>Power for the sensor. Connect to <strong>3V3</strong>.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the ESP32.</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18).</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19).</td>
+</tr>
+<tr>
+<td>INT / IRQ / RD</td>
+<td>Not in use. Leave unconnected.</td>
+</tr>
+</tbody>
+</table>
+<h2>Wiring</h2>
+<p><img alt="" src="images/max30102_wiring.webp" /></p>
+<h2>Code</h2>
+<p>This code will print the measured heartrate everytime it detects a pulse.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/max30102_blocks.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">max30102</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">max30102_device</span> <span class="o">=</span> <span class="n">max30102</span><span class="o">.</span><span class="n">MAX30102</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">87</span><span class="p">,</span> <span class="n">red_led</span><span class="o">=</span><span class="mh">0x7F</span><span class="p">,</span> <span class="n">ir_led</span><span class="o">=</span><span class="mh">0x7F</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">max30102_device</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">max30102_device</span><span class="o">.</span><span class="n">read_succeeded</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">max30102_device</span><span class="o">.</span><span class="n">get_beat</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Beat!&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">max30102_device</span><span class="o">.</span><span class="n">get_bpm</span><span class="p">())</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>Place your finger lightly on the sensor.
+You should see the word 'Beat!' and the measured heartrate printed in the monitor everytime a pulse is detected.</p>
+<p>It can take a 2 to 3 seconds before it starts detecting pulses, and a few seconds more before the heartrate stabilize.</p>
+<h1><code>class MAX30102</code> - control MAX30102 pulse oximeter and heartrate monitor</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>max30102.MAX30102(i2c, addr=87, red_led=0x7F, ir_led=0x7F, buf_len=100)</h3>
+<p>Creates an MAX30102 object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the MAX30102. By default, this should be 87.</p>
+</li>
+<li>
+<p><code>red_led</code> An integer (0 to 255) specifying the brightness of the red LED. The default is usually ok, but you may want to adjust this if you can't get a good reading. The red LED is used for both heartrate and SpO2.</p>
+</li>
+<li>
+<p><code>ir_led</code> An integer (0 to 255) specifying the brightness of the IR LED. The default is usually ok, but you may want to adjust this if you can't get a good reading. The IR led is only used for SpO2.</p>
+</li>
+<li>
+<p><code>buf_len</code> An integer specifying the amount of readings to buffer. The default is usually fine.</p>
+</li>
+</ul>
+<p>Returns a <code>MAX30102</code> object.</p>
+<h2>Methods</h2>
+<h3>MAX30102.read()</h3>
+<p>Performs a reading of the red and IR reflected light value, check for heartbeat, and update the heartrate.</p>
+<p>You need to run this frequently for the sensor to work.</p>
+<p>Returns <code>True</code> if the read succeeded, and <code>False</code> if there are no new data to read.</p>
+<h3>MAX30102.get_red()</h3>
+<p>Gets the red reflected light value.</p>
+<p>You must perform a <code>read()</code> first.</p>
+<p>Returns an integer (−8,388,608 to 8,388,607) representing the red reflected light value.</p>
+<h3>MAX30102.get_ir()</h3>
+<p>Gets the IR reflected light value.</p>
+<p>You must perform a <code>read()</code> first.</p>
+<p>Returns an integer (−8,388,608 to 8,388,607) representing the IR reflected light value.</p>
+<h3>MAX30102.get_beat()</h3>
+<p>Returns <code>True</code> if a heartbeat was detected in the last <code>read()</code>.</p>
+<h3>MAX30102.get_bpm()</h3>
+<p>Returns a float representing the heartrate in beats per minute.</p>
+<h3>MAX30102.get_spo2()</h3>
+<p>Calculate the oxygen saturation level.</p>
+<p>Returns a float representing the oxygen saturation (SpO2) in percentage.</p>
+<h3>MAX30102.get_temperature()</h3>
+<p>Get the sensor's internal temperature.</p>
+<p>Returns a float representing the temperature in Celsius.</p>
+<h2>Properties</h2>
+<h3>MAX30102.read_succeeded</h3>
+<p>A boolean indicating if the last read was successful.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
