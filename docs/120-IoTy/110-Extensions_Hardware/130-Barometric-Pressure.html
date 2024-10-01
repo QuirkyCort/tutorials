@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions (Software)</p><ul><a href="../100-Extensions_Software/10-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions_Software/20-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions_Software/30-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions_Software/40-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions_Software/50-EZ-Timer.html"><li >EZ Timer</li></a></ul><p>Extensions (Hardware)</p><ul><a href="../110-Extensions_Hardware/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../110-Extensions_Hardware/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../110-Extensions_Hardware/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../110-Extensions_Hardware/40-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../110-Extensions_Hardware/50-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../110-Extensions_Hardware/60-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../110-Extensions_Hardware/70-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../110-Extensions_Hardware/80-GPS.html"><li >GPS (NMEA over serial)</li></a><a href="../110-Extensions_Hardware/90-hx711.html"><li >Analog-to-Digital (HX711)</li></a><a href="../110-Extensions_Hardware/100-hx710.html"><li >Analog-to-Digital (HX710)</li></a><a href="../110-Extensions_Hardware/110-MFRC522.html"><li >RFID Reader (MFRC522)</li></a><a href="../110-Extensions_Hardware/120-Magnetic-Sensor.html"><li >Magnetic Sensor (QMC5883L, HMC5883L)</li></a><a href="../110-Extensions_Hardware/130-Barometric-Pressure.html"><li class="current">Barometric Pressure (BMP280, BME280)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Barometric Pressure (BMP280, BME280)</h1>
+<p><img alt="" src="images/bmp280.webp" /></p>
+<p>The BMP280 and BME280 are <a href="https://en.wikipedia.org/wiki/Atmospheric_pressure">barometric pressure</a> sensors with a measurement range of 300hPa to 1100hPa.
+Both sensors are also equipped with temperature sensors, and the BME280 is additionally equipped with a humidity sensor.</p>
+<p>By utilizing the fact that atmospheric pressure changes with altitude, we can use the pressure reading to estimate our altitude.
+These sensors are precise enough to detect changes of as little as 10cm in altitude (...though due to noise, you really need about a meter change in altitude for the changes to be discernible).</p>
+<h2>Identifying Device</h2>
+<p>Some sellers will try to pass off a cheaper BMP280 as the (slightly) more expensive (BME280).
+See the image at the top of this page; both devices are labeled as 'BME/BMP280', but only the device on the right is an actual BME280.</p>
+<p><img alt="" src="images/bmp280_vs_bme280.webp" /></p>
+<p>To identify the device, pay close attention to the sensor chip; the BMP280 chip is rectangular with a hole at the corner, while the BME280 is square with a hole at the center of one side.</p>
+<h2>Pins</h2>
+<p><img alt="" src="images/bmp280_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VIN / VCC</td>
+<td>Power for the sensor. Connect to <strong>3V3</strong>.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the ESP32.</td>
+</tr>
+<tr>
+<td>SCL / SCK</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18).</td>
+</tr>
+<tr>
+<td>SDA / SDI</td>
+<td>Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19).</td>
+</tr>
+<tr>
+<td>CSB / CS</td>
+<td>Chip Select. Leave unconnected or connect to <strong>3V3</strong> for I2C mode.</td>
+</tr>
+<tr>
+<td>SDO</td>
+<td>Connect to <strong>3V3</strong> to change the I2C address to 119 (0x77). Leave unconnected to use the default address of 118 (0x76)</td>
+</tr>
+</tbody>
+</table>
+<div class="info">
+These sensors can support both I2C and SPI communication, but if you have a board with only 4 pins, then only I2C can be used. This extension only supports I2C.
+</div>
+
+<h2>Wiring</h2>
+<p><img alt="" src="images/bmp280_wiring.webp" /></p>
+<h2>Code</h2>
+<p>This code will print the pressure and altitude every second.</p>
+<h3>Blocks</h3>
+<p><img alt="" src="images/bmp280_blocks.webp" /></p>
+<h3>Python</h3>
+<p><strong>BMP280</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">bmp280</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">bmp280_device</span> <span class="o">=</span> <span class="n">bmp280</span><span class="o">.</span><span class="n">BMP280</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">118</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">bmp280_device</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Readings:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bmp280_device</span><span class="o">.</span><span class="n">get_pressure</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bmp280_device</span><span class="o">.</span><span class="n">get_altitude</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>BME280</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">bme280</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">bme280_device</span> <span class="o">=</span> <span class="n">bme280</span><span class="o">.</span><span class="n">BME280</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">118</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">bme280_device</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Readings:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bme280_device</span><span class="o">.</span><span class="n">get_pressure</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bme280_device</span><span class="o">.</span><span class="n">get_altitude</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>You should see the sensor readings printed in the monitor.</p>
+<p>As you move the sensor up and down (...at least a meter), you should see the readings change.</p>
+<h1><code>class BMP280</code> / <code>class BME280</code> - control BMP280 and BME280 barometric pressure sensors</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>bmp280.BMP280(i2c, addr=118)</h3>
+<p>Creates an BMP280 object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the BMP280. By default, this should be 118.</p>
+</li>
+</ul>
+<p>Returns a <code>BMP280</code> object.</p>
+<h3>bme280.BME280(i2c, addr=118)</h3>
+<p>Creates an BME280 object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the BME280. By default, this should be 118.</p>
+</li>
+</ul>
+<p>Returns a <code>BME280</code> object.</p>
+<h2>Methods</h2>
+<h3>BMP280.read() / BME280.read()</h3>
+<p>Performs a reading and store the result internally.
+This will read all values; pressure, temperature, and humidity (BME280 only).</p>
+<p>Returns a list containing 2 or 3 integers representing the raw temperature, pressure, and humidity (BME280 only) readings.
+You can generally ignore this, as complex calculations are required to turn the raw values useful.</p>
+<h3>BMP280.get_temperature() / BME280.get_temperature()</h3>
+<p>Gets the temperature reading.</p>
+<p>You must perform a <code>read()</code> first.</p>
+<p>Returns a float representing the temperature in Celsius.</p>
+<h3>BMP280.get_pressure() / BME280.get_pressure()</h3>
+<p>Gets the pressure reading.</p>
+<p>You must perform a <code>read()</code> first.</p>
+<p>Returns a float representing the pressure in Pascal.</p>
+<h3>BMP280.get_altitude() / BME280.get_altitude()</h3>
+<p>Gets the altitude reading.</p>
+<p>You must perform a <code>read()</code> first.</p>
+<p>Returns a float representing the altitude in meters above sea level.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

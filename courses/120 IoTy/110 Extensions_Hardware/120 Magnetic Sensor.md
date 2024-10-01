@@ -167,6 +167,7 @@ The arguments are:
     * `hmc5883l.SCALE_8100G` Max of 8.1 gauss.
 
 Returns a `HMC5883L` object.
+
 ## Methods
 
 ### QMC5883L.read() / HMC5883L.read()
