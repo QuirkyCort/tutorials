@@ -31,17 +31,12 @@ If your API isn't returning JSON, or if you are retrieving a webpage, then you'l
 ### Python
 
 ```python
-import network
+import ioty.wifi
 import urequests
 
-# Connect to WiFi
-ioty_wifi = network.WLAN(network.STA_IF)
-ioty_wifi.active(True)
-ioty_wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
-while not ioty_wifi.isconnected():
-    pass # Do nothing until wifi is connected
-
+ioty_wifi = ioty.wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
 print('Connected to WiFi')
+
 try:
     urequest = urequests.request('GET', 'https://api.open-meteo.com/v1/forecast?latitude=1.2897&longitude=103.8501&daily=temperature_2m_max&timezone=Asia%2FSingapore&forecast_days=1')
     item = urequest.json() # JSON decode the response and put the result in "item"

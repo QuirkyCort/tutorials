@@ -40,18 +40,13 @@ You must put in your actual WiFi SSID and password in the `Connect to WiFi` bloc
 **Station Mode**
 
 ```python
-import network
+import ioty.wifi
 import ez_httpd
 import time
 
-# Connect to WiFi
-ioty_wifi = network.WLAN(network.STA_IF)
-ioty_wifi.active(True)
-ioty_wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
-while not ioty_wifi.isconnected():
-    pass # Do nothing until wifi is connected
+ioty_wifi = ioty.wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
 
-ip = ioty_wifi.ifconfig()[0]
+ip = ioty.wifi.get_ip()
 print('Wifi connected. IP Address: ' + str(ip))
 ezhttpd = ez_httpd.HTTPD(address=ip, port=80)
 while True:
@@ -66,16 +61,11 @@ while True:
 **AP Mode**
 
 ```python
-import network
+import ioty.wifi
 import ez_httpd
 import time
 
-# Start as Access Point
-ap = network.WLAN(network.AP_IF)
-ap.config(essid="IoTy_Device", password="12345678")
-ap.config(authmode=3)
-ap.config(max_clients=10)
-ap.active(True)
+ioty_wifi = ioty.wifi.start_ap('IoTy_Device', '12345678')
 print('Wifi AP started')
 
 ezhttpd = ez_httpd.HTTPD(address='192.168.4.1', port=80)
@@ -91,17 +81,12 @@ while True:
 **URL and Query**
 
 ```python
-import network
+import ioty.wifi
 import ez_httpd
 
-# Connect to WiFi
-ioty_wifi = network.WLAN(network.STA_IF)
-ioty_wifi.active(True)
-ioty_wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
-while not ioty_wifi.isconnected():
-    pass # Do nothing until wifi is connected
+ioty_wifi = ioty.wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
 
-ip = ioty_wifi.ifconfig()[0]
+ip = ioty.wifi.get_ip()
 print('Wifi connected. IP Address: ' + str(ip))
 ezhttpd = ez_httpd.HTTPD(address=ip, port=80)
 while True:

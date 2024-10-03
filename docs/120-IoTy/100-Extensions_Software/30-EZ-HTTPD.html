@@ -63,18 +63,13 @@ It works in either station mode (device connected to a router) or AP mode (your 
 <p>You must put in your actual WiFi SSID and password in the <code>Connect to WiFi</code> block, or this will not work.</p>
 <h3>Python</h3>
 <p><strong>Station Mode</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ioty.wifi</span>
 <span class="kn">import</span> <span class="nn">ez_httpd</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="c1"># Connect to WiFi</span>
-<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
-    <span class="k">pass</span> <span class="c1"># Do nothing until wifi is connected</span>
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
 
-<span class="n">ip</span> <span class="o">=</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">get_ip</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wifi connected. IP Address: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
 <span class="n">ezhttpd</span> <span class="o">=</span> <span class="n">ez_httpd</span><span class="o">.</span><span class="n">HTTPD</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -87,16 +82,11 @@ It works in either station mode (device connected to a router) or AP mode (your 
 </code></pre></div>
 
 <p><strong>AP Mode</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ioty.wifi</span>
 <span class="kn">import</span> <span class="nn">ez_httpd</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="c1"># Start as Access Point</span>
-<span class="n">ap</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">AP_IF</span><span class="p">)</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">essid</span><span class="o">=</span><span class="s2">&quot;IoTy_Device&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;12345678&quot;</span><span class="p">)</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">authmode</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">max_clients</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">start_ap</span><span class="p">(</span><span class="s1">&#39;IoTy_Device&#39;</span><span class="p">,</span> <span class="s1">&#39;12345678&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wifi AP started&#39;</span><span class="p">)</span>
 
 <span class="n">ezhttpd</span> <span class="o">=</span> <span class="n">ez_httpd</span><span class="o">.</span><span class="n">HTTPD</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s1">&#39;192.168.4.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
@@ -110,17 +100,12 @@ It works in either station mode (device connected to a router) or AP mode (your 
 </code></pre></div>
 
 <p><strong>URL and Query</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ioty.wifi</span>
 <span class="kn">import</span> <span class="nn">ez_httpd</span>
 
-<span class="c1"># Connect to WiFi</span>
-<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
-    <span class="k">pass</span> <span class="c1"># Do nothing until wifi is connected</span>
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
 
-<span class="n">ip</span> <span class="o">=</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">get_ip</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wifi connected. IP Address: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
 <span class="n">ezhttpd</span> <span class="o">=</span> <span class="n">ez_httpd</span><span class="o">.</span><span class="n">HTTPD</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>

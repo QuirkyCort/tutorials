@@ -51,17 +51,12 @@ Open this page, <a href="https://open-meteo.com/en/docs">https://open-meteo.com/
 <p>Most web-based APIs will return JSON data.
 If your API isn't returning JSON, or if you are retrieving a webpage, then you'll need to set the format as <strong>Text</strong>.</p>
 <h3>Python</h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ioty.wifi</span>
 <span class="kn">import</span> <span class="nn">urequests</span>
 
-<span class="c1"># Connect to WiFi</span>
-<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
-    <span class="k">pass</span> <span class="c1"># Do nothing until wifi is connected</span>
-
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Connected to WiFi&#39;</span><span class="p">)</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="n">urequest</span> <span class="o">=</span> <span class="n">urequests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;https://api.open-meteo.com/v1/forecast?latitude=1.2897&amp;longitude=103.8501&amp;daily=temperature_2m_max&amp;timezone=Asia</span><span class="si">%2F</span><span class="s1">Singapore&amp;forecast_days=1&#39;</span><span class="p">)</span>
     <span class="n">item</span> <span class="o">=</span> <span class="n">urequest</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="c1"># JSON decode the response and put the result in &quot;item&quot;</span>
