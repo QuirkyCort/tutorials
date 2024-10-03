@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p>Intro to IoTy</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p>Basic Features (GPIO)</p><ul><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p>Extensions (Software)</p><ul><a href="../100-Extensions_Software/10-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions_Software/20-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions_Software/30-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions_Software/40-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions_Software/50-EZ-Timer.html"><li >EZ Timer</li></a></ul><p>Extensions (Hardware)</p><ul><a href="../110-Extensions_Hardware/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../110-Extensions_Hardware/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../110-Extensions_Hardware/30-SSD1306.html"><li >OLED Screen (SSD1306)</li></a><a href="../110-Extensions_Hardware/40-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../110-Extensions_Hardware/50-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../110-Extensions_Hardware/60-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../110-Extensions_Hardware/70-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../110-Extensions_Hardware/80-GPS.html"><li >GPS (NMEA over serial)</li></a><a href="../110-Extensions_Hardware/90-hx711.html"><li >Analog-to-Digital (HX711)</li></a><a href="../110-Extensions_Hardware/100-hx710.html"><li >Analog-to-Digital (HX710)</li></a><a href="../110-Extensions_Hardware/110-MFRC522.html"><li >RFID Reader (MFRC522)</li></a><a href="../110-Extensions_Hardware/120-Magnetic-Sensor.html"><li >Magnetic Sensor (QMC5883L, HMC5883L)</li></a><a href="../110-Extensions_Hardware/130-Barometric-Pressure.html"><li >Barometric Pressure (BMP280, BME280)</li></a><a href="../110-Extensions_Hardware/140-Heart-Rate.html"><li >Heart Rate Sensor (MAX30102)</li></a><a href="../110-Extensions_Hardware/150-ToF.html"><li >Laser Ranging (VL53L0X, VL52L1X)</li></a><a href="../110-Extensions_Hardware/160-rtc-ds3231.html"><li >Real-Time Clock (DS3231)</li></a><a href="../110-Extensions_Hardware/170-apds9960.html"><li class="current">Light, Proximity, Gesture (APDS9960)</li></a></ul><p>Others Components</p><ul><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Light, Proximity, Gesture (APDS9960)</h1>
+<p><img alt="" src="images/apds9960.webp" /></p>
+<p>APDS-9960 is a digital RGB, ambient light, proximity and gesture sensor device.
+You can use it to sense...</p>
+<ul>
+<li>Ambient light</li>
+<li>Object color (use ambient light sensor and bring the object close)</li>
+<li>Proximity (max of around 10cm, does not give an accurate distance)</li>
+<li>Gesture (pass your hands above it in the up/down/left/right direction)</li>
+</ul>
+<h2>Pins</h2>
+<p><img alt="" src="images/apds9960_pinout.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Power for the sensor. Connect to <strong>3V3</strong>.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin. This should be connected to the <strong>GND</strong> pin on the ESP32.</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>Serial Clock. This is used to communicate with the ESP32 using the I2C protocol (default pin 18).</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>Serial Data. This is used to communicate with the ESP32 using the I2C protocol (default pin 19).</td>
+</tr>
+<tr>
+<td>VL / INT</td>
+<td>Not in use. Leave unconnected.</td>
+</tr>
+</tbody>
+</table>
+<h2>Wiring</h2>
+<p><img alt="" src="images/apds9960_wiring.webp" /></p>
+<h2>Code</h2>
+<p>There are 2 sets of code.</p>
+<ol>
+<li>
+<p><strong>Ambient and Proximity</strong> Demonstrate how to read the ambient light (RGB + Clear) and proximity value.</p>
+</li>
+<li>
+<p><strong>Gesture</strong> Detect gestures and print it out.</p>
+</li>
+</ol>
+<h3>Blocks</h3>
+<p><strong>Ambient and Proximity</strong></p>
+<p><img alt="" src="images/apds9960_blocks1.webp" /></p>
+<p><strong>Gesture</strong></p>
+<p><img alt="" src="images/apds9960_blocks2.webp" /></p>
+<h3>Python</h3>
+<p><strong>Ambient and Proximity</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">apds9960</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">apds9960_device</span> <span class="o">=</span> <span class="n">apds9960</span><span class="o">.</span><span class="n">APDS9960</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">57</span><span class="p">)</span>
+<span class="n">apds9960_device</span><span class="o">.</span><span class="n">enable_light_sensor</span><span class="p">(</span><span class="n">apds9960</span><span class="o">.</span><span class="n">AGAIN_1</span><span class="p">,</span> <span class="mi">219</span><span class="p">)</span>
+<span class="n">apds9960_device</span><span class="o">.</span><span class="n">enable_prox_sensor</span><span class="p">(</span><span class="n">apds9960</span><span class="o">.</span><span class="n">GAIN_1</span><span class="p">,</span> <span class="n">apds9960</span><span class="o">.</span><span class="n">LED_100MA</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">apds9960_device</span><span class="o">.</span><span class="n">read_light</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">apds9960_device</span><span class="o">.</span><span class="n">read_prox</span><span class="p">())</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Gesture</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">apds9960</span>
+
+<span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">apds9960_device</span> <span class="o">=</span> <span class="n">apds9960</span><span class="o">.</span><span class="n">APDS9960</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="mi">57</span><span class="p">)</span>
+<span class="n">apds9960_device</span><span class="o">.</span><span class="n">enable_gesture_sensor</span><span class="p">(</span><span class="n">apds9960</span><span class="o">.</span><span class="n">GAIN_4</span><span class="p">,</span> <span class="n">apds9960</span><span class="o">.</span><span class="n">LED_100MA</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">apds9960_device</span><span class="o">.</span><span class="n">read_gesture</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">apds9960_device</span><span class="o">.</span><span class="n">get_gesture</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Up&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">apds9960_device</span><span class="o">.</span><span class="n">get_gesture</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Down&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">apds9960_device</span><span class="o">.</span><span class="n">get_gesture</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;l&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Left&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">apds9960_device</span><span class="o">.</span><span class="n">get_gesture</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Right&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p><strong>Ambient and Proximity</strong></p>
+<p>You should see the 2 sets of sensor readings printed in the monitor; the first is a list of 4 numbers representing the detected clear (...any color), red, green, and blue light level, while the second is a single number representing proximity.</p>
+<p>If you bring a colored object (eg. red) near to the sensor, you should see the green and blue value fall, while the red value remain high.
+Turning the lights in the room off should cause all the values to fall.</p>
+<p>To test the proximity sensor, bring your hand close to the sensor (less than 10cm), and you should see the values change depending on the distance.</p>
+<p><strong>Gesture</strong></p>
+<p>Wave your hand across the sensor, and it should print out the direction.
+Your hand needs to be close to the sensor (~5cm should be good).</p>
+<h1><code>class APDS9960</code> - control light, proximity, gesture sensor</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>apds9960.APDS9960(i2c, addr=57)</h3>
+<p>Creates an APDS9960 object.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>i2c</code> An i2c object.</p>
+</li>
+<li>
+<p><code>addr</code> The i2c address of the APDS9960. By default, this should be 57.</p>
+</li>
+</ul>
+<p>Returns a <code>APDS9960</code> object.</p>
+<h2>Methods</h2>
+<h3>APDS9960.enable_light_sensor(gain=AGAIN_1, atime=219)</h3>
+<p>Enables the ambient light sensor.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>gain</code> The sensor gain. Higher gain will increase sensitivity. It must be one of the following:</p>
+<ul>
+<li>
+<p><code>apds9960.AGAIN_1</code> Gain of 1.</p>
+</li>
+<li>
+<p><code>apds9960.AGAIN_4</code> Gain of 4.</p>
+</li>
+<li>
+<p><code>apds9960.AGAIN_16</code> Gain of 16.</p>
+</li>
+<li>
+<p><code>apds9960.AGAIN_64</code> Gain of 64.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>atime</code> An integer (0 to 255) representing the detection speed. Higher speed will result in lower sensitivity. At 0, each read will take 712ms, while at 255 (max), each read will take 2.78ms.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>APDS9960.disable_light_sensor()</h3>
+<p>Disables the ambient light sensor.</p>
+<p>Returns <code>None</code>.</p>
+<h3>APDS9960.read_light()</h3>
+<p>Reads the ambient light value.</p>
+<p>Returns a list containing 4 integers representing the light level for clear (any color), red, green, and blue.</p>
+<h3>APDS9960.enable_prox_sensor(gain=GAIN_1, led=LED_100MA)</h3>
+<p>Enables the proximity sensor.
+This works by turning on the built-in IR LED, and measuring how much IR is reflected back.</p>
+<p>The gesture sensor must be disabled for the proximity sensor to work.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>gain</code> The sensor gain. Higher gain will increase sensitivity. It must be one of the following:</p>
+<ul>
+<li>
+<p><code>apds9960.GAIN_1</code> Gain of 1.</p>
+</li>
+<li>
+<p><code>apds9960.GAIN_2</code> Gain of 2.</p>
+</li>
+<li>
+<p><code>apds9960.GAIN_4</code> Gain of 4.</p>
+</li>
+<li>
+<p><code>apds9960.GAIN_8</code> Gain of 8.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>led</code> The power of the built-in IR LED. Higher power will increase sensitivity. It must be one of the following:</p>
+<ul>
+<li>
+<p><code>apds9960.LED_100MA</code> Run the LED at 100mA.</p>
+</li>
+<li>
+<p><code>apds9960.LED_50MA</code> Run the LED at 50mA.</p>
+</li>
+<li>
+<p><code>apds9960.LED_25MA</code> Run the LED at 25mA.</p>
+</li>
+<li>
+<p><code>apds9960.LED_12MA</code> Run the LED at 12mA.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>APDS9960.disable_prox_sensor()</h3>
+<p>Disables the proximity sensor.</p>
+<p>Returns <code>None</code>.</p>
+<h3>APDS9960.read_prox()</h3>
+<p>Reads the proximity value.</p>
+<p>This gives an indication of how close an object is, but cannot be converted into a distance as differences in object reflectivity will affect the returned value.</p>
+<p>Returns an integers representing the proximity.</p>
+<h3>APDS9960.enable_gesture_sensor(gain=GAIN_1, led=LED_100MA, prox_enter=40, prox_exit=30)</h3>
+<p>Enables the gesture sensor.
+This works by turning on the built-in IR LED, and measuring how much IR is reflected back on to different regions of the detector.</p>
+<p>The proximity sensor must be disabled for the gesture sensor to work.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>gain</code> The sensor gain. Higher gain will increase sensitivity. It must be one of the following:</p>
+<ul>
+<li>
+<p><code>apds9960.GAIN_1</code> Gain of 1.</p>
+</li>
+<li>
+<p><code>apds9960.GAIN_2</code> Gain of 2.</p>
+</li>
+<li>
+<p><code>apds9960.GAIN_4</code> Gain of 4.</p>
+</li>
+<li>
+<p><code>apds9960.GAIN_8</code> Gain of 8.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>led</code> The power of the built-in IR LED. Higher power will increase sensitivity. It must be one of the following:</p>
+<ul>
+<li>
+<p><code>apds9960.LED_100MA</code> Run the LED at 100mA.</p>
+</li>
+<li>
+<p><code>apds9960.LED_50MA</code> Run the LED at 50mA.</p>
+</li>
+<li>
+<p><code>apds9960.LED_25MA</code> Run the LED at 25mA.</p>
+</li>
+<li>
+<p><code>apds9960.LED_12MA</code> Run the LED at 12mA.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>prox_enter</code> An integer representing the minimum level at which gesture detection starts.</p>
+</li>
+<li>
+<p><code>prox_exit</code> An integer representing the level at which gesture detection ends.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>APDS9960.disable_gesture_sensor()</h3>
+<p>Disables the gesture sensor.</p>
+<p>Returns <code>None</code>.</p>
+<h3>APDS9960.read_gesture()</h3>
+<p>Reads the gesture value.</p>
+<p>You need to run this frequently, as new gestures cannot be detected until the old gestures are read.</p>
+<p>Returns a string representing the detected gesture.
+Will be one of the following; <code>"u"</code> (Up), <code>"d"</code> (Down), <code>"l"</code> (Left), <code>"r"</code> (Right), <code>""</code> (Empty string, no gesture detected).</p>
+<h3>APDS9960.get_gesture()</h3>
+<p>Gets the last detected gesture.</p>
+<p>You must run <code>read_gesture()</code> first.</p>
+<p>Returns a string representing the detected gesture.
+Will be one of the following; <code>"u"</code> (Up), <code>"d"</code> (Down), <code>"l"</code> (Left), <code>"r"</code> (Right), <code>""</code> (Empty string, no gesture detected).</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>
