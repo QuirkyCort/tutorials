@@ -28,9 +28,11 @@ Breadboards and dupont wires provides an easy way to connect components to your 
 When connecting your ESP32 to a breadboard, it is recommended to plug in only one side to each breadboard.
 Like this...
 
-![](images/esp32Breadboard.webp)
+![](images/breadboardOneSide.webp)
 
-If you need to use the other side as well, use a second breadboard.
+If you need to use the other side as well, use a second breadboard...
+
+![](images/breadboardTwoSides.webp)
 
 ## Digital Output (Write)
 
