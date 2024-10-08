@@ -61,10 +61,19 @@ th {
   transition: left 0.5s; }
   #sidebar p {
     font-weight: bold;
-    font-family: sans-serif; }
+    font-family: sans-serif;
+    cursor: pointer; }
+    #sidebar p i.plus {
+      display: none; }
+  #sidebar p.close i.plus {
+    display: inline; }
+  #sidebar p.close i.minus {
+    display: none; }
   #sidebar ul {
     padding: 0 0 0.5em 0;
     border-bottom: solid 1px rgba(255, 255, 255, 0.2); }
+  #sidebar ul.hide {
+    display: none; }
   #sidebar li {
     list-style: none;
     padding: 0.2em 0 0.2em 1em;

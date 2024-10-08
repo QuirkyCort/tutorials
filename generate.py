@@ -30,6 +30,9 @@ def debug_print(text):
     if DEBUG:
         print(text)
 
+def strip_invalid_chars(text):
+    return re.sub(r'[^a-zA-Z]', '', text)
+
 def sort_by_num(a):
     def ignore_prefix(e):
         return re.sub('^[0-9]+ *', '', e)
@@ -76,7 +79,9 @@ def get_meta(directory):
 def get_course_meta(directory, course):
     default_meta = {
         'title': course,
-        'shortDescription': ''
+        'shortDescription': '',
+        'enableSectionMenu': False,
+        'sectionStartsClosed': False
     }
 
     meta = get_meta(directory)
@@ -87,6 +92,8 @@ def get_course_meta(directory, course):
     else:
         default_meta['title'] = get_prop(meta, 'title', course)
         default_meta['shortDescription'] = get_prop(meta, 'shortDescription', '')
+        default_meta['enableSectionMenu'] = get_prop(meta, 'enableSectionMenu', False)
+        default_meta['sectionStartsClosed'] = get_prop(meta, 'sectionStartsClosed', False)
 
     return default_meta
 
@@ -141,11 +148,25 @@ def get_prop(meta, prop, default):
     else:
         return default
 
-def gen_toc_html(toc, filename):
+def gen_toc_html(toc, filename, meta):
     html = ''
     for section in toc:
-        html += '<p>' + section['title'] + '</p>'
-        html += '<ul>'
+        sectionClass = ''
+        classname = ''
+        icon = ''
+        hide = ''
+        close = ''
+
+        if meta['enableSectionMenu']:
+            sectionClass = 'sectionTitle'
+            classname = strip_invalid_chars(section['title'])
+            icon = '<i class="plus fa fa-plus-square-o" aria-hidden="true"></i><i class="minus fa fa-minus-square-o" aria-hidden="true"></i> '
+            if meta['sectionStartsClosed']:
+                hide = ' hide'
+                close = ' close'
+
+        html += '<p class="' + sectionClass + close + '" data-section="' + classname + '">' + icon + section['title'] + '</p>'
+        html += '<ul class="' + classname + hide + '">'
         for page in section['pages']:
             if filename == page['path']:
                 ele_class = 'class="current"'
@@ -367,7 +388,7 @@ for course in courses:
             content = get_md_content(section_path, page)
             content_html = compile_md(content)
 
-            toc_html = gen_toc_html(toc, section_out + '/' + filename_out)
+            toc_html = gen_toc_html(toc, section_out + '/' + filename_out, course_meta)
 
             template = root_template
             if course_template:

@@ -70,11 +70,30 @@ th {
     p {
         font-weight: bold;
         font-family: sans-serif;
+        cursor: pointer;
+
+        i.plus {
+            display: none;
+        }
+    }
+
+    p.close {
+        i.plus {
+            display: inline;
+        }
+
+        i.minus {
+            display: none;
+        }
     }
 
     ul {
         padding: 0 0 0.5em 0;
         border-bottom: solid 1px rgba(255,255,255,0.2);
+    }
+
+    ul.hide {
+        display: none;
     }
 
     li {

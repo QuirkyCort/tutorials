@@ -43,16 +43,49 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        function initHamburger() {
             document.getElementById('hamburger').addEventListener('click', function() {
                 document.getElementById('body').classList.toggle('close');
             });
+        }
 
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
             let currentEle = document.querySelector('#sidebar li.current');
             currentEle.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
+
+            let closedParent = currentEle.closest('.hide');
+            if (closedParent) {
+                closedParent.classList.remove('hide');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
         });
     </script>
 </body>

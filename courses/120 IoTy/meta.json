@@ -1,4 +1,6 @@
 {
     "title": "IoTy Documentation",
-    "shortDescription": "Internet-of-Things made easy"
+    "shortDescription": "Internet-of-Things made easy",
+    "enableSectionMenu": true,
+    "sectionStartsClosed": true
 }
