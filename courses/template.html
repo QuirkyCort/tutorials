@@ -76,9 +76,14 @@
                 block: 'center'
             });
 
-            let closedParent = currentEle.closest('.hide');
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+            }
+
+            let closedParent = currentEle.closest('.close');
             if (closedParent) {
-                closedParent.classList.remove('hide');
+                closedParent.classList.remove('close');
             }
         }
 
