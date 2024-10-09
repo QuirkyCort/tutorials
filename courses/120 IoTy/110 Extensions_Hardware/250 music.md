@@ -4,8 +4,8 @@
 
 Plays tones, musical notes, and songs in [Ring Tone Text Transfer Language (RTTTL)](https://en.wikipedia.org/wiki/Ring_Tone_Text_Transfer_Language#:~:text=Ring%20Tone%20Text%20Transfer%20Language%20(RTTTL)%20is%20a%20text%2D,the%20name%20of%20the%20ringtone.) format.
 
-You can find many RTTTL songs online (eg. https://picaxe.com/rtttl-ringtones-for-tune-command/).
-No special softwares are required to compose RTTTL songs, but something like this... https://eddmann.com/nokia-composer-web/ can make the process easier.
+You can find many RTTTL songs online (eg. [https://picaxe.com/rtttl-ringtones-for-tune-command/](https://picaxe.com/rtttl-ringtones-for-tune-command/)).
+No special softwares are required to compose RTTTL songs, but something like this... [https://eddmann.com/nokia-composer-web/](https://eddmann.com/nokia-composer-web/) can make the process easier.
 
 ## Pins
 
