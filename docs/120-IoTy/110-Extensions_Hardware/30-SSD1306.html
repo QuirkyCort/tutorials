@@ -94,7 +94,7 @@ You can find the <code>convert to</code> block in the <code>Data</code> category
 <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">init_display</span><span class="p">()</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">())),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">()),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">ssd1306_i2c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
@@ -234,7 +234,7 @@ Draw commands (eg. <code>text</code>, <code>line</code>, <code>rect</code>) will
 <p>Returns an <code>integer</code> representing the color if c is not given, else <code>None</code>.</p>
 <h3>SSD1306.hline(x, y, w, c)</h3>
 <h3>SSD1306.vline(x, y, h, c)</h3>
-<h3>SSD1306.hline(x1, y1, x2, y2, c)</h3>
+<h3>SSD1306.line(x1, y1, x2, y2, c)</h3>
 <p>Draw a line from a set of coordinates using the given color and a thickness of 1 pixel. The line method draws the line up to a second set of coordinates whereas the hline and vline methods draw horizontal and vertical lines respectively up to a given length.</p>
 <p>The arguments are:</p>
 <ul>

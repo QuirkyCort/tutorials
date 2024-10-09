@@ -92,17 +92,13 @@ The DS3231 allows the ESP32 to retrieve the time anywhere, without relying on ne
 <p><img alt="" src="images/ds3231_blocks2.webp" /></p>
 <h3>Python</h3>
 <p><strong>Set Time</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">network</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ioty.wifi</span>
 <span class="kn">import</span> <span class="nn">ntptime</span>
 <span class="kn">import</span> <span class="nn">machine</span>
 <span class="kn">import</span> <span class="nn">ds3231</span>
 
-<span class="c1"># Connect to WiFi</span>
-<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ioty_wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">ioty_wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
-    <span class="k">pass</span> <span class="c1"># Do nothing until wifi is connected</span>
+<span class="n">ioty_wifi</span> <span class="o">=</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Connected to WiFi&#39;</span><span class="p">)</span>
 
 <span class="n">ntptime</span><span class="o">.</span><span class="n">settime</span><span class="p">()</span>
 <span class="n">dateTime</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">())</span>
@@ -110,7 +106,7 @@ The DS3231 allows the ESP32 to retrieve the time anywhere, without relying on ne
 <span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">dateTime</span><span class="p">)</span>
 <span class="n">i2c0</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
 <span class="n">ds3231_device</span> <span class="o">=</span> <span class="n">ds3231</span><span class="o">.</span><span class="n">DS3231</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="mi">104</span><span class="p">)</span>
-<span class="n">ds3231_device</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">()))</span>
+<span class="n">ds3231_device</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">())</span>
 </code></pre></div>
 
 <p><strong>Retrieve Time</strong></p>
@@ -122,7 +118,7 @@ The DS3231 allows the ESP32 to retrieve the time anywhere, without relying on ne
 <span class="n">ds3231_device</span> <span class="o">=</span> <span class="n">ds3231</span><span class="o">.</span><span class="n">DS3231</span><span class="p">(</span><span class="n">i2c0</span><span class="p">,</span> <span class="mi">104</span><span class="p">)</span>
 <span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">ds3231_device</span><span class="o">.</span><span class="n">datetime</span><span class="p">())</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">())</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 
