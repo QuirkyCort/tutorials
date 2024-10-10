@@ -56,13 +56,35 @@ You should see the specified image drawn on screen.
 !!!!!
 ## Constructors
 
-None.
+### PNGdecoder.png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, format=NO_CONVERSION)
 
-Use the functions provided by `PNGdecoder`.
+Returns a png object.
+
+The arguments are:
+
+* `source` A string representing the PNG file to render.
+
+* `callback` A function for drawing the pixel to screen. This will be called with parameters `x`, `y`, `color`.
+
+* `cache` A boolean. If True, the decoded image will be cached, making subsequent draws a little faster.
+
+* `bg` A list containing Red, Green, and Blue values (0 to 255). When drawing a transparent PNG, this will be used as the background color.
+
+* `fastalpha` A boolean. If True, every pixel in a transparent PNG will be drawn at full opacity, except for pixels which are fully transparent.
+
+* `format` The conversion to perform for the pixel data.
+
+    * `PNGdecoder.NO_CONVERSION` Don't perform any conversion.
+
+    * `PNGdecoder.RGB24_TO_RGB565BE` Convert from 24bits RGB to 16bits RGB565 Big Endian.
+
+    * `PNGdecoder.RGB24_TO_RGB565LE` Convert from 24bits RGB to 16bits RGB565 Little Endian.
+
+Returns a png object.
 
 ## Methods
 
-### PNGdecoder.png(source, callback=print, cache=False, bg=(0, 0, 0), fastalpha=True, format=NO_CONVERSION)
+### png.render(x=0, y=0, placeholder=False, phcolor=0xBBBBBB)
 
 Decode and draw the specified image.
 
@@ -70,15 +92,17 @@ Depending on your display device, you may need to perform a `show()` after drawi
 
 The arguments are:
 
-* `s` A string representing the text to draw.
+* `x` / `y` An integer representing the x and y position to draw the image.
 
-* `x` / `y` An integer representing the x and y position to draw the text.
+* `placeholder` A function for drawing a placeholder rectangle before rendering the image. This will be called with parameters `x`, `y`, `W`, `H`, `phcolor`. If False, no placeholder rectangle will be drawn.
 
-* `c` An integer representing the color to draw.
+* `phcolor` An integer representing the placeholder color.
 
-* `scale` An integer representing how much to scale the font (ie. `2` will double the font size).
+Returns a png object.
 
-* `background` An integer representing the background color. If None, the background will not be filled.
+### png.getMeta()
 
-Returns None.
+Get the meta data for the image.
+
+Returns a tuple containing the Width, Height, Depth, and Color of the PNG image.
 !!!!!
