@@ -58,8 +58,6 @@ None.
 
 Use the functions provided by `tween`.
 
-## Functions
-
 ## Methods
 
 ### tween.start(id, type, y0, y1, x0, duration=0, speed=1)

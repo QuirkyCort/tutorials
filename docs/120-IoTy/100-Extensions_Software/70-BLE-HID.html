@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>IoTy Documentation</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            IoTy Documentation
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Internet-of-Things made easy</div>
+            <p class="sectionTitle close" data-section="IntrotoIoTy"><i class="plus fa fa-plus-square-o" aria-hidden="true"></i><i class="minus fa fa-minus-square-o" aria-hidden="true"></i> Intro to IoTy</p><ul class="IntrotoIoTy hide"><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-First-Program.html"><li >First Program</li></a><a href="../10-Introduction/30-Connection-Modes.html"><li >Connection Modes</li></a><a href="../10-Introduction/40-Monitor.html"><li >Monitor</li></a></ul><p class="sectionTitle close" data-section="BasicFeaturesGPIO"><i class="plus fa fa-plus-square-o" aria-hidden="true"></i><i class="minus fa fa-minus-square-o" aria-hidden="true"></i> Basic Features (GPIO)</p><ul class="BasicFeaturesGPIO hide"><a href="../20-Basics-GPIO/10-GPIO-Pins.html"><li >GPIO Pins</li></a><a href="../20-Basics-GPIO/20-Analog-Read-and-Write.html"><li >Analog Read and Write</li></a><a href="../20-Basics-GPIO/30-Servo.html"><li >Servo</li></a><a href="../20-Basics-GPIO/40-Ultrasonic-Distance.html"><li >Ultrasonic Distance (HC-SR04)</li></a><a href="../20-Basics-GPIO/99-Python-Docs---pin.html"><li >Python Docs - pin</li></a></ul><p class="sectionTitle close" data-section="ExtensionsSoftware"><i class="plus fa fa-plus-square-o" aria-hidden="true"></i><i class="minus fa fa-minus-square-o" aria-hidden="true"></i> Extensions (Software)</p><ul class="ExtensionsSoftware hide"><a href="../100-Extensions_Software/10-urequests.html"><li >HTTP Requests (urequests)</li></a><a href="../100-Extensions_Software/20-EZ-ESP-NOW.html"><li >EZ ESP-NOW</li></a><a href="../100-Extensions_Software/30-EZ-HTTPD.html"><li >EZ HTTP (Web Server)</li></a><a href="../100-Extensions_Software/40-non-block.html"><li >Non-Blocking Read</li></a><a href="../100-Extensions_Software/50-EZ-Timer.html"><li >EZ Timer</li></a><a href="../100-Extensions_Software/60-tween.html"><li >Tween</li></a><a href="../100-Extensions_Software/70-BLE-HID.html"><li class="current">Bluetooth Low Energy Human Interface Device</li></a></ul><p class="sectionTitle close" data-section="ExtensionsHardware"><i class="plus fa fa-plus-square-o" aria-hidden="true"></i><i class="minus fa fa-minus-square-o" aria-hidden="true"></i> Extensions (Hardware)</p><ul class="ExtensionsHardware hide"><a href="../110-Extensions_Hardware/10-Gyro.html"><li >Gyro (MPU-6050)</li></a><a href="../110-Extensions_Hardware/20-Servo-driver.html"><li >Servo Driver (PCA9685)</li></a><a href="../110-Extensions_Hardware/30-SSD1306.html"><li >OLED Screen (SSD1306 / SH1106)</li></a><a href="../110-Extensions_Hardware/40-Neopixel.html"><li >Neopixel (WS2812 LEDs)</li></a><a href="../110-Extensions_Hardware/50-I2C-LCD.html"><li >I2C LCD (HD44780 + PCF8574)</li></a><a href="../110-Extensions_Hardware/60-DHT11.html"><li >Temperature and Humidity (DHT11, DHT22, AM2302)</li></a><a href="../110-Extensions_Hardware/70-EZ-DS18X20.html"><li >Temperature Sensor (DS18S20, DS18B20)</li></a><a href="../110-Extensions_Hardware/80-GPS.html"><li >GPS (NMEA over serial)</li></a><a href="../110-Extensions_Hardware/90-hx711.html"><li >Analog-to-Digital (HX711)</li></a><a href="../110-Extensions_Hardware/100-hx710.html"><li >Analog-to-Digital (HX710)</li></a><a href="../110-Extensions_Hardware/110-MFRC522.html"><li >RFID Reader (MFRC522)</li></a><a href="../110-Extensions_Hardware/120-Magnetic-Sensor.html"><li >Magnetic Sensor (QMC5883L, HMC5883L)</li></a><a href="../110-Extensions_Hardware/130-Barometric-Pressure.html"><li >Barometric Pressure (BMP280, BME280)</li></a><a href="../110-Extensions_Hardware/140-Heart-Rate.html"><li >Heart Rate Sensor (MAX30102)</li></a><a href="../110-Extensions_Hardware/150-ToF.html"><li >Laser Ranging (VL53L0X, VL52L1X)</li></a><a href="../110-Extensions_Hardware/160-rtc-ds3231.html"><li >Real-Time Clock (DS3231)</li></a><a href="../110-Extensions_Hardware/170-apds9960.html"><li >Light, Proximity, Gesture (APDS9960)</li></a><a href="../110-Extensions_Hardware/180-gy33_i2c.html"><li >Color Sensor (GY-33, I2C)</li></a><a href="../110-Extensions_Hardware/190-gy33_uart.html"><li >Color Sensor (GY-33, UART)</li></a><a href="../110-Extensions_Hardware/200-tcs3472.html"><li >Color Sensor (TCS3472)</li></a><a href="../110-Extensions_Hardware/210-max6675.html"><li >Thermocouple Board (MAX6675)</li></a><a href="../110-Extensions_Hardware/220-encoder.html"><li >Incremental Encoder</li></a><a href="../110-Extensions_Hardware/230-husky-lens.html"><li >Husky Lens</li></a><a href="../110-Extensions_Hardware/250-music.html"><li >Music</li></a><a href="../110-Extensions_Hardware/260-Scaled-Text.html"><li >Scaled Text</li></a><a href="../110-Extensions_Hardware/270-PNG-decoder.html"><li >PNG Decoder</li></a><a href="../110-Extensions_Hardware/280-BMP-Image.html"><li >BMP Image</li></a></ul><p class="sectionTitle close" data-section="OthersComponents"><i class="plus fa fa-plus-square-o" aria-hidden="true"></i><i class="minus fa fa-minus-square-o" aria-hidden="true"></i> Others Components</p><ul class="OthersComponents hide"><a href="../200-Others/10-hbridge.html"><li >Intro to H-Bridge</li></a><a href="../200-Others/12-hbridgeControl2Pins.html"><li >Controlling a H-Bridge (2 pins)</li></a><a href="../200-Others/14-hbridgeControl3Pins.html"><li >Controlling a H-Bridge (3 pins)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Bluetooth Low Energy Human Interface Device</h1>
+<p>This extension allows the ESP32 to emulate a Bluetooth Low Energy (BLE) Human Interface Device (HID) device (eg. keyboard, mouse, joystick).
+You can use it to send keyboard/mouse/joystick commands to your computer or phone.</p>
+<p>The BLE devices this extension can emulate includes:</p>
+<ul>
+<li>Keyboard</li>
+<li>Mouse</li>
+<li>Joystick</li>
+<li>Consumer Control Device</li>
+</ul>
+<p>Currently only works with micropython 1.19.1 and 1.23.0.</p>
+<div class="info">
+You may not know what a Consumer Control Device is, but you're probably using one right now. Many keyboards includes buttons for volume control, pause/play music, open calculator app, etc. These are actually not part of the keyboard device keys. The keyboard registers two devices with your OS; a regular keyboard and a Consumer Control Device. These special keys are sent to the computer via the the Consumer Control Device.
+</div>
+
+<h2>Code</h2>
+<p>This code will emulate a Bluetooth keyboard.
+If you connect your computer to it and press the boot button, it will send the keypresses for "Hello World" to your computer.</p>
+<div class="info">
+Keyboards sends <strong>Key Codes</strong>, not characters. This means that the character that appears on your computer will depend on your keyboard layout settings. If you're not using a US English QWERTY layout, the text that appears on screen may differ from what you send.
+</div>
+
+<h3>Blocks</h3>
+<p><img alt="" src="images/blehid_blocks.webp" /></p>
+<h3>Python</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">hid_services</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
+
+<span class="n">hid_keyboard</span> <span class="o">=</span> <span class="n">hid_services</span><span class="o">.</span><span class="n">Keyboard</span><span class="p">(</span><span class="s1">&#39;MyKeyboard&#39;</span><span class="p">)</span>
+<span class="n">hid_keyboard</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">hid_keyboard</span><span class="o">.</span><span class="n">start_advertising</span><span class="p">()</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">digital_read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">hid_keyboard</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span> <span class="ow">is</span> <span class="n">hid_services</span><span class="o">.</span><span class="n">Keyboard</span><span class="o">.</span><span class="n">DEVICE_CONNECTED</span><span class="p">:</span>
+            <span class="n">hid_keyboard</span><span class="o">.</span><span class="n">send_string</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Results</h3>
+<p>Download the code to your device and reset it.
+Search for a Bluetooth keyboard named "MyKeyboard" on your computer or phone, and connect to it.
+Open a text editor then press the boot button on your ESP32; you should see "Hello World" typed out in your text editor.</p>
+<div class="info">
+You may need to remove/forget the device from your computer/phone and re-add it again the next time you connect.
+</div>
+
+<h1><code>hid_services</code> - emulation of Bluetooth LE Human Interface Devices</h1>
+<div class="custom_lib_docs">
+<h2>Constructors</h2>
+<h3>hid_services.Keyboard(name="Bluetooth Keyboard")</h3>
+<p>Creates a Keyboard object.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>name</code> A string representing the name of the device. This is used when advertising the device over Bluetooth.</li>
+</ul>
+<p>Returns a <code>Keyboard</code> object.</p>
+<h3>hid_services.Mouse(name="Bluetooth Mouse", type="rel")</h3>
+<p>Creates a Mouse object.
+Despite the name, this also include touchpad and touchscreen type devices.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>name</code> A string representing the name of the device. This is used when advertising the device over Bluetooth.</p>
+</li>
+<li>
+<p><code>type</code> A string representing the mouse type. This can be <code>"rel"</code> for a relative device that sends changes in position (eg. mouse), or <code>"abs"</code> for a device that sends absolute position (eg. touchscreen).</p>
+</li>
+</ul>
+<p>Returns a <code>Mouse</code> object.</p>
+<h3>hid_services.Joystick(name="Bluetooth Joystick")</h3>
+<p>Creates a Joystick object.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>name</code> A string representing the name of the device. This is used when advertising the device over Bluetooth.</li>
+</ul>
+<p>Returns a <code>Joystick</code> object.</p>
+<h3>hid_services.ConsumerControl(name="Bluetooth CCD")</h3>
+<p>Creates a ConsumerControl object.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>name</code> A string representing the name of the device. This is used when advertising the device over Bluetooth.</li>
+</ul>
+<p>Returns a <code>ConsumerControl</code> object.</p>
+<h2>Methods (All)</h2>
+<h3>HumanInterfaceDevice.start()</h3>
+<p>Starts the device.
+You must start the device before doing anything else.</p>
+<p>Returns <code>None</code>.</p>
+<h3>HumanInterfaceDevice.stop()</h3>
+<p>Stops the device.</p>
+<p>Returns <code>None</code>.</p>
+<h3>HumanInterfaceDevice.start_advertising()</h3>
+<p>Start advertisement of the device.
+If advertisement is not started, the device will not be found by your computer / phone when searching for Bluetooth devices.</p>
+<p>Returns <code>None</code>.</p>
+<h3>HumanInterfaceDevice.stop_advertising()</h3>
+<p>Stop advertisement of the device.</p>
+<p>Returns <code>None</code>.</p>
+<h3>HumanInterfaceDevice.get_state()</h3>
+<p>Get the state of the device.
+This can be one of the following...</p>
+<ul>
+<li>
+<p><code>HumanInterfaceDevice.DEVICE_STOPPED</code> Device is stopped.</p>
+</li>
+<li>
+<p><code>HumanInterfaceDevice.DEVICE_IDLE</code> Device is started and idling.</p>
+</li>
+<li>
+<p><code>HumanInterfaceDevice.DEVICE_ADVERTISING</code> Device is advertising itself.</p>
+</li>
+<li>
+<p><code>HumanInterfaceDevice.DEVICE_CONNECTED</code> Device is connected.</p>
+</li>
+</ul>
+<p>Returns the state of the device.</p>
+<h2>Methods (Keyboard)</h2>
+<h3>Keyboard.send_string(st)</h3>
+<p>Sends the provided string as keypresses.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>st</code> A string representing the keypresses to send. The characters in the string will be converted to keypresses based on a US English Dvorak keyboard layout and sent to the connected device.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Keyboard.send_key(key, right_gui=0, right_alt=0, right_shift=0, right_control=0, left_gui=0, left_alt=0, left_shift=0, left_control=0)</h3>
+<p>Sends the provided key code with modifier.
+This can be used to send keys that can't be easily represented in a string (eg. "Enter", "CTRL-C").</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>key</code> An integer representing the keycode to send.</p>
+</li>
+<li>
+<p><code>right_gui</code> / <code>left_gui</code> An integer (0 or 1) indicating if the <strong>GUI</strong> key (AKA. Windows Key, CMD Key) is held down during keypress.</p>
+</li>
+<li>
+<p><code>right_alt</code> / <code>left_alt</code> An integer (0 or 1) indicating if the <strong>Alt</strong> is held down during keypress.</p>
+</li>
+<li>
+<p><code>right_shift</code> / <code>left_shift</code> An integer (0 or 1) indicating if the <strong>Shift</strong> is held down during keypress.</p>
+</li>
+<li>
+<p><code>right_control</code> / <code>left_control</code> An integer (0 or 1) indicating if the <strong>Ctrl</strong> is held down during keypress.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Keyboard.set_keys(k0=0x00, k1=0x00, k2=0x00, k3=0x00, k4=0x00, k5=0x00)</h3>
+<p>Sets the provided key code.
+This can be used to send multiple simultaneous keys presses, as well as simulate holding down a key.</p>
+<p>Unlike <code>send_str()</code> and <code>send_key()</code>, this does <strong>NOT</strong> send the keypress; you must perform a <code>notify_hid_report()</code> to send it.
+Also, this only sends a key down; you must send a separate key up by setting keys to zero and performing another <code>notify_hid_report()</code>.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>k0</code> to <code>k5</code> An integer representing the keycode to send. This allows you to send up to 6 simultaneous keypresses.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Keyboard.set_modifiers(right_gui=0, right_alt=0, right_shift=0, right_control=0, left_gui=0, left_alt=0, left_shift=0, left_control=0)</h3>
+<p>Sets the modifiers.
+This is used together with <code>set_keys()</code> to send multiple simultaneous keypresses with modifiers.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>right_gui</code> / <code>left_gui</code> An integer (0 or 1) indicating if the <strong>GUI</strong> key (AKA. Windows Key, CMD Key) is held down during keypress.</p>
+</li>
+<li>
+<p><code>right_alt</code> / <code>left_alt</code> An integer (0 or 1) indicating if the <strong>Alt</strong> is held down during keypress.</p>
+</li>
+<li>
+<p><code>right_shift</code> / <code>left_shift</code> An integer (0 or 1) indicating if the <strong>Shift</strong> is held down during keypress.</p>
+</li>
+<li>
+<p><code>right_control</code> / <code>left_control</code> An integer (0 or 1) indicating if the <strong>Ctrl</strong> is held down during keypress.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Keyboard.notify_hid_report()</h3>
+<p>Sends the key codes.
+Run this after setting the key codes and modifiers to send the key codes.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>Returns <code>None</code>.</p>
+<h2>Methods (Mouse)</h2>
+<h3>Mouse.send_rel(x=0, y=0, w=0)</h3>
+<p>Sends the relative position (ie. change) in the axis.
+This only works if the device is initialized in relative (<code>"rel"</code>) mode.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer (-127 to 127) representing the change in x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer (-127 to 127) representing the change in y position.</p>
+</li>
+<li>
+<p><code>w</code> An integer (-127 to 127) representing the change in mouse wheel position.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Mouse.send_abs(x, y)</h3>
+<p>Sends the absolute position.
+This only works if the device is initialized in absolute (<code>"abs"</code>) mode.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer (0 to 32767) representing the x position. This is scaled to the screen (ie. 32767 is always at the extreme right of the screen, regardless of the screen resolution).</p>
+</li>
+<li>
+<p><code>y</code> An integer (0 to 32767) representing the y position. This is scaled to the screen (ie. 32767 is always at the extreme bottom of the screen, regardless of the screen resolution).</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Mouse.send_buttons(b1=0, b2=0, b3=0)</h3>
+<p>Sends the state of the mouse buttons.
+Note that to send a mouse click, you will need to first send a <strong>button down</strong> followed by a <strong>button up</strong>.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>b1</code> An integer (0 or 1) representing the state of the left button (down or up).</p>
+</li>
+<li>
+<p><code>b2</code> An integer (0 or 1) representing the state of the right button (down or up).</p>
+</li>
+<li>
+<p><code>b3</code> An integer (0 or 1) representing the state of the middle button (down or up).</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h2>Methods (Joystick)</h2>
+<h3>Joystick.send_axes(x=0, y=0)</h3>
+<p>Sends the position of the axis.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li>
+<p><code>x</code> An integer (-127 to 127) representing the x position.</p>
+</li>
+<li>
+<p><code>y</code> An integer (-127 to 127) representing the y position.</p>
+</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>Joystick.send_buttons(self, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0, b7=0, b8=0)</h3>
+<p>Sends the state of the joystick buttons.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>b1</code> to <code>b8</code> An integer (0 or 1) representing the state of the button (down or up).</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h2>Methods (ConsumerControl)</h2>
+<h3>ConsumerControl.send_key(key)</h3>
+<p>Sends the provided key code.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>key</code> An integer representing the keycode to send. See the <a href="https://usb.org/sites/default/files/hut1_21_0.pdf">HID Usage Table</a> for a list of Consumer Control keycodes. There are hundreds of keycodes, but your computer / phone will likely only response to a small handful of them.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>ConsumerControl.set_key(key=0x00)</h3>
+<p>Sets the provided key code.
+This can be used to simulate holding down a key.</p>
+<p>Unlike <code>send_key()</code>, this does <strong>NOT</strong> send the keypress; you must perform a <code>notify_hid_report()</code> to send it.
+Also, this only sends a key down; you must send a separate key up by setting key to zero and performing another <code>notify_hid_report()</code>.</p>
+<p>The arguments are:</p>
+<ul>
+<li><code>key</code> An integer representing the keycode to send. See the <a href="https://usb.org/sites/default/files/hut1_21_0.pdf">HID Usage Table</a> for a list of Consumer Control keycodes. There are hundreds of keycodes, but your computer / phone will likely only response to a small handful of them.</li>
+</ul>
+<p>Returns <code>None</code>.</p>
+<h3>ConsumerControl.notify_hid_report()</h3>
+<p>Sends the key code.
+Run this after setting the key code to send it.</p>
+<p>Your device must be in the <code>DEVICE_CONNECTED</code> state before running this.</p>
+<p>Returns <code>None</code>.</p>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+            }
+
+            let closedParent = currentEle.closest('.close');
+            if (closedParent) {
+                closedParent.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>
