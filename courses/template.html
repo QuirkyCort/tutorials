@@ -79,11 +79,7 @@
             let hiddenParent = currentEle.closest('.hide');
             if (hiddenParent) {
                 hiddenParent.classList.remove('hide');
-            }
-
-            let closedParent = currentEle.closest('.close');
-            if (closedParent) {
-                closedParent.classList.remove('close');
+                hiddenParent.previousElementSibling.classList.remove('close');
             }
         }
 

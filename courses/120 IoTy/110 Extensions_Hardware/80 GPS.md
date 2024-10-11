@@ -15,7 +15,7 @@ Depending on your GPS model, the pin order will be different, but most should ha
 
 | Pin | Description |
 | --- | --- |
-| VCC | Power for the sensor. Connect to **3V3**. If your device is on USB power, you can also use **VIN**. |
+| VCC | Power for the sensor. Connect to **3V3**. If your device is on USB power, you can also use the 5V from **VIN**. |
 | GND | Ground pin. This should be connected to the **GND** pin on the ESP32. |
 | TX | Data transmit. This should be connected to the UART **RX** pin on the ESP32 (default is Pin 5). |
 | RX | Data receive. This should be connected to the UART **TX** pin on the ESP32 (default is Pin 4). |
