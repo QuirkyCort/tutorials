@@ -53,13 +53,13 @@ print(machine.RTC().datetime())
 ```
 
 <div class="tip">
-<code>ntptime.settime()</code> may fail due to network conditions, and will throw an exception is such cases. It's best to put it in a <code>try except</code> to handle such failures.
+<code>ntptime.settime()</code> may fail due to network conditions and throw an exception. It's best to put it in a <code>try except</code> to handle such failures.
 </div>
 
 ## Multiple Routers
 
 You may want to use your device at home (...using home router), and outside (...using phone hotspot).
-In such cases, you can first check which router is present, before trying to connect to it.
+In such cases, you can first check which router is present before trying to connect to it.
 
 This example demonstrates checking for the presence of two different routers, before connecting and printing the assigned IP address.
 
