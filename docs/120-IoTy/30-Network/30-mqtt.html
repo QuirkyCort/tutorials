@@ -89,10 +89,6 @@ You also need to put in your actual MQTT broker URL, username, and password.</p>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">ioty</span> <span class="kn">import</span> <span class="n">pin</span>
 
-<span class="c1"># MQTT callback for topic topic1</span>
-<span class="k">def</span> <span class="nf">ioty_mqtt_cb_topic1</span><span class="p">(</span><span class="n">mqtt_msg</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">mqtt_msg</span><span class="p">)</span>
-
 <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;SSID&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># Put in actual WiFi SSID/Password</span>
 
 <span class="c1"># MQTT callback</span>
@@ -111,7 +107,7 @@ You also need to put in your actual MQTT broker URL, username, and password.</p>
     <span class="n">user</span><span class="o">=</span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
     <span class="n">password</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="p">,</span>
     <span class="n">keepalive</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-    <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># Exclude this line and the next if not using SSL</span>
     <span class="n">ssl_params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;server_hostname&#39;</span><span class="p">:</span><span class="s1">&#39;something.s1.eu.hivemq.cloud&#39;</span><span class="p">}</span>
 <span class="p">)</span>
 <span class="n">ioty_mqtt</span><span class="o">.</span><span class="n">set_callback</span><span class="p">(</span><span class="n">ioty_mqtt_cb</span><span class="p">)</span>

@@ -48,7 +48,7 @@ Some WiFi networks requires you to open a webpage and sign in after connection (
 <li>Act as a webserver (see EZ HTTPD extension)</li>
 </ul>
 <div class="important">
-To act as a webserver, the router must allow incoming connections to your IoTy device. Not all routers will allow this. Home routers usually allows it by default, public routers and phone hotspots usually do not.
+To act as a webserver, the router must allow incoming connections to your IoTy device. Home routers usually allows this, as long as the connection is coming from another device connected to the same router. Public routers and phone hotspots usually do not allow this at all.
 </div>
 
 <h2>Basic Connection</h2>
@@ -101,6 +101,7 @@ In such cases, you can first check which router is present before trying to conn
 <span class="k">for</span> <span class="n">router</span> <span class="ow">in</span> <span class="n">routers</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">is_present</span><span class="p">(</span><span class="n">router</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">router</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">router</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">break</span>
 
 <span class="k">if</span> <span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">ioty</span><span class="o">.</span><span class="n">wifi</span><span class="o">.</span><span class="n">get_ip</span><span class="p">())</span>

@@ -15,7 +15,7 @@ Your device will have internet access (...provided your router is connected to t
 * Act as a webserver (see EZ HTTPD extension)
 
 <div class="important">
-To act as a webserver, the router must allow incoming connections to your IoTy device. Not all routers will allow this. Home routers usually allows it by default, public routers and phone hotspots usually do not.
+To act as a webserver, the router must allow incoming connections to your IoTy device. Home routers usually allows this, as long as the connection is coming from another device connected to the same router. Public routers and phone hotspots usually do not allow this at all.
 </div>
 
 ## Basic Connection
@@ -82,6 +82,7 @@ routers = [
 for router in routers:
     if ioty.wifi.is_present(router[0]):
         ioty.wifi.connect(router[0], router[1])
+        break
 
 if ioty.wifi.isconnected():
     print(ioty.wifi.get_ip())

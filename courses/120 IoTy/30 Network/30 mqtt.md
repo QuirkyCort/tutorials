@@ -72,10 +72,6 @@ import ubinascii
 import time
 from ioty import pin
 
-# MQTT callback for topic topic1
-def ioty_mqtt_cb_topic1(mqtt_msg):
-    print(mqtt_msg)
-
 ioty.wifi.connect('SSID', 'password') # Put in actual WiFi SSID/Password
 
 # MQTT callback
@@ -94,7 +90,7 @@ ioty_mqtt = MQTTClient(
     user='user',
     password='password',
     keepalive=60,
-    ssl=True,
+    ssl=True, # Exclude this line and the next if not using SSL
     ssl_params={'server_hostname':'something.s1.eu.hivemq.cloud'}
 )
 ioty_mqtt.set_callback(ioty_mqtt_cb)
