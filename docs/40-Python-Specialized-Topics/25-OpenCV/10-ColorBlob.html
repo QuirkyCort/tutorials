@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p class="" data-section="">Introductions</p><ul class=""><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p class="" data-section="">Network</p><ul class=""><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p class="" data-section="">OpenCV</p><ul class=""><a href="../25-OpenCV/10-ColorBlob.html"><li class="current">Color Blob Detection</li></a></ul><p class="" data-section="">Others</p><ul class=""><a href="../30-Others/10-Serial.html"><li >Serial</li></a><a href="../30-Others/20-Movenet.html"><li >Movenet</li></a><a href="../30-Others/30-Filters.html"><li >Signal Filters</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Color Blob Detection</h1>
+<p>Color blob detection can be used to identify areas of an image with a common color or shape.
+This is commonly used to track objects (eg. a robot that follows a red ball) or feature (eg. robot that follows a black line).</p>
+<h2>Pre-requisites</h2>
+<ul>
+<li>OpenCV needs to be installed. (Python version is used in this tutorial)</li>
+<li>Computer must have a camera.</li>
+<li>Circular object with a distinct color. (You can use other shapes, but the default parameters are tuned for circular objects, so it's easier to follow the tutorial if you have that)</li>
+</ul>
+<h2>Process</h2>
+<p>There are 3 steps in this process...</p>
+<ol>
+<li>Determining the color threshold. This is done before the actual color blob detection. In this step, we'll use a simple helper program to determine the color threshold values for the object we want to detect.</li>
+<li>Thresholding. This extract out the colors that we want. After this step, the pixels that matches the color we want will become white, while the other pixels will become black.</li>
+<li>Blob detection. This groups the pixels into blobs, filter them by size and shape, and provides us with their position and size.</li>
+</ol>
+<h2>Determine Color Threshold</h2>
+<p>Load and run the example code from <a href="https://docs.opencv.org/4.x/da/d97/tutorial_threshold_inRange.html">this tutorial</a>.</p>
+<p><img alt="" src="images/determineThreshold.webp" /></p>
+<p>Adjust the sliders until the object you want to detect is mostly white in the object detection window, while the background is mostly black.
+Note down the values for the minimum and maximum HSV values.
+In the above example, the ranges are H: 35-85, S: 69-255, V: 0-255.</p>
+<div class="info">
+The camera captures images in RGB format, but it is hard to set thresholds for colors in RGB as differences in lighting will affect all three values.
+In HSV, changes in lighting will affect the V value, while the H and S values remains largely unchanged.
+You can also explore using other colorspaces, such as LAB.
+Read <a href="https://learnopencv.com/color-spaces-in-opencv-cpp-python/">this article</a> to learn more about the different color spaces.
+</div>
+
+<div class="info">
+The H value usually range from 0 to 360, but in OpenCV, the H value is halved (ie. range from 0 to 180) to fit within a single byte.
+</div>
+
+<h2>Thresholding</h2>
+<p>In this step, we will extract out the colors we want.
+The final output from this step is a black and white image, with white pixels in the areas which matches our target color and black pixels in the background.</p>
+<p>We'll build the code bit by bit, starting with capturing and displaying an image.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>Run the above code.
+You should see a window showing the view from the camera.
+If you have multiple cameras, you can change the camera in use by changing the number in <code>cv2.VideoCapture(0)</code>.</p>
+<p>In image processsing, it is often desirable to remove noise from the image.
+These noise often appear as specs that pops in and out of view.
+You can remove noise using a <a href="https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html">filter in OpenCV</a>.
+The <a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian Blur</a> is the most commonly used.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="hll">    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Blur the image</span>
+</span>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>The image should look a little more blurry compared to the earlier version.</p>
+<p>The <code>(5,5)</code> in <code>cv2.GaussianBlur(frame, (5,5), 0)</code> is the kernel size in X and Y dimensions.
+Try setting a larger kernel such as <code>(15,15)</code>, the image should look more blurry.
+You can try other kernel sizes, but it must be a positive and odd number.</p>
+<p>Next we'll convert the image into <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a> format.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Blur the image</span>
+<span class="hll">    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span> <span class="c1"># Convert to HSV</span>
+</span>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>The image will look messed up!
+This is because we have converted the image to HSV format, but <code>imshow</code> expects the image to be in RGB.
+That's fine for now; we're not done yet.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="hll"><span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
+</span><span class="hll"><span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
+</span><span class="hll"><span class="n">low_S</span> <span class="o">=</span> <span class="mi">69</span>
+</span><span class="hll"><span class="n">high_S</span> <span class="o">=</span> <span class="mi">255</span>
+</span><span class="hll"><span class="n">low_V</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class="hll"><span class="n">high_V</span> <span class="o">=</span> <span class="mi">255</span>
+</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Blur the image</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span> <span class="c1"># Convert to HSV</span>
+<span class="hll">    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">low_H</span><span class="p">,</span> <span class="n">low_S</span><span class="p">,</span> <span class="n">low_V</span><span class="p">),</span> <span class="p">(</span><span class="n">high_H</span><span class="p">,</span> <span class="n">high_S</span><span class="p">,</span> <span class="n">high_V</span><span class="p">))</span>
+</span>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>Here we apply the threshold that we've obtained earlier.
+After this step, all the pixels that are within the threshold will become white, while all other pixels will become black.</p>
+<p><img alt="" src="images/threshold.webp" /></p>
+<h2>Blob Detection</h2>
+<p>In this step, we'll setup the detection parameters and use <code>SimpleBlobDetector</code> to detect the blob.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">low_S</span> <span class="o">=</span> <span class="mi">69</span>
+<span class="n">high_S</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">low_V</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">high_V</span> <span class="o">=</span> <span class="mi">255</span>
+
+<span class="hll"><span class="n">params</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SimpleBlobDetector_Params</span><span class="p">()</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">filterByColor</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">blobColor</span> <span class="o">=</span> <span class="mi">255</span> <span class="c1"># Detect white blobs. If set to 0, it&#39;ll detect black blobs.</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">filterByArea</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">minArea</span> <span class="o">=</span> <span class="mi">1000</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">maxArea</span> <span class="o">=</span> <span class="mi">100000</span>
+</span><span class="hll"><span class="n">detector</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SimpleBlobDetector_create</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Blur the image</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span> <span class="c1"># Convert to HSV</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">low_H</span><span class="p">,</span> <span class="n">low_S</span><span class="p">,</span> <span class="n">low_V</span><span class="p">),</span> <span class="p">(</span><span class="n">high_H</span><span class="p">,</span> <span class="n">high_S</span><span class="p">,</span> <span class="n">high_V</span><span class="p">))</span>
+<span class="hll">    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="c1"># Detects keypoints. Each keypoint will contain the x,y position, and size.</span>
+</span><span class="hll">    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">keypoints</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS</span><span class="p">)</span>
+</span>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>Try out the code and position your object in view of the camera.
+You should see a red circle drawn around your object.
+Note that by default, <code>SimpleBlobDetector</code> will only detect circular blobs; if you have a non-circular object, it won't be detected here.</p>
+<p>Next, we'll introduce more parameters.
+This will allow us to detect blobs of different shapes.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">low_S</span> <span class="o">=</span> <span class="mi">69</span>
+<span class="n">high_S</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">low_V</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">high_V</span> <span class="o">=</span> <span class="mi">255</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SimpleBlobDetector_Params</span><span class="p">()</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByColor</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">params</span><span class="o">.</span><span class="n">blobColor</span> <span class="o">=</span> <span class="mi">255</span> <span class="c1"># Detect white blobs. If set to 0, it&#39;ll detect black blobs.</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByArea</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">params</span><span class="o">.</span><span class="n">minArea</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">params</span><span class="o">.</span><span class="n">maxArea</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">filterByCircularity</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">minCircularity</span> <span class="o">=</span> <span class="mf">0.1</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">filterByConvexity</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">minConvexity</span> <span class="o">=</span> <span class="mf">0.87</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">filterByInertia</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span class="hll"><span class="n">params</span><span class="o">.</span><span class="n">minInertiaRatio</span> <span class="o">=</span> <span class="mf">0.01</span>
+</span><span class="n">detector</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SimpleBlobDetector_create</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Blur the image</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span> <span class="c1"># Convert to HSV</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">low_H</span><span class="p">,</span> <span class="n">low_S</span><span class="p">,</span> <span class="n">low_V</span><span class="p">),</span> <span class="p">(</span><span class="n">high_H</span><span class="p">,</span> <span class="n">high_S</span><span class="p">,</span> <span class="n">high_V</span><span class="p">))</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="c1"># Detects keypoints. Each keypoint will contain the x,y position, and size.</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">keypoints</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p><strong>Circularity</strong> This measures how circular the blob is. A perfect circle will have a circularity of 1.</p>
+<p><strong>Convexity</strong> This measures how convex the shape is. See below for examples of convex and concave shapes.</p>
+<p><img alt="" src="images/convexConcave.webp" /></p>
+<p><strong>Inertia</strong> This measures how elogated a shape is.
+Eg. A circle will have an inertia ratio of 1, an ellipse will be less than 1, and a thin long rectangle will be close to 0.</p>
+<p>Finally, we'll find the largest keypoint and print out its x,y position.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">low_S</span> <span class="o">=</span> <span class="mi">69</span>
+<span class="n">high_S</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">low_V</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">high_V</span> <span class="o">=</span> <span class="mi">255</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SimpleBlobDetector_Params</span><span class="p">()</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByColor</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">params</span><span class="o">.</span><span class="n">blobColor</span> <span class="o">=</span> <span class="mi">255</span> <span class="c1"># Detect white blobs. If set to 0, it&#39;ll detect black blobs.</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByArea</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">params</span><span class="o">.</span><span class="n">minArea</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">params</span><span class="o">.</span><span class="n">maxArea</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByCircularity</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">params</span><span class="o">.</span><span class="n">minCircularity</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByConvexity</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">params</span><span class="o">.</span><span class="n">minConvexity</span> <span class="o">=</span> <span class="mf">0.87</span>
+<span class="n">params</span><span class="o">.</span><span class="n">filterByInertia</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">params</span><span class="o">.</span><span class="n">minInertiaRatio</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">detector</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SimpleBlobDetector_create</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Grab one image frame from camera</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Blur the image</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span> <span class="c1"># Convert to HSV</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">low_H</span><span class="p">,</span> <span class="n">low_S</span><span class="p">,</span> <span class="n">low_V</span><span class="p">),</span> <span class="p">(</span><span class="n">high_H</span><span class="p">,</span> <span class="n">high_S</span><span class="p">,</span> <span class="n">high_V</span><span class="p">))</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="c1"># Detects keypoints. Each keypoint will contain the x,y position, and size.</span>
+<span class="hll">    <span class="n">largest_size</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class="hll">    <span class="n">largest_keypoint</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span class="hll">    <span class="k">for</span> <span class="n">keypoint</span> <span class="ow">in</span> <span class="n">keypoints</span><span class="p">:</span>
+</span><span class="hll">        <span class="k">if</span> <span class="n">keypoint</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">largest_size</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">largest_size</span> <span class="o">=</span> <span class="n">keypoint</span><span class="o">.</span><span class="n">size</span>
+</span><span class="hll">            <span class="n">largest_keypoint</span> <span class="o">=</span> <span class="n">keypoint</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">largest_keypoint</span><span class="p">:</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="n">largest_keypoint</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span>
+</span>    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">keypoints</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="c1"># Display the image in a window</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># Wait 30ms for a key to be pressed</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> <span class="c1"># If &#39;q&#39; was pressed, exit the loop</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<h2>Troubleshooting</h2>
+<p><strong>How to deal with false positives?</strong></p>
+<ul>
+<li>Increase Gaussian Blur</li>
+<li>Set a narrower HSV range</li>
+<li>Set a narrower range for filterByArea</li>
+<li>Turn on and set a narrower range for filterByCircularity / filterByConvexity / filterByInertia</li>
+</ul>
+<p><strong>How to set a threshold for red?</strong></p>
+<p>The HSV color space is cylindrical, and the H (Hue) is an angle around this cylinder.
+This means that a H value of 0 deg, is the same as a H value of 360 deg.</p>
+<p><img alt="" src="images/hsv.webp" /></p>
+<p>In HSV, red is both 0 and 360 deg (...0 to 180 in OpenCV as OpenCV halves the H value).
+So if you want to detect red, you'll want a range of say 0 to 10 <strong>AND</strong> 170 to 180.
+But this won't work with OpenCV's <code>inRange</code>, as it accepts only a single contiguous range.</p>
+<p>One solution is to use another color space (eg. LAB or YUV).
+In these color spaces, none of the values wraps around back to zero, so you won't have this problem.</p>
+<p>Another solution is to change this line... <code>frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)</code> ...into this... <code>frame = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)</code>.
+This basically swaps the Red and Blue values when performing the HSV conversion.
+Your red will now have the H value of Blue; around 240 degs (...or 120 in OpenCV), and you can now use a H range of 230 to 250 with <code>inRange</code>.</p>
+<p><strong>Detecting silver reflective objects</strong></p>
+<p>Silver isn't actually a color.
+A silver reflective surface is simply one that acts like a mirror, reflecting the light around it, and can appear as any color.</p>
+<p>Since you can't detect a silver object by color, you'll need to rely on other properties.
+Consider what happens when you shine a bright light on a silver object?
+How does it appear compared to a matt object?</p>
+<p>You can also explore the use of other filters (eg. Canny, Sobel) and see if you can make the silver object stand-out from the background.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>
