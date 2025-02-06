@@ -327,13 +327,21 @@ In these color spaces, none of the values wraps around back to zero, so you won'
 <p>Another solution is to change this line... <code>frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)</code> ...into this... <code>frame = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)</code>.
 This basically swaps the Red and Blue values when performing the HSV conversion.
 Your red will now have the H value of Blue; around 240 degs (...or 120 in OpenCV), and you can now use a H range of 230 to 250 with <code>inRange</code>.</p>
-<p><strong>Detecting silver reflective objects</strong></p>
+<p><strong>How to detect silver reflective objects?</strong></p>
 <p>Silver isn't actually a color.
 A silver reflective surface is simply one that acts like a mirror, reflecting the light around it, and can appear as any color.</p>
 <p>Since you can't detect a silver object by color, you'll need to rely on other properties.
 Consider what happens when you shine a bright light on a silver object?
 How does it appear compared to a matt object?</p>
 <p>You can also explore the use of other filters (eg. Canny, Sobel) and see if you can make the silver object stand-out from the background.</p>
+<p><strong>How to display in fullscreen?</strong></p>
+<p>Add...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_NORMAL</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">setWindowProperty</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WND_PROP_FULLSCREEN</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_FULLSCREEN</span><span class="p">)</span>
+</code></pre></div>
+
+<p>...to your code.
+This should be before the <code>while</code> loop.</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

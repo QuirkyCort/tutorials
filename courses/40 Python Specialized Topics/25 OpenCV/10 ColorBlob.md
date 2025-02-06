@@ -333,7 +333,7 @@ Another solution is to change this line... `frame = cv2.cvtColor(frame, cv2.COLO
 This basically swaps the Red and Blue values when performing the HSV conversion.
 Your red will now have the H value of Blue; around 240 degs (...or 120 in OpenCV), and you can now use a H range of 230 to 250 with `inRange`.
 
-**Detecting silver reflective objects**
+**How to detect silver reflective objects?**
 
 Silver isn't actually a color.
 A silver reflective surface is simply one that acts like a mirror, reflecting the light around it, and can appear as any color.
@@ -343,3 +343,15 @@ Consider what happens when you shine a bright light on a silver object?
 How does it appear compared to a matt object?
 
 You can also explore the use of other filters (eg. Canny, Sobel) and see if you can make the silver object stand-out from the background.
+
+**How to display in fullscreen?**
+
+Add...
+
+```python
+cv2.namedWindow('result', cv2.WINDOW_NORMAL)
+cv2.setWindowProperty('result', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+```
+
+...to your code.
+This should be before the `while` loop.
