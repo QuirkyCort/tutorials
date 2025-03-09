@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p class="" data-section="">Introductions</p><ul class=""><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p class="" data-section="">Network</p><ul class=""><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p class="" data-section="">OpenCV</p><ul class=""><a href="../25-OpenCV/10-ColorBlob.html"><li >Color Blob Detection</li></a></ul><p class="" data-section="">Others</p><ul class=""><a href="../30-Others/10-Serial.html"><li >Serial</li></a><a href="../30-Others/20-Movenet.html"><li >Movenet</li></a><a href="../30-Others/30-Filters.html"><li >Signal Filters</li></a><a href="../30-Others/40-EV3-Serial-Read.html"><li class="current">EV3 Serial Read</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>EV3 Serial Read</h1>
+<p>The Lego EV3 can read from serial devices connected to its USB port (...the USB A port, not the micro USB port), such as an ESP32, OpenMV Cam, or Arduino.
+This tutorials describes four different methods of reading from the serial device...</p>
+<ul>
+<li>Continuous data</li>
+<li>Continuous data (bytes array)</li>
+<li>Request Respond</li>
+<li>Request Respond (binary)</li>
+</ul>
+<p>The code is meant for an EV3 running micropython, and isn't tested with cPython.</p>
+<h2>Continuous data</h2>
+<p>In this approach, the micropython sends data continously and the EV3 will read everything.
+If there are multiple sets of data received in a single read, the EV3 will process only the last value.</p>
+<p>It can handle write rates of around 100Hz.
+If the micropython device sends data faster than this, the EV3 will not be able to keep up and will hang as it never finishes reading the data.</p>
+<h3>EV3 Code</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
+<span class="c1"># os.system() runs the specified command</span>
+<span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">select</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
+
+<span class="c1"># Open the /dev/ttyUSB0 file in read only mode. This file represents the serial device</span>
+<span class="c1"># Depending on your serial device, the filename may change (eg. /dev/ttyACM0)</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDONLY</span><span class="p">)</span>
+
+<span class="c1"># Create a select object and register the previously opened file in input (reading) mode</span>
+<span class="c1"># This let us check if there is data available for reading from the file.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+
+<span class="c1"># Create an empty bytes object to receive data from the file</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Read from serial</span>
+<span class="k">def</span> <span class="nf">read</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">buf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+    <span class="c1"># Loop as long as data is available</span>
+    <span class="c1"># p.poll() will return None if no data is available</span>
+    <span class="c1"># Note that the &quot;0&quot; is the timeout duration</span>
+    <span class="c1"># If absent, the poll() command will wait until data is available</span>
+    <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+
+        <span class="c1"># Since data is available, we can safely read from the file without blocking</span>
+        <span class="n">char</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># read one byte</span>
+
+        <span class="c1"># Check if it&#39;s a newline character</span>
+        <span class="k">if</span> <span class="n">char</span> <span class="o">!=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>
+            <span class="c1"># If the char is not a newline, that means you have not reached the end of the line.</span>
+            <span class="c1"># Add the character to the buffer</span>
+            <span class="n">buf</span> <span class="o">+=</span> <span class="n">char</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If it&#39;s a newline, make a copy of it, then empty buf</span>
+            <span class="c1"># Checking that the len is greater than 0 is to prevent empty lines from being processed</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">buf_copy</span> <span class="o">=</span> <span class="n">buf</span>
+                <span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+
+    <span class="c1"># Exited from loop. That means we have read everything.</span>
+    <span class="c1"># buf_copy should contain the last full line and we can process it</span>
+
+    <span class="c1"># The &quot;try/except&quot; is to protect against errors. If the data is corrupted,</span>
+    <span class="c1"># the conversion may fail. Without the try/except, your program will terminate</span>
+    <span class="c1"># immediately. With try/except, your program will catch the error and do a</span>
+    <span class="c1"># &quot;pass&quot; (ie. nothing)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># First decode the bytes into a string</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">buf_copy</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+        <span class="c1"># If you have multiple values in each line, split the string</span>
+        <span class="c1"># Here we split by comma, but use whatever is suitable for your data</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+        <span class="c1"># # Convert your values from string to numbers</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="c1"># Retrieve the last read value</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="c1"># Read and discard all data from buffer.</span>
+<span class="c1"># If the EV3 is unable to read from serial for a while, you should run this to clear the read</span>
+<span class="c1"># buffer, else the EV3 may take a while to process all the buffered data.</span>
+<span class="k">def</span> <span class="nf">clear</span><span class="p">():</span>
+    <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+
+<span class="c1">#########################</span>
+<span class="c1"># Main loop for testing #</span>
+<span class="c1">#########################</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># We read every loop, but prints only once per second.</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">now</span> <span class="o">&gt;</span> <span class="n">timeout</span><span class="p">:</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="n">now</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">get</span><span class="p">())</span>
+</code></pre></div>
+
+<h3>Serial device code</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Random code to set x and y</span>
+    <span class="c1"># Replace with your own code</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Continuous data (bytes array)</h2>
+<p>Similar to "Continuous data", but in this version, we try to optimize the read by...</p>
+<ul>
+<li>Reading multiple bytes at a time</li>
+<li>Reuse a bytes array instead of creating a new bytes string with each append</li>
+<li>Process in bytes rather than string</li>
+</ul>
+<p>It can handle a higher write rate of around 200Hz.
+If the micropython sends data faster than this, the EV3 will not be able to keep up and will hang as it never finishes reading the data.</p>
+<h3>EV3 Code</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
+<span class="c1"># os.system() runs the specified command</span>
+<span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">select</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
+
+<span class="c1"># Open the /dev/ttyUSB0 file in read only mode. This file represents the serial device</span>
+<span class="c1"># Depending on your serial device, the filename may change (eg. /dev/ttyACM0)</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDONLY</span><span class="p">)</span>
+
+<span class="c1"># Create a select object and register the previously opened file in input (reading) mode</span>
+<span class="c1"># This let us check if there is data available for reading from the file.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+
+<span class="c1"># Create a bytearray to receive data from the file</span>
+<span class="n">BUF_SIZE</span> <span class="o">=</span> <span class="mi">32</span> <span class="c1"># This should be the maximum number of bytes in a line</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">BUF_SIZE</span><span class="p">)</span>
+<span class="n">buf_ptr</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Read from serial</span>
+<span class="k">def</span> <span class="nf">read</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">buf</span><span class="p">,</span> <span class="n">buf_ptr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+    <span class="c1"># Loop as long as data is available</span>
+    <span class="c1"># p.poll() will return None if no data is available</span>
+    <span class="c1"># Note that the &quot;0&quot; is the timeout duration</span>
+    <span class="c1"># If absent, the poll() command will wait until data is available</span>
+    <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+
+        <span class="c1"># Since data is available, we can safely read from the file without blocking</span>
+        <span class="n">chars</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="c1"># read multiple bytes</span>
+
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">chars</span><span class="p">:</span>
+            <span class="c1"># Check if it&#39;s a newline character</span>
+            <span class="k">if</span> <span class="n">char</span> <span class="o">!=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+                <span class="c1"># If the char is not a newline, that means you have not reached the end of the line.</span>
+                <span class="c1"># First check the pointer. If it reached the end, the data must have been corrupted.</span>
+                <span class="c1"># We&#39;ll start again from the beginning.</span>
+                <span class="k">if</span> <span class="n">buf_ptr</span> <span class="o">==</span> <span class="n">BUF_SIZE</span><span class="p">:</span>
+                    <span class="n">buf_ptr</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="c1"># Put the character in the buffer</span>
+                <span class="n">buf</span><span class="p">[</span><span class="n">buf_ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span>
+                <span class="n">buf_ptr</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If it&#39;s a newline, make a copy of it, then start from beginning</span>
+                <span class="k">if</span> <span class="n">buf_ptr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">buf_copy</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[:</span><span class="n">buf_ptr</span><span class="p">]</span>
+                    <span class="n">buf_ptr</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Exited from loop. That means we have read everything.</span>
+    <span class="c1"># buf_copy should contain the last full line and we can process it</span>
+
+    <span class="c1"># The &quot;try/except&quot; is to protect against errors. If the data is corrupted,</span>
+    <span class="c1"># the conversion may fail. Without the try/except, your program will terminate</span>
+    <span class="c1"># immediately. With try/except, your program will catch the error and do a</span>
+    <span class="c1"># &quot;pass&quot; (ie. nothing)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># If you have multiple values in each line, split the string</span>
+        <span class="c1"># Here we split by comma, but use whatever is suitable for your data</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">buf_copy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Convert your values from string to numbers</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="c1"># Retrieve the last read value</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="c1"># Read and discard all data from buffer.</span>
+<span class="c1"># If the EV3 is unable to read from serial for a while, you should run this to clear the read</span>
+<span class="c1"># buffer, else the EV3 may take a while to process all the buffered data.</span>
+<span class="k">def</span> <span class="nf">clear</span><span class="p">():</span>
+    <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+
+<span class="c1">#########################</span>
+<span class="c1"># Main loop for testing #</span>
+<span class="c1">#########################</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># We read every loop, but prints only once per second.</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">now</span> <span class="o">&gt;</span> <span class="n">timeout</span><span class="p">:</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="n">now</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">get</span><span class="p">())</span>
+</code></pre></div>
+
+<h3>Serial device code</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Random code to set x and y</span>
+    <span class="c1"># Replace with your own code</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Request Respond</h2>
+<p>In this approach, we send a request to the serial device, prompting it to respond with the desired data.
+As the serial device will only transmit data when the EV3 request for it, there are no risks of the EV3 being unable to keep up and hanging.</p>
+<p>It can handle request/respond rates of around 110Hz.</p>
+<h3>EV3 Code</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
+<span class="c1"># os.system() runs the specified command</span>
+<span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">select</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
+
+<span class="c1"># Open the /dev/ttyUSB0 file in read write mode. This file represents the serial device</span>
+<span class="c1"># Depending on your serial device, the filename may change (eg. /dev/ttyACM0)</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDWR</span><span class="p">)</span>
+
+<span class="c1"># Create a select object and register the previously opened file in input (reading) mode</span>
+<span class="c1"># This let us check if there is data available for reading from the file.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+
+<span class="c1"># Read from serial</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+    <span class="c1"># Flush data from read buffer</span>
+    <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># Write the trigger</span>
+    <span class="c1"># We send an &#39;a&#39; as a trigger, but you can use anything</span>
+    <span class="c1"># You can also use different triggers to request for different data</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Read the data</span>
+    <span class="c1"># The number of bytes to read should match your longest possible line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># The &quot;try/except&quot; is to protect against errors. If the data is corrupted,</span>
+    <span class="c1"># the conversion may fail. Without the try/except, your program will terminate</span>
+    <span class="c1"># immediately. With try/except, your program will catch the error and return None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># If you have multiple values in each line, split the string</span>
+        <span class="c1"># Here we split by comma, but use whatever is suitable for your data</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Convert your values from string to numbers</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="c1">#########################</span>
+<span class="c1"># Main loop for testing #</span>
+<span class="c1">#########################</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">get</span><span class="p">())</span>
+</code></pre></div>
+
+<h3>Serial device code</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">select</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Random code to set x and y</span>
+    <span class="c1"># Replace with your own code</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="c1"># Check if we received a trigger</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">char</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">char</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Request Respond (Binary)</h2>
+<p>Similar to "Request Respond", but in this version, we try to optimize by sending data in binary format instead of text format.
+This reduces the amount of data sent, and the amount of data that needs to be processed.</p>
+<p>Drawback is that the data format must be predefined (ie. you cannot sometimes send 2 integers and sometimes 3 floats).
+It also appears to be less reliable than the text version, but I did not investigate why.</p>
+<p>It can handle request/respond rates of around 120Hz, which is only a small improvement over the text version.</p>
+<h3>EV3 Code</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
+<span class="c1"># os.system() runs the specified command</span>
+<span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">import</span> <span class="nn">select</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
+
+<span class="c1"># Open the /dev/ttyUSB0 file in read write mode. This file represents the serial device</span>
+<span class="c1"># Depending on your serial device, the filename may change (eg. /dev/ttyACM0)</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDWR</span><span class="p">)</span>
+
+<span class="c1"># Create a select object and register the previously opened file in input (reading) mode</span>
+<span class="c1"># This let us check if there is data available for reading from the file.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+
+<span class="c1"># Read from serial</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+    <span class="c1"># We send an &#39;a&#39; as a trigger, but you can use anything</span>
+    <span class="c1"># You can also use different triggers to request for different data</span>
+
+    <span class="c1"># Flush data from read buffer</span>
+    <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># Write the trigger</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Read the data</span>
+    <span class="c1"># The number of bytes to read should match your data format plus 1 (for newline)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;hh&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="c1">#########################</span>
+<span class="c1"># Main loop for testing #</span>
+<span class="c1">#########################</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">get</span><span class="p">())</span>
+</code></pre></div>
+
+<h3>Serial device code</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">select</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Random code to set x and y</span>
+    <span class="c1"># Replace with your own code</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="c1"># Check if we received a trigger</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">char</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">char</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+            <span class="c1"># The newline character appears to flush the buffer and is</span>
+            <span class="c1"># needed as micropython do not support flush()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s1">&#39;hh&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>
