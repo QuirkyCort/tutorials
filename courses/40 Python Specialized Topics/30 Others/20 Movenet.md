@@ -370,7 +370,7 @@ Download the LiteRT / TFLite models from here...
 
 <https://www.kaggle.com/models/google/movenet/tensorFlow2>
 
-The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 modle) provides better accuracy.
+The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 model) provides better accuracy.
 
 Whichever model you choose, unpack it to extract the ".tflite" file inside.
 
