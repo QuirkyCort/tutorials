@@ -56,7 +56,7 @@ Used for loading the Movenet model.
 In a terminal, run...
 
 ```
-pip install -q tensorflow_hub
+pip install tensorflow_hub
 ```
 
 ### OpenCV
@@ -64,7 +64,7 @@ This is a computer vision library for processing the image.
 In a terminal, run...
 
 ```
-pip install -q opencv-python
+pip install opencv-python
 ```
 
 ## Model Types
@@ -73,19 +73,16 @@ Movenet provides two models...
 
 ### Thunder
 Higher accuracy, lower performance.
-You can download it here...
-
-<https://tfhub.dev/google/movenet/singlepose/thunder/4>
-
 Note that **Thunder** expects the input image to be 256x256.
 
 ### Lightning
 Lower accuracy, higher performance.
-You can download it here...
-
-<https://tfhub.dev/google/movenet/singlepose/lightning/4>
-
 Note that **Lightning** expects the input image to be 192x192.
+
+Both Thunder and Lightning can be downloaded here...
+
+<https://www.kaggle.com/models/google/movenet/tensorFlow2>
+
 
 ### Unpacking
 
@@ -364,3 +361,69 @@ cap.release()
 
 **img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)** : Draw the circle. We don't care about the y position in this exercise, so we'll just set it to half the height.
 
+## TensorFlow Lite
+
+On weaker devices (eg. Raspberry Pi), you may find the performance of the above to be inadequate.
+You can switch to TensorFlow Lite to improve performance (ie. FPS) at the expense of accuracy.
+
+Download the LiteRT / TFLite models from here...
+
+<https://www.kaggle.com/models/google/movenet/tensorFlow2>
+
+The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 modle) provides better accuracy.
+
+Whichever model you choose, unpack it to extract the ".tflite" file inside.
+
+Sample code for marking keypoints is as follows...
+
+```python
+import tensorflow as tf
+import cv2
+import numpy as np
+
+# Only one of the following lines should be in use, comment out the other line!
+interpreter = tf.lite.Interpreter(model_path="4.tflite") # This is for the int8 model
+interpreter = tf.lite.Interpreter(model_path="3.tflite") # This is for the float32 model
+
+interpreter.allocate_tensors()
+
+cap = cv2.VideoCapture(0)
+
+success, img = cap.read()
+
+h, w, _ = img.shape
+
+while success:
+    tf_img = cv2.resize(img, (192,192))
+    tf_img = cv2.cvtColor(tf_img, cv2.COLOR_BGR2RGB)
+    tf_img = np.asarray(tf_img)
+
+    image = np.expand_dims(tf_img,axis=0)
+
+    # Only one of the following lines should be in use, comment out the other line!
+    image = tf.cast(image, dtype=tf.uint8) # This is for the int8 model
+    image = tf.cast(image, dtype=tf.float32) # This is for the float32 model
+
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    interpreter.set_tensor(input_details[0]['index'], image.numpy())
+
+    interpreter.invoke()
+    keypoints = interpreter.get_tensor(output_details[0]['index'])
+
+    for k in keypoints[0,0,:,:]:
+        if k[2] > 0.3:
+            yc = int(k[0] * h)
+            xc = int(k[1] * w)
+
+            img = cv2.circle(img, (xc, yc), 2, (0, 255, 0), 5)
+
+    cv2.imshow('Movenet', img)
+
+    if cv2.waitKey(1) == ord("q"):
+        break
+
+    success, img = cap.read()
+
+cap.release()
+```

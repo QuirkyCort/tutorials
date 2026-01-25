@@ -136,27 +136,25 @@ Follow the installation instructions here...</p>
 <h3>TensorFlow_hub</h3>
 <p>Used for loading the Movenet model.
 In a terminal, run...</p>
-<div class="codehilite"><pre><span></span><code>pip install -q tensorflow_hub
+<div class="codehilite"><pre><span></span><code>pip install tensorflow_hub
 </code></pre></div>
 
 <h3>OpenCV</h3>
 <p>This is a computer vision library for processing the image.
 In a terminal, run...</p>
-<div class="codehilite"><pre><span></span><code>pip install -q opencv-python
+<div class="codehilite"><pre><span></span><code>pip install opencv-python
 </code></pre></div>
 
 <h2>Model Types</h2>
 <p>Movenet provides two models...</p>
 <h3>Thunder</h3>
 <p>Higher accuracy, lower performance.
-You can download it here...</p>
-<p><a href="https://tfhub.dev/google/movenet/singlepose/thunder/4">https://tfhub.dev/google/movenet/singlepose/thunder/4</a></p>
-<p>Note that <strong>Thunder</strong> expects the input image to be 256x256.</p>
+Note that <strong>Thunder</strong> expects the input image to be 256x256.</p>
 <h3>Lightning</h3>
 <p>Lower accuracy, higher performance.
-You can download it here...</p>
-<p><a href="https://tfhub.dev/google/movenet/singlepose/lightning/4">https://tfhub.dev/google/movenet/singlepose/lightning/4</a></p>
-<p>Note that <strong>Lightning</strong> expects the input image to be 192x192.</p>
+Note that <strong>Lightning</strong> expects the input image to be 192x192.</p>
+<p>Both Thunder and Lightning can be downloaded here...</p>
+<p><a href="https://www.kaggle.com/models/google/movenet/tensorFlow2">https://www.kaggle.com/models/google/movenet/tensorFlow2</a></p>
 <h3>Unpacking</h3>
 <p>You should extract the downloaded files into their own folder.
 In the examples below, it is assumed that the <strong>Thunder</strong> model files are extracted into a directory named <strong>movenet_singlepose_thunder_4</strong>, and the <strong>Lightning</strong> model files are extracted into a directory named <strong>movenet_singlepose_lightning_4</strong>.</p>
@@ -384,6 +382,64 @@ It also scales the value against the distance between your <strong>right elbow</
 <p><strong>x_pos = x_pos / upper_arm_length</strong> : Scale the result by the upper arm length. This ensures that the result is not affected by your distance to the camera.</p>
 <p><strong>x_pos = int((x_pos * w + w) / 2)</strong> : Calculate the x position to draw the ball. Basically, we scale it by the image width, then add width to it and divide by 2 to ensure that the ball is at the center of the screen when the wrist is at the zero position.</p>
 <p><strong>img = cv2.circle(img, (x_pos, h/2), 2, (0, 255, 0), 5)</strong> : Draw the circle. We don't care about the y position in this exercise, so we'll just set it to half the height.</p>
+<h2>TensorFlow Lite</h2>
+<p>On weaker devices (eg. Raspberry Pi), you may find the performance of the above to be inadequate.
+You can switch to TensorFlow Lite to improve performance (ie. FPS) at the expense of accuracy.</p>
+<p>Download the LiteRT / TFLite models from here...</p>
+<p><a href="https://www.kaggle.com/models/google/movenet/tensorFlow2">https://www.kaggle.com/models/google/movenet/tensorFlow2</a></p>
+<p>The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 modle) provides better accuracy.</p>
+<p>Whichever model you choose, unpack it to extract the ".tflite" file inside.</p>
+<p>Sample code for marking keypoints is as follows...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Only one of the following lines should be in use, comment out the other line!</span>
+<span class="n">interpreter</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">lite</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;4.tflite&quot;</span><span class="p">)</span> <span class="c1"># This is for the int8 model</span>
+<span class="n">interpreter</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">lite</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;3.tflite&quot;</span><span class="p">)</span> <span class="c1"># This is for the float32 model</span>
+
+<span class="n">interpreter</span><span class="o">.</span><span class="n">allocate_tensors</span><span class="p">()</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">192</span><span class="p">))</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf_img</span><span class="p">)</span>
+
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Only one of the following lines should be in use, comment out the other line!</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># This is for the int8 model</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1"># This is for the float32 model</span>
+
+    <span class="n">input_details</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_input_details</span><span class="p">()</span>
+    <span class="n">output_details</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_output_details</span><span class="p">()</span>
+    <span class="n">interpreter</span><span class="o">.</span><span class="n">set_tensor</span><span class="p">(</span><span class="n">input_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> <span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+
+    <span class="n">interpreter</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">output_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:,:]:</span>
+        <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">:</span>
+            <span class="n">yc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+            <span class="n">xc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+
+            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>
