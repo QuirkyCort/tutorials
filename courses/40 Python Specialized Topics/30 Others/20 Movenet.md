@@ -67,6 +67,25 @@ In a terminal, run...
 pip install opencv-python
 ```
 
+### Alternative installation using LiteRT
+
+LiteRT (...formerly known as TensorFlow Lite) provides a lighter (smaller install size, lower memory use) alternative to TensorFlow.
+When using LiteRT, you much use the LiteRT code at the bottom of this page; the rest of the code are meant for TensorFlow and will not work.
+
+To install LiteRT on Linux systems (...including Raspberry Pi), first create and activate a new virtual environment...
+
+```
+python -m venv litert
+source litert/bin/activate
+```
+On Mac and Windows, you can skip the above step.
+Next, you'll need to install LiteRT and OpenCV...
+
+```
+pip install ai-edge-litert
+pip install opencv-python
+```
+
 ## Model Types
 
 Movenet provides two models...
@@ -407,6 +426,62 @@ while success:
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     interpreter.set_tensor(input_details[0]['index'], image.numpy())
+
+    interpreter.invoke()
+    keypoints = interpreter.get_tensor(output_details[0]['index'])
+
+    for k in keypoints[0,0,:,:]:
+        if k[2] > 0.3:
+            yc = int(k[0] * h)
+            xc = int(k[1] * w)
+
+            img = cv2.circle(img, (xc, yc), 2, (0, 255, 0), 5)
+
+    cv2.imshow('Movenet', img)
+
+    if cv2.waitKey(1) == ord("q"):
+        break
+
+    success, img = cap.read()
+
+cap.release()
+```
+
+## LiteRT
+
+If you installed LiteRT and not TensorFlow, you'll need to modify the above code a little...
+
+```python hl_lines="1 6 7 25 26 30"
+from ai_edge_litert.interpreter import Interpreter
+import cv2
+import numpy as np
+
+# Only one of the following lines should be in use, comment out the other line!
+interpreter = Interpreter(model_path="4.tflite") # This is for the int8 model
+interpreter = Interpreter(model_path="3.tflite") # This is for the float32 model
+
+interpreter.allocate_tensors()
+
+cap = cv2.VideoCapture(0)
+
+success, img = cap.read()
+
+h, w, _ = img.shape
+
+while success:
+    tf_img = cv2.resize(img, (192,192))
+    tf_img = cv2.cvtColor(tf_img, cv2.COLOR_BGR2RGB)
+    tf_img = np.asarray(tf_img)
+
+    image = np.expand_dims(tf_img,axis=0)
+
+    # Only one of the following lines should be in use, comment out the other line!
+    image = image.astype(np.uint8) # This is for the int8 model
+    image = image.astype(np.float32) # This is for the float32 model
+
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    interpreter.set_tensor(input_details[0]['index'], image)
 
     interpreter.invoke()
     keypoints = interpreter.get_tensor(output_details[0]['index'])

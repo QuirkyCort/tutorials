@@ -145,6 +145,20 @@ In a terminal, run...</p>
 <div class="codehilite"><pre><span></span><code>pip install opencv-python
 </code></pre></div>
 
+<h3>Alternative installation using LiteRT</h3>
+<p>LiteRT (...formerly known as TensorFlow Lite) provides a lighter (smaller install size, lower memory use) alternative to TensorFlow.
+When using LiteRT, you much use the LiteRT code at the bottom of this page; the rest of the code are meant for TensorFlow and will not work.</p>
+<p>To install LiteRT on Linux systems (...including Raspberry Pi), first create and activate a new virtual environment...</p>
+<div class="codehilite"><pre><span></span><code>python -m venv litert
+source litert/bin/activate
+</code></pre></div>
+
+<p>On Mac and Windows, you can skip the above step.
+Next, you'll need to install LiteRT and OpenCV...</p>
+<div class="codehilite"><pre><span></span><code>pip install ai-edge-litert
+pip install opencv-python
+</code></pre></div>
+
 <h2>Model Types</h2>
 <p>Movenet provides two models...</p>
 <h3>Thunder</h3>
@@ -387,7 +401,7 @@ It also scales the value against the distance between your <strong>right elbow</
 You can switch to TensorFlow Lite to improve performance (ie. FPS) at the expense of accuracy.</p>
 <p>Download the LiteRT / TFLite models from here...</p>
 <p><a href="https://www.kaggle.com/models/google/movenet/tensorFlow2">https://www.kaggle.com/models/google/movenet/tensorFlow2</a></p>
-<p>The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 modle) provides better accuracy.</p>
+<p>The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 model) provides better accuracy.</p>
 <p>Whichever model you choose, unpack it to extract the ".tflite" file inside.</p>
 <p>Sample code for marking keypoints is as follows...</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -421,6 +435,59 @@ You can switch to TensorFlow Lite to improve performance (ie. FPS) at the expens
     <span class="n">output_details</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_output_details</span><span class="p">()</span>
     <span class="n">interpreter</span><span class="o">.</span><span class="n">set_tensor</span><span class="p">(</span><span class="n">input_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> <span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
 
+    <span class="n">interpreter</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">output_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keypoints</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:,:]:</span>
+        <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">:</span>
+            <span class="n">yc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+            <span class="n">xc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+
+            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Movenet&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</code></pre></div>
+
+<h2>LiteRT</h2>
+<p>If you installed LiteRT and not TensorFlow, you'll need to modify the above code a little...</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">from</span> <span class="nn">ai_edge_litert.interpreter</span> <span class="kn">import</span> <span class="n">Interpreter</span>
+</span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Only one of the following lines should be in use, comment out the other line!</span>
+<span class="hll"><span class="n">interpreter</span> <span class="o">=</span> <span class="n">Interpreter</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;4.tflite&quot;</span><span class="p">)</span> <span class="c1"># This is for the int8 model</span>
+</span><span class="hll"><span class="n">interpreter</span> <span class="o">=</span> <span class="n">Interpreter</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;3.tflite&quot;</span><span class="p">)</span> <span class="c1"># This is for the float32 model</span>
+</span>
+<span class="n">interpreter</span><span class="o">.</span><span class="n">allocate_tensors</span><span class="p">()</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">192</span><span class="p">))</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">tf_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf_img</span><span class="p">)</span>
+
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf_img</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Only one of the following lines should be in use, comment out the other line!</span>
+<span class="hll">    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># This is for the int8 model</span>
+</span><span class="hll">    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1"># This is for the float32 model</span>
+</span>
+    <span class="n">input_details</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_input_details</span><span class="p">()</span>
+    <span class="n">output_details</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_output_details</span><span class="p">()</span>
+<span class="hll">    <span class="n">interpreter</span><span class="o">.</span><span class="n">set_tensor</span><span class="p">(</span><span class="n">input_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> <span class="n">image</span><span class="p">)</span>
+</span>
     <span class="n">interpreter</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
     <span class="n">keypoints</span> <span class="o">=</span> <span class="n">interpreter</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">output_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">])</span>
 
