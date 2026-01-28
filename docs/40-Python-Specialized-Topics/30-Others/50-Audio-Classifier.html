@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p class="" data-section="">Introductions</p><ul class=""><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p class="" data-section="">Network</p><ul class=""><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p class="" data-section="">OpenCV</p><ul class=""><a href="../25-OpenCV/10-ColorBlob.html"><li >Color Blob Detection</li></a></ul><p class="" data-section="">Others</p><ul class=""><a href="../30-Others/10-Serial.html"><li >Serial</li></a><a href="../30-Others/20-Movenet.html"><li >Movenet</li></a><a href="../30-Others/30-Filters.html"><li >Signal Filters</li></a><a href="../30-Others/40-EV3-Serial-Read.html"><li >EV3 Serial Read</li></a><a href="../30-Others/50-Audio-Classifier.html"><li class="current">Audio Classifier</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Audio Classifier</h1>
+<p>This tutorial will show you how to train an audio classifier using Teachable Machine, then write Python code to detect the trained audio.</p>
+<p>You can use it for various purposes, such as...</p>
+<ul>
+<li>Send voice commands to a robot</li>
+<li>Detect audio alarms</li>
+<li>Recognize animals from their sound</li>
+</ul>
+<p>Note that when using Teachable Machines, audio samples are limited to 1 second each, so you can't have long commands.
+If you need longer commands (eg. "turn left"), you can break them into multiple classes (ie. one for "turn", another for "left") and detect if the two classes appear consecutively.</p>
+<h2>Training</h2>
+<ol>
+<li>Open the <a href="https://teachablemachine.withgoogle.com/">Teachable Machine</a> website.</li>
+<li>Click "Get Started"</li>
+<li>Select "Audio Project"</li>
+<li>Record your background noise then click "Extract Sample".</li>
+<li>Record your audio sample. Note that this will record for two seconds by default, if recording a word, you should say it twice. Click "Extract Sample" after each recording.</li>
+<li>Add a new class and repeat the sample recording if needed.</li>
+<li>When you have sufficient samples, click "Train Model" and wait for it to complete.</li>
+<li>Click "Export Model", select "TensorFlow Lite", then download the model.</li>
+</ol>
+<p>You should now have a zip file named "converted_tflite.zip".
+Open it up and extract the file named "soundclassifier_with_metadata.tflite"; this file contains the trained weights.</p>
+<h2>Installation</h2>
+<p>To run an audio classifier on Python, you'll need to install a few things.</p>
+<h3>LiteRT</h3>
+<p>This is the software library for machine learning.
+LiteRT (...formerly known as TensorFlow Lite) provides a lighter (smaller install size, lower memory use) alternative to TensorFlow.
+If you already have TensorFlow installed, you can use that instead.</p>
+<p>To install LiteRT on Linux systems (...including Raspberry Pi), first create and activate a new virtual environment...</p>
+<div class="codehilite"><pre><span></span><code>python -m venv litert
+source litert/bin/activate
+</code></pre></div>
+
+<p>On Mac and Windows, you can skip the above step.
+Next, you'll need to install LiteRT and OpenCV...</p>
+<div class="codehilite"><pre><span></span><code>pip install ai-edge-litert
+</code></pre></div>
+
+<h3>MediaPipe</h3>
+<p>MediaPipe provides machine learning models for various tasks.
+We'll be using the Audio Classifier model provided by MediaPipe.</p>
+<div class="codehilite"><pre><span></span><code>pip install mediapipe
+</code></pre></div>
+
+<h2>Code</h2>
+<p>The code for using Movenet is rather complex, so we'll be breaking it up into multiple small steps.
+In this first step, we'll be using OpenCV to capture a video image and display it; there's actually no usage of Movenet here.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">mediapipe.tasks</span> <span class="kn">import</span> <span class="n">python</span>
+<span class="kn">from</span> <span class="nn">mediapipe.tasks.python.audio.core</span> <span class="kn">import</span> <span class="n">audio_record</span>
+<span class="kn">from</span> <span class="nn">mediapipe.tasks.python.components</span> <span class="kn">import</span> <span class="n">containers</span>
+<span class="kn">from</span> <span class="nn">mediapipe.tasks.python</span> <span class="kn">import</span> <span class="n">audio</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Various options. You can play around with these.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;soundclassifier_with_metadata.tflite&#39;</span>
+<span class="n">max_results</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">score_threshold</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">overlapping_factor</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+
+<span class="c1"># Callback function. The audio classifier will run this after classification.</span>
+<span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">timestamp_ms</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">first_result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Only print if the detected audio is not the background noise.</span>
+    <span class="k">if</span> <span class="n">first_result</span><span class="o">.</span><span class="n">category_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">first_result</span><span class="p">)</span>
+
+<span class="c1"># Initialize the audio classification model.</span>
+<span class="n">base_options</span> <span class="o">=</span> <span class="n">python</span><span class="o">.</span><span class="n">BaseOptions</span><span class="p">(</span><span class="n">model_asset_path</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+<span class="n">options</span> <span class="o">=</span> <span class="n">audio</span><span class="o">.</span><span class="n">AudioClassifierOptions</span><span class="p">(</span>
+    <span class="n">base_options</span><span class="o">=</span><span class="n">base_options</span><span class="p">,</span> <span class="n">running_mode</span><span class="o">=</span><span class="n">audio</span><span class="o">.</span><span class="n">RunningMode</span><span class="o">.</span><span class="n">AUDIO_STREAM</span><span class="p">,</span>
+    <span class="n">max_results</span><span class="o">=</span><span class="n">max_results</span><span class="p">,</span> <span class="n">score_threshold</span><span class="o">=</span><span class="n">score_threshold</span><span class="p">,</span>
+    <span class="n">result_callback</span><span class="o">=</span><span class="n">print_result</span><span class="p">)</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">audio</span><span class="o">.</span><span class="n">AudioClassifier</span><span class="o">.</span><span class="n">create_from_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+<span class="c1"># Initialize the audio recorder</span>
+<span class="n">buffer_size</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">num_channels</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">,</span> <span class="mi">44100</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">audio_record</span><span class="o">.</span><span class="n">AudioRecord</span><span class="p">(</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">)</span>
+
+<span class="c1"># Initialize a tensor to store the audio data</span>
+<span class="n">audio_format</span> <span class="o">=</span> <span class="n">containers</span><span class="o">.</span><span class="n">AudioDataFormat</span><span class="p">(</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">)</span>
+<span class="n">audio_data</span> <span class="o">=</span> <span class="n">containers</span><span class="o">.</span><span class="n">AudioData</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">,</span> <span class="n">audio_format</span><span class="p">)</span>
+
+<span class="c1"># We&#39;ll try to run inference every interval_between_inference seconds.</span>
+<span class="c1"># This is usually half of the model&#39;s input length to create an overlapping</span>
+<span class="c1"># between incoming audio segments to improve classification accuracy.</span>
+<span class="n">input_length_in_second</span> <span class="o">=</span> <span class="n">buffer_size</span> <span class="o">/</span> <span class="n">sample_rate</span>
+<span class="n">interval_between_inference</span> <span class="o">=</span> <span class="n">input_length_in_second</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">overlapping_factor</span><span class="p">)</span>
+<span class="n">last_inference_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Start audio recording in the background.</span>
+<span class="n">record</span><span class="o">.</span><span class="n">start_recording</span><span class="p">()</span>
+
+<span class="c1"># Loop forever</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+  <span class="c1"># Wait until at least interval_between_inference seconds has passed since</span>
+  <span class="c1"># the last inference.</span>
+  <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="n">diff</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">last_inference_time</span>
+  <span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="n">interval_between_inference</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="k">continue</span>
+  <span class="n">last_inference_time</span> <span class="o">=</span> <span class="n">now</span>
+
+  <span class="c1"># Load the input audio from the AudioRecord instance and run classify.</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span>
+  <span class="n">audio_data</span><span class="o">.</span><span class="n">load_from_array</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+  <span class="n">classifier</span><span class="o">.</span><span class="n">classify_async</span><span class="p">(</span><span class="n">audio_data</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span> <span class="o">//</span> <span class="mi">1_000_000</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Save the above code into a .py file (eg. audio.py), and run it with...</p>
+<div class="codehilite"><pre><span></span><code>python audio3.py
+</code></pre></div>
+
+<p>Say the word that you have used for training; you should see the result printed on screen.
+You may also see some warning messages (...mostly related to timestamp), and can safely ignore them.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>
