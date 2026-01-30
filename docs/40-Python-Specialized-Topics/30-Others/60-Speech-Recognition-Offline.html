@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Specialized Topics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Specialized Topics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">Specialized stand-alone topics in Python.</div>
+            <p class="" data-section="">Introductions</p><ul class=""><a href="../10-Intro/10-before.html"><li >Before you begin...</li></a></ul><p class="" data-section="">Network</p><ul class=""><a href="../20-Network/10-sockets.html"><li >Sockets</li></a></ul><p class="" data-section="">OpenCV</p><ul class=""><a href="../25-OpenCV/10-ColorBlob.html"><li >Color Blob Detection</li></a></ul><p class="" data-section="">Others</p><ul class=""><a href="../30-Others/10-Serial.html"><li >Serial</li></a><a href="../30-Others/20-Movenet.html"><li >Movenet</li></a><a href="../30-Others/30-Filters.html"><li >Signal Filters</li></a><a href="../30-Others/40-EV3-Serial-Read.html"><li >EV3 Serial Read</li></a><a href="../30-Others/50-Audio-Classifier.html"><li >Audio Classifier</li></a><a href="../30-Others/60-Speech-Recognition-Offline.html"><li class="current">Speech Recognition (Offline)</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Speech Recognition (Offline)</h1>
+<p>This tutorial will show you how to read audio from a microphone and convert it into text.</p>
+<p>We will demonstrate using two different libraries <a href="https://cmusphinx.github.io/">CMUSphinx / PocketSphinx</a> and <a href="https://alphacephei.com/vosk/">Vosk</a>.
+From my (...very limited) tests, Vosk appears to give better results while PocketSphinx uses less memory.</p>
+<p>You can use it for various purposes, such as...</p>
+<ul>
+<li>Send voice commands to a robot</li>
+</ul>
+<p>Note that if you wish to detect only a few short commands (eg. "left", "right", "up", "down"), you might get better results by training your own audio classifier.</p>
+<h2>Installation (CMUSphinx / PocketSphinx)</h2>
+<p>To install PocketSphinx on Linux systems (...including Raspberry Pi), first create and activate a new virtual environment...</p>
+<div class="codehilite"><pre><span></span><code>python -m venv speech
+source speech/bin/activate
+</code></pre></div>
+
+<p>On Mac and Windows, you can skip the above step.
+Next, you'll need to install PocketSphinx and (optionally) PyAudio...</p>
+<div class="codehilite"><pre><span></span><code>pip install pocketsphinx
+pip install pyaudio
+</code></pre></div>
+
+<p>PyAudio is not needed if you are only using the simple code example.</p>
+<h2>Simple Code (CMUSphinx / PocketSphinx)</h2>
+<p>The code for using pocketsphinx can be incredibly simple...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pocketsphinx</span> <span class="kn">import</span> <span class="n">LiveSpeech</span>
+
+<span class="k">for</span> <span class="n">phrase</span> <span class="ow">in</span> <span class="n">LiveSpeech</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">phrase</span><span class="p">)</span>
+</code></pre></div>
+
+<p>...but this simple code have a number of drawbacks, including...</p>
+<ul>
+<li>Not able to select which microphone to use</li>
+<li>Blocking loop; your program can't do other work while waiting for speech</li>
+<li>No configuration options available</li>
+</ul>
+<p>Save the above code into a .py file (eg. speech_sphinx.py), and run it with...</p>
+<div class="codehilite"><pre><span></span><code>python speech_sphinx.py
+</code></pre></div>
+
+<p>Say something, and you should see the words printed on screen.
+If no words are printed, check the microphone setting on your computer; it might be turned off.
+Note that the Raspberry Pi do not have a built-in microphone; you must add a USB microphone.</p>
+<h2>Advanced Code (CMUSphinx / PocketSphinx)</h2>
+<p>The advanced code for using pocketsphinx provides more features at the expense of a slightly more complicated code.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pocketsphinx</span> <span class="kn">import</span> <span class="n">Endpointer</span><span class="p">,</span> <span class="n">Decoder</span>
+<span class="kn">import</span> <span class="nn">pyaudio</span>
+
+<span class="c1"># Initialize audio</span>
+<span class="n">DEVICE</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Use default input device</span>
+<span class="n">CHUNK</span> <span class="o">=</span> <span class="mi">480</span>  <span class="c1"># Size of each audio buffer chunk</span>
+<span class="n">FORMAT</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span>  <span class="c1"># Audio format (16-bit signed integer)</span>
+<span class="n">CHANNELS</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Mono recording</span>
+<span class="n">RATE</span> <span class="o">=</span> <span class="mi">16000</span>  <span class="c1"># Sample rate (samples per second)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_device_index</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span>
+                <span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">,</span>
+                <span class="n">channels</span><span class="o">=</span><span class="n">CHANNELS</span><span class="p">,</span>
+                <span class="n">rate</span><span class="o">=</span><span class="n">RATE</span><span class="p">,</span>
+                <span class="nb">input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">frames_per_buffer</span><span class="o">=</span><span class="n">CHUNK</span><span class="p">)</span>
+
+<span class="c1"># Initialize speech decoder</span>
+<span class="n">ep</span> <span class="o">=</span> <span class="n">Endpointer</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">=</span><span class="n">RATE</span><span class="p">)</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">Decoder</span><span class="p">(</span><span class="n">samprate</span><span class="o">=</span><span class="n">RATE</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">CHUNK</span><span class="p">,</span> <span class="n">exception_on_overflow</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">prev_in_speech</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">in_speech</span>
+    <span class="n">speech</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">speech</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prev_in_speech</span><span class="p">:</span>
+            <span class="n">decoder</span><span class="o">.</span><span class="n">start_utt</span><span class="p">()</span>
+        <span class="n">decoder</span><span class="o">.</span><span class="n">process_raw</span><span class="p">(</span><span class="n">speech</span><span class="p">)</span>
+        <span class="n">hyp</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">hyp</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">hyp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PARTIAL:&quot;</span><span class="p">,</span> <span class="n">hyp</span><span class="o">.</span><span class="n">hypstr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ep</span><span class="o">.</span><span class="n">in_speech</span><span class="p">:</span>
+            <span class="n">decoder</span><span class="o">.</span><span class="n">end_utt</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FULL:&quot;</span><span class="p">,</span> <span class="n">decoder</span><span class="o">.</span><span class="n">hyp</span><span class="p">()</span><span class="o">.</span><span class="n">hypstr</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Save the above code into a .py file (eg. speech_sphinx.py), and run it with...</p>
+<div class="codehilite"><pre><span></span><code>python speech_sphinx.py
+</code></pre></div>
+
+<p>Say something, and you should see the words printed on screen.
+If no words are printed, check the microphone setting on your computer; it might be turned off.
+Note that the Raspberry Pi do not have a built-in microphone; you must add a USB microphone.</p>
+<h2>Installation (Vosk)</h2>
+<p>To install Vosk on Linux systems (...including Raspberry Pi), first create and activate a new virtual environment...</p>
+<div class="codehilite"><pre><span></span><code>python -m venv speech
+source speech/bin/activate
+</code></pre></div>
+
+<p>On Mac and Windows, you can skip the above step.
+Next, you'll need to install PyAudio and Vosk...</p>
+<div class="codehilite"><pre><span></span><code>pip install pyaudio
+pip install vosk
+</code></pre></div>
+
+<p>You will also need to download a model from <a href="https://alphacephei.com/vosk/models">here</a>.
+This will give you a zip file that you will then need to extract.
+In the example code below, we are using the <em>vosk-model-small-en-us-0.15</em> model.</p>
+<h2>Code (Vosk)</h2>
+<p>The code for using Vosk is as follows...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyaudio</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">vosk</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">KaldiRecognizer</span>
+
+<span class="c1"># Model should be stored in this directory</span>
+<span class="c1"># Change this if you are using a different model or if your model is stored</span>
+<span class="c1"># in a different directory.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="s1">&#39;vosk-model-small-en-us-0.15&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initialize audio</span>
+<span class="n">DEVICE</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Use default input device</span>
+<span class="n">CHUNK</span> <span class="o">=</span> <span class="mi">1024</span>  <span class="c1"># Size of each audio buffer chunk</span>
+<span class="n">FORMAT</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span>  <span class="c1"># Audio format (16-bit signed integer)</span>
+<span class="n">CHANNELS</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Mono recording</span>
+<span class="n">RATE</span> <span class="o">=</span> <span class="mi">44100</span>  <span class="c1"># Sample rate (samples per second)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_device_index</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span>
+                <span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">,</span>
+                <span class="n">channels</span><span class="o">=</span><span class="n">CHANNELS</span><span class="p">,</span>
+                <span class="n">rate</span><span class="o">=</span><span class="n">RATE</span><span class="p">,</span>
+                <span class="nb">input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">frames_per_buffer</span><span class="o">=</span><span class="n">CHUNK</span><span class="p">)</span>
+
+<span class="c1"># Main loop</span>
+<span class="n">rec</span> <span class="o">=</span> <span class="n">KaldiRecognizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">RATE</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">CHUNK</span><span class="p">,</span> <span class="n">exception_on_overflow</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rec</span><span class="o">.</span><span class="n">AcceptWaveform</span><span class="p">(</span><span class="n">data</span><span class="p">):</span> <span class="c1"># Returns True when the sentence is complete</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">Result</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FULL:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># Partial sentence. You can skip this if you only want full sentences</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">PartialResult</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;partial&#39;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PARTIAL:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;partial&#39;</span><span class="p">])</span>
+</code></pre></div>
+
+<p>Save the above code into a .py file (eg. speech_vosk.py), and run it with...</p>
+<div class="codehilite"><pre><span></span><code>python speech_vosk.py
+</code></pre></div>
+
+<p>Say something, and you should see the words printed on screen.
+If no words are printed, check the microphone setting on your computer; it might be turned off.
+Note that the Raspberry Pi do not have a built-in microphone; you must add a USB microphone.</p>
+<h2>Selecting Audio Input Device</h2>
+<p>The above code uses the default audio device for input (<code>DEVICE = None</code>), but this may not always be the best option (eg. you have more than one microphone).
+To determine the device number to use when selecting an audio device, you can use this code...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyaudio</span>
+
+<span class="c1"># Initialize pyaudio</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_device_count</span><span class="p">()):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_device_info_by_index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This should print the index and info of every available audio device on your system.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>

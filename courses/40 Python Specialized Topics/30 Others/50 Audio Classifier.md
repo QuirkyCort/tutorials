@@ -42,7 +42,7 @@ python -m venv litert
 source litert/bin/activate
 ```
 On Mac and Windows, you can skip the above step.
-Next, you'll need to install LiteRT and OpenCV...
+Next, you'll need to install LiteRT...
 
 ```
 pip install ai-edge-litert
@@ -58,9 +58,6 @@ pip install mediapipe
 ```
 
 ## Code
-
-The code for using Movenet is rather complex, so we'll be breaking it up into multiple small steps.
-In this first step, we'll be using OpenCV to capture a video image and display it; there's actually no usage of Movenet here.
 
 ```python
 import time
