@@ -1,6 +1,8 @@
 # Speech Recognition (Offline)
 
 This tutorial will show you how to read audio from a microphone and convert it into text.
+All of the methods shown here are **Offline** methods, which means that you don't need internet access to run them.
+Other methods (eg. Google Cloud Speech API) may give better results, but requires an internet connection to work.
 
 We will demonstrate using two different libraries [CMUSphinx / PocketSphinx](https://cmusphinx.github.io/) and [Vosk](https://alphacephei.com/vosk/).
 From my (...very limited) tests, Vosk appears to give better results while PocketSphinx uses less memory.
