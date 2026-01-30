@@ -133,7 +133,7 @@ while True:
 Save the above code into a .py file (eg. audio.py), and run it with...
 
 ```
-python audio3.py
+python audio.py
 ```
 
 Say the word that you have used for training; you should see the result printed on screen.
