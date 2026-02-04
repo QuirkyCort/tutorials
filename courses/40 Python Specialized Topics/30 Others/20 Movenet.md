@@ -70,7 +70,7 @@ pip install opencv-python
 ### Alternative installation using LiteRT
 
 LiteRT (...formerly known as TensorFlow Lite) provides a lighter (smaller install size, lower memory use) alternative to TensorFlow.
-When using LiteRT, you much use the LiteRT code at the bottom of this page; the rest of the code are meant for TensorFlow and will not work.
+When using LiteRT, you must use the LiteRT code at the bottom of this page; the rest of the code are meant for TensorFlow and will not work.
 
 To install LiteRT on Linux systems (...including Raspberry Pi), first create and activate a new virtual environment...
 

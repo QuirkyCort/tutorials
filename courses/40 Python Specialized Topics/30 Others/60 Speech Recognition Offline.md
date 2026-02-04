@@ -74,6 +74,7 @@ FORMAT = pyaudio.paInt16  # Audio format (16-bit signed integer)
 CHANNELS = 1  # Mono recording
 RATE = 16000  # Sample rate (samples per second)
 
+# Open a data stream for the audio device
 p = pyaudio.PyAudio()
 stream = p.open(input_device_index=DEVICE,
                 format=FORMAT,
@@ -87,6 +88,7 @@ ep = Endpointer(sample_rate=RATE)
 decoder = Decoder(samprate=RATE)
 
 while True:
+    # Read one chunk of data from the audio stream
     data = stream.read(CHUNK, exception_on_overflow = False)
     prev_in_speech = ep.in_speech
     speech = ep.process(data)
@@ -99,7 +101,7 @@ while True:
             print("PARTIAL:", hyp.hypstr)
         if not ep.in_speech:
             decoder.end_utt()
-            print("FULL:", decoder.hyp().hypstr)
+            print("FULL:", hyp.hypstr)
 ```
 
 Save the above code into a .py file (eg. speech_sphinx.py), and run it with...

@@ -18,9 +18,10 @@ If you need longer commands (eg. "turn left"), you can break them into multiple 
 3. Select "Audio Project"
 4. Record your background noise then click "Extract Sample".
 5. Record your audio sample. Note that this will record for two seconds by default, if recording a word, you should say it twice. Click "Extract Sample" after each recording.
-6. Add a new class and repeat the sample recording if needed.
+6. If you have more than one sound to recognize, add a new class and repeat the sample recording.
 7. When you have sufficient samples, click "Train Model" and wait for it to complete.
-8. Click "Export Model", select "TensorFlow Lite", then download the model.
+8. Test your model on the Teachable Machine page to make sure it works correctly.
+9. Click "Export Model", select "TensorFlow Lite", then download the model.
 
 You should now have a zip file named "converted_tflite.zip".
 Open it up and extract the file named "soundclassifier_with_metadata.tflite"; this file contains the trained weights.
