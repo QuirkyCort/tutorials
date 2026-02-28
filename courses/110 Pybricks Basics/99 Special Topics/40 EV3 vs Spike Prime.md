@@ -34,7 +34,7 @@ On the Spike Prime, the devices are imported using...
 from pybricks.pupdevices import *
 ```
 
-<div class="note">
+<div class="info">
 "pup" stands for "Powered Up".
 This is a series of Lego devices that uses the same type of connector (...like what the Spike Prime uses).
 </div>
