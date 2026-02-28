@@ -78,7 +78,7 @@
 <span class="c1"># Returns RGB in the range of 0-100</span>
 
 <span class="k">def</span> <span class="nf">hsv_to_rgb</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
-    <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">hsv</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span> <span class="o">/</span> <span class="mi">100</span>
 
     <span class="n">c</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">s</span>
 

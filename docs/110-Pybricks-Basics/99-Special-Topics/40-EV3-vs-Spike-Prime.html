@@ -58,6 +58,7 @@
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.pupdevices</span> <span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 
+<p><br></p>
 <div class="info">
 "pup" stands for "Powered Up".
 This is a series of Lego devices that uses the same type of connector (...like what the Spike Prime uses).
@@ -103,6 +104,7 @@ If you use the above code (...with the appropriate changes for Spike), you'll se
 <span class="n">robot</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
 </code></pre></div>
 
+<p><br></p>
 <div class="important">
 This isn't always true; it's rare, but possible for an EV3 robot to have motors facing opposite directions, and for a Spike robot to have both motors facing the same direction.
 </div>
@@ -124,6 +126,25 @@ You only need to initialize the hub, then you can use it like this...</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">imu</span><span class="o">.</span><span class="n">heading</span><span class="p">())</span>
 </code></pre></div>
+
+<h2>Color Sensors</h2>
+<p>The EV3 color sensor has a <code>rgb()</code> function that returns the red, green, and blue values as a tuple.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+
+<p>The Spike color senson has a <code>hsv()</code> function that returns the hue, saturation, and value as a color object.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">hsv</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">hsv</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hue&#39;</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;saturation&#39;</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You can refer to the <strong>HSV and RGB</strong> section for sample codes to convert between HSV and RGB.</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

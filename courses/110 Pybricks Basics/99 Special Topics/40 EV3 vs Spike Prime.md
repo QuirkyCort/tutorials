@@ -34,6 +34,7 @@ On the Spike Prime, the devices are imported using...
 from pybricks.pupdevices import *
 ```
 
+<br>
 <div class="info">
 "pup" stands for "Powered Up".
 This is a series of Lego devices that uses the same type of connector (...like what the Spike Prime uses).
@@ -90,6 +91,7 @@ robot = DriveBase(left_motor, right_motor, 56, 152)
 robot.straight(200)
 ```
 
+<br>
 <div class="important">
 This isn't always true; it's rare, but possible for an EV3 robot to have motors facing opposite directions, and for a Spike robot to have both motors facing the same direction.
 </div>
@@ -116,3 +118,27 @@ hub = PrimeHub()
 
 print(hub.imu.heading())
 ```
+
+## Color Sensors
+
+The EV3 color sensor has a ```rgb()``` function that returns the red, green, and blue values as a tuple.
+
+```python
+color_sensor = ColorSensor(Port.S1)
+rgb = color_sensor.rgb()
+print('red', rgb[0])
+print('green', rgb[1])
+print('blue', rgb[2])
+```
+
+The Spike color senson has a ```hsv()``` function that returns the hue, saturation, and value as a color object.
+
+```python
+color_sensor = ColorSensor(Port.A)
+hsv = color_sensor.hsv()
+print('hue', hsv.h)
+print('saturation', hsv.s)
+print('value', hsv.v)
+```
+
+You can refer to the **HSV and RGB** section for sample codes to convert between HSV and RGB.

@@ -48,7 +48,7 @@ def rgb_to_hsv(rgb):
 # Returns RGB in the range of 0-100
 
 def hsv_to_rgb(hsv):
-    h, s, v = hsv[0], hsv[1] / 100, hsv[2] / 100
+    h, s, v = hsv.h, hsv.s / 100, hsv.v / 100
 
     c = v * s
 
