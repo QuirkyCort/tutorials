@@ -91,6 +91,7 @@ Note that the Raspberry Pi do not have a built-in microphone; you must add a USB
 <span class="n">CHANNELS</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Mono recording</span>
 <span class="n">RATE</span> <span class="o">=</span> <span class="mi">16000</span>  <span class="c1"># Sample rate (samples per second)</span>
 
+<span class="c1"># Open a data stream for the audio device</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
 <span class="n">stream</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_device_index</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span>
                 <span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">,</span>
@@ -104,6 +105,7 @@ Note that the Raspberry Pi do not have a built-in microphone; you must add a USB
 <span class="n">decoder</span> <span class="o">=</span> <span class="n">Decoder</span><span class="p">(</span><span class="n">samprate</span><span class="o">=</span><span class="n">RATE</span><span class="p">)</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Read one chunk of data from the audio stream</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">CHUNK</span><span class="p">,</span> <span class="n">exception_on_overflow</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">prev_in_speech</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">in_speech</span>
     <span class="n">speech</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -116,7 +118,7 @@ Note that the Raspberry Pi do not have a built-in microphone; you must add a USB
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PARTIAL:&quot;</span><span class="p">,</span> <span class="n">hyp</span><span class="o">.</span><span class="n">hypstr</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ep</span><span class="o">.</span><span class="n">in_speech</span><span class="p">:</span>
             <span class="n">decoder</span><span class="o">.</span><span class="n">end_utt</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FULL:&quot;</span><span class="p">,</span> <span class="n">decoder</span><span class="o">.</span><span class="n">hyp</span><span class="p">()</span><span class="o">.</span><span class="n">hypstr</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FULL:&quot;</span><span class="p">,</span> <span class="n">hyp</span><span class="o">.</span><span class="n">hypstr</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Save the above code into a .py file (eg. speech_sphinx.py), and run it with...</p>

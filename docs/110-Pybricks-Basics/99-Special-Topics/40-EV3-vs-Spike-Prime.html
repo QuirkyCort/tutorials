@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p class="" data-section="">Intro to Pybricks</p><ul class=""><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p class="" data-section="">Basic Programs</p><ul class=""><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p class="" data-section="">Special Topics</p><ul class=""><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a><a href="../99-Special-Topics/40-EV3-vs-Spike-Prime.html"><li class="current">EV3 vs Spike Prime</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>EV3 vs Spike Prime</h1>
+<p>Pybricks works largely the same on the EV3 and Spike, but there are a few differences that you need to watch out for.</p>
+<h2>Hub</h2>
+<p>On the EV3, the hub is initialized using...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
+
+<span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
+</code></pre></div>
+
+<p>On the Spike Prime, the hub is initialized using...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">PrimeHub</span>
+
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+</code></pre></div>
+
+<h2>Importing Devices</h2>
+<p>On the EV3, the devices (ie. motors and sensors) are imported using...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div>
+
+<p>On the Spike Prime, the devices are imported using...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.pupdevices</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div>
+
+<div class="note">
+"pup" stands for "Powered Up".
+This is a series of Lego devices that uses the same type of connector (...like what the Spike Prime uses).
+</div>
+
+<h2>Sensor Ports</h2>
+<p>On the EV3, the sensors ports are numbered (ie. 1, 2, 3), while the motor ports are alphabets (ie. A, B, C).
+So on the EV3, you may initialize your motors and sensors like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span> <span class="c1"># Number port</span>
+</code></pre></div>
+
+<p>On the Spike, both motors and sensors shares the same alphabet ports, and you would initialize your motors and sensors like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="c1"># Alphabet port</span>
+</code></pre></div>
+
+<h2>Motor Direction</h2>
+<p>Robots built using the EV3 large motors, would usually have both motors facing the <strong>same</strong> direction.
+So this code would work fine...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="n">left_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">right_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">left_motor</span><span class="p">,</span> <span class="n">right_motor</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</code></pre></div>
+
+<p>But robots built using the Spike Prime large or medium motors, would usually have the motors facing <strong>opposite</strong> directions.
+If you use the above code (...with the appropriate changes for Spike), you'll see one motor moving forward, while the other moves in reverse.</p>
+<p>So for a Spike Prime robot, you'll usually need to change the positive direction of the left motor to counterclockwise like so...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.pupdevices</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="n">left_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">Direction</span><span class="o">.</span><span class="n">COUNTERCLOCKWISE</span><span class="p">)</span>
+<span class="n">right_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">left_motor</span><span class="p">,</span> <span class="n">right_motor</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="important">
+This isn't always true; it's rare, but possible for an EV3 robot to have motors facing opposite directions, and for a Spike robot to have both motors facing the same direction.
+</div>
+
+<h2>Gyro</h2>
+<p>On the EV3, the gyro is an external device, and you would initialize and use it like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+</code></pre></div>
+
+<p>On the Spike, the gyro is built into the hub.
+You only need to initialize the hub, then you can use it like this...</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">PrimeHub</span>
+
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">imu</span><span class="o">.</span><span class="n">heading</span><span class="p">())</span>
+</code></pre></div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>

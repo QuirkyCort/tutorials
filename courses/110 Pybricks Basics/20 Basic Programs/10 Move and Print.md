@@ -46,7 +46,7 @@ Let's look at what each line does...
 The EV3 is running a Linux operating system.
 In Linux, the first line starting with a `#!` is used to indicate the type of script in this file.
 In this case, it tells the operating system that the file is a `pybricks-micropython` program.
-The Spike Prime doesn't need this (...it doesn't run Linux or any other operating system).
+The Spike Prime doesn't need this (...it doesn't run Linux or any other operating system), and it treats all programs as a `pybricks-micropython` program.
 
 ## Imports
 
@@ -67,7 +67,7 @@ They import functions from different modules, and make them available for use in
 
 `from pybricks.tools import wait` imports the `wait` function from the `pybricks.tools` module.
 
-`from pybricks.ev3devices import *` imports ALL the functions form the `pybricks.ev3devices` module (...the `*` means everything).
+`from pybricks.ev3devices import *` imports ALL the functions from the `pybricks.ev3devices` module (...the `*` means everything).
 
 ## Initialize Motors and Sensors
 

@@ -31,7 +31,7 @@
         <div id="sidebarOverlay"></div>
         <nav id="sidebar" role="navigation">
             <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
-            <p>Intro to Pybricks</p><ul><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p>Basic Programs</p><ul><a href="../20-Basic-Programs/10-Move-and-Print.html"><li class="current">Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p>Special Topics</p><ul><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a></ul>
+            <p class="" data-section="">Intro to Pybricks</p><ul class=""><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p class="" data-section="">Basic Programs</p><ul class=""><a href="../20-Basic-Programs/10-Move-and-Print.html"><li class="current">Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p class="" data-section="">Special Topics</p><ul class=""><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a><a href="../99-Special-Topics/40-EV3-vs-Spike-Prime.html"><li >EV3 vs Spike Prime</li></a></ul>
         </nav>
         <div id="content">
             <h1>Move and Print</h1>
@@ -75,7 +75,7 @@ If running on a real robot, you need to make sure that all the motors/sensors ar
 <p>The EV3 is running a Linux operating system.
 In Linux, the first line starting with a <code>#!</code> is used to indicate the type of script in this file.
 In this case, it tells the operating system that the file is a <code>pybricks-micropython</code> program.
-The Spike Prime doesn't need this (...it doesn't run Linux or any other operating system).</p>
+The Spike Prime doesn't need this (...it doesn't run Linux or any other operating system), and it treats all programs as a <code>pybricks-micropython</code> program.</p>
 <h2>Imports</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
 <span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
@@ -90,7 +90,7 @@ It's for humans to read, and Python will ignore it.</p>
 <p>The line starting with <code>from</code> are imports lines.
 They import functions from different modules, and make them available for use in your program.</p>
 <p><code>from pybricks.tools import wait</code> imports the <code>wait</code> function from the <code>pybricks.tools</code> module.</p>
-<p><code>from pybricks.ev3devices import *</code> imports ALL the functions form the <code>pybricks.ev3devices</code> module (...the <code>*</code> means everything).</p>
+<p><code>from pybricks.ev3devices import *</code> imports ALL the functions from the <code>pybricks.ev3devices</code> module (...the <code>*</code> means everything).</p>
 <h2>Initialize Motors and Sensors</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Create the sensors and motors objects</span>
 <span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
@@ -177,16 +177,50 @@ It is a single numeric value.</p>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        function initHamburger() {
             document.getElementById('hamburger').addEventListener('click', function() {
                 document.getElementById('body').classList.toggle('close');
             });
+        }
 
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
             let currentEle = document.querySelector('#sidebar li.current');
             currentEle.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
         });
     </script>
 </body>
