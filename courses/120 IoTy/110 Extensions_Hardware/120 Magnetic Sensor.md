@@ -1,13 +1,13 @@
-# Magnetic Sensor (QMC5883L, HMC5883L)
+# Magnetic Sensor (QMC5883L, QMC5883P, HMC5883L)
 
 ![](images/qmc5883l.webp)
 
-The QMC5883L and HMC5883L are 3-axis magnetic sensors often used as a magnetic compass for navigation purposes.
-Both models works in the same way, but each require their own extension.
+The QMC5883L, QMC5883P, and HMC5883L are 3-axis magnetic sensors often used as a magnetic compass for navigation purposes.
+All models works in the same way, but each require their own extension.
 
 <div class="important">
-It is quite common to find QMC5883L sold as HMC5883L and vice versa.
-You can check which model you have by performing an I2C scan; the QMC5883L will have an address of 0x0D (13), while the HMC5883L uses address 0x1E (30).
+It is quite common to find QMC5883L or QMC5883P sold as HMC5883L and vice versa.
+You can check which model you have by performing an I2C scan; the QMC5883L will have an address of 0x0D (13), the QMC5883P an address of 0x2C (44), while the HMC5883L uses address 0x1E (30).
 </div>
 
 ## Pins
@@ -30,7 +30,7 @@ You can check which model you have by performing an I2C scan; the QMC5883L will 
 
 This code will print the sensor readings for all 3 axis.
 
-There are two versions provided; for the QMC5883L and HMC5883L.
+There are two versions provided; for the QMC5883L and HMC5883L; the QMC5883P blocks are similar (...but with the QMC5883P name).
 Use the code suitable for your sensor.
 
 ### Blocks
@@ -54,6 +54,24 @@ while True:
     print(qmc5883l_device.get_x())
     print(qmc5883l_device.get_y())
     print(qmc5883l_device.get_z())
+    time.sleep(1)
+```
+
+**QMC5883P**
+
+```python
+import machine
+import qmc5883p
+import time
+
+i2c0 = machine.I2C(0, freq=100000)
+qmc5883p_device = qmc5883p.QMC5883P(i2c0, addr=13, scale=qmc5883p.SCALE_2G)
+while True:
+    qmc5883p_device.read()
+    print('Readings:')
+    print(qmc5883p_device.get_x())
+    print(qmc5883p_device.get_y())
+    print(qmc5883p_device.get_z())
     time.sleep(1)
 ```
 
@@ -115,7 +133,7 @@ The following steps assumes that the Z-axis is facing up. Adjust the code if you
 You should see the compass direction printed in the monitor.
 The values will range from -180 to 180; if you need it to be from 0 to 360, add 360 if the angle is less than 0.
 
-# `class QMC5883L` / `class HMC5883L` - control QMC5883L and HMC5883L magnetic sensors
+# `class QMC5883L` / `class QMC5883P` / `class HMC5883L` - control QMC5883L, QMC5883P, and HMC5883L magnetic sensors
 
 !!!!!
 ## Constructors
@@ -137,6 +155,28 @@ The arguments are:
     * `qmc5883l.SCALE_8G` Max of 8 gauss.
 
 Returns a `QMC5883L` object.
+
+### qmc5883p.QMC5883P(i2c, addr=44, scale=SCALE_2G)
+
+Creates an QMC5883P object.
+
+The arguments are:
+
+* `i2c` An i2c object.
+
+* `addr` The i2c address of the QMC5883P. By default, this should be 44.
+
+* `scale` The maximum value readable by the sensor, which can be one of the following:
+
+    * `qmc5883l.SCALE_2G` Max of 2 gauss. This is enough for a compass.
+
+    * `qmc5883l.SCALE_8G` Max of 8 gauss.
+
+    * `qmc5883l.SCALE_12G` Max of 12 gauss.
+
+    * `qmc5883l.SCALE_30G` Max of 30 gauss.
+
+Returns a `QMC5883P` object.
 
 ### hmc5883l.HMC5883L(i2c, addr=30, scale=SCALE_1300G)
 
@@ -170,7 +210,7 @@ Returns a `HMC5883L` object.
 
 ## Methods
 
-### QMC5883L.read() / HMC5883L.read()
+### QMC5883L.read() / QMC5883P.read() / HMC5883L.read()
 
 Performs a reading.
 This will read all 3 axis values and store them.
@@ -178,6 +218,7 @@ This will read all 3 axis values and store them.
 Returns a list containing 3 integers representing the x, y, and z readings.
 
 ### QMC5883L.get_x() / QMC5883L.get_y() / QMC5883L.get_z()
+### QMC5883P.get_x() / QMC5883P.get_y() / QMC5883P.get_z()
 ### HMC5883L.get_x() / HMC5883L.get_y() / HMC5883L.get_z()
 
 Gets the reading for the specified axis.
@@ -186,7 +227,7 @@ You must perform a `read()` first.
 
 Returns an integer representing the reading for the axis
 
-### QMC5883L.get_all() / QMC5883L.get_all()
+### QMC5883L.get_all() / QMC5883P.get_all() / QMC5883L.get_all()
 
 Gets the readings for all 3 axis.
 
