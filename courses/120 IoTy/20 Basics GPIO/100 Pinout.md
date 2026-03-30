@@ -21,6 +21,27 @@ Exceptions are labelled above and described below.
 | STRAP | These pins are generally ok to use as output, but they may output a signal during boot-up. |
 | EN | This pin is connected to the EN (Reset) button. When connected to GND, the ESP32 will reset. |
 
+## ESP32-S3
+
+![](images/esp32s3Pinout.webp)
+
+Most of the pins on the ESP32 can be used for inputs and outputs.
+Unlike the ESP32, the ESP32-S3 has no input only pins; all pins are capable of output.
+
+| Label | Description |
+| --- | --- |
+| 5V | You can power the ESP32 by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
+| 3V3 | This pins outputs 3.3V. |
+| GND | Ground pin. |
+| USB | These are used for the USB connection. You cannot use them. |
+| ANALOG READ | Only these pins can be used for analog read. |
+| TOUCH | Only these pins can be used for touch read. |
+| WS2812 LED | This pin is connected to the onboard WS2812 (Neopixel) LED. You can control it using the Neopixel extension. |
+| BOOT | This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not. |
+| UART0 RX/TX | These pins are connected to the micropython terminal. You should not use them. |
+| STRAP | These pins are generally ok to use as output, but they may output a signal during boot-up. |
+| EN | This pin is connected to the EN (Reset) button. When connected to GND, the ESP32 will reset. |
+
 ## ESP32-S3-Cam (Freenove)
 
 ![](images/esp32s3CamPinout.webp)

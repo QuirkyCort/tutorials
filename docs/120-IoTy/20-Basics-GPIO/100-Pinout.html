@@ -93,6 +93,64 @@ Exceptions are labelled above and described below.</p>
 </tr>
 </tbody>
 </table>
+<h2>ESP32-S3</h2>
+<p><img alt="" src="images/esp32s3Pinout.webp" /></p>
+<p>Most of the pins on the ESP32 can be used for inputs and outputs.
+Unlike the ESP32, the ESP32-S3 has no input only pins; all pins are capable of output.</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5V</td>
+<td>You can power the ESP32 by supplying 5V to this pin. If connected to USB, this pin will output 5V.</td>
+</tr>
+<tr>
+<td>3V3</td>
+<td>This pins outputs 3.3V.</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Ground pin.</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>These are used for the USB connection. You cannot use them.</td>
+</tr>
+<tr>
+<td>ANALOG READ</td>
+<td>Only these pins can be used for analog read.</td>
+</tr>
+<tr>
+<td>TOUCH</td>
+<td>Only these pins can be used for touch read.</td>
+</tr>
+<tr>
+<td>WS2812 LED</td>
+<td>This pin is connected to the onboard WS2812 (Neopixel) LED. You can control it using the Neopixel extension.</td>
+</tr>
+<tr>
+<td>BOOT</td>
+<td>This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not.</td>
+</tr>
+<tr>
+<td>UART0 RX/TX</td>
+<td>These pins are connected to the micropython terminal. You should not use them.</td>
+</tr>
+<tr>
+<td>STRAP</td>
+<td>These pins are generally ok to use as output, but they may output a signal during boot-up.</td>
+</tr>
+<tr>
+<td>EN</td>
+<td>This pin is connected to the EN (Reset) button. When connected to GND, the ESP32 will reset.</td>
+</tr>
+</tbody>
+</table>
 <h2>ESP32-S3-Cam (Freenove)</h2>
 <p><img alt="" src="images/esp32s3CamPinout.webp" /></p>
 <p>There are many varients of the ESP32-S3-Cam with different pinouts.
