@@ -9,7 +9,7 @@ Exceptions are labelled above and described below.
 
 | Label | Description |
 | --- | --- |
-| VIN | You can power the ESP32 by supplying 5V to 12V to this pin. If connected to USB, this pin will output 5V. |
+| VIN | You can power the device by supplying 5V to 12V to this pin. If connected to USB, this pin will output 5V. |
 | 3V3 | This pins outputs 3.3V. |
 | GND | Ground pin. Both GND pins are the same, so you can use either. |
 | INPUT ONLY | These pins can only be used as inputs. You cannot write to these pins. They also do not have internal pull-up resistors. |
@@ -19,7 +19,7 @@ Exceptions are labelled above and described below.
 | BOOT | This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not. |
 | UART0 RX/TX | These pins are connected to the micropython terminal. You should not use them. |
 | STRAP | These pins are generally ok to use as output, but they may output a signal during boot-up. |
-| EN | This pin is connected to the EN (Reset) button. When connected to GND, the ESP32 will reset. |
+| EN | This pin is connected to the EN (Reset) button. When connected to GND, the device will reset. |
 
 ## ESP32-S3
 
@@ -30,7 +30,7 @@ Unlike the ESP32, the ESP32-S3 has no input only pins; all pins are capable of o
 
 | Label | Description |
 | --- | --- |
-| 5V | You can power the ESP32 by supplying 5V to this pin. By default, this pin does not output any voltage when connected to USB. |
+| 5V | You can power the device by supplying 5V to this pin. By default, this pin does not output any voltage when connected to USB. |
 | 3V3 | This pins outputs 3.3V. |
 | GND | Ground pin. |
 | USB | These are used for the USB connection. You cannot use them. |
@@ -40,7 +40,7 @@ Unlike the ESP32, the ESP32-S3 has no input only pins; all pins are capable of o
 | BOOT | This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not. |
 | UART0 RX/TX | These pins are connected to the micropython terminal. You should not use them. |
 | STRAP | These pins are generally ok to use as output, but they may output a signal during boot-up. |
-| EN | This pin is connected to the EN (Reset) button. When connected to GND, the ESP32 will reset. |
+| EN | This pin is connected to the EN (Reset) button. When connected to GND, the device will reset. |
 
 ## ESP32-S3-Cam (Freenove)
 
@@ -52,7 +52,7 @@ Many of the pins have special uses, so check the table below before choosing a p
 
 | Label | Description |
 | --- | --- |
-| 5V | You can power the ESP32 by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
+| 5V | You can power the device by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
 | 3V3 | This pins outputs 3.3V. |
 | GND | Ground pin. |
 | USB | These are used for the USB connection. You cannot use them. |
@@ -66,7 +66,7 @@ Many of the pins have special uses, so check the table below before choosing a p
 | BOOT | This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not. |
 | UART0 RX/TX | These pins are connected to the micropython terminal. You should not use them. |
 | STRAP | These pins are generally ok to use as output, but they may output a signal during boot-up. |
-| EN | This pin is connected to the EN (Reset) button. When connected to GND, the ESP32 will reset. |
+| EN | This pin is connected to the EN (Reset) button. When connected to GND, the device will reset. |
 
 ## ESP32-C3 Super Mini
 
@@ -75,7 +75,7 @@ Many of the pins have special uses, so check the table below before choosing a p
 
 | Label | Description |
 | --- | --- |
-| 5V | You can power the ESP32 by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
+| 5V | You can power the device by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
 | 3V3 | This pins outputs 3.3V. |
 | GND | Ground pin. |
 | ANALOG READ | Only these pins can be used for analog read. |
@@ -92,11 +92,11 @@ Many of the pins have special uses, so check the table below before choosing a p
 
 | Label | Description |
 | --- | --- |
-| 5V | You can power the ESP32 by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
+| 5V | You can power the device by supplying 5V to this pin. If connected to USB, this pin will output 5V. |
 | 3V3 | This pins outputs 3.3V. |
 | GND | Ground pin. |
 | ANALOG READ | Only these pins can be used for analog read. |
-| TOUCH | None of the pins on the ESP32-C3 supports touch. |
+| TOUCH | Only these pins can be used for touch read. |
 | LED | This pin is connected to the onboard blue LED. |
 | BOOT | This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not. |
 | UART0 RX/TX | These pins are connected to the micropython terminal. You should not use them. |
