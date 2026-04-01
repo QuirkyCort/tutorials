@@ -97,7 +97,6 @@ Many of the pins have special uses, so check the table below before choosing a p
 | GND | Ground pin. |
 | ANALOG READ | Only these pins can be used for analog read. |
 | TOUCH | Only these pins can be used for touch read. |
-| LED | This pin is connected to the onboard blue LED. |
 | BOOT | This button is connected to Pin 0. Pin 0 will return a 0 (LOW) when the button is pressed, and 1 (HIGH) when it is not. |
 | UART0 RX/TX | These pins are connected to the micropython terminal. You should not use them. |
 | STRAP | These pins are generally ok to use as output, but they may output a signal during boot-up. |
