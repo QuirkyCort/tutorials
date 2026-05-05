@@ -2,7 +2,7 @@
 
 To load this course you can navigate to:
 
-## http://a9i.sg/p1
+## http://a9i.sg/gb
 
 ![](images/site_qr.svg)
 
