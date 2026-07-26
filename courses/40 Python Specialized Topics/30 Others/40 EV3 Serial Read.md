@@ -10,6 +10,12 @@ This tutorials describes four different methods of reading from the serial devic
 
 The code is meant for an EV3 running micropython, and isn't tested with cPython.
 
+Some devices (eg. OpenMV AE3) only works in USB High-Speed mode, but the EV3 only supports USB Full-Speed mode.
+To work around this, you can use a USB-to-UART converter and connect from the EV3 USB port to the OpenMV AE3's UART pins.
+If you do this, you'll need to modify the code on the AE3 as described in the following section.
+
+* Devices in UART mode
+
 ## Continuous data
 
 In this approach, the micropython sends data continously and the EV3 will read everything.
@@ -445,3 +451,27 @@ while True:
             sys.stdout.buffer.write(struct.pack('hh', x, y) + b'\n')
 ```
 
+## Devices in UART mode
+
+The following code implements the "Request Respond" code, but using UART instead of stdin / stdout.
+This is useful when a USB serial connection couldn't be established (eg. when using OpenMV AE3).
+
+### Serial device code
+
+```python
+import time
+from machine import UART
+
+uart5 = UART(5, baudrate=115200, timeout=0)
+
+while True:
+    # Random code to set x and y
+    # Replace with your own code
+    x = time.time()
+    y = x + 5
+
+    # Check if we received a trigger
+    if uart5.read(1) == b'a':
+        string = str(x) + ',' + str(y) + '\n'
+        uart5.write(string)
+```

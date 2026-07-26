@@ -44,6 +44,12 @@ This tutorials describes four different methods of reading from the serial devic
 <li>Request Respond (binary)</li>
 </ul>
 <p>The code is meant for an EV3 running micropython, and isn't tested with cPython.</p>
+<p>Some devices (eg. OpenMV AE3) only works in USB High-Speed mode, but the EV3 only supports USB Full-Speed mode.
+To work around this, you can use a USB-to-UART converter and connect from the EV3 USB port to the OpenMV AE3's UART pins.
+If you do this, you'll need to modify the code on the AE3 as described in the following section.</p>
+<ul>
+<li>Devices in UART mode</li>
+</ul>
 <h2>Continuous data</h2>
 <p>In this approach, the micropython sends data continously and the EV3 will read everything.
 If there are multiple sets of data received in a single read, the EV3 will process only the last value.</p>
@@ -448,6 +454,27 @@ It also appears to be less reliable than the text version, but I did not investi
             <span class="c1"># The newline character appears to flush the buffer and is</span>
             <span class="c1"># needed as micropython do not support flush()</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s1">&#39;hh&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Devices in UART mode</h2>
+<p>The following code implements the "Request Respond" code, but using UART instead of stdin / stdout.
+This is useful when a USB serial connection couldn't be established (eg. when using OpenMV AE3).</p>
+<h3>Serial device code</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">UART</span>
+
+<span class="n">uart5</span> <span class="o">=</span> <span class="n">UART</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">115200</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Random code to set x and y</span>
+    <span class="c1"># Replace with your own code</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="c1"># Check if we received a trigger</span>
+    <span class="k">if</span> <span class="n">uart5</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">uart5</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 </code></pre></div>
         </div>
         <button type="button" id="hamburger">
