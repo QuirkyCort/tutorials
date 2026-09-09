@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python programming concepts.</div>
+            <p class="" data-section="">Sequences</p><ul class=""><a href="../10-Sequences/10-output-and-sequence.html"><li >Introduction</li></a><a href="../10-Sequences/20-comments.html"><li >Comments</li></a><a href="../10-Sequences/30-math-and-types.html"><li >Maths</li></a><a href="../10-Sequences/40-variables.html"><li >Variables</li></a></ul><p class="" data-section="">Conditions</p><ul class=""><a href="../20-Conditions/10-inputs-and-type-conversion.html"><li class="current">Inputs</li></a><a href="../20-Conditions/20-conditions.html"><li >Using `if` and `else`</li></a><a href="../20-Conditions/30-more-conditions.html"><li >Else If</li></a><a href="../20-Conditions/40-exercises.html"><li >Exercises</li></a><a href="../20-Conditions/50-solutions.html"><li >Solutions</li></a></ul><p class="" data-section="">Loops</p><ul class=""><a href="../30-Loops/10-turtle-graphics.html"><li >Import and Turtle</li></a><a href="../30-Loops/20-lists.html"><li >Lists</li></a><a href="../30-Loops/30-loops.html"><li >Loops</li></a><a href="../30-Loops/40-drawing-with-loops.html"><li >Drawing with Loops</li></a><a href="../30-Loops/50-exercises.html"><li >More Fun with Turtles</li></a><a href="../30-Loops/60-solutions.html"><li >Solutions</li></a></ul><p class="" data-section="">Functions</p><ul class=""><a href="../40-Functions/10-functions.html"><li >Functions</li></a><a href="../40-Functions/20-functions-with-turtles.html"><li >Functions with Turtles</li></a><a href="../40-Functions/30-parameters.html"><li >Parameters</li></a><a href="../40-Functions/40-parameters-exercises.html"><li >Parameters Exercises</li></a></ul><p class="" data-section="">Review</p><ul class=""><a href="../50-Review/10-exercises.html"><li >Exercises</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Inputs</h1>
+<script src="../../skulpt/skulpt.min.js" type="text/javascript"></script>
+<script src="../../skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+<script src="../../ace-1.11.2/ace.js"></script>
+<script src="../../ace-1.11.2/ext-language_tools.js"></script>
+<script src="../../skulpt_box/skulpt_box.js" type="text/javascript"></script>
+<p><link rel="stylesheet" href="../../css/skulpt_box.css"></link></p>
+<p>In our earlier lessons, we have learned about outputs using <code>print()</code>. In this lesson, we are going to learn to use <code>input()</code> to read an input.</p>
+<p>Try running this program in the trinket  below...</p>
+<div class="codehilite"><pre><span></span><code>age = input(&quot;What is your age?&quot;)
+print(&quot;Your age is &quot; + age)
+</code></pre></div>
+
+<div class="skulpt_box" console_only>
+</div>
+
+<p>Let's look at how <code>input</code> works...</p>
+<div class="codehilite"><pre><span></span><code>age = input(&quot;What is your age?&quot;)
+</code></pre></div>
+
+<p>This line will first display <strong>"What is your age?"</strong> in the terminal on the right, then wait for the user to type in an answer. Press enter after typing in your age, and input will assign the answer to the variable <code>age</code>.</p>
+<div class="codehilite"><pre><span></span><code>print(&quot;Your age is &quot; + age)
+</code></pre></div>
+
+<p>The second line adds the string <code>"Your age is "</code> to the variable <code>age</code>, then prints the result.</p>
+<p><strong><em>IMPORTANT :</em></strong> <em>The <code>input</code> function will always return a string, even if you type in a number.</em></p>
+<hr />
+<h1>Type Conversion</h1>
+<p>We have seen that <code>"123"</code> is a string, while <code>123</code> is a number, but how can we convert it from one type to another?</p>
+<div class="skulpt_box" console_only>
+a = "3"
+b = 4
+print(int(a) + b)
+</div>
+
+<p>In the above program, we set <code>a</code> to a string <code>"3"</code>, and <code>b</code> to a number <code>4</code>. Normally, we won't be able to add them together, because they are different types. But we can use <code>int()</code> to convert a string into an integer number. This will then allow us to add <code>a</code> and <code>b</code> together!</p>
+<p>To convert a type into another, we can use...</p>
+<div class="codehilite"><pre><span></span><code>str(1)       # This converts the number 1 into a string
+int(&quot;2&quot;)     # This converts the string &quot;2&quot; into an integer
+float(&quot;3.1&quot;) # This converts the string &quot;3.1&quot; into a float
+</code></pre></div>
+
+<p>All of these works with variables as well!</p>
+<div class="codehilite"><pre><span></span><code>a = 1
+str(a)     # This converts the number 1 into a string
+
+b = &quot;2&quot;
+int(b)     # This converts the string &quot;2&quot; into an integer
+
+c = &quot;3.1&quot;
+float(c)   # This converts the string &quot;3.1&quot; into a float
+</code></pre></div>
+
+<p>The program below contains an error, because we are trying to add a number to a string. Can you fix it?</p>
+<div class="skulpt_box" console_only>
+my_age = 12
+print("My age is " + my_age)
+</div>
+
+<p>Here's a slightly more difficult problem...</p>
+<div class="skulpt_box" console_only>
+boys = 20
+girls = "19"
+total_students = boys + girls
+print("There are " + total_students + " students in my class")
+</div>
+
+<hr />
+<h1>Exercises (Inputs and Type Conversion)</h1>
+<h3>Ex 1. Apple prices</h3>
+<p>Remember than <code>input()</code> always return a string, even if you type in a number? That can be a problem if you need to do some calculation with the input.</p>
+<p>Here's a program that calculate the total price you have to pay. Each apple is priced at $2. The program will ask the user how many apples they want to buy, then calculate the price the user have to pay. Can you correct the error in the program?</p>
+<div class="skulpt_box" console_only>
+apples = input("How many apples do you want to buy?")
+total_price = apples * 2
+print("You will need to pay $ " + total_price)
+</div>
+
+<h3>Ex 2. Maximum Heart Rate</h3>
+<p>When exercising, we can measure our heart rate to determine if we are exercising too hard or too little. To do so, we will first need to calculate our maximum heart rate using the following formula.</p>
+<div class="codehilite"><pre><span></span><code>Max_Heart_Rate = 220 - age
+</code></pre></div>
+
+<p>If our heart rate is within 50% to 70% of our maximum, then we are exercising at moderate intensity. If it's within 70% to 85% of our maximum, then we are exercising at high intensity. You can read more about heart rates and exercise here: https://www.healthhub.sg/live-healthy/1231/keep-track-of-your-exercise-intensity.</p>
+<p>Using the empty trinket below, write a program that will ask the user for their age, calculate their maximum heart rate, then output it to the terminal.</p>
+<div class="skulpt_box" console_only>
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>

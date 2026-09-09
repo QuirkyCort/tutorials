@@ -1,0 +1,65 @@
+.skulpt_box {
+    margin: 1em 0;
+}
+
+.skulpt_box button {
+    font-size: 18px;
+}
+
+.skulpt_box .skulpt_row {
+    display: flex;
+}
+
+.skulpt_box .skulpt_left { 
+    flex: 1;
+    position: relative;
+    min-height: 400px;
+}
+
+.skulpt_box .skulpt_right { 
+    padding-left: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.skulpt_box .ace_editor {     
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 400px;
+}
+
+.skulpt_box .skulpt_canvas { 
+    width: 400px;
+    height: 400px;
+    box-sizing: border-box;
+    border: solid 2px gray;
+}
+
+#content .skulpt_box .skulpt_output {
+    flex: 1;
+    width: 400px;
+    height: 200px;
+    box-sizing: border-box;
+    border: solid 2px gray;
+    padding: 5px;
+    overflow-y: scroll;
+    font-family: monospace;
+    margin: 3px 0;
+    text-wrap: auto;
+    background: lightgray;
+    overflow-x: hidden;
+    font-size: 18px;
+}
+
+#content .skulpt_box .skulpt_output .error {
+    color: red;
+}
+
+.skulpt_box .skulpt_row input[type="text"] {
+    width: 100%;
+    font-family: monospace;
+    font-size: 18px;
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Python Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Python Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python programming concepts.</div>
+            <p class="" data-section="">Sequences</p><ul class=""><a href="../10-Sequences/10-output-and-sequence.html"><li >Introduction</li></a><a href="../10-Sequences/20-comments.html"><li >Comments</li></a><a href="../10-Sequences/30-math-and-types.html"><li >Maths</li></a><a href="../10-Sequences/40-variables.html"><li >Variables</li></a></ul><p class="" data-section="">Conditions</p><ul class=""><a href="../20-Conditions/10-inputs-and-type-conversion.html"><li >Inputs</li></a><a href="../20-Conditions/20-conditions.html"><li >Using `if` and `else`</li></a><a href="../20-Conditions/30-more-conditions.html"><li >Else If</li></a><a href="../20-Conditions/40-exercises.html"><li >Exercises</li></a><a href="../20-Conditions/50-solutions.html"><li >Solutions</li></a></ul><p class="" data-section="">Loops</p><ul class=""><a href="../30-Loops/10-turtle-graphics.html"><li >Import and Turtle</li></a><a href="../30-Loops/20-lists.html"><li >Lists</li></a><a href="../30-Loops/30-loops.html"><li >Loops</li></a><a href="../30-Loops/40-drawing-with-loops.html"><li >Drawing with Loops</li></a><a href="../30-Loops/50-exercises.html"><li >More Fun with Turtles</li></a><a href="../30-Loops/60-solutions.html"><li class="current">Solutions</li></a></ul><p class="" data-section="">Functions</p><ul class=""><a href="../40-Functions/10-functions.html"><li >Functions</li></a><a href="../40-Functions/20-functions-with-turtles.html"><li >Functions with Turtles</li></a><a href="../40-Functions/30-parameters.html"><li >Parameters</li></a><a href="../40-Functions/40-parameters-exercises.html"><li >Parameters Exercises</li></a></ul><p class="" data-section="">Review</p><ul class=""><a href="../50-Review/10-exercises.html"><li >Exercises</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Solutions</h1>
+<script src="../../skulpt/skulpt.min.js" type="text/javascript"></script>
+<script src="../../skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+<script src="../../ace-1.11.2/ace.js"></script>
+<script src="../../ace-1.11.2/ext-language_tools.js"></script>
+<script src="../../skulpt_box/skulpt_box.js" type="text/javascript"></script>
+<p><link rel="stylesheet" href="../../css/skulpt_box.css"></link></p>
+<h3>Ex 1.</h3>
+<div class="skulpt_box">
+import turtle
+import random
+
+colors = ["red", "green", "blue", "yellow", "orange", "purple"]
+
+turtle.speed(10)
+
+for a in range(100):
+    choice = random.randrange(4)
+    turtle.color(colors[choice])
+    turtle.forward(100)
+    turtle.left(92)
+</div>
+
+<h3>Ex 2.</h3>
+<div class="skulpt_box">
+import turtle
+import random
+
+colors = ["red", "green", "blue", "yellow", "orange", "purple"]
+
+turtle.speed(10)
+
+for a in range(100):
+    choice = random.randrange(4)
+    turtle.color(colors[choice])
+    turtle.forward(a)
+    turtle.left(92)
+</div>
+
+<h3>Ex 3.</h3>
+<div class="skulpt_box">
+import turtle
+
+for a in range(20):
+    turtle.circle(a * 5)
+</div>
+
+<h3>Ex 4.</h3>
+<div class="skulpt_box">
+import turtle
+
+for a in range(20):
+    turtle.circle(a * 5)
+    turtle.up()
+    turtle.right(90)
+    turtle.forward(5)
+    turtle.left(90)
+    turtle.down()
+</div>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+        });
+    </script>
+</body>
+</html>

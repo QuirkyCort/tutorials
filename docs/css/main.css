@@ -139,6 +139,7 @@ th {
   transform: rotate(-405deg); }
 
 #content {
+  width: 100%;
   padding: 0 4rem 4rem 4rem;
   overflow: hidden; }
   #content img {
