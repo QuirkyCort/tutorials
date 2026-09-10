@@ -12,6 +12,10 @@ function stripHTML(text) {
 
 function runit(event) { 
     const parent = event.target.parentElement.parentElement;
+    runSkulpt(parent);
+}
+
+function runSkulpt(parent) {
     const codeEditor = parent.querySelector('.ace_editor').env.editor;
     const canvas = parent.querySelector('.skulpt_canvas');
     const input = parent.querySelector('input');
@@ -57,6 +61,9 @@ function runit(event) {
     myPromise.then(
         function(mod) {
             console.log('success');
+            if (parent.hasAttribute('loop')) {
+                setTimeout(() => { runSkulpt(parent); }, 0);
+            }
         },
         function(err) {
             console.log(err.toString());
@@ -66,8 +73,6 @@ function runit(event) {
 } 
 
 function initSkulptBox(ele) {
-    console.log('console_only:', ele.hasAttribute('console_only'));
-
     const codeText = ele.textContent.trim();
     ele.textContent = '';
 
@@ -134,6 +139,10 @@ function initSkulptBox(ele) {
         const inputField = document.createElement('input');
         inputField.type = 'text';
         row4.appendChild(inputField);
+    }
+
+    if (ele.hasAttribute('auto_run')) {
+        runSkulpt(ele);
     }
 }
 

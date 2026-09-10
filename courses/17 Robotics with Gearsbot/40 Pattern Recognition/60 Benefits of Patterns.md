@@ -17,7 +17,7 @@ It may look complicated, but the solution, is just...
 
 Patterns isn't just used for maze and robots, we can also use it to create interesting patterns like this...
 
-<div class="skulpt_box" canvas_only>
+<div class="skulpt_box" canvas_only auto_run>
 import turtle
 import random
 
@@ -29,11 +29,12 @@ for a in range(100):
     choice = random.randrange(4)
     turtle.color(colors[choice])
     turtle.forward(a)
-    turtle.left(92)</div>
+    turtle.left(92)
+</div>
 
 ...and this...
 
-<div class="skulpt_box" canvas_only>
+<div class="skulpt_box" canvas_only auto_run>
 import turtle
 import random
 
