@@ -18,6 +18,7 @@ function runit(event) {
     const output = parent.querySelector('.skulpt_output');
     if (output) {
         output.innerHTML = ''; 
+        input.value = '';
     }
 
     let prog = codeEditor.getValue(); 
@@ -28,7 +29,9 @@ function runit(event) {
                 if (event.key == 'Enter') {
                     output.innerHTML += input.value + '\n';
                     input.removeEventListener('keydown', handler);
-                    resolve(input.value);
+                    let val = input.value;
+                    input.value = '';
+                    resolve(val);
                 }
             }
 
