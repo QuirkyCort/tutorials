@@ -45,7 +45,7 @@ Either way, you will need to write <strong>both</strong> the server and client p
 <p>The server is the program that waits for a connection.
 Once the connection is made, there are no significant differences between the server and the client; both of them can send and receive messages.</p>
 <p>Here's the code for the server...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
 
 <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
 <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1337</span><span class="p">))</span>
@@ -85,7 +85,7 @@ If you want your server to only respond to connections coming from the same comp
 <p>The client is the program that initiates a connection.
 Once the connection is made, there are no significant differences between the server and the client; both of them can send and receive messages.</p>
 <p>Before reading the client code, be sure to read the section on <strong>Server</strong> first, as some of the code are identical and won't be explained again here.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
 
 <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
 <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">1337</span><span class="p">))</span>

@@ -49,7 +49,7 @@ python3 -m pip install pyserial
 <p>The sample code below prompts the user for an input, and sends it to the serial device.
 It is meant for a Linux or Mac computer that has a serial device at <code>/dev/ttyUSB0</code>.
 If your serial device is not at this location or if you're using Windows, the the serial device name will need to be changed.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">serial</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">serial</span>
 
 <span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">)</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -65,7 +65,7 @@ If your serial device is not at this location or if you're using Windows, the th
 <h2>Reading Data</h2>
 <p>This sample code reads from the serial device, one line at a time, and prints it to screen.</p>
 <p>Before reading this code, be sure to read the section on <strong>Writing Data</strong> first, as some of the code are identical and won't be explained again here.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">serial</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">serial</span>
 
 <span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">)</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>

@@ -3,7 +3,7 @@
 This course assumes that you already know basic Python.
 If not, please complete at least the following course.
 
-* [Introduction to Python](https://trinket.io/aposteriori/courses/introduction-to-python).
+* [Introduction to Python](../../18-Python-Basics/10-Sequences/10-output-and-sequence.html).
 
 ## Topics
 

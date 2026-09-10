@@ -2,7 +2,7 @@ Introduction
 ===
 
 ### Before you begin...
-Before starting on this course, you should complete [Introduction to Python](https://trinket.io/aposteriori/courses/introduction-to-python).
+Before starting on this course, you should complete [Introduction to Python](../../18-Python-Basics/10-Sequences/10-output-and-sequence.html).
 
 If you're done with this course, you can try the next one [Intermediate Game Development with Pygame Zero](../../30-Pygame-Zero-Intermediate/10-Intro/10-before.html).
 

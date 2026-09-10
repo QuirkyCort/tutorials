@@ -18,7 +18,7 @@ if ship.colliderect(gem):
 
 Random
 ===
-It's not vey interesting to have the gem fall from the same spot everytime. In [Introduction to Python](https://trinket.io/aposteriori/courses/introduction-to-python#/fundamentals-loops/turtle-graphics), you learned to use the ```random``` module. We'll use it here to randomize the x position of the gem.
+It's not vey interesting to have the gem fall from the same spot everytime. In [Introduction to Python](../..18-Python-Basics/30-Loops/20-lists.html), you learned to use the ```random``` module. We'll use it here to randomize the x position of the gem.
 
 Before we can use the ```random``` module, we'll need to import it.
 

@@ -60,7 +60,7 @@ pip install pyaudio
 <p>PyAudio is not needed if you are only using the simple code example.</p>
 <h2>Simple Code (CMUSphinx / PocketSphinx)</h2>
 <p>The code for using pocketsphinx can be incredibly simple...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pocketsphinx</span> <span class="kn">import</span> <span class="n">LiveSpeech</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pocketsphinx</span><span class="w"> </span><span class="kn">import</span> <span class="n">LiveSpeech</span>
 
 <span class="k">for</span> <span class="n">phrase</span> <span class="ow">in</span> <span class="n">LiveSpeech</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">phrase</span><span class="p">)</span>
@@ -81,8 +81,8 @@ If no words are printed, check the microphone setting on your computer; it might
 Note that the Raspberry Pi do not have a built-in microphone; you must add a USB microphone.</p>
 <h2>Advanced Code (CMUSphinx / PocketSphinx)</h2>
 <p>The advanced code for using pocketsphinx provides more features at the expense of a slightly more complicated code.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pocketsphinx</span> <span class="kn">import</span> <span class="n">Endpointer</span><span class="p">,</span> <span class="n">Decoder</span>
-<span class="kn">import</span> <span class="nn">pyaudio</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pocketsphinx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Endpointer</span><span class="p">,</span> <span class="n">Decoder</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pyaudio</span>
 
 <span class="c1"># Initialize audio</span>
 <span class="n">DEVICE</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Use default input device</span>
@@ -145,9 +145,9 @@ This will give you a zip file that you will then need to extract.
 In the example code below, we are using the <em>vosk-model-small-en-us-0.15</em> model.</p>
 <h2>Code (Vosk)</h2>
 <p>The code for using Vosk is as follows...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyaudio</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">vosk</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">KaldiRecognizer</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyaudio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vosk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">KaldiRecognizer</span>
 
 <span class="c1"># Model should be stored in this directory</span>
 <span class="c1"># Change this if you are using a different model or if your model is stored</span>
@@ -193,7 +193,7 @@ Note that the Raspberry Pi do not have a built-in microphone; you must add a USB
 <h2>Selecting Audio Input Device</h2>
 <p>The above code uses the default audio device for input (<code>DEVICE = None</code>), but this may not always be the best option (eg. you have more than one microphone).
 To determine the device number to use when selecting an audio device, you can use this code...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyaudio</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyaudio</span>
 
 <span class="c1"># Initialize pyaudio</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>

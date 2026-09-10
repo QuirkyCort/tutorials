@@ -71,7 +71,7 @@ The H value usually range from 0 to 360, but in OpenCV, the H value is halved (i
 <p>In this step, we will extract out the colors we want.
 The final output from this step is a black and white image, with white pixels in the areas which matches our target color and black pixels in the background.</p>
 <p>We'll build the code bit by bit, starting with capturing and displaying an image.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
 
@@ -94,7 +94,7 @@ If you have multiple cameras, you can change the camera in use by changing the n
 These noise often appear as specs that pops in and out of view.
 You can remove noise using a <a href="https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html">filter in OpenCV</a>.
 The <a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian Blur</a> is the most commonly used.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
 
@@ -116,7 +116,7 @@ The <a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian Blur</a> is t
 Try setting a larger kernel such as <code>(15,15)</code>, the image should look more blurry.
 You can try other kernel sizes, but it must be a positive and odd number.</p>
 <p>Next we'll convert the image into <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a> format.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Change the number to select a different camera</span>
 
@@ -137,7 +137,7 @@ You can try other kernel sizes, but it must be a positive and odd number.</p>
 <p>The image will look messed up!
 This is because we have converted the image to HSV format, but <code>imshow</code> expects the image to be in RGB.
 That's fine for now; we're not done yet.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="hll"><span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
 </span><span class="hll"><span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
@@ -168,7 +168,7 @@ After this step, all the pixels that are within the threshold will become white,
 <p><img alt="" src="images/threshold.webp" /></p>
 <h2>Blob Detection</h2>
 <p>In this step, we'll setup the detection parameters and use <code>SimpleBlobDetector</code> to detect the blob.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
 <span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
@@ -209,7 +209,7 @@ You should see a red circle drawn around your object.
 Note that by default, <code>SimpleBlobDetector</code> will only detect circular blobs; if you have a non-circular object, it won't be detected here.</p>
 <p>Next, we'll introduce more parameters.
 This will allow us to detect blobs of different shapes.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
 <span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>
@@ -257,7 +257,7 @@ This will allow us to detect blobs of different shapes.</p>
 <p><strong>Inertia</strong> This measures how elogated a shape is.
 Eg. A circle will have an inertia ratio of 1, an ellipse will be less than 1, and a thin long rectangle will be close to 0.</p>
 <p>Finally, we'll find the largest keypoint and print out its x,y position.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">low_H</span> <span class="o">=</span> <span class="mi">35</span>
 <span class="n">high_H</span> <span class="o">=</span> <span class="mi">85</span>

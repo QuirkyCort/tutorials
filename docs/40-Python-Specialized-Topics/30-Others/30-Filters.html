@@ -67,7 +67,7 @@ Eg. If your sensor reads 10 times per second, and you use the average of 10 read
 <div class="codehilite"><pre><span></span><code><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">filtered_output</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="k">def</span> <span class="nf">low_pass</span><span class="p">(</span><span class="n">in_val</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">low_pass</span><span class="p">(</span><span class="n">in_val</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">filtered_output</span>
 
     <span class="n">filtered_output</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">in_val</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">filtered_output</span>
@@ -90,8 +90,8 @@ This filter works in the same way as the low pass filter example code, but inste
 <li>Import and use the filter in your code.</li>
 </ol>
 <h2>Sample code</h2>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">one_euro_filter</span> <span class="kn">import</span> <span class="n">OneEuroFilter</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">one_euro_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneEuroFilter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">time</span>
 
 <span class="n">one_euro_filter</span> <span class="o">=</span> <span class="n">OneEuroFilter</span><span class="p">(</span>
     <span class="n">time</span><span class="p">(),</span>

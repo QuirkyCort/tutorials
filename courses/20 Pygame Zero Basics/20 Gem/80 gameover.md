@@ -25,7 +25,7 @@ if gem.y > 600:
 
 This will set the ```game_over``` variable to ```True``` if the gem touches the bottom of the screen.
 
-You will also need to add ```global game_over``` to the top of the ```update()``` function. Do you remember why? If you can't, refer back to the [keeping score page](https://trinket.io/aposteriori/courses/game-development-with-pygame-zero#/gem-catcher/keeping-score).
+You will also need to add ```global game_over``` to the top of the ```update()``` function. Do you remember why? If you can't, refer back to the [keeping score page](../20-Gem/50-score.html).
 
 Inside the ```draw()``` function, change these lines...
 

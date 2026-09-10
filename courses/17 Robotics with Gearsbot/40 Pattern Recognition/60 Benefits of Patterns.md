@@ -1,4 +1,10 @@
 # Benefits of Patterns
+<script src="../../skulpt/skulpt.min.js" type="text/javascript"></script> 
+<script src="../../skulpt/skulpt-stdlib.js" type="text/javascript"></script> 
+<script src="../../ace-1.11.2/ace.js"></script>
+<script src="../../ace-1.11.2/ext-language_tools.js"></script>
+<script src="../../skulpt_box/skulpt_box.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../../css/skulpt_box.css"></link>
 
 Pattern lets you solve complicated problems with simple solutions.
 Here's an example...
@@ -11,11 +17,36 @@ It may look complicated, but the solution, is just...
 
 Patterns isn't just used for maze and robots, we can also use it to create interesting patterns like this...
 
-<iframe src="https://trinket.io/embed/python/dee630d077?outputOnly=true&runOption=run" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<div class="skulpt_box" canvas_only>
+import turtle
+import random
+
+colors = ["red", "green", "blue", "yellow", "orange", "purple"]
+
+turtle.speed(10)
+
+for a in range(100):
+    choice = random.randrange(4)
+    turtle.color(colors[choice])
+    turtle.forward(a)
+    turtle.left(92)</div>
 
 ...and this...
 
-<iframe src="https://trinket.io/embed/python/2498e9a200?outputOnly=true&runOption=run" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<div class="skulpt_box" canvas_only>
+import turtle
+import random
+
+colors = ["red", "green", "blue", "yellow", "orange", "purple"]
+
+turtle.speed(10)
+
+for a in range(100):
+    choice = random.randrange(4)
+    turtle.color(colors[choice])
+    turtle.forward(100)
+    turtle.left(92)
+</div>
 
 ## Patterns in Everyday Life
 

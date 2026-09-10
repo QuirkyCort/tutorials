@@ -59,8 +59,8 @@ If the micropython device sends data faster than this, the EV3 will not be able 
 <div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
 <span class="c1"># os.system() runs the specified command</span>
 <span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">select</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">select</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
 
 <span class="c1"># Open the /dev/ttyUSB0 file in read only mode. This file represents the serial device</span>
@@ -79,7 +79,7 @@ If the micropython device sends data faster than this, the EV3 will not be able 
 <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># Read from serial</span>
-<span class="k">def</span> <span class="nf">read</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">buf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
     <span class="c1"># Loop as long as data is available</span>
@@ -125,13 +125,13 @@ If the micropython device sends data faster than this, the EV3 will not be able 
         <span class="k">pass</span>
 
 <span class="c1"># Retrieve the last read value</span>
-<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
 <span class="c1"># Read and discard all data from buffer.</span>
 <span class="c1"># If the EV3 is unable to read from serial for a while, you should run this to clear the read</span>
 <span class="c1"># buffer, else the EV3 may take a while to process all the buffered data.</span>
-<span class="k">def</span> <span class="nf">clear</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">():</span>
     <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
@@ -140,7 +140,7 @@ If the micropython device sends data faster than this, the EV3 will not be able 
 <span class="c1"># Main loop for testing #</span>
 <span class="c1">#########################</span>
 
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -154,7 +154,7 @@ If the micropython device sends data faster than this, the EV3 will not be able 
 </code></pre></div>
 
 <h3>Serial device code</h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="c1"># Random code to set x and y</span>
@@ -179,8 +179,8 @@ If the micropython sends data faster than this, the EV3 will not be able to keep
 <div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
 <span class="c1"># os.system() runs the specified command</span>
 <span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">select</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">select</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
 
 <span class="c1"># Open the /dev/ttyUSB0 file in read only mode. This file represents the serial device</span>
@@ -201,7 +201,7 @@ If the micropython sends data faster than this, the EV3 will not be able to keep
 <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># Read from serial</span>
-<span class="k">def</span> <span class="nf">read</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">buf</span><span class="p">,</span> <span class="n">buf_ptr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
     <span class="c1"># Loop as long as data is available</span>
@@ -250,13 +250,13 @@ If the micropython sends data faster than this, the EV3 will not be able to keep
         <span class="k">pass</span>
 
 <span class="c1"># Retrieve the last read value</span>
-<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
 <span class="c1"># Read and discard all data from buffer.</span>
 <span class="c1"># If the EV3 is unable to read from serial for a while, you should run this to clear the read</span>
 <span class="c1"># buffer, else the EV3 may take a while to process all the buffered data.</span>
-<span class="k">def</span> <span class="nf">clear</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">():</span>
     <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
@@ -265,7 +265,7 @@ If the micropython sends data faster than this, the EV3 will not be able to keep
 <span class="c1"># Main loop for testing #</span>
 <span class="c1">#########################</span>
 
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -279,7 +279,7 @@ If the micropython sends data faster than this, the EV3 will not be able to keep
 </code></pre></div>
 
 <h3>Serial device code</h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="c1"># Random code to set x and y</span>
@@ -299,8 +299,8 @@ As the serial device will only transmit data when the EV3 request for it, there 
 <div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
 <span class="c1"># os.system() runs the specified command</span>
 <span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">select</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">select</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
 
@@ -314,7 +314,7 @@ As the serial device will only transmit data when the EV3 request for it, there 
 <span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
 
 <span class="c1"># Read from serial</span>
-<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">():</span>
     <span class="c1"># Flush data from read buffer</span>
     <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -348,15 +348,15 @@ As the serial device will only transmit data when the EV3 request for it, there 
 <span class="c1"># Main loop for testing #</span>
 <span class="c1">#########################</span>
 
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">get</span><span class="p">())</span>
 </code></pre></div>
 
 <h3>Serial device code</h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">select</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">select</span>
 
 <span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
 <span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
@@ -385,9 +385,9 @@ It also appears to be less reliable than the text version, but I did not investi
 <div class="codehilite"><pre><span></span><code><span class="c1"># Set baudrate in Python</span>
 <span class="c1"># os.system() runs the specified command</span>
 <span class="c1"># You can also run the &quot;stty&quot; command from the commandline.</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">struct</span>
-<span class="kn">import</span> <span class="nn">select</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">select</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;stty -F /dev/ttyUSB0 115200&#39;</span><span class="p">)</span>
 
@@ -401,7 +401,7 @@ It also appears to be less reliable than the text version, but I did not investi
 <span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
 
 <span class="c1"># Read from serial</span>
-<span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">():</span>
     <span class="c1"># We send an &#39;a&#39; as a trigger, but you can use anything</span>
     <span class="c1"># You can also use different triggers to request for different data</span>
 
@@ -427,16 +427,16 @@ It also appears to be less reliable than the text version, but I did not investi
 <span class="c1"># Main loop for testing #</span>
 <span class="c1">#########################</span>
 
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">get</span><span class="p">())</span>
 </code></pre></div>
 
 <h3>Serial device code</h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">select</span>
-<span class="kn">import</span> <span class="nn">struct</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">select</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
 
 <span class="n">p</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
 <span class="n">p</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
@@ -460,8 +460,8 @@ It also appears to be less reliable than the text version, but I did not investi
 <p>The following code implements the "Request Respond" code, but using UART instead of stdin / stdout.
 This is useful when a USB serial connection couldn't be established (eg. when using OpenMV AE3).</p>
 <h3>Serial device code</h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">UART</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">machine</span><span class="w"> </span><span class="kn">import</span> <span class="n">UART</span>
 
 <span class="n">uart5</span> <span class="o">=</span> <span class="n">UART</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">115200</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 

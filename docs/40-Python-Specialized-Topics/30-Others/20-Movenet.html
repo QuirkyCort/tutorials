@@ -175,7 +175,7 @@ In the examples below, it is assumed that the <strong>Thunder</strong> model fil
 <h2>Code (Display Only)</h2>
 <p>The code for using Movenet is rather complex, so we'll be breaking it up into multiple small steps.
 In this first step, we'll be using OpenCV to capture a video image and display it; there's actually no usage of Movenet here.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -202,9 +202,9 @@ In this first step, we'll be using OpenCV to capture a video image and display i
 <p>In this example, we'll process the captured image to make it fit within the size that Movenet expects.
 Note that <strong>Thunder</strong> expects a 256x256 image, while <strong>Lightning</strong> expects 192x192.
 We are still not doing any Movenet detection yet.</p>
-<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-</span><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="hll"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </span>
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -242,10 +242,10 @@ You can change the "imshow" to display "tf_img" instead of the original "img". I
 <h2>Code (Single Keypoint Only)</h2>
 <p>In this example, we'll print out the position of a single keypoint (left eye).
 Note that the position is <strong>normalized</strong> (ie. the leftmost position is 0, the rightmost is 1.0, and the middle is 0.5).</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="hll"><span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
-</span><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow_hub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hub</span>
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="hll"><span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;movenet_singlepose_thunder_4&#39;</span><span class="p">)</span>
 </span><span class="hll"><span class="n">movenet</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="s1">&#39;serving_default&#39;</span><span class="p">]</span>
@@ -291,10 +291,10 @@ What happens to the confidence level when the keypoint is not in view of the cam
 <h2>Code (Mark Keypoints)</h2>
 <p>In this example, we'll mark out the position of the keypoints on screen.
 This is great for visualizing the Movenet results, but it is not strictly necessary if you just need to control a robot or drone.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow_hub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hub</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;movenet_singlepose_thunder_4&#39;</span><span class="p">)</span>
 <span class="n">movenet</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="s1">&#39;serving_default&#39;</span><span class="p">]</span>
@@ -345,10 +345,10 @@ This is great for visualizing the Movenet results, but it is not strictly necess
 It compares the x position of your <strong>right wrist</strong> to your <strong>right elbow</strong> to determine the position of the ball.
 It also scales the value against the distance between your <strong>right elbow</strong> and your <strong>right shoulder</strong>.</p>
 <p>For this example to work right, you should keep your entire right arm in view of the camera, and your elbow should stay directly below your shoulder.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow_hub</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hub</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;movenet_singlepose_thunder_4&#39;</span><span class="p">)</span>
 <span class="n">movenet</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">signatures</span><span class="p">[</span><span class="s1">&#39;serving_default&#39;</span><span class="p">]</span>
@@ -404,9 +404,9 @@ You can switch to TensorFlow Lite to improve performance (ie. FPS) at the expens
 <p>The "singlepose-lightning-tflite-int8" model provides the fastest performance, while the "singlepose-lightning" (...not in the filename, but this is a float32 model) provides better accuracy.</p>
 <p>Whichever model you choose, unpack it to extract the ".tflite" file inside.</p>
 <p>Sample code for marking keypoints is as follows...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Only one of the following lines should be in use, comment out the other line!</span>
 <span class="n">interpreter</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">lite</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;4.tflite&quot;</span><span class="p">)</span> <span class="c1"># This is for the int8 model</span>
@@ -457,9 +457,9 @@ You can switch to TensorFlow Lite to improve performance (ie. FPS) at the expens
 
 <h2>LiteRT</h2>
 <p>If you installed LiteRT and not TensorFlow, you'll need to modify the above code a little...</p>
-<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">from</span> <span class="nn">ai_edge_litert.interpreter</span> <span class="kn">import</span> <span class="n">Interpreter</span>
-</span><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">ai_edge_litert.interpreter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interpreter</span>
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Only one of the following lines should be in use, comment out the other line!</span>
 <span class="hll"><span class="n">interpreter</span> <span class="o">=</span> <span class="n">Interpreter</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;4.tflite&quot;</span><span class="p">)</span> <span class="c1"># This is for the int8 model</span>

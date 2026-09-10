@@ -81,14 +81,14 @@ We'll be using the Audio Classifier model provided by MediaPipe.</p>
 </code></pre></div>
 
 <h2>Code</h2>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">mediapipe.tasks</span> <span class="kn">import</span> <span class="n">python</span>
-<span class="kn">from</span> <span class="nn">mediapipe.tasks.python.audio.core</span> <span class="kn">import</span> <span class="n">audio_record</span>
-<span class="kn">from</span> <span class="nn">mediapipe.tasks.python.components</span> <span class="kn">import</span> <span class="n">containers</span>
-<span class="kn">from</span> <span class="nn">mediapipe.tasks.python</span> <span class="kn">import</span> <span class="n">audio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mediapipe.tasks</span><span class="w"> </span><span class="kn">import</span> <span class="n">python</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mediapipe.tasks.python.audio.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">audio_record</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mediapipe.tasks.python.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">containers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mediapipe.tasks.python</span><span class="w"> </span><span class="kn">import</span> <span class="n">audio</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Various options. You can play around with these.</span>
 <span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;soundclassifier_with_metadata.tflite&#39;</span>
@@ -98,7 +98,7 @@ We'll be using the Audio Classifier model provided by MediaPipe.</p>
 
 
 <span class="c1"># Callback function. The audio classifier will run this after classification.</span>
-<span class="k">def</span> <span class="nf">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">timestamp_ms</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">timestamp_ms</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span>
 
