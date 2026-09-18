@@ -38,6 +38,11 @@
 <p>In this program, we move the robot forward until it sees green, then stop the robot.</p>
 <p>You can use <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FA4uymkuMAk.json">this GearsBot world</a> for easy testing.
 If you choose to use a physical robot, be sure to measure the RGB value of your green and modify the program accordingly.</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
 
 <span class="c1"># Import the necessary libraries</span>
@@ -53,18 +58,18 @@ If you choose to use a physical robot, be sure to measure the RGB value of your 
 <span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
 <span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
 
-<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
-<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
-<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
 
 <span class="c1"># Create a drive base</span>
-
 <span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
 
-<span class="c1"># Here is where your code starts</span>
 
+<span class="c1"># Here is where your code starts</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">is_green</span><span class="p">():</span>
-    <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="ow">and</span> <span class="mi">85</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">93</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">else</span><span class="p">:</span>
@@ -76,10 +81,51 @@ If you choose to use a physical robot, be sure to measure the RGB value of your 
 <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+
+<span class="c1"># Create a drive base</span>
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+
+
+<span class="c1"># Here is where your code starts</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_green</span><span class="p">():</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="ow">and</span> <span class="mi">85</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">93</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">is_green</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+
+</div>
+
 <p>Let's look at what each line does...</p>
 <h2>is_green Function</h2>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_green</span><span class="p">():</span>
-    <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="ow">and</span> <span class="mi">85</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">93</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">else</span><span class="p">:</span>
@@ -87,7 +133,7 @@ If you choose to use a physical robot, be sure to measure the RGB value of your 
 </code></pre></div>
 
 <p>This bunch of code creates a new function named <strong>is_green</strong>.</p>
-<p><code>color = color_sensor_in1.rgb()</code> reads the RGB values from the color sensor and save it to a new variable named <code>color</code>.</p>
+<p><code>color = color_sensor.rgb()</code> reads the RGB values from the color sensor and save it to a new variable named <code>color</code>.</p>
 <p><code>color</code>, <code>color[0]</code>, <code>color[1]</code>, <code>color[2]</code> the color sensors returns a tuple of 3 values; Red, Green, and Blue.
 To access each individual value, we'll need to use an index.
 <code>color[0]</code> means the first value (Red), <code>color[1]</code> means the second value (Green), and <code>color[2]</code> means the third value (Blue).</p>

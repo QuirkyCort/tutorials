@@ -5,6 +5,10 @@ If you're using a physical robot, you can simulate the moving green box by movin
 
 This program makes the robot move forward if the green box is more than 150mm away, and back if it is less than 100mm away.
 
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
 ```python
 #!/usr/bin/env pybricks-micropython
 
@@ -21,16 +25,16 @@ ev3 = EV3Brick()
 motorA = Motor(Port.A)
 motorB = Motor(Port.B)
 
-color_sensor_in1 = ColorSensor(Port.S1)
-ultrasonic_sensor_in2 = UltrasonicSensor(Port.S2)
-gyro_sensor_in3 = GyroSensor(Port.S3)
+color_sensor = ColorSensor(Port.S1)
+ultrasonic_sensor = UltrasonicSensor(Port.S2)
+gyro_sensor = GyroSensor(Port.S3)
+
 
 # Create a drive base
-
 robot = DriveBase(motorA, motorB, 56, 152)
 
-# Here is where your code starts
 
+# Here is where your code starts
 while True:
     dist = ultrasonic_sensor_in2.distance()
     if dist > 150:
@@ -40,6 +44,40 @@ while True:
     else:
         robot.drive(-200, 0)
 ```
+
+```python
+# Import the necessary libraries
+from pybricks.parameters import *
+from pybricks.hubs import PrimeHub
+from pybricks.pupdevices import *
+from pybricks.tools import wait
+from pybricks.robotics import DriveBase
+
+# Create the sensors and motors objects
+hub = PrimeHub()
+
+motorA = Motor(Port.A)
+motorB = Motor(Port.B)
+
+color_sensor = ColorSensor(Port.C)
+ultrasonic_sensor = UltrasonicSensor(Port.D)
+
+
+# Create a drive base
+robot = DriveBase(motorA, motorB, 56, 152)
+
+
+# Here is where your code starts
+while True:
+    dist = ultrasonic_sensor.distance()
+    if dist > 150:
+        robot.drive(200, 0)
+    elif dist > 100:
+        robot.drive(0, 0)
+    else:
+        robot.drive(-200, 0)
+```
+</div>
 
 Let's look at what each line does...
 
@@ -57,13 +95,13 @@ If you have used Scratch, this is similar to a repeat forever loop, but unlike S
 ## dist variable
 
 ```python
-    dist = ultrasonic_sensor_in2.distance()
+    dist = ultrasonic_sensor.distance()
 ```
 
 We will be comparing the distance multiple times later in the `if` statements, so here we read the distance once and store the result in the `dist` variable.
-This is slighly more efficient than using `ultrasonic_sensor_in2.distance()` multiple times (...but it'll work even if you do that).
+This is slighly more efficient than using `ultrasonic_sensor.distance()` multiple times (...but it'll work even if you do that).
 
-`dist` is just a name, and you can use any names that you like (eg. `how_far = ultrasonic_sensor_in2.distance()`), but it is always best to use a descriptive name that helps the reader of your code understand what is being stored.
+`dist` is just a name, and you can use any names that you like (eg. `how_far = ultrasonic_sensor.distance()`), but it is always best to use a descriptive name that helps the reader of your code understand what is being stored.
 
 ## if elif else
 
@@ -156,7 +194,7 @@ A better way is to make the robot's speed proportional to the distance.
 
 ```python
 while True:
-    dist = ultrasonic_sensor_in2.distance()
+    dist = ultrasonic_sensor.distance()
     error = dist - 100
     correction = error * 4
     robot.drive(correction, 0)

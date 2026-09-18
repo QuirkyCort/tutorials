@@ -5,6 +5,10 @@ In this program, we move the robot forward until it sees green, then stop the ro
 You can use [this GearsBot world](https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2FA4uymkuMAk.json) for easy testing.
 If you choose to use a physical robot, be sure to measure the RGB value of your green and modify the program accordingly.
 
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
 ```python
 #!/usr/bin/env pybricks-micropython
 
@@ -21,18 +25,18 @@ ev3 = EV3Brick()
 motorA = Motor(Port.A)
 motorB = Motor(Port.B)
 
-color_sensor_in1 = ColorSensor(Port.S1)
-ultrasonic_sensor_in2 = UltrasonicSensor(Port.S2)
-gyro_sensor_in3 = GyroSensor(Port.S3)
+color_sensor = ColorSensor(Port.S1)
+ultrasonic_sensor = UltrasonicSensor(Port.S2)
+gyro_sensor = GyroSensor(Port.S3)
+
 
 # Create a drive base
-
 robot = DriveBase(motorA, motorB, 56, 152)
 
-# Here is where your code starts
 
+# Here is where your code starts
 def is_green():
-    color = color_sensor_in1.rgb()
+    color = color_sensor.rgb()
     if 0 < color[0] < 8 and 85 < color[1] < 93 and 2 < color[2] < 10:
         return True
     else:
@@ -44,13 +48,50 @@ while is_green() == False:
 robot.drive(0, 0)
 ```
 
+```python
+# Import the necessary libraries
+from pybricks.parameters import *
+from pybricks.hubs import PrimeHub
+from pybricks.pupdevices import *
+from pybricks.tools import wait
+from pybricks.robotics import DriveBase
+
+# Create the sensors and motors objects
+hub = PrimeHub()
+
+motorA = Motor(Port.A)
+motorB = Motor(Port.B)
+
+color_sensor = ColorSensor(Port.C)
+ultrasonic_sensor = UltrasonicSensor(Port.D)
+
+
+# Create a drive base
+robot = DriveBase(motorA, motorB, 56, 152)
+
+
+# Here is where your code starts
+def is_green():
+    color = color_sensor.rgb()
+    if 0 < color[0] < 8 and 85 < color[1] < 93 and 2 < color[2] < 10:
+        return True
+    else:
+        return False
+
+robot.drive(200, 0)
+while is_green() == False:
+    pass
+robot.drive(0, 0)
+```
+</div>
+
 Let's look at what each line does...
 
 ## is_green Function
 
 ```python
 def is_green():
-    color = color_sensor_in1.rgb()
+    color = color_sensor.rgb()
     if 0 < color[0] < 8 and 85 < color[1] < 93 and 2 < color[2] < 10:
         return True
     else:
@@ -59,7 +100,7 @@ def is_green():
 
 This bunch of code creates a new function named **is_green**.
 
-`color = color_sensor_in1.rgb()` reads the RGB values from the color sensor and save it to a new variable named `color`.
+`color = color_sensor.rgb()` reads the RGB values from the color sensor and save it to a new variable named `color`.
 
 `color`, `color[0]`, `color[1]`, `color[2]` the color sensors returns a tuple of 3 values; Red, Green, and Blue.
 To access each individual value, we'll need to use an index.

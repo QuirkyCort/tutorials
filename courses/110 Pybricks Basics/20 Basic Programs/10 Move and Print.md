@@ -29,8 +29,8 @@ color_sensor = ColorSensor(Port.S1)
 ultrasonic_sensor = UltrasonicSensor(Port.S2)
 gyro_sensor = GyroSensor(Port.S3)
 
-# Here is where your code starts
 
+# Here is where your code starts
 motorA.run_angle(400, 200)
 motorB.run_angle(-200, 200)
 
@@ -56,8 +56,8 @@ motorB = Motor(Port.B)
 color_sensor = ColorSensor(Port.C)
 ultrasonic_sensor = UltrasonicSensor(Port.D)
 
-# Here is where your code starts
 
+# Here is where your code starts
 motorA.run_angle(400, 200)
 motorB.run_angle(-200, 200)
 

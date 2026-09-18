@@ -5,6 +5,10 @@ In this program, we move the robot forward until it sees the wall, then stop the
 You can use [GearsBot](https://gears.aposteriori.com.sg) for easy testing.
 If you choose to use a physical robot, place a box infront of it to replicate a wall.
 
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
 ```python
 #!/usr/bin/env pybricks-micropython
 
@@ -21,21 +25,51 @@ ev3 = EV3Brick()
 motorA = Motor(Port.A)
 motorB = Motor(Port.B)
 
-color_sensor_in1 = ColorSensor(Port.S1)
-ultrasonic_sensor_in2 = UltrasonicSensor(Port.S2)
-gyro_sensor_in3 = GyroSensor(Port.S3)
+color_sensor = ColorSensor(Port.S1)
+ultrasonic_sensor = UltrasonicSensor(Port.S2)
+gyro_sensor = GyroSensor(Port.S3)
+
 
 # Create a drive base
-
 robot = DriveBase(motorA, motorB, 56, 152)
 
-# Here is where your code starts
 
+# Here is where your code starts
 robot.drive(200, 0)
-while ultrasonic_sensor_in2.distance() > 100:
+while ultrasonic_sensor.distance() > 100:
     pass
 robot.drive(0, 0)
 ```
+
+```python
+# Import the necessary libraries
+from pybricks.parameters import *
+from pybricks.hubs import PrimeHub
+from pybricks.pupdevices import *
+from pybricks.tools import wait
+from pybricks.robotics import DriveBase
+
+# Create the sensors and motors objects
+hub = PrimeHub()
+
+motorA = Motor(Port.A)
+motorB = Motor(Port.B)
+
+color_sensor = ColorSensor(Port.C)
+ultrasonic_sensor = UltrasonicSensor(Port.D)
+
+
+# Create a drive base
+robot = DriveBase(motorA, motorB, 56, 152)
+
+
+# Here is where your code starts
+robot.drive(200, 0)
+while ultrasonic_sensor.distance() > 100:
+    pass
+robot.drive(0, 0)
+```
+</div>
 
 Let's look at what each line does...
 
@@ -59,7 +93,7 @@ By default, GearsBot do not use the DriveBase and provides functions for replica
 
 ```python
 robot.drive(200, 0)
-while ultrasonic_sensor_in2.distance() > 100:
+while ultrasonic_sensor.distance() > 100:
     pass
 robot.drive(0, 0)
 ```
@@ -72,7 +106,7 @@ The standard EV3 wheel diameter is 56mm, and the maximum speed for the large mot
 What is the maximum speed (in mm/s) that the robot can move at?
 </div>
 
-`while ultrasonic_sensor_in2.distance() > 100:` as long as the distance is greater than 100mm, we will repeat the code within the `while` loop.
+`while ultrasonic_sensor.distance() > 100:` as long as the distance is greater than 100mm, we will repeat the code within the `while` loop.
 
 The only line inside this `while` loop is a single `pass`.
 `pass` is a special command that does... nothing.

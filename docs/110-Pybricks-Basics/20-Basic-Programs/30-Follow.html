@@ -38,6 +38,11 @@
 <p>For this next challenge, use <a href="https://gears.aposteriori.com.sg/index.html?worldJSON=https%3A%2F%2Ffiles.aposteriori.com.sg%2Fget%2Fvvj6X5nYNz.json">this GearsBot world</a>.
 If you're using a physical robot, you can simulate the moving green box by moving a box by hand.</p>
 <p>This program makes the robot move forward if the green box is more than 150mm away, and back if it is less than 100mm away.</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
 
 <span class="c1"># Import the necessary libraries</span>
@@ -53,16 +58,16 @@ If you're using a physical robot, you can simulate the moving green box by movin
 <span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
 <span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
 
-<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
-<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
-<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
 
 <span class="c1"># Create a drive base</span>
-
 <span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
 
-<span class="c1"># Here is where your code starts</span>
 
+<span class="c1"># Here is where your code starts</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
@@ -73,6 +78,44 @@ If you're using a physical robot, you can simulate the moving green box by movin
         <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+
+<span class="c1"># Create a drive base</span>
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+
+
+<span class="c1"># Here is where your code starts</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+
+</div>
+
 <p>Let's look at what each line does...</p>
 <h2>while True</h2>
 <div class="codehilite"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -82,12 +125,12 @@ If you're using a physical robot, you can simulate the moving green box by movin
 Since <code>True</code> is always true, a <code>while True:</code> loop will repeat forever.</p>
 <p>If you have used Scratch, this is similar to a repeat forever loop, but unlike Scratch, it is possible to exit a <code>while True:</code> loop by running a <code>break</code> command inside the loop.</p>
 <h2>dist variable</h2>
-<div class="codehilite"><pre><span></span><code>    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code>    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
 </code></pre></div>
 
 <p>We will be comparing the distance multiple times later in the <code>if</code> statements, so here we read the distance once and store the result in the <code>dist</code> variable.
-This is slighly more efficient than using <code>ultrasonic_sensor_in2.distance()</code> multiple times (...but it'll work even if you do that).</p>
-<p><code>dist</code> is just a name, and you can use any names that you like (eg. <code>how_far = ultrasonic_sensor_in2.distance()</code>), but it is always best to use a descriptive name that helps the reader of your code understand what is being stored.</p>
+This is slighly more efficient than using <code>ultrasonic_sensor.distance()</code> multiple times (...but it'll work even if you do that).</p>
+<p><code>dist</code> is just a name, and you can use any names that you like (eg. <code>how_far = ultrasonic_sensor.distance()</code>), but it is always best to use a descriptive name that helps the reader of your code understand what is being stored.</p>
 <h2>if elif else</h2>
 <div class="codehilite"><pre><span></span><code>    <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
         <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -158,7 +201,7 @@ That's because the robot is rapidly switching between moving and stopping when t
 <p>We can make it the movement even smoother by adding more states, but this get rather tedious (...try creating a 21 states algorithm).
 A better way is to make the robot's speed proportional to the distance.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">ultrasonic_sensor</span><span class="o">.</span><span class="n">distance</span><span class="p">()</span>
     <span class="n">error</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">-</span> <span class="mi">100</span>
     <span class="n">correction</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="mi">4</span>
     <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="n">correction</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
