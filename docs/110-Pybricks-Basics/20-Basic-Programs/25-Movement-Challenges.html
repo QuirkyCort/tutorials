@@ -106,10 +106,35 @@
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

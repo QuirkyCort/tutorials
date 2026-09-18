@@ -38,14 +38,19 @@
 <p>Here's a basic program that moves the robot and print some sensor values.</p>
 <p>You can copy it into the Python tab in GearsBot (...replace all existing content), then switch to the simulator tab to run it.
 If running on a real robot, you need to make sure that all the motors/sensors are present and connected to the correct ports.</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
 
 <span class="c1"># Import the necessary libraries</span>
-<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
-<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
-<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
 
 <span class="c1"># Create the sensors and motors objects</span>
 <span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
@@ -53,9 +58,38 @@ If running on a real robot, you need to make sure that all the motors/sensors ar
 <span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
 <span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
 
-<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
-<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
-<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+<span class="c1"># Here is where your code starts</span>
+
+<span class="n">motorA</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">motorB</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ultrasonic_sensor</span><span class="o">.</span><span class="n">distance</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
 
 <span class="c1"># Here is where your code starts</span>
 
@@ -64,11 +98,14 @@ If running on a real robot, you need to make sure that all the motors/sensors ar
 
 <span class="nb">print</span><span class="p">(</span><span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor_in3</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">imu</span><span class="o">.</span><span class="n">heading</span><span class="p">())</span>
 </code></pre></div>
 
+
+</div>
+
 <p>Let's look at what each line does...</p>
-<h2>Hash Bang</h2>
+<h2>Hash Bang (EV3 only)</h2>
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
 </code></pre></div>
 
@@ -78,11 +115,11 @@ In this case, it tells the operating system that the file is a <code>pybricks-mi
 The Spike Prime doesn't need this (...it doesn't run Linux or any other operating system), and it treats all programs as a <code>pybricks-micropython</code> program.</p>
 <h2>Imports</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
-<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
-<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
-<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
 </code></pre></div>
 
 <p>The line starting with a <code>#</code> is a comment.
@@ -90,7 +127,8 @@ It's for humans to read, and Python will ignore it.</p>
 <p>The line starting with <code>from</code> are imports lines.
 They import functions from different modules, and make them available for use in your program.</p>
 <p><code>from pybricks.tools import wait</code> imports the <code>wait</code> function from the <code>pybricks.tools</code> module.</p>
-<p><code>from pybricks.ev3devices import *</code> imports ALL the functions from the <code>pybricks.ev3devices</code> module (...the <code>*</code> means everything).</p>
+<p><code>from pybricks.ev3devices import *</code> imports ALL the functions from the <code>pybricks.ev3devices</code> module (...the <code>*</code> means everything).
+(Spike uses <code>from pybricks.pupdevices import *</code>)</p>
 <h2>Initialize Motors and Sensors</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Create the sensors and motors objects</span>
 <span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
@@ -98,20 +136,21 @@ They import functions from different modules, and make them available for use in
 <span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
 <span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
 
-<span class="n">color_sensor_in1</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
-<span class="n">ultrasonic_sensor_in2</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
-<span class="n">gyro_sensor_in3</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+<span class="n">ultrasonic_sensor</span> <span class="o">=</span> <span class="n">UltrasonicSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S2</span><span class="p">)</span>
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
 </code></pre></div>
 
 <p>This bunch of code create objects representing each motor, sensor, and hub.</p>
 <p><code>ev3 = EV3Brick()</code> creates an object representing the EV3 brick/hub, and assign it to the variable <code>ev3</code>.
-You can change the name on the left to whatever you want, eg. <code>fido = EV3Brick()</code>, but the part on the right cannot be changed.</p>
+You can change the name on the left to whatever you want, eg. <code>fido = EV3Brick()</code>, but the part on the right cannot be changed.
+(Spike uses <code>hub = PrimeHub()</code>)</p>
 <p><code>motorA = Motor(Port.A)</code> creates an object representing a motor, and assign it to the variable <code>motorA</code>.
 We pass in the parameter <code>Port.A</code>, to tell it that we want the motor connected to Port A.
 As before, the name on the left is up to you, so <code>left_motor = Motor(Port.A)</code> is perfectly valid too.</p>
 <p>At this point, you might be wondering where did we get the right hand side from.
 Why is it <code>Motor</code> and not <code>motor</code> or <code>LegoMotor</code>?
-The names on the right are <strong>Classes</strong> and we can find the available classes on the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site</a>.</p>
+The names on the right are <strong>Classes</strong> and we can find the available classes on the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site for EV3</a> and <a href="https://docs.pybricks.com/en/stable/">for Spike Prime</a>.</p>
 <p><img alt="" src="images/ev3motor.webp" /></p>
 <p>The <code>Motor</code> class accepts up to 3 parameters, <strong>port</strong>, <strong>positive_direction</strong>, and <strong>gears</strong>.
 For <strong>positive_direction</strong> and <strong>gears</strong>, we didn't specify them when creating our motor objects, so they'll just use the default values.
@@ -121,6 +160,12 @@ Refer to the pybricks documentation frequently.
 The ability to read documentations is one of the most important skill for a programmer.
 If you can read documentations, millions of modules will be available for you to use in your programming projects.
 If you can't, you'll never go beyond what is in the tutorials.
+</div>
+
+<p>For the sensors, we initialize them with the sensor port as parameter.
+Note that for the Spike Prime, the gyro sensor is built into the hub and don't need to be initialized.</p>
+<div class="important">
+The EV3 sensors ports are numbered "S1" to "S4", while the Spike Prime uses the same port "A" to "F" for both motors and sensors.
 </div>
 
 <h2>Moving motors</h2>
@@ -148,15 +193,15 @@ The default value for <strong>then</strong> is <code>Stop.HOLD</code>, which mak
 If we change it to <code>False</code> by writing <code>motorA.run_angle(400, 200, wait=False)</code>, then as soon as motor A starts moving, the program will move on to the next line and motor B will start to move as well. (...try it and see)</p>
 <p>For motor B, we set the speed to <code>-200</code> which makes it go backwards.</p>
 <h2>Printing Sensor Values</h2>
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ultrasonic_sensor_in2</span><span class="o">.</span><span class="n">distance</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor_in3</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ultrasonic_sensor</span><span class="o">.</span><span class="n">distance</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
 </code></pre></div>
 
 <p>This group of code uses the <code>print()</code> function to print out the sensor values.</p>
 <p><code>print()</code> can be used to print a string or value.
 Here's an example... <code>print('hello world')</code> this will print out the words <strong>hello world</strong> in the terminal.</p>
-<p><code>color_sensor_in1.rgb()</code> is a method in the <strong>ColorSensor</strong> object that returns the Red, Green, Blue values measured by the color sensor.
+<p><code>color_sensor.rgb()</code> is a method in the <strong>ColorSensor</strong> object that returns the Red, Green, Blue values measured by the color sensor.
 It is a tuple of 3 values.</p>
 <div class="info">
 Tuples are groups of values.
@@ -165,10 +210,11 @@ For example, color_sensor_in1.rgb()[0] will provide the first value (Red).
 Note that in most programming languages, we count starting from zero.
 </div>
 
-<p><code>ultrasonic_sensor_in2.distance()</code> returns the distance measured by the ultrasonic sensor in mm.
+<p><code>ultrasonic_sensor.distance()</code> returns the distance measured by the ultrasonic sensor in mm.
 It is a single numeric value.</p>
-<p><code>print(color_sensor_in1.rgb())</code> prints out the result of the <code>color_sensor_in1.rgb()</code> method.</p>
+<p><code>print(color_sensor.rgb())</code> prints out the result of the <code>color_sensor_in1.rgb()</code> method.</p>
 <p>As always, read the <a href="https://pybricks.com/ev3-micropython/ev3devices.html">Pybricks documentation site</a> to learn about all the available methods.</p>
+<p>Note that for the Spike Prime, the gyro is built into the hub, and we get the values using <code>hub.imu.heading()</code>.</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>
@@ -217,10 +263,35 @@ It is a single numeric value.</p>
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

@@ -39,7 +39,7 @@
 <p><a href="https://pybricks.com/ev3-micropython/startinstall.html">https://pybricks.com/ev3-micropython/startinstall.html</a></p>
 <p><a href="https://pybricks.com/ev3-micropython/startbrick.html">https://pybricks.com/ev3-micropython/startbrick.html</a></p>
 <p>...and for Spike Prime...</p>
-<p><a href="https://pybricks.com/install/spike-mindstorms/">https://pybricks.com/install/spike-mindstorms/</a></p>
+<p><a href="https://pybricks.com/learn/getting-started/install-pybricks/">https://pybricks.com/learn/getting-started/install-pybricks/</a></p>
 <h2>Writing and Running Programs</h2>
 <p>For the EV3, you will need to use <a href="https://code.visualstudio.com/Download">Visual Studio Code (vscode)</a> and install the EV3 MicroPython extension.</p>
 <div class="important">
@@ -96,10 +96,35 @@ You CANNOT just open the file alone. You MUST open a folder.
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

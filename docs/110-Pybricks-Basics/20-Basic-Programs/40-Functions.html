@@ -38,7 +38,7 @@
 <p>A <strong>Function</strong> is a group of code that runs everytime we <strong>call</strong> the function.</p>
 <p>Functions helps us to organize our code, and minimize repetition.
 A good program should be made up of many short functions, with very little code outside of functions.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">say_hello</span><span class="p">():</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">say_hello</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
 
 <span class="n">say_hello</span><span class="p">()</span>
@@ -60,7 +60,7 @@ If you don't call a function, the code inside will never run.
 <h2>Function Parameters</h2>
 <p>A function can have a parameter.
 This allows you to pass in some value when running it.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">say_something</span><span class="p">(</span><span class="n">phrase</span><span class="p">):</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">say_something</span><span class="p">(</span><span class="n">phrase</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">phrase</span><span class="p">)</span>
 
 <span class="n">say_something</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
@@ -74,7 +74,7 @@ You can then use the variable <code>phrase</code> inside the function.</p>
 The <code>'hello'</code> will be place inside the <code>phrase</code> variable when running the function.</p>
 <h2>Multiple Parameters and Defaults</h2>
 <p>You can also have more than one parameter, and parameters can be supplied with default values.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">dinner</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;seven pm&#39;</span><span class="p">):</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">dinner</span><span class="p">(</span><span class="n">place</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;seven pm&#39;</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Meet at&#39;</span><span class="p">,</span> <span class="n">place</span><span class="p">,</span> <span class="s1">&#39;for dinner at&#39;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 
 <span class="n">dinner</span><span class="p">(</span><span class="s1">&#39;McDonalds&#39;</span><span class="p">)</span>
@@ -91,7 +91,7 @@ This will overide the default value for the second parameter.</p>
 <p><code>dinner('KFC', time='six pm')</code> This works the same, but with the second parameter specified by name.</p>
 <h2>Return values</h2>
 <p>A function can also return a value.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">add_up</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_up</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
     <span class="k">return</span> <span class="n">result</span>
 
@@ -109,7 +109,7 @@ In this case, it returns the result of <code>a + b</code>.</p>
 <h2>Global Variables</h2>
 <div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
 
-<span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">say_number</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
 <span class="n">say_number</span><span class="p">()</span>
@@ -119,7 +119,7 @@ In this case, it returns the result of <code>a + b</code>.</p>
 <p>The <code>a</code> variable is defined outside of any functions, so it is called a <strong>global</strong> variable.
 Global variables can be accessed anywhere within your program, including inside a function.</p>
 <h2>Local Variables</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">say_number</span><span class="p">():</span>
     <span class="n">b</span> <span class="o">=</span> <span class="mi">123</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
@@ -135,7 +135,7 @@ It is local to the <strong>say_number</strong> function and can only be used ins
 <h2>global Keyword</h2>
 <div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
 
-<span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">say_number</span><span class="p">():</span>
     <span class="n">a</span> <span class="o">=</span> <span class="mi">456</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
@@ -149,7 +149,7 @@ It is local to the <strong>say_number</strong> function and can only be used ins
 The global variable <code>a</code> remains unchanged.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
 
-<span class="k">def</span> <span class="nf">say_number</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">say_number</span><span class="p">():</span>
 <span class="hll">    <span class="k">global</span> <span class="n">a</span>
 </span>    <span class="n">a</span> <span class="o">=</span> <span class="mi">456</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -210,10 +210,35 @@ This tells Python that we want to change the global variable <code>a</code>.</p>
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

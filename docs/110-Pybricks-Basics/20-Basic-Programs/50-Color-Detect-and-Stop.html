@@ -41,11 +41,11 @@ If you choose to use a physical robot, be sure to measure the RGB value of your 
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
 
 <span class="c1"># Import the necessary libraries</span>
-<span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
-<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.tools</span> <span class="kn">import</span> <span class="n">wait</span>
-<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">EV3Brick</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
 
 <span class="c1"># Create the sensors and motors objects</span>
 <span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
@@ -63,7 +63,7 @@ If you choose to use a physical robot, be sure to measure the RGB value of your 
 
 <span class="c1"># Here is where your code starts</span>
 
-<span class="k">def</span> <span class="nf">is_green</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_green</span><span class="p">():</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="ow">and</span> <span class="mi">85</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">93</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -78,7 +78,7 @@ If you choose to use a physical robot, be sure to measure the RGB value of your 
 
 <p>Let's look at what each line does...</p>
 <h2>is_green Function</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">is_green</span><span class="p">():</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_green</span><span class="p">():</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor_in1</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="ow">and</span> <span class="mi">85</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">93</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -181,10 +181,35 @@ We can't have an empty <code>while</code> loop, so we place a do-nothing <code>p
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

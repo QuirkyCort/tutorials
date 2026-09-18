@@ -38,24 +38,24 @@
 <p>Pybricks works largely the same on the EV3 and Spike, but there are a few differences that you need to watch out for.</p>
 <h2>Hub</h2>
 <p>On the EV3, the hub is initialized using...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">EV3Brick</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">EV3Brick</span>
 
 <span class="n">ev3</span> <span class="o">=</span> <span class="n">EV3Brick</span><span class="p">()</span>
 </code></pre></div>
 
 <p>On the Spike Prime, the hub is initialized using...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">PrimeHub</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
 
 <span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
 </code></pre></div>
 
 <h2>Importing Devices</h2>
 <p>On the EV3, the devices (ie. motors and sensors) are imported using...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 
 <p>On the Spike Prime, the devices are imported using...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.pupdevices</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 
 <p><br></p>
@@ -79,9 +79,9 @@ So on the EV3, you may initialize your motors and sensors like this...</p>
 <h2>Motor Direction</h2>
 <p>Robots built using the EV3 large motors, would usually have both motors facing the <strong>same</strong> direction.
 So this code would work fine...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
 
 <span class="n">left_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
 <span class="n">right_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
@@ -93,9 +93,9 @@ So this code would work fine...</p>
 <p>But robots built using the Spike Prime large or medium motors, would usually have the motors facing <strong>opposite</strong> directions.
 If you use the above code (...with the appropriate changes for Spike), you'll see one motor moving forward, while the other moves in reverse.</p>
 <p>So for a Spike Prime robot, you'll usually need to change the positive direction of the left motor to counterclockwise like so...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.parameters</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.pupdevices</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">pybricks.robotics</span> <span class="kn">import</span> <span class="n">DriveBase</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
 
 <span class="n">left_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">Direction</span><span class="o">.</span><span class="n">COUNTERCLOCKWISE</span><span class="p">)</span>
 <span class="n">right_motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
@@ -111,7 +111,7 @@ This isn't always true; it's rare, but possible for an EV3 robot to have motors 
 
 <h2>Gyro</h2>
 <p>On the EV3, the gyro is an external device, and you would initialize and use it like this...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.ev3devices</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
 
@@ -120,7 +120,7 @@ This isn't always true; it's rare, but possible for an EV3 robot to have motors 
 
 <p>On the Spike, the gyro is built into the hub.
 You only need to initialize the hub, then you can use it like this...</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pybricks.hubs</span> <span class="kn">import</span> <span class="n">PrimeHub</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
 
 <span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
 
@@ -193,10 +193,35 @@ You only need to initialize the hub, then you can use it like this...</p>
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

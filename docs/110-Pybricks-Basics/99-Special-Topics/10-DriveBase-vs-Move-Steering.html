@@ -93,7 +93,7 @@ Unlike the <strong>drive</strong> method in <strong>DriveBase</strong>, the <str
 </tbody>
 </table>
 <p>The equation for the <strong>Move Steering</strong> function is...</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">move_steering</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">steer</span><span class="p">):</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">move_steering</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">steer</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">steer</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">left_motor</span><span class="o">.</span><span class="n">dc</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
         <span class="n">right_motor</span><span class="o">.</span><span class="n">dc</span><span class="p">(</span><span class="n">speed</span> <span class="o">-</span> <span class="n">steer</span> <span class="o">*</span> <span class="n">speed</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
@@ -158,10 +158,35 @@ One advantage is that this avoid Pybrick's internal speed control loop, allowing
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>

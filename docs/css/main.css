@@ -193,3 +193,16 @@ th {
   #content {
     font-size: 12pt;
     padding: 0 1rem; } }
+.tabs label {
+  margin-left: 0.5em;
+  padding: 0 0.5em;
+  background: lightblue;
+  border: solid 1px gray;
+  border-radius: 0.5em 0.5em 0 0;
+  font-size: 110%;
+  color: gray; }
+.tabs label.selected {
+  background: lightblue;
+  color: black; }
+.tabs .hide {
+  display: None; }

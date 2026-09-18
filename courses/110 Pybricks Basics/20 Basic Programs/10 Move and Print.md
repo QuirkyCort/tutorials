@@ -5,6 +5,10 @@ Here's a basic program that moves the robot and print some sensor values.
 You can copy it into the Python tab in GearsBot (...replace all existing content), then switch to the simulator tab to run it.
 If running on a real robot, you need to make sure that all the motors/sensors are present and connected to the correct ports.
 
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
 ```python
 #!/usr/bin/env pybricks-micropython
 
@@ -21,9 +25,36 @@ ev3 = EV3Brick()
 motorA = Motor(Port.A)
 motorB = Motor(Port.B)
 
-color_sensor_in1 = ColorSensor(Port.S1)
-ultrasonic_sensor_in2 = UltrasonicSensor(Port.S2)
-gyro_sensor_in3 = GyroSensor(Port.S3)
+color_sensor = ColorSensor(Port.S1)
+ultrasonic_sensor = UltrasonicSensor(Port.S2)
+gyro_sensor = GyroSensor(Port.S3)
+
+# Here is where your code starts
+
+motorA.run_angle(400, 200)
+motorB.run_angle(-200, 200)
+
+print(color_sensor.rgb())
+print(ultrasonic_sensor.distance())
+print(gyro_sensor.angle())
+```
+
+```python
+# Import the necessary libraries
+from pybricks.parameters import *
+from pybricks.hubs import PrimeHub
+from pybricks.pupdevices import *
+from pybricks.tools import wait
+from pybricks.robotics import DriveBase
+
+# Create the sensors and motors objects
+hub = PrimeHub()
+
+motorA = Motor(Port.A)
+motorB = Motor(Port.B)
+
+color_sensor = ColorSensor(Port.C)
+ultrasonic_sensor = UltrasonicSensor(Port.D)
 
 # Here is where your code starts
 
@@ -32,12 +63,13 @@ motorB.run_angle(-200, 200)
 
 print(color_sensor_in1.rgb())
 print(ultrasonic_sensor_in2.distance())
-print(gyro_sensor_in3.angle())
+print(hub.imu.heading())
 ```
+</div>
 
 Let's look at what each line does...
 
-## Hash Bang
+## Hash Bang (EV3 only)
 
 ```python
 #!/usr/bin/env pybricks-micropython
@@ -68,6 +100,7 @@ They import functions from different modules, and make them available for use in
 `from pybricks.tools import wait` imports the `wait` function from the `pybricks.tools` module.
 
 `from pybricks.ev3devices import *` imports ALL the functions from the `pybricks.ev3devices` module (...the `*` means everything).
+(Spike uses `from pybricks.pupdevices import *`)
 
 ## Initialize Motors and Sensors
 
@@ -78,15 +111,16 @@ ev3 = EV3Brick()
 motorA = Motor(Port.A)
 motorB = Motor(Port.B)
 
-color_sensor_in1 = ColorSensor(Port.S1)
-ultrasonic_sensor_in2 = UltrasonicSensor(Port.S2)
-gyro_sensor_in3 = GyroSensor(Port.S3)
+color_sensor = ColorSensor(Port.S1)
+ultrasonic_sensor = UltrasonicSensor(Port.S2)
+gyro_sensor = GyroSensor(Port.S3)
 ```
 
 This bunch of code create objects representing each motor, sensor, and hub.
 
 `ev3 = EV3Brick()` creates an object representing the EV3 brick/hub, and assign it to the variable `ev3`.
 You can change the name on the left to whatever you want, eg. `fido = EV3Brick()`, but the part on the right cannot be changed.
+(Spike uses `hub = PrimeHub()`)
 
 `motorA = Motor(Port.A)` creates an object representing a motor, and assign it to the variable `motorA`.
 We pass in the parameter `Port.A`, to tell it that we want the motor connected to Port A.
@@ -94,7 +128,7 @@ As before, the name on the left is up to you, so `left_motor = Motor(Port.A)` is
 
 At this point, you might be wondering where did we get the right hand side from.
 Why is it `Motor` and not `motor` or `LegoMotor`?
-The names on the right are **Classes** and we can find the available classes on the [Pybricks documentation site](https://pybricks.com/ev3-micropython/ev3devices.html).
+The names on the right are **Classes** and we can find the available classes on the [Pybricks documentation site for EV3](https://pybricks.com/ev3-micropython/ev3devices.html) and [for Spike Prime](https://docs.pybricks.com/en/stable/).
 
 ![](images/ev3motor.webp)
 
@@ -108,6 +142,14 @@ The ability to read documentations is one of the most important skill for a prog
 If you can read documentations, millions of modules will be available for you to use in your programming projects.
 If you can't, you'll never go beyond what is in the tutorials.
 </div>
+
+For the sensors, we initialize them with the sensor port as parameter.
+Note that for the Spike Prime, the gyro sensor is built into the hub and don't need to be initialized.
+
+<div class="important">
+The EV3 sensors ports are numbered "S1" to "S4", while the Spike Prime uses the same port "A" to "F" for both motors and sensors.
+</div>
+
 
 ## Moving motors
 
@@ -146,9 +188,9 @@ For motor B, we set the speed to `-200` which makes it go backwards.
 ## Printing Sensor Values
 
 ```python
-print(color_sensor_in1.rgb())
-print(ultrasonic_sensor_in2.distance())
-print(gyro_sensor_in3.angle())
+print(color_sensor.rgb())
+print(ultrasonic_sensor.distance())
+print(gyro_sensor.angle())
 ```
 
 This group of code uses the `print()` function to print out the sensor values.
@@ -156,7 +198,7 @@ This group of code uses the `print()` function to print out the sensor values.
 `print()` can be used to print a string or value.
 Here's an example... `print('hello world')` this will print out the words **hello world** in the terminal.
 
-`color_sensor_in1.rgb()` is a method in the **ColorSensor** object that returns the Red, Green, Blue values measured by the color sensor.
+`color_sensor.rgb()` is a method in the **ColorSensor** object that returns the Red, Green, Blue values measured by the color sensor.
 It is a tuple of 3 values.
 
 <div class="info">
@@ -167,9 +209,11 @@ Note that in most programming languages, we count starting from zero.
 </div>
 
 
-`ultrasonic_sensor_in2.distance()` returns the distance measured by the ultrasonic sensor in mm.
+`ultrasonic_sensor.distance()` returns the distance measured by the ultrasonic sensor in mm.
 It is a single numeric value.
 
-`print(color_sensor_in1.rgb())` prints out the result of the `color_sensor_in1.rgb()` method.
+`print(color_sensor.rgb())` prints out the result of the `color_sensor_in1.rgb()` method.
 
 As always, read the [Pybricks documentation site](https://pybricks.com/ev3-micropython/ev3devices.html) to learn about all the available methods.
+
+Note that for the Spike Prime, the gyro is built into the hub, and we get the values using `hub.imu.heading()`.

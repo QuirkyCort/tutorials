@@ -40,7 +40,7 @@
 <div class="codehilite"><pre><span></span><code><span class="c1"># Expects RGB values to be in the range of 0 to 100</span>
 <span class="c1"># Returns HSV in the range of 0-360 (H) and 0-100 (S,V)</span>
 
-<span class="k">def</span> <span class="nf">rgb_to_hsv</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rgb_to_hsv</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
     <span class="n">hsv</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">normRgb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
@@ -77,7 +77,7 @@
 <div class="codehilite"><pre><span></span><code><span class="c1"># Expects H to be in the range of 0 to 360. S and V should be in the range of 0 to 100</span>
 <span class="c1"># Returns RGB in the range of 0-100</span>
 
-<span class="k">def</span> <span class="nf">hsv_to_rgb</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hsv_to_rgb</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
     <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">hsv</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span> <span class="o">/</span> <span class="mi">100</span>
 
     <span class="n">c</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">s</span>
@@ -148,10 +148,35 @@
             }
         }
 
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             initHamburger();
             initSectionMenu();
             scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
         });
     </script>
 </body>
