@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p class="" data-section="">Intro to Pybricks</p><ul class=""><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p class="" data-section="">Basic Programs</p><ul class=""><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p class="" data-section="">Arms and Claws</p><ul class=""><a href="../30-Arms-and-Claws/10-Intro.html"><li >Intro</li></a><a href="../30-Arms-and-Claws/20-run_angle-vs-run_target.html"><li >run_angle vs run_target</li></a><a href="../30-Arms-and-Claws/30-Dealing-with-Stalls.html"><li class="current">Dealing with Stalls</li></a></ul><p class="" data-section="">Special Topics</p><ul class=""><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a><a href="../99-Special-Topics/40-EV3-vs-Spike-Prime.html"><li >EV3 vs Spike Prime</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Dealing with Stalls</h1>
+<p>Sometimes the motor is unable to reach the desired position.
+For example, you want to move an arm down to 0 deg, but it hit the wall at 30 deg and can't go any lower.
+This condition is called <strong>stall</strong>.</p>
+<p>In Pybricks, when a motor stalls, the default behaviour is to keep on trying until the motor reaches the specified position.
+Try this code...</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">)</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">run_target</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Run this code while holding the motor to prevent it from turning.
+You'll see that "end" will only print after you release the motor.</p>
+<p>This means that if an arm or claw gets stuck on something and can't reach their desired position, your program will stop there and won't continue.</p>
+<h2>wait = False</h2>
+<p>By setting the <code>wait=False</code> parameter, we can tell the <code>run_target</code> command not to wait for the motor to reach the target position and immediately continue running the next line of code.
+This is call <strong>non-blocking</strong> code, and <code>run_target</code> with <code>wait=True</code> would be a <strong>blocking</strong> code.
+We can then make our own function that continues with the program if the motor can't reach the desired position after some time.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="n">Motor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span><span class="p">,</span> <span class="n">StopWatch</span>
+
+<span class="n">motor</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">move_arm</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">time_limit</span><span class="o">=</span><span class="mi">2000</span><span class="p">):</span>
+    <span class="n">timer</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
+    <span class="n">motor</span><span class="o">.</span><span class="n">run_target</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">motor</span><span class="o">.</span><span class="n">angle</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">timer</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">time_limit</span><span class="p">:</span>
+            <span class="k">break</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">)</span>
+<span class="n">move_arm</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">)</span> <span class="c1"># Continue with other code even if position is not reached</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>   <span class="c1"># The wait is just a placeholder for other code</span>
+</code></pre></div>
+
+<p>Here we have a <code>move_arm</code> function, with a default time limit of 2000ms (2 seconds).
+At the start of the function, it creates a <code>StopWatch()</code> object, which allows us to take timing.
+It then starts the motor moving using <code>run_target</code>, but with <code>wait</code> set to <code>False</code>.</p>
+<p>Next, it runs a <code>while True</code> loop, and continuously check if the...</p>
+<ul>
+<li>
+<p>motor has reached the target position (...with a buffer of 1 degree)</p>
+</li>
+<li>
+<p>time limit is reached</p>
+</li>
+</ul>
+<p>If either of these are true, it'll exit the loop and continue with the program.</p>
+<p>You can test this by running the program while holding the motor to prevent it from turning.
+You'll see the word "end" printed after 2 seconds even if you don't release the motor.</p>
+<h2>Summary</h2>
+<p>Making your own arm / claw movement function with <code>wait=False</code> can make your robot more robust.
+If the arm / claw gets stuck on something, the robot can still continue with its mission.</p>
+<p>Do note that depending on how the arm / claw is stuck, continuing with the mission may still lead to failures, so this is not panacea.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p class="" data-section="">Intro to Pybricks</p><ul class=""><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p class="" data-section="">Basic Programs</p><ul class=""><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p class="" data-section="">Arms and Claws</p><ul class=""><a href="../30-Arms-and-Claws/10-Intro.html"><li >Intro</li></a><a href="../30-Arms-and-Claws/20-run_angle-vs-run_target.html"><li class="current">run_angle vs run_target</li></a><a href="../30-Arms-and-Claws/30-Dealing-with-Stalls.html"><li >Dealing with Stalls</li></a></ul><p class="" data-section="">Special Topics</p><ul class=""><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a><a href="../99-Special-Topics/40-EV3-vs-Spike-Prime.html"><li >EV3 vs Spike Prime</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>run_angle vs run_target</h1>
+<p>When moving an arm / claw into the desired position, you can use either <code>run_angle</code> or <code>run_target</code>.
+The differences between the two are...</p>
+<p><code>run_angle</code> is relative to the <strong>current motor position</strong>.
+So in the following code...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">motor</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="c1"># wait for 1 second</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">run_angle</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+<p>...the motor will run twice, and ends 180 degrees from where it started.</p>
+<p><code>run_target</code> is relative to the <strong>marked zero position</strong>.</p>
+<p><img alt="" src="images/spikemotor_markings.webp" /></p>
+<p>So in the following code...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">motor</span><span class="o">.</span><span class="n">run_target</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span> <span class="c1"># This line may run more or less than 90 degs</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="c1"># wait for 1 second</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">run_target</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span> <span class="c1"># This line does nothing!</span>
+</code></pre></div>
+
+<p>...the first run may run more or less than 90 degs (...depending on where the motor starts), but it will always end with the motor markings 90 degrees apart.
+The second run will not result in any movements, because the command is telling it to move to the 90 degrees position, but it is already at the 90 degrees position after the first move.</p>
+<div class="important">
+The EV3 motors does not have a marking, and run_target is instead relative to the position on program start.
+</div>
+
+<h2>Which is better?</h2>
+<p>Generally, <code>run_target</code> is a better choice (...especially for Spike Prime).
+It ensures that your arm / claw moves to a consistent position regardless of where it started from.</p>
+<h2>Don't start at 180 degrees!</h2>
+<p>The starting position for the Spike motor is always in the range of -180 to 180 degrees.
+If the motor starts at 180 degrees, the reported motor angle may be -180 or 180 degrees (...mathematically, these are the same angles and both are correct).</p>
+<p>Consider if the motor starts at 180 degrees, and you run <code>motor.run_target(200, 90)</code>.
+If the motor thinks that it is at 180 degrees, it will turn 90 degrees counter-clockwise which is probably fine.
+If it thinks that it is at -180 degrees, it will turn 270 degrees clockwise, which will probably result in the motor getting stuck.</p>
+<p>To avoid this issue, simply avoid starting your motors at the 180 degrees position.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
+        });
+    </script>
+</body>
+</html>
