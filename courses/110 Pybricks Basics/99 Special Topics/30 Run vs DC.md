@@ -26,7 +26,7 @@ You can then lower the power to 40%, and the robot will continue moving at a low
 To better control the motor speed, we will need some kind of feedback.
 Both the EV3 and Spike Prime motors are equipped with sensors that detects the motor's rotation.
 Pybricks uses this to calculate the actual motor speed, and adjust the power to the motor.
-So when you tell the motor to **run(200)** (...run and 200 deg/s), what Pybricks does is...
+So when you tell the motor to **run(200)** (...run at 200 deg/s), what Pybricks does is...
 
 1. Estimate the duty cycle to achieve that speed and sets it
 2. Measure the actual motor speed
