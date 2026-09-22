@@ -3,6 +3,8 @@
 When moving an arm / claw into the desired position, you can use either `run_angle` or `run_target`.
 The differences between the two are...
 
+## run_angle
+
 `run_angle` is relative to the **current motor position**.
 So in the following code...
 
@@ -13,6 +15,8 @@ motor.run_angle(200, 90)
 ```
 
 ...the motor will run twice, and ends 180 degrees from where it started.
+
+## run_target
 
 `run_target` is relative to the **marked zero position**.
 
@@ -45,7 +49,7 @@ It ensures that your arm / claw moves to a consistent position regardless of whe
 The starting position for the Spike motor is always in the range of -180 to 180 degrees.
 If the motor starts at 180 degrees, the reported motor angle may be -180 or 180 degrees (...mathematically, these are the same angles and both are correct).
 
-Consider if the motor starts at 180 degrees, and you run `motor.run_target(200, 90)`.
+Consider if the motor starts at 180/-180 degrees, and you run `motor.run_target(200, 90)`.
 If the motor thinks that it is at 180 degrees, it will turn 90 degrees counter-clockwise which is probably fine.
 If it thinks that it is at -180 degrees, it will turn 270 degrees clockwise, which will probably result in the motor getting stuck.
 

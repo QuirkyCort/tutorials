@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p class="" data-section="">Intro to Pybricks</p><ul class=""><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p class="" data-section="">Basic Programs</p><ul class=""><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p class="" data-section="">Sensors</p><ul class=""><a href="../25-Sensors/10-Gyro.html"><li >Gyro</li></a><a href="../25-Sensors/20-Color-Sensor.html"><li class="current">Color Sensor</li></a></ul><p class="" data-section="">Arms and Claws</p><ul class=""><a href="../30-Arms-and-Claws/10-Intro.html"><li >Intro</li></a><a href="../30-Arms-and-Claws/20-run_angle-vs-run_target.html"><li >run_angle vs run_target</li></a><a href="../30-Arms-and-Claws/30-Dealing-with-Stalls.html"><li >Dealing with Stalls</li></a></ul><p class="" data-section="">Special Topics</p><ul class=""><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a><a href="../99-Special-Topics/40-EV3-vs-Spike-Prime.html"><li >EV3 vs Spike Prime</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Color Sensor</h1>
+<p>There are two main uses for the color sensors...</p>
+<ul>
+<li>To detect color of blocks</li>
+<li>To align the robot to the playfield (eg. black lines, red lines)</li>
+</ul>
+<p>Both the EV3 and Spike Prime can return the <strong>color</strong> (...in the form of a code/object), <strong>reflection</strong> (...the amount of light reflected off a surface), and <strong>ambient</strong> (...the amount of light recieved from the environment).</p>
+<p>Both sensors can also provide you with the raw color readings, but the EV3 color sensor returns values in <strong>RGB format</strong>, while the Spike Prime returns values in <strong>HSV format</strong>.
+To convert from one to the other, you can refer to the section on <a href="99-Special-Topics/20-HSV-and-RGB.html">HSV and RGB</a>.</p>
+<p>To understand the HSV format, you can play around <a href="https://math.hws.edu/graphicsbook/demos/c2/rgb-hsv.html">with this demo</a>.
+Notice that...</p>
+<ul>
+<li>Changing <strong>Hue</strong> will change the color</li>
+<li>Reducing <strong>Saturation</strong> makes the color more "white". If saturation is zero, the color will be white regardless of hue.</li>
+<li>Reducing <strong>Value</strong> makes the color more "black". If value is zero, the color will be black regardless of hue or saturation.</li>
+<li><strong>Hue</strong> ranges from 0 to 360, and a hue of 0 and 360 are identical (red).</li>
+</ul>
+<h2>Initialize and Read the Color Sensor</h2>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+
+<span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Initialize the sensor</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S1</span><span class="p">)</span>
+
+
+<span class="c1"># Here is where your code starts</span>
+<span class="k">if</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">color</span><span class="p">()</span> <span class="o">==</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;color is red&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;color not red&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reflection:&#39;</span><span class="p">,</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">reflection</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ambient:&#39;</span><span class="p">,</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">ambient</span><span class="p">())</span>
+
+<span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RGB (Red):&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RGB (Green):&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RGB (Blue):&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+
+
+<span class="c1"># Here is where your code starts</span>
+<span class="k">if</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">color</span><span class="p">()</span> <span class="o">==</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;color is red&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;color not red&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reflection:&#39;</span><span class="p">,</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">reflection</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ambient:&#39;</span><span class="p">,</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">ambient</span><span class="p">())</span>
+
+<span class="n">color</span> <span class="o">=</span> <span class="n">color_sensor</span><span class="o">.</span><span class="n">hsv</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;HSV (Hue):&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;HSV (Saturation):&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;HSV (Value):&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+
+
+</div>
+
+<h3>color()</h3>
+<p>The value returned by <code>color()</code> should only be compared to the properties in the <code>Color</code> object (eg. <code>color_sensor.color() == Color.RED</code>).
+You can find a list of available colors here for <a href="https://pybricks.com/ev3-micropython/parameters.html">EV3</a> and for <a href="https://docs.pybricks.com/en/stable/parameters/color.html">Spike Prime</a>.</p>
+<div class="important">
+The colors are tuned for specific shades of Lego blocks and at a distance of around 1 to 3 cm.
+This means that color() may be unreliable for non-Lego colors, Lego blocks of a different shade, or when detecting at a long or short distance.
+For a more robust detection, you can use the RGB/HSV values and perform your own calibration.
+</div>
+
+<h3>reflection()</h3>
+<p>Reflection is typically used in line following, where the line is black/white and you don't care about colors.
+It'll return a value between 0 to 100; black will be close to zero and white close to 100.</p>
+<p>On the EV3, reflection is based on the reflection of a <strong>red</strong> light, so a red surface will give a high value, similar to a white surface, while a green surface will give a low value, similar to a black surface.</p>
+<p>On the Spike, reflection is based on the average of the Red, Green, Blue values.
+This means that a white surface will give the highest reading, while a colored surface (eg. Yellow, Red) will give a lower value, while black will give the lowest value.</p>
+<h3>ambient()</h3>
+<p>Ambient is useful when you want to measure the light level from the environment (eg. room light).</p>
+<p>If you shine an external light on the sensor (eg. using a torchlight), you can use <code>ambient()</code> to detect when something crosses the light beam and cast a shadow on the sensor.</p>
+<h3>Custom Color Detection with rgb() / hsv()</h3>
+<p>When detecting colors, it's best to use HSV values, as color is largely determined by Hue.
+If you're using an EV3, you can convert the RGB values to HSV using the functions in <a href="99-Special-Topics/20-HSV-and-RGB.html">HSV and RGB</a>.</p>
+<p>First, run the following code to print out the HSV value.
+Run it multiple times with the sensor at different distances and position from the target.</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">color_sensor</span><span class="o">.</span><span class="n">rgb</span><span class="p">()))</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">color_sensor</span><span class="o">.</span><span class="n">hsv</span><span class="p">())</span>
+</code></pre></div>
+
+
+</div>
+
+<p>Tested against a yellow surface, I got the following values (...on the EV3, the values will be formatted differently)...</p>
+<div class="codehilite"><pre><span></span><code>Color(h=40, s=67, v=17)
+Color(h=60, s=49, v=100)
+Color(h=40, s=75, v=17)
+Color(h=40, s=71, v=42)
+Color(h=37, s=68, v=26)
+Color(h=42, s=61, v=30)
+</code></pre></div>
+
+<ul>
+<li>Hue: Range from 37 to 60</li>
+<li>Saturation: Minimum of 49</li>
+<li>Value: Minimum of 17</li>
+</ul>
+<p>We can then write a function to check if a color is yellow...</p>
+<div class="important">
+You should perform your own calibration!
+There are many different shades of each color, so you may not get the same values.
+</div>
+
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_yellow</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">37</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">49</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">17</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_yellow</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">37</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="o">.</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">49</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">17</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+</div>
+
+<p>Note that low saturation and value makes the color white and black respectively, but there are no issues if these values are high, so there's no need to set an upper limit.</p>
+<p>Red is a little special, as the hue of red is either close to zero or close to 360...</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_red</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="ow">or</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">340</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">49</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">17</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_yellow</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hsv</span><span class="o">.</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="ow">or</span> <span class="n">hsv</span><span class="o">.</span><span class="n">h</span> <span class="o">&gt;</span> <span class="mi">340</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">49</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">17</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+</div>
+
+<p>We can detect white by ignoring hue, and checking for a low saturation and high value...</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_white</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">25</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_white</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hsv</span><span class="o">.</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">25</span> <span class="o">&lt;</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+</div>
+
+<p>For black, the saturation and value will both be low...</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_black</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hsv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">hsv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_black</span><span class="p">(</span><span class="n">hsv</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hsv</span><span class="o">.</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">hsv</span><span class="o">.</span><span class="n">v</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+
+</div>
+
+<p>If you need to differentiate between black and "nothing", you can do so by checking the value.
+A black block will have a low value, but it will typically be at least 4 or 5.
+If no blocks are present, the value would be even lower and may be zero.</p>
+<p>Note that depending on the detection distance and material, it can be difficult to differentiate between black and no blocks.</p>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
+        });
+    </script>
+</body>
+</html>

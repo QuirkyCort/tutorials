@@ -21,7 +21,7 @@ This means that if an arm or claw gets stuck on something and can't reach their 
 ## wait = False
 
 By setting the `wait=False` parameter, we can tell the `run_target` command not to wait for the motor to reach the target position and immediately continue running the next line of code.
-This is call **non-blocking** code, and `run_target` with `wait=True` would be a **blocking** code.
+This is call **non-blocking** code, while `run_target` with `wait=True` would be a **blocking** code.
 We can then make our own function that continues with the program if the motor can't reach the desired position after some time.
 
 ```python
@@ -34,7 +34,7 @@ def move_arm(speed, position, time_limit=2000):
     timer = StopWatch()
     motor.run_target(speed, position, wait=False)
     while True:
-        if (position - 1) <= motor.angle() <= (position + 1):
+        if motor.angle() == position:
             break
         if timer.time() > time_limit:
             break
@@ -51,7 +51,7 @@ It then starts the motor moving using `run_target`, but with `wait` set to `Fals
 
 Next, it runs a `while True` loop, and continuously check if the...
 
-* motor has reached the target position (...with a buffer of 1 degree)
+* motor has reached the target position
 
 * time limit is reached
 
@@ -65,4 +65,4 @@ You'll see the word "end" printed after 2 seconds even if you don't release the 
 Making your own arm / claw movement function with `wait=False` can make your robot more robust.
 If the arm / claw gets stuck on something, the robot can still continue with its mission.
 
-Do note that depending on how the arm / claw is stuck, continuing with the mission may still lead to failures, so this is not panacea.
+Note that depending on how the arm / claw is stuck, continuing with the mission may still lead to failures, so don't expect this to fix every problem.

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../css/pygment_default.css" rel="stylesheet">
+  <link href="../../css/main.css" rel="stylesheet">
+  <link href="../../css/print.css" rel="stylesheet" media="print">
+
+  <title>Pybricks Basics</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header-left">
+            <a id="home" href="../../index.html"><i class="fa fa-home"></i></a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            Pybricks Basics
+        </div>
+        <div id="header-right">
+            <a href="https://aposteriori.com.sg">
+                <img src="../../images/logo.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="body">
+        <div id="sidebarOverlay"></div>
+        <nav id="sidebar" role="navigation">
+            <div id="sidebarHeader">This course teaches basic Python and Pybricks.</div>
+            <p class="" data-section="">Intro to Pybricks</p><ul class=""><a href="../10-Introduction/10-Intro.html"><li >Introduction</li></a><a href="../10-Introduction/20-Installation.html"><li >Installing Pybricks</li></a><a href="../10-Introduction/30-GearsBot.html"><li >Using GearsBot</li></a></ul><p class="" data-section="">Basic Programs</p><ul class=""><a href="../20-Basic-Programs/10-Move-and-Print.html"><li >Move and Print</li></a><a href="../20-Basic-Programs/20-Distance-Detect-and-Stop.html"><li >Detect and Stop</li></a><a href="../20-Basic-Programs/25-Movement-Challenges.html"><li >Movement Challenges</li></a><a href="../20-Basic-Programs/30-Follow.html"><li >Follow</li></a><a href="../20-Basic-Programs/40-Functions.html"><li >Functions</li></a><a href="../20-Basic-Programs/50-Color-Detect-and-Stop.html"><li >Detect and Stop</li></a></ul><p class="" data-section="">Sensors</p><ul class=""><a href="../25-Sensors/10-Gyro.html"><li class="current">Gyro</li></a><a href="../25-Sensors/20-Color-Sensor.html"><li >Color Sensor</li></a></ul><p class="" data-section="">Arms and Claws</p><ul class=""><a href="../30-Arms-and-Claws/10-Intro.html"><li >Intro</li></a><a href="../30-Arms-and-Claws/20-run_angle-vs-run_target.html"><li >run_angle vs run_target</li></a><a href="../30-Arms-and-Claws/30-Dealing-with-Stalls.html"><li >Dealing with Stalls</li></a></ul><p class="" data-section="">Special Topics</p><ul class=""><a href="../99-Special-Topics/10-DriveBase-vs-Move-Steering.html"><li >DriveBase vs Move Steering</li></a><a href="../99-Special-Topics/20-HSV-and-RGB.html"><li >HSV and RGB</li></a><a href="../99-Special-Topics/30-Run-vs-DC.html"><li >Run vs DC</li></a><a href="../99-Special-Topics/40-EV3-vs-Spike-Prime.html"><li >EV3 vs Spike Prime</li></a></ul>
+        </nav>
+        <div id="content">
+            <h1>Gyro</h1>
+<p>By using the gyro, we can ensure that our robot turn consistently and drive in a straight line.
+Both the EV3 and Spike Prime are equipped with gyros, but the gyro for the EV3 is an external component while the gyro for the Spike is built into the hub.</p>
+<h2>Initialize and Read the Gyro</h2>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+
+<span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Use this if the sensor logo is facing up</span>
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+<span class="c1"># Use this if the sensor logo is facing down</span>
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">,</span> <span class="n">positive_direction</span><span class="o">=</span><span class="n">Direction</span><span class="o">.</span><span class="n">COUNTERCLOCKWISE</span><span class="p">)</span>
+
+
+<span class="c1"># Here is where your code starts</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">())</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
+
+<span class="c1"># Use this if the hub screen is facing up (1st example in the below photos)</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+
+<span class="c1"># Use this if the side with the USB port is facing up (4th example in the below photos)</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">(</span><span class="n">top_side</span><span class="o">=-</span><span class="n">Axis</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">front_side</span><span class="o">=</span><span class="n">Axis</span><span class="o">.</span><span class="n">Z</span><span class="p">)</span>
+
+
+<span class="c1"># Here is where your code starts</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">imu</span><span class="o">.</span><span class="n">heading</span><span class="p">())</span>
+</code></pre></div>
+
+
+</div>
+
+<p>For the EV3, the logo on the gyro must be facing up or down.
+If it's facing down, you'll need to add <code>positive_direction=Direction.COUNTERCLOCKWISE</code> or all your directions will be reversed.</p>
+<p><img alt="" src="images/ev3_gyro.webp" /></p>
+<p>For the Spike, if the hub screen isn't facing up, you'll need to add the <code>top_side</code> and <code>front_side</code> parameters when initializing the hub.
+You can see <a href="https://docs.pybricks.com/en/stable/signaltypes.html#robotframe">this page</a> for an explanation, or refer to the below photos.</p>
+<p><img alt="" src="images/spike_sides.webp" /></p>
+<div class="tip">
+When using the above photo guide, you only need to consider which side of your hub is facing up.
+</div>
+
+<h2>Using the Gyro for Turns</h2>
+<p>This is a simple example that uses the gyro for turns.</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env pybricks-micropython</span>
+
+<span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.ev3devices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">gyro_sensor</span> <span class="o">=</span> <span class="n">GyroSensor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">S3</span><span class="p">)</span>
+
+
+<span class="c1"># Create a drive base</span>
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+
+
+<span class="c1"># Function for turning right</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">turn_right</span><span class="p">(</span><span class="n">direction</span><span class="p">):</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="c1"># turn CW at 50 deg/sec</span>
+
+    <span class="c1"># Do nothing as long as the gyro direction is less</span>
+    <span class="c1"># than our target direction</span>
+    <span class="k">while</span> <span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">direction</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Stop</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="c1"># Turn until the robot is facing direction 90</span>
+<span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Import the necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.parameters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.hubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimeHub</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.pupdevices</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pybricks.robotics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DriveBase</span>
+
+<span class="c1"># Create the sensors and motors objects</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">PrimeHub</span><span class="p">()</span>
+
+<span class="n">motorA</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">Direction</span><span class="o">.</span><span class="n">COUNTERCLOCKWISE</span><span class="p">)</span>
+<span class="n">motorB</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+
+<span class="c1"># Create a drive base</span>
+<span class="n">robot</span> <span class="o">=</span> <span class="n">DriveBase</span><span class="p">(</span><span class="n">motorA</span><span class="p">,</span> <span class="n">motorB</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">152</span><span class="p">)</span>
+
+
+<span class="c1"># Function for turning right</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">turn_right</span><span class="p">(</span><span class="n">direction</span><span class="p">):</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="c1"># turn CW at 50 deg/sec</span>
+
+    <span class="c1"># Do nothing as long as the gyro direction is less</span>
+    <span class="c1"># than our target direction</span>
+    <span class="k">while</span> <span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">direction</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Stop</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">brake</span><span class="p">()</span>
+
+
+<span class="c1"># Turn until the robot is facing direction 90</span>
+<span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+
+</div>
+
+<div class="tip">
+The above turn_right function is meant to demonstrate how to use the gyro; it is not very good.
+At the end of this page, there are links to some documents explaining how to make good gyro turn and gyro move functions.
+</div>
+
+<h2>Turn-To vs Turn-By</h2>
+<p>Try running this code...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You'll notice that the robot only turn once!
+That's because the angles provided by the gyro is relative to the <strong>starting</strong> direction.</p>
+<p>In the first <code>turn_right(90)</code>, the robot <strong>turns to</strong> the 90 degrees direction (ie. if the robot starts facing north, the robot will turn until it face east).
+<strong>It does not turn by 90 degrees.</strong>
+When the second <code>turn_right(90)</code> runs, the robot will try to turn until it faces the 90 degrees direction, but will stop immediately because it is already facing the 90 degrees direction (ie. east).</p>
+<p>If you try this...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="c1"># Turn to east</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">turn_right</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span> <span class="c1"># Turn to south</span>
+</code></pre></div>
+
+<p>...you should now see the robot turn twice.</p>
+<h2>Resetting Gyro</h2>
+<p>You can reset the gyro, this will make the current direction be whatever you specify.
+Try this code...</p>
+<div class="tabs">
+    <label>EV3</label>
+    <label>Spike Prime</label>
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">gyro_sensor</span><span class="o">.</span><span class="n">reset_angle</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">imu</span><span class="o">.</span><span class="n">reset_heading</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">wait</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+
+</div>
+
+<p>In the above code, the robot turns until it face east (90 deg).
+It then sets the gyro angle back to 0 (...so east is now 0 deg).
+The second turn will now rotate the robot to face south.</p>
+<h3>Important!</h3>
+<p><strong>Resetting the gyro when the robot isn't physically aligned to an external reference will lead to accumulation of errors!</strong></p>
+<p>The below video demonstrates what happen when you reset the gyro (...left robot) and when you don't (...right robot).
+You'll notice that both robots have a slight error when making the first turn, but while the error for the left robot increases with each turn, the error for the right robot stays the same.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uxT3SbEqbyU?si=M7pWfYzAf-ErSsAt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<p>In practice, the accumulated error won't be as significant as in the video (...I deliberately coded the above robots to maximize error), but it will accumulate, and it will get worse the more you turn.
+To ensure that your gyro moves remains as accurate as possible, you should only reset the gyro when the robot is physically aligned to the environment (eg. when the back of the robot is pressed against a wall).</p>
+<h2>Gyro Turn and Gyro Move</h2>
+<p>Now that you know how to use the gyro, you can use it to create functions for turning and driving straight.
+Refer to the links below for more details.</p>
+<ul>
+<li><a href="https://www.aposteriori.com.sg/wp-content/uploads/Gyro-Turn.pdf">Gyro Turn</a></li>
+<li><a href="https://www.aposteriori.com.sg/wp-content/uploads/2022/03/Gyro-Follower.pdf">Gyro Move</a></li>
+<li><a href="https://www.aposteriori.com.sg/wp-content/uploads/2022/03/Ending-the-Loop.pdf">Ending the Loop</a></li>
+</ul>
+        </div>
+        <button type="button" id="hamburger">
+            <div id="hamburgerTop"></div>
+            <div id="hamburgerBottom"></div>
+        </button>
+    </div>
+
+    <script>
+        function initHamburger() {
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('body').classList.toggle('close');
+            });
+        }
+
+        function initSectionMenu() {
+            function clickHandler(evt) {
+                let sectionTitle = evt.currentTarget;
+                let classname = sectionTitle.attributes['data-section'].value;
+                let sectionChild = document.querySelector('ul.' + classname);
+                if (sectionChild.classList.contains('hide')) {
+                    sectionChild.classList.remove('hide');
+                    sectionTitle.classList.remove('close');
+                } else {
+                    sectionChild.classList.add('hide');
+                    sectionTitle.classList.add('close');
+                }
+            }
+
+            let sectionTitles = document.getElementsByClassName('sectionTitle');
+            for (let sectionTitle of sectionTitles) {
+                sectionTitle.addEventListener('click', clickHandler);
+            }
+        }
+
+        function scrollSectionIntoView() {
+            let currentEle = document.querySelector('#sidebar li.current');
+            currentEle.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            let hiddenParent = currentEle.closest('.hide');
+            if (hiddenParent) {
+                hiddenParent.classList.remove('hide');
+                hiddenParent.previousElementSibling.classList.remove('close');
+            }
+        }
+
+        function initTabs(ele) {
+            const labels = [...ele.querySelectorAll("label")];
+            const contents = [...ele.children].filter(child => !labels.includes(child));
+
+            labels[0].classList.add('selected');
+            for (let i=1; i<contents.length; i++) {
+                contents[i].classList.add('hide');
+            }
+
+            for (let i=0; i<labels.length; i++) {
+                labels[i].addEventListener('click', function(e){
+                    labels.forEach(label => label.classList.remove('selected'));
+                    labels[i].classList.add('selected');
+
+                    contents.forEach(content => content.classList.add('hide'));
+                    contents[i].classList.remove('hide');
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initHamburger();
+            initSectionMenu();
+            scrollSectionIntoView();
+            const tabElements = document.querySelectorAll(".tabs");
+            tabElements.forEach((e) => { initTabs(e); });
+        });
+    </script>
+</body>
+</html>

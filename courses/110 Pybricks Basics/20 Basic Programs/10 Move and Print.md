@@ -50,7 +50,7 @@ from pybricks.robotics import DriveBase
 # Create the sensors and motors objects
 hub = PrimeHub()
 
-motorA = Motor(Port.A)
+motorA = Motor(Port.A, Direction.COUNTERCLOCKWISE)
 motorB = Motor(Port.B)
 
 color_sensor = ColorSensor(Port.C)
@@ -61,8 +61,8 @@ ultrasonic_sensor = UltrasonicSensor(Port.D)
 motorA.run_angle(400, 200)
 motorB.run_angle(-200, 200)
 
-print(color_sensor_in1.rgb())
-print(ultrasonic_sensor_in2.distance())
+print(color_sensor_in1.hsv())
+print(ultrasonic_sensor.distance())
 print(hub.imu.heading())
 ```
 </div>

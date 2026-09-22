@@ -59,7 +59,7 @@ from pybricks.robotics import DriveBase
 # Create the sensors and motors objects
 hub = PrimeHub()
 
-motorA = Motor(Port.A)
+motorA = Motor(Port.A, Direction.COUNTERCLOCKWISE)
 motorB = Motor(Port.B)
 
 color_sensor = ColorSensor(Port.C)
@@ -72,8 +72,8 @@ robot = DriveBase(motorA, motorB, 56, 152)
 
 # Here is where your code starts
 def is_green():
-    color = color_sensor.rgb()
-    if 0 < color[0] < 8 and 85 < color[1] < 93 and 2 < color[2] < 10:
+    color = color_sensor.hsv()
+    if 100 < color.h < 140 and 50 < color.s and 50 < color.v:
         return True
     else:
         return False

@@ -36,7 +36,7 @@ robot = DriveBase(motorA, motorB, 56, 152)
 
 # Here is where your code starts
 while True:
-    dist = ultrasonic_sensor_in2.distance()
+    dist = ultrasonic_sensor.distance()
     if dist > 150:
         robot.drive(200, 0)
     elif dist > 100:
@@ -56,7 +56,7 @@ from pybricks.robotics import DriveBase
 # Create the sensors and motors objects
 hub = PrimeHub()
 
-motorA = Motor(Port.A)
+motorA = Motor(Port.A, Direction.COUNTERCLOCKWISE)
 motorB = Motor(Port.B)
 
 color_sensor = ColorSensor(Port.C)
