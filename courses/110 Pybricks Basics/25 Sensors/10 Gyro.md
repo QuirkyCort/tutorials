@@ -126,7 +126,7 @@ def turn_right(direction):
     
     # Do nothing as long as the gyro direction is less
     # than our target direction
-    while gyro_sensor.angle() < direction:
+    while hub.imu.heading() < direction:
         pass
     
     # Stop

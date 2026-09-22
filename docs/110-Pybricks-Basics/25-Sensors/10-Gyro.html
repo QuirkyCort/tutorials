@@ -159,7 +159,7 @@ When using the above photo guide, you only need to consider which side of your h
 
     <span class="c1"># Do nothing as long as the gyro direction is less</span>
     <span class="c1"># than our target direction</span>
-    <span class="k">while</span> <span class="n">gyro_sensor</span><span class="o">.</span><span class="n">angle</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">direction</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">hub</span><span class="o">.</span><span class="n">imu</span><span class="o">.</span><span class="n">heading</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">direction</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="c1"># Stop</span>
