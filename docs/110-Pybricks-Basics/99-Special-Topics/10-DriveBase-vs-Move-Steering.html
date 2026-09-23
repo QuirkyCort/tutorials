@@ -109,7 +109,8 @@ Unlike the <strong>drive</strong> method in <strong>DriveBase</strong>, the <str
 <li>By changing the steering value only, you can fully control the turning radius from the maximum to the minimum value.</li>
 </ul>
 <p>Note that the above function changes the <strong>duty cycle</strong> (ie. power) of the motor, and not the speed.
-One advantage is that this avoid Pybrick's internal speed control loop, allowing a faster response.</p>
+One advantage is that this avoid Pybrick's internal speed control loop, allowing a faster response.
+You can also implement <code>move_steering</code> using <code>run</code>; see the page on <a href="99-Special-Topics/30-Run-vs-DC.html">Run vs DC</a> for a comparison of the two.</p>
         </div>
         <button type="button" id="hamburger">
             <div id="hamburgerTop"></div>

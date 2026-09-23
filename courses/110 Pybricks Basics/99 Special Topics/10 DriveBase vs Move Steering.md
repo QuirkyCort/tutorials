@@ -54,3 +54,4 @@ Advantages of the **Move Steering** function includes...
 
 Note that the above function changes the **duty cycle** (ie. power) of the motor, and not the speed.
 One advantage is that this avoid Pybrick's internal speed control loop, allowing a faster response.
+You can also implement `move_steering` using `run`; see the page on [Run vs DC](99-Special-Topics/30-Run-vs-DC.html) for a comparison of the two.
