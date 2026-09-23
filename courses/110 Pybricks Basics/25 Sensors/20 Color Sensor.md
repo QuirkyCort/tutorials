@@ -151,7 +151,7 @@ There are many different shades of each color, so you may not get the same value
 
 ```python
 def is_yellow(hsv):
-    if (37 < hsv[0] < 60) and (49 < hsv[1]) and (17 < hsv[2]):
+    if (36 < hsv[0] < 61) and (48 < hsv[1]) and (16 < hsv[2]):
         return True
     else:
         return False
@@ -159,7 +159,7 @@ def is_yellow(hsv):
 
 ```python
 def is_yellow(hsv):
-    if (37 < hsv.h < 60) and (49 < hsv.s) and (17 < hsv.v):
+    if (36 < hsv.h < 61) and (48 < hsv.s) and (16 < hsv.v):
         return True
     else:
         return False
